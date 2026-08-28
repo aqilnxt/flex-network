@@ -125,54 +125,45 @@ export async function update(
   return { success: true, data: null };
 }
 
-export async function submitReview(id: string): Promise<ActionResult> {
+export async function submitReview(id: string): Promise<void> {
   const user = await requireRole("HIRER");
   const { error } = await submitForReview(user.id, id);
   if (error) {
-    return { success: false, error: { code: "STATE_ERROR", message: error.message } };
+    return;
   }
   revalidatePath("/hirer/opportunities");
-  return { success: true, data: null };
 }
 
-export async function close(id: string): Promise<ActionResult> {
+export async function close(id: string): Promise<void> {
   const user = await requireUser();
   const { error } = await closeOpty(user.id, id, user.role === "ADMIN");
   if (error) {
-    return { success: false, error: { code: "STATE_ERROR", message: error.message } };
+    return;
   }
   revalidatePath("/hirer/opportunities");
-  return { success: true, data: null };
 }
 
 export async function moderate(
   id: string,
-  _prev: ActionResult | null,
   formData: FormData,
-): Promise<ActionResult> {
+): Promise<void> {
   const user = await requireRole("ADMIN");
 
   const parsed = moderateSchema.safeParse({
     action: formData.get("action"),
     notes: formString(formData.get("notes")),
   });
-  if (!parsed.success) return VALIDATION_ERROR;
+  if (!parsed.success) return;
 
   const { error } = await moderateOpty(user.id, id, parsed.data);
-  if (error) {
-    return { success: false, error: { code: "STATE_ERROR", message: error.message } };
-  }
+  if (error) return;
 
   revalidatePath("/admin/opportunities");
-  return { success: true, data: null };
 }
 
-export async function deleteOpportunity(id: string): Promise<ActionResult> {
+export async function deleteOpportunity(id: string): Promise<void> {
   const user = await requireRole("HIRER");
   const { error } = await deleteOpty(user.id, id);
-  if (error) {
-    return { success: false, error: { code: "STATE_ERROR", message: error.message } };
-  }
+  if (error) return;
   revalidatePath("/hirer/opportunities");
-  return { success: true, data: null };
 }

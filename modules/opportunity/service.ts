@@ -10,7 +10,7 @@ type ServiceResult<T = null> = {
   error: { message: string } | null;
 };
 
-function toServiceError(error: { message: string } | null): ServiceResult {
+function toServiceError<T = null>(error: { message: string } | null): ServiceResult<T> {
   return { data: null, error };
 }
 
@@ -76,7 +76,7 @@ export async function createOpty(
     .select("id")
     .single();
 
-  if (error || !data) return toServiceError(error);
+  if (error || !data) return toServiceError<{ id: string }>(error);
 
   await syncJunctions(supabase, data.id, skillIds, interestIds);
 
