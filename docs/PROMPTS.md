@@ -54,6 +54,8 @@ Baca /docs/PROGRESS.md. Cari bagian "Next Task". Kerjakan task tersebut dengan m
   `Panggil skill "impeccable" dengan command "craft" untuk halaman [NAMA]. Baca docs/DESIGN.md.`
 - **Deploy to Vercel:**
   `Panggil skill "deploy-to-vercel". Deploy ke preview (bukan production).`
+  - **UI/UX Pro Max:**
+    `Panggil skill "ui-ux-pro-max". Cari rekomendasi style/color/font untuk [PROJECT_TYPE / KEYWORD] dengan --design-system.` 
 
 ### 9. Update Progress (Wajib Setelah Task)
 
