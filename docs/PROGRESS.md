@@ -1,6 +1,6 @@
 # PROGRESS.md — Flex Network Roadmap
 
-## Current Milestone: Sprint 4 — Matching Module
+## Current Milestone: Core Modules — Opportunity, Application, & Matching
 
 ### Sudah Selesai
 
@@ -79,7 +79,16 @@
 
 - [x] Brainstorming ARCHITECTURAL + spec: `docs/superpowers/specs/2026-08-28-application-module-design.md`
 - [x] Implementation plan: `docs/superpowers/plans/2026-08-28-application-module.md`
-- [ ] Implementasi task-by-task (belum dijalankan)
+- [x] Task 1 — Migration `007_application_rls.sql` (policy update hirer)
+- [x] Task 2 — Schema `modules/application/schemas.ts`
+- [x] Task 3 — Queries `modules/application/queries.ts` (listForTalent, listForOpportunity, getApplicationStatus)
+- [x] Task 4 — Service `modules/application/service.ts` (apply/review/select/reject)
+- [x] Task 5 — Server Actions `modules/application/actions.ts`
+- [x] Task 6 — My Applications page `app/applications/page.tsx`
+- [x] Task 7 — Apply form di detail opportunity
+- [x] Task 8 — Applicant list page (HIRER)
+- [x] Task 9 — Link "Lihat Applicant" di hirer list
+- [x] Task 10 — Build & typecheck verification
 
 #### Module Matching
 
@@ -95,7 +104,7 @@
 
 ### Sedang Dikerjakan
 
-_(kosong — sprint Matching selesai; Application module menunggu implementasi)_
+_(kosong — sprint Opportunity, Application, & Matching selesai)_
 
 ### Decision Log
 
@@ -124,9 +133,8 @@ _(kosong — sprint Matching selesai; Application module menunggu implementasi)_
 ### Next Task
 
 1. Smoke-test manual (`npm run dev`): create → submit → moderate → browse → detail → apply → recommendations.
-2. Implementasi Application module (spec/plan sudah ada; task-by-task menunggu).
-3. Match score di browse card & single-opportunity score (UI polish, deferred).
+2. Match score di browse card & single-opportunity score (UI polish, deferred).
 
 ---
 
-**Status Terakhir:** ✅ Sprint 4 — Matching Module **selesai** (Task 1–5). Build & typecheck sukses.
+**Status Terakhir:** ✅ Sprint 4 — Application Module **selesai** (Task 1–10). Build & typecheck sukses.
