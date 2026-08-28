@@ -1,6 +1,6 @@
 # PROGRESS.md — Flex Network Roadmap
 
-## Current Milestone: Sprint 2 — Core Modules (Auth & Profile)
+## Current Milestone: Sprint 3 — Opportunity Module
 
 ### Sudah Selesai
 
@@ -58,11 +58,28 @@
 - [x] Task 12 — Profile page & form
 - [x] Task 13 — Build & typecheck verification
 
+#### Module Opportunity
+
+- [x] Brainstorming ARCHITECTURAL + spec: `docs/superpowers/specs/2026-08-28-opportunity-module-design.md`
+- [x] Implementation plan: `docs/superpowers/plans/2026-08-28-opportunity-module.md`
+- [x] Task 1 — Migration `006_opportunity_rls.sql` (`is_admin()`, policy admin, policy junction)
+- [x] Task 2 — Schemas `modules/opportunity/schemas.ts` (create/update/moderate)
+- [x] Task 3 — Queries `modules/opportunity/queries.ts` (`listPublished`, `getOpportunityById`)
+- [x] Task 4 — Service `modules/opportunity/service.ts` (create/update/submit/close/moderate/delete)
+- [x] Task 5 — Server Actions `modules/opportunity/actions.ts`
+- [x] Task 6 — Browse page `app/opportunities/page.tsx`
+- [x] Task 7 — Detail page `app/opportunities/[id]/page.tsx`
+- [x] Task 8 — Hirer list `app/hirer/opportunities/page.tsx`
+- [x] Task 9 — Hirer create form
+- [x] Task 10 — Hirer edit form
+- [x] Task 11 — Admin moderation `app/admin/opportunities/page.tsx`
+- [x] Task 12 — Build & typecheck verification
+
 ---
 
 ### Sedang Dikerjakan
 
-_(kosong — sprint Auth & Profile selesai)_
+_(kosong — sprint Opportunity selesai)_
 
 ### Decision Log
 
@@ -79,13 +96,17 @@ _(kosong — sprint Auth & Profile selesai)_
 - 2026-08-29: Server Actions dulu; REST API ditunda ke task terpisah
 - 2026-08-29: Email confirmation TIDAK wajib (langsung login)
 - 2026-08-29: Skill/interest scope: full CRUD, tanpa master data GET /skills dulu
+- 2026-08-29: Opportunity ikut DB aktual (bukan API-SPEC): compensation integer, requirement boolean, enum text app-layer tanpa migration
+- 2026-08-29: PUBLISHED ditentukan ADMIN via moderasi; HIRER hanya submit & close
+- 2026-08-29: Admin moderation lewat server client + policy RLS `is_admin()`, bukan `admin.ts`
+- 2026-08-29: Mutation actions fire-and-forget return `void` (plain form action); form berbasis state (`create`/`update`) return `ActionResult`
 
 ### Next Task
 
-1. Smoke-test manual (`npm run dev`): register → login → dashboard → profile → logout.
+1. Smoke-test manual (`npm run dev`): create → submit → moderate → browse → detail.
 2. Migrasi konvensi `middleware` → `proxy` (Next 16 deprecation warning), opzional.
-3. Lanjut ke sprint berikutnya (Opportunity module).
+3. Lanjut ke sprint berikutnya (Application module / matching).
 
 ---
 
-**Status Terakhir:** ✅ Sprint 2 — Auth & Profile Module **selesai** (Task 1–13). Build & typecheck sukses.
+**Status Terakhir:** ✅ Sprint 3 — Opportunity Module **selesai** (Task 1–12). Build & typecheck sukses.
