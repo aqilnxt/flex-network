@@ -43,6 +43,12 @@ export default async function HirerOpportunitiesPage() {
             </div>
 
             <div className="flex flex-wrap gap-2 mt-3 text-sm">
+              <Link
+                href={`/hirer/opportunities/${o.id}/applications`}
+                className="bg-gray-200 rounded px-3 py-1"
+              >
+                Lihat Applicant
+              </Link>
               {o.status === "DRAFT" && (
                 <form action={submitReview.bind(null, o.id)}>
                   <button className="bg-green-600 text-white rounded px-3 py-1">
