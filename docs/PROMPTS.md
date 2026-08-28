@@ -55,3 +55,12 @@ Baca /docs/PROGRESS.md. Cari bagian "Next Task". Kerjakan task tersebut dengan m
 - **Deploy to Vercel:**
   `Panggil skill "deploy-to-vercel". Deploy ke preview (bukan production).`
 
+### 9. Update Progress (Wajib Setelah Task)
+
+Task {N} selesai. Sekarang update /docs/PROGRESS.md:
+
+- Pindahkan task yang selesai ke "Sudah Selesai"
+- Update "Sedang Dikerjakan" dengan task berikutnya
+- Tambahkan ke Decision Log jika perlu
+
+Jangan ubah bagian lain. Langsung gas.

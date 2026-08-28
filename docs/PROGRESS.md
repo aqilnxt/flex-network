@@ -31,23 +31,40 @@
   - `lib/supabase/server.ts` — server-side authenticated (Next.js 16 + `await cookies()`)
   - `lib/supabase/admin.ts` — server-only, service role (bypass RLS)
 - [x] Install dependencies (`@supabase/supabase-js`, `@supabase/ssr`)
-- [x] Migration SQL (4 files):
+- [x] Migration SQL (5 files):
   - `001_initial_schema.sql` — 22 tabel + helper `set_updated_at()`
   - `002_indexes.sql` — index ownership & FK
   - `003_rls_policies.sql` — enable RLS + policy dasar
   - `004_updated_at_triggers.sql` — 13 trigger auto-update
+  - `005_auth_triggers.sql` — trigger `handle_new_user()` (profiles + talent/hirer profile)
 - [x] Push migration ke Supabase via CLI (`supabase db push`)
 - [x] Verified database: 22 tables, RLS enabled, triggers active
+
+#### Module Auth & Profile (Foundation)
+
+- [x] Brainstorming ARCHITECTURAL + spec: `docs/superpowers/specs/2026-08-28-auth-profile-design.md`
+- [x] Implementation plan: `docs/superpowers/plans/2026-08-28-auth-profile.md`
+- [x] Task 1 — Migration `005_auth_triggers.sql` (trigger auto-create profile)
+- [x] Task 2 — Shared types `lib/result.ts` (`ActionResult<T>`)
+- [x] Task 3 — Install `zod`
+- [x] Task 4 — Auth helpers `modules/lib/auth.ts` (`getCurrentUser`, `requireUser`, `requireRole`)
 
 ---
 
 ### Sedang Dikerjakan
 
-- [ ] **Module Auth & Profile**
-  - [ ] Register & Login (Supabase Auth)
-  - [ ] Profile management (TALENT & HIRER)
-  - [ ] Skills & Interests management
-  - [ ] Protected routes & role-based middleware
+- [ ] **Module Auth & Profile (Foundation)**
+  - [x] Migration `005_auth_triggers.sql`
+  - [x] Shared types `lib/result.ts`
+  - [x] Install `zod`
+  - [x] Auth helpers `modules/lib/auth.ts`
+  - [ ] Task 5 — Auth schemas `modules/auth/schemas.ts`
+  - [ ] Task 6 — Auth service + actions (`register`, `login`, `logout`)
+  - [ ] Task 7 — Profile schema `modules/profile/schemas.ts`
+  - [ ] Task 8 — Profile service + actions (update, skill/interest CRUD)
+  - [ ] Task 9 — Middleware protected routes
+  - [ ] Task 10–12 — Pages (login, register, dashboard, profile)
+  - [ ] Task 13 — Build & typecheck verification
 
 ### Decision Log
 
@@ -60,13 +77,17 @@
 - 2026-08-28: Split migration (schema → indexes → RLS → triggers)
 - 2026-08-29: `server-only` adalah built-in Next.js marker, bukan npm package
 - 2026-08-29: Migration berhasil di-push ke Supabase production project
+- 2026-08-29: Profile dibuat via DB trigger (bukan application-layer)
+- 2026-08-29: Server Actions dulu; REST API ditunda ke task terpisah
+- 2026-08-29: Email confirmation TIDAK wajib (langsung login)
+- 2026-08-29: Skill/interest scope: full CRUD, tanpa master data GET /skills dulu
 
 ### Next Task
 
-1. Panggil skill `brainstorming` dengan klasifikasi **ARCHITECTURAL** atau **BOUNDED** untuk Module Auth & Profile.
-2. Buat implementasi register, login, profile management.
-3. Test authentication & session.
+1. Task 5 — Tulis `modules/auth/schemas.ts` (`registerSchema`, `loginSchema`).
+2. Lanjut Task 6–13 sesuai plan `docs/superpowers/plans/2026-08-28-auth-profile.md`.
+3. Commit per task; verifikasi `npm run build` di Task 13.
 
 ---
 
-**Status Terakhir:** ✅ Database foundation siap. ✅ Supabase Client siap. 🚀 Next: Auth & Profile Module.
+**Status Terakhir:** ✅ Database foundation siap. ✅ Supabase Client siap. 🚀 Auth & Profile Module — Task 1–4 selesai, lanjut Task 5 (auth schemas).

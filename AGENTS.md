@@ -117,5 +117,12 @@ Format: `type(scope): deskripsi imperative lowercase`
 - agent-browser (for E2E testing)
 - deploy-to-vercel (for deployment)
 
+## Progress Tracking
+
+- Setelah menyelesaikan setiap task yang terdaftar di `docs/PROGRESS.md`, WAJIB update file tersebut.
+- Pindahkan task dari "Sedang Dikerjakan" ke "Sudah Selesai".
+- Tambahkan entri baru di "Decision Log" jika ada keputusan penting.
+- Jangan menghapus history yang sudah ada.
+
 **Rule:** Untuk UI design, WAJIB baca `docs/DESIGN.md` terlebih dahulu.
 Untuk complex logic, WAJIB panggil `brainstorming` + `grill-me` sebelum ngoding.
