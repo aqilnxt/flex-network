@@ -1,6 +1,6 @@
 # PROGRESS.md — Flex Network Roadmap
 
-## Current Milestone: Sprint 3 — Opportunity Module
+## Current Milestone: Sprint 4 — Matching Module
 
 ### Sudah Selesai
 
@@ -75,11 +75,27 @@
 - [x] Task 11 — Admin moderation `app/admin/opportunities/page.tsx`
 - [x] Task 12 — Build & typecheck verification
 
+#### Module Application
+
+- [x] Brainstorming ARCHITECTURAL + spec: `docs/superpowers/specs/2026-08-28-application-module-design.md`
+- [x] Implementation plan: `docs/superpowers/plans/2026-08-28-application-module.md`
+- [ ] Implementasi task-by-task (belum dijalankan)
+
+#### Module Matching
+
+- [x] Brainstorming ARCHITECTURAL + spec: `docs/superpowers/specs/2026-08-28-matching-module-design.md`
+- [x] Implementation plan: `docs/superpowers/plans/2026-08-28-matching-module.md`
+- [x] Task 1 — Migration `008_talent_skills_interests_rls.sql` (owner-scoped policy)
+- [x] Task 2 — Service `modules/matching/service.ts` (pure scoring deterministik)
+- [x] Task 3 — Queries `modules/matching/queries.ts` (`getRecommendations`)
+- [x] Task 4 — Page `app/matching/recommendations/page.tsx`
+- [x] Task 5 — Build & typecheck verification
+
 ---
 
 ### Sedang Dikerjakan
 
-_(kosong — sprint Opportunity selesai)_
+_(kosong — sprint Matching selesai; Application module menunggu implementasi)_
 
 ### Decision Log
 
@@ -100,13 +116,17 @@ _(kosong — sprint Opportunity selesai)_
 - 2026-08-29: PUBLISHED ditentukan ADMIN via moderasi; HIRER hanya submit & close
 - 2026-08-29: Admin moderation lewat server client + policy RLS `is_admin()`, bukan `admin.ts`
 - 2026-08-29: Mutation actions fire-and-forget return `void` (plain form action); form berbasis state (`create`/`update`) return `ActionResult`
+- 2026-08-29: Reject application bisa dari APPLIED (A.12) ATAU UNDER_REVIEW (API-SPEC); SELECT hanya dari UNDER_REVIEW
+- 2026-08-29: `max_talent` di-enforce server-side saat select application
+- 2026-08-29: Matching = read-only (query/service server-side, tanpa Server Action & REST); rule-based deterministic, tanpa AI/ML
+- 2026-08-29: Migration `008` menambah policy `talent_skills`/`talent_interests` (perbaiki latent bug CRUD profile + dipakai matching)
 
 ### Next Task
 
-1. Smoke-test manual (`npm run dev`): create → submit → moderate → browse → detail.
-2. Migrasi konvensi `middleware` → `proxy` (Next 16 deprecation warning), opzional.
-3. Lanjut ke sprint berikutnya (Application module / matching).
+1. Smoke-test manual (`npm run dev`): create → submit → moderate → browse → detail → apply → recommendations.
+2. Implementasi Application module (spec/plan sudah ada; task-by-task menunggu).
+3. Match score di browse card & single-opportunity score (UI polish, deferred).
 
 ---
 
-**Status Terakhir:** ✅ Sprint 3 — Opportunity Module **selesai** (Task 1–12). Build & typecheck sukses.
+**Status Terakhir:** ✅ Sprint 4 — Matching Module **selesai** (Task 1–5). Build & typecheck sukses.
