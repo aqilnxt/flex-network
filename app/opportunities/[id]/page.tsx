@@ -2,18 +2,23 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { requireUser } from "@/modules/lib/auth";
 import { getOpportunityById } from "@/modules/opportunity/queries";
+import { getApplicationStatus } from "@/modules/application/queries";
+import { ApplyForm } from "./apply-form";
 
 export default async function OpportunityDetailPage({
   params,
 }: {
   params: Promise<{ id: string }>;
 }) {
-  await requireUser();
+  const user = await requireUser();
   const { id } = await params;
 
   const { data, error } = await getOpportunityById(id);
 
   if (error || !data) notFound();
+
+  const application =
+    user.role === "TALENT" ? await getApplicationStatus(user.id, id) : null;
 
   return (
     <div className="p-8 max-w-3xl">
@@ -85,6 +90,10 @@ export default async function OpportunityDetailPage({
           Deadline aplikasi:{" "}
           {new Date(data.application_deadline).toLocaleDateString()}
         </p>
+      )}
+
+      {user.role === "TALENT" && (
+        <ApplyForm opportunityId={id} existingStatus={application?.status ?? null} />
       )}
     </div>
   );
