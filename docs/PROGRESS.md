@@ -48,23 +48,21 @@
 - [x] Task 2 — Shared types `lib/result.ts` (`ActionResult<T>`)
 - [x] Task 3 — Install `zod`
 - [x] Task 4 — Auth helpers `modules/lib/auth.ts` (`getCurrentUser`, `requireUser`, `requireRole`)
+- [x] Task 5 — Auth schemas `modules/auth/schemas.ts` (`registerSchema`, `loginSchema`)
+- [x] Task 6 — Auth service + actions (`register`, `login`, `logout`)
+- [x] Task 7 — Profile schema `modules/profile/schemas.ts`
+- [x] Task 8 — Profile service + actions (update, skill/interest CRUD)
+- [x] Task 9 — Middleware protected routes
+- [x] Task 10 — Pages (login & register)
+- [x] Task 11 — Dashboard pages (role router, talent, hirer)
+- [x] Task 12 — Profile page & form
+- [x] Task 13 — Build & typecheck verification
 
 ---
 
 ### Sedang Dikerjakan
 
-- [ ] **Module Auth & Profile (Foundation)**
-  - [x] Migration `005_auth_triggers.sql`
-  - [x] Shared types `lib/result.ts`
-  - [x] Install `zod`
-  - [x] Auth helpers `modules/lib/auth.ts`
-  - [ ] Task 5 — Auth schemas `modules/auth/schemas.ts`
-  - [ ] Task 6 — Auth service + actions (`register`, `login`, `logout`)
-  - [ ] Task 7 — Profile schema `modules/profile/schemas.ts`
-  - [ ] Task 8 — Profile service + actions (update, skill/interest CRUD)
-  - [ ] Task 9 — Middleware protected routes
-  - [ ] Task 10–12 — Pages (login, register, dashboard, profile)
-  - [ ] Task 13 — Build & typecheck verification
+_(kosong — sprint Auth & Profile selesai)_
 
 ### Decision Log
 
@@ -84,10 +82,10 @@
 
 ### Next Task
 
-1. Task 5 — Tulis `modules/auth/schemas.ts` (`registerSchema`, `loginSchema`).
-2. Lanjut Task 6–13 sesuai plan `docs/superpowers/plans/2026-08-28-auth-profile.md`.
-3. Commit per task; verifikasi `npm run build` di Task 13.
+1. Smoke-test manual (`npm run dev`): register → login → dashboard → profile → logout.
+2. Migrasi konvensi `middleware` → `proxy` (Next 16 deprecation warning), opzional.
+3. Lanjut ke sprint berikutnya (Opportunity module).
 
 ---
 
-**Status Terakhir:** ✅ Database foundation siap. ✅ Supabase Client siap. 🚀 Auth & Profile Module — Task 1–4 selesai, lanjut Task 5 (auth schemas).
+**Status Terakhir:** ✅ Sprint 2 — Auth & Profile Module **selesai** (Task 1–13). Build & typecheck sukses.
