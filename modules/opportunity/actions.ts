@@ -33,6 +33,13 @@ function formString(v: FormDataEntryValue | null): string | undefined {
   return v;
 }
 
+function formIdList(v: FormDataEntryValue[]): string[] {
+  return v
+    .flatMap((item) => String(item).split(","))
+    .map((s) => s.trim())
+    .filter(Boolean);
+}
+
 function parseOpportunityForm(formData: FormData) {
   return createOpportunitySchema.safeParse({
     title: formData.get("title"),
@@ -56,8 +63,8 @@ function parseOpportunityForm(formData: FormData) {
     portfolioRequirement: formData.get("portfolioRequirement"),
     interviewRequirement: formData.get("interviewRequirement"),
     meetingMethod: formString(formData.get("meetingMethod")),
-    skillIds: formData.getAll("skillIds"),
-    interestIds: formData.getAll("interestIds"),
+    skillIds: formIdList(formData.getAll("skillIds")),
+    interestIds: formIdList(formData.getAll("interestIds")),
   });
 }
 
@@ -106,8 +113,8 @@ export async function update(
     portfolioRequirement: formData.get("portfolioRequirement") ?? undefined,
     interviewRequirement: formData.get("interviewRequirement") ?? undefined,
     meetingMethod: formString(formData.get("meetingMethod")),
-    skillIds: formData.getAll("skillIds"),
-    interestIds: formData.getAll("interestIds"),
+    skillIds: formIdList(formData.getAll("skillIds")),
+    interestIds: formIdList(formData.getAll("interestIds")),
   });
   if (!parsed.success) return VALIDATION_ERROR;
 
