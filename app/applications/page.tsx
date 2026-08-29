@@ -2,14 +2,21 @@ import Link from "next/link";
 import { requireRole } from "@/modules/lib/auth";
 import { listForTalent } from "@/modules/application/queries";
 import { listForApplications } from "@/modules/meeting/queries";
+import {
+  listForApplications as listConsentsForApplications,
+  getRequirementMap,
+} from "@/modules/consent/queries";
+import { approveConsent, rejectConsent } from "@/modules/consent/actions";
+import { ConsentRequestForm } from "./consent-request-form";
 
 export default async function MyApplicationsPage() {
   const user = await requireRole("TALENT");
   const { data: applications } = await listForTalent(user.id);
 
-  const meetings = await listForApplications(
-    (applications ?? []).map((a) => a.id),
-  );
+  const appIds = (applications ?? []).map((a) => a.id);
+  const meetings = await listForApplications(appIds);
+  const consents = await listConsentsForApplications(appIds);
+  const requirements = await getRequirementMap(appIds);
 
   return (
     <div className="p-8 max-w-3xl">
@@ -69,6 +76,57 @@ export default async function MyApplicationsPage() {
                   )}
                 </div>
               )}
+
+              {(() => {
+                const requirement = requirements.get(a.id);
+                if (!requirement?.required || a.status !== "SELECTED") return null;
+                const consent = consents.get(a.id);
+                const consentStatus: string = consent?.status ?? "MISSING";
+                return (
+                  <div className="mt-3 border-t pt-3">
+                    {consentStatus === "MISSING" &&
+                      (meeting?.status === "COMPLETED" ? (
+                        <ConsentRequestForm applicationId={a.id} />
+                      ) : (
+                        <p className="text-sm text-gray-600">
+                          Consent wali diperlukan untuk melanjutkan — selesaikan meeting
+                          terlebih dahulu.
+                        </p>
+                      ))}
+                    {consent?.status === "PENDING" && (
+                      <div className="text-sm">
+                        <p className="font-medium">
+                          Consent wali menunggu persetujuan (simulasi).
+                        </p>
+                        <p className="text-gray-600">
+                          Dengan menyetujui, Anda menyatakan persetujuan wali atas
+                          partisipasi ini. Tidak ada data wali yang dikumpulkan.
+                        </p>
+                        <div className="flex gap-2 mt-2">
+                          <form action={approveConsent.bind(null, consent.id)}>
+                            <button className="bg-green-600 text-white rounded px-3 py-1 text-sm">
+                              Setujui (Simulasi)
+                            </button>
+                          </form>
+                          <form action={rejectConsent.bind(null, consent.id)}>
+                            <button className="bg-red-600 text-white rounded px-3 py-1 text-sm">
+                              Tolak
+                            </button>
+                          </form>
+                        </div>
+                      </div>
+                    )}
+                    {(consent?.status === "APPROVED" || consent?.status === "REJECTED") && (
+                      <p className="text-sm">
+                        Consent wali:{" "}
+                        <span className="text-xs bg-gray-100 rounded px-2 py-1">
+                          {consent.status}
+                        </span>
+                      </p>
+                    )}
+                  </div>
+                );
+              })()}
             </div>
           );
         })}
