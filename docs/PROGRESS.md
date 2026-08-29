@@ -100,11 +100,15 @@
 - [x] Task 4 — Page `app/matching/recommendations/page.tsx`
 - [x] Task 5 — Build & typecheck verification
 
+#### Seed Master Data
+
+- [x] Seed 20 skills & 12 interests via `supabase/seed/seed-skills-interests.sql` (idempotent, dijalankan via `supabase db query --linked`)
+
 ---
 
 ### Sedang Dikerjakan
 
-_(kosong — sprint Opportunity, Application, & Matching selesai)_
+- Admin dashboard redirect (admin login landing ke `/dashboard` → perlu halaman/route admin sendiri)
 
 ### Decision Log
 
@@ -132,13 +136,14 @@ _(kosong — sprint Opportunity, Application, & Matching selesai)_
 - 2026-08-29: Smoke test menemukan tabel public tanpa GRANT ke `anon`/`authenticated`/`service_role` → fix migration `009_table_grants.sql` (RLS bukan pengganti base privileges)
 - 2026-08-29: "Confirm email" dimatikan di Supabase; user lama (admin) tetap perlu di-confirm manual via service role
 - 2026-08-29: Mutation actions pakai `redirect()` balik ke halaman asal (bukan cuma revalidatePath) supaya UI refresh deterministik
+- 2026-08-29: Seed 20 skills & 12 interests via supabase/seed/seed-skills-interests.sql
 
 ### Next Task
 
 1. ~~Smoke-test manual~~ ✅ Smoke test E2E lulus (register → create → moderate → browse → apply → review → select). 
 2. Match score di browse card & single-opportunity score (UI polish, deferred).
 3. ~~Seed master-data skills/interests~~ ✅ Seeded (20 skills, 12 interests) via `supabase/seed/seed-skills-interests.sql`.
-4. Admin dashboard redirect (admin login landing ke /dashboard → perlu halaman/route admin sendiri).
+4. ~~Admin dashboard redirect~~ → pindah ke "Sedang Dikerjakan".
 
 ---
 
