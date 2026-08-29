@@ -101,7 +101,9 @@ export async function schedule(
 async function getOwnedMeeting(
   hirerId: string,
   meetingId: string,
-): Promise<ServiceResult<{ id: string; status: string; opportunityId: string }>> {
+): Promise<
+  ServiceResult<{ id: string; status: string; opportunityId: string }>
+> {
   const supabase = await createSupabaseServerClient();
 
   const { data: meeting } = await supabase
@@ -114,7 +116,30 @@ async function getOwnedMeeting(
     return { data: null, error: { message: "Meeting tidak ditemukan" } };
   }
 
-  return getOwnedApplication(supabase, hirerId, meeting.application_id);
+  const { data: application } = await supabase
+    .from("applications")
+    .select("id, status, opportunity_id")
+    .eq("id", meeting.application_id)
+    .single();
+
+  if (!application) {
+    return { data: null, error: { message: "Application tidak ditemukan" } };
+  }
+
+  const { data: opportunity } = await supabase
+    .from("opportunities")
+    .select("id, hirer_id")
+    .eq("id", application.opportunity_id)
+    .single();
+
+  if (!opportunity || opportunity.hirer_id !== hirerId) {
+    return { data: null, error: { message: "Not owner" } };
+  }
+
+  return {
+    data: { id: meeting.id, status: meeting.status, opportunityId: opportunity.id },
+    error: null,
+  };
 }
 
 export async function complete(
