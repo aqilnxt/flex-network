@@ -137,7 +137,7 @@ _(kosong — sprint Opportunity, Application, & Matching selesai)_
 
 1. ~~Smoke-test manual~~ ✅ Smoke test E2E lulus (register → create → moderate → browse → apply → review → select). 
 2. Match score di browse card & single-opportunity score (UI polish, deferred).
-3. Seed master-data skills/interests (supaya matching bisa diuji dgn skor nyata).
+3. ~~Seed master-data skills/interests~~ ✅ Seeded (20 skills, 12 interests) via `supabase/seed/seed-skills-interests.sql`.
 4. Admin dashboard redirect (admin login landing ke /dashboard → perlu halaman/route admin sendiri).
 
 ---
