@@ -7,6 +7,9 @@ import {
   selectApplication,
   rejectApplication,
 } from "@/modules/application/actions";
+import { listForApplications } from "@/modules/meeting/queries";
+import { completeMeeting, cancelMeeting } from "@/modules/meeting/actions";
+import { ScheduleMeetingForm } from "./schedule-meeting-form";
 
 export default async function ApplicantsPage({
   params,
@@ -22,6 +25,10 @@ export default async function ApplicantsPage({
   );
 
   if (error) notFound();
+
+  const meetings = await listForApplications(
+    (applications ?? []).map((a) => a.id),
+  );
 
   const isFull = selectedCount >= maxTalent;
 
@@ -84,6 +91,60 @@ export default async function ApplicantsPage({
                 </>
               )}
             </div>
+
+            {(() => {
+              const meeting = meetings.get(a.id);
+              if (a.status !== "SELECTED" && !meeting) return null;
+              return (
+                <div className="mt-3 border-t pt-3">
+                  {!meeting && a.status === "SELECTED" && (
+                    <ScheduleMeetingForm applicationId={a.id} opportunityId={id} />
+                  )}
+                  {meeting && (
+                    <>
+                      <div className="flex items-center gap-2">
+                        <span className="text-sm font-medium">
+                          Meeting: {meeting.meeting_date ?? "-"} {meeting.meeting_time ?? ""}
+                        </span>
+                        <span className="text-xs bg-gray-100 rounded px-2 py-1">
+                          {meeting.status}
+                        </span>
+                      </div>
+                      {meeting.meeting_method && (
+                        <p className="text-sm text-gray-600">Metode: {meeting.meeting_method}</p>
+                      )}
+                      {meeting.meeting_link && (
+                        <a
+                          href={meeting.meeting_link}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-sm text-blue-600 break-all"
+                        >
+                          {meeting.meeting_link}
+                        </a>
+                      )}
+                      {meeting.notes && (
+                        <p className="text-sm text-gray-600 mt-1">{meeting.notes}</p>
+                      )}
+                      {meeting.status === "SCHEDULED" && (
+                        <div className="flex gap-2 mt-2">
+                          <form action={completeMeeting.bind(null, meeting.id, id)}>
+                            <button className="bg-green-600 text-white rounded px-3 py-1 text-sm">
+                              Tandai Selesai
+                            </button>
+                          </form>
+                          <form action={cancelMeeting.bind(null, meeting.id, id)}>
+                            <button className="bg-red-600 text-white rounded px-3 py-1 text-sm">
+                              Batalkan
+                            </button>
+                          </form>
+                        </div>
+                      )}
+                    </>
+                  )}
+                </div>
+              );
+            })()}
           </div>
         ))}
       </div>
