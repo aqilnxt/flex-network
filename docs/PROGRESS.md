@@ -129,11 +129,16 @@ _(kosong — sprint Opportunity, Application, & Matching selesai)_
 - 2026-08-29: `max_talent` di-enforce server-side saat select application
 - 2026-08-29: Matching = read-only (query/service server-side, tanpa Server Action & REST); rule-based deterministic, tanpa AI/ML
 - 2026-08-29: Migration `008` menambah policy `talent_skills`/`talent_interests` (perbaiki latent bug CRUD profile + dipakai matching)
+- 2026-08-29: Smoke test menemukan tabel public tanpa GRANT ke `anon`/`authenticated`/`service_role` → fix migration `009_table_grants.sql` (RLS bukan pengganti base privileges)
+- 2026-08-29: "Confirm email" dimatikan di Supabase; user lama (admin) tetap perlu di-confirm manual via service role
+- 2026-08-29: Mutation actions pakai `redirect()` balik ke halaman asal (bukan cuma revalidatePath) supaya UI refresh deterministik
 
 ### Next Task
 
-1. Smoke-test manual (`npm run dev`): create → submit → moderate → browse → detail → apply → recommendations.
+1. ~~Smoke-test manual~~ ✅ Smoke test E2E lulus (register → create → moderate → browse → apply → review → select). 
 2. Match score di browse card & single-opportunity score (UI polish, deferred).
+3. Seed master-data skills/interests (supaya matching bisa diuji dgn skor nyata).
+4. Admin dashboard redirect (admin login landing ke /dashboard → perlu halaman/route admin sendiri).
 
 ---
 
