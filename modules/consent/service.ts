@@ -50,10 +50,10 @@ async function loadConsentContext(
     .single();
 
   const { data: profile } = await supabase
-    .from("profiles")
+    .from("talent_profiles")
     .select("is_minor")
     .eq("id", talentId)
-    .single();
+    .maybeSingle();
 
   const requiresOpportunity = opportunity?.requires_consent === true;
   const isMinor = profile?.is_minor === true;

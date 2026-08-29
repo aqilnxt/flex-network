@@ -68,20 +68,32 @@ export async function getRequirementMap(
   const { data } = await supabase
     .from("applications")
     .select(
-      "id, talent:profiles!inner(is_minor), opportunity:opportunities!inner(requires_consent)",
+      "id, talent_id, opportunity:opportunities!inner(requires_consent)",
     )
     .in("id", applicationIds);
 
   const rows =
     (data as unknown as {
       id: string;
-      talent: { is_minor: boolean } | null;
+      talent_id: string;
       opportunity: { requires_consent: boolean } | null;
     }[]) ?? [];
 
+  const talentIds = [...new Set(rows.map((r) => r.talent_id))];
+  const minorMap = new Map<string, boolean>();
+  if (talentIds.length > 0) {
+    const { data: talents } = await supabase
+      .from("talent_profiles")
+      .select("id, is_minor")
+      .in("id", talentIds);
+    for (const t of (talents as { id: string; is_minor: boolean }[]) ?? []) {
+      minorMap.set(t.id, t.is_minor);
+    }
+  }
+
   for (const row of rows) {
     const requiresOpportunity = row.opportunity?.requires_consent === true;
-    const isMinor = row.talent?.is_minor === true;
+    const isMinor = minorMap.get(row.talent_id) === true;
     const required = requiresOpportunity || isMinor;
     const reasons = [
       requiresOpportunity ? "Opportunity requires consent" : null,
