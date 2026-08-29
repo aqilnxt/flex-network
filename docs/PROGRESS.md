@@ -104,11 +104,26 @@
 
 - [x] Seed 20 skills & 12 interests via `supabase/seed/seed-skills-interests.sql` (idempotent, dijalankan via `supabase db query --linked`)
 
+#### Module Meeting
+
+- [x] Brainstorming ARCHITECTURAL + spec: `docs/superpowers/specs/2026-08-29-meeting-module-design.md`
+- [x] Implementation plan: `docs/superpowers/plans/2026-08-29-meeting-module.md`
+- [x] Task 1 — Migration `010_meeting_rls.sql` (select involved/admin, insert hirer+SELECTED, update hirer)
+- [x] Task 2 — Schemas `modules/meeting/schemas.ts` (scheduleMeetingSchema + refine masa depan)
+- [x] Task 3 — Service `modules/meeting/service.ts` (schedule/complete/cancel + state machine)
+- [x] Task 4 — Queries `modules/meeting/queries.ts` (`getByApplicationId`, `listForApplications`)
+- [x] Task 5 — Server Actions `modules/meeting/actions.ts`
+- [x] Task 6 — Form jadwal `schedule-meeting-form.tsx`
+- [x] Task 7 — Applicant list: form schedule + info meeting + complete/cancel
+- [x] Task 8 — My Applications blok meeting (TALENT, read-only)
+- [x] Task 9 — Build, typecheck, lint, E2E smoke (schedule/complete/cancel/validasi/RLS)
+- [x] Task 10 — Update PROGRESS.md
+
 ---
 
 ### Sedang Dikerjakan
 
-- Module Meeting — spec `docs/superpowers/specs/2026-08-29-meeting-module-design.md` + plan `docs/superpowers/plans/2026-08-29-meeting-module.md` (siap eksekusi, 10 task)
+- (kosong)
 
 ### Decision Log
 
@@ -140,13 +155,19 @@
 - 2026-08-29: Match score browse/detail reuse `scoreOpportunity` (read-only, server-side); badge helper shared di `modules/matching/badge.ts`
 - 2026-08-29: Meeting CANCELLED terminal, tanpa edit/reschedule (YAGNI); contract gate = `getByApplicationId` di-enforce modul Contract
 
+- 2026-08-29: Meeting CANCELLED terminal, tanpa edit/reschedule (YAGNI); contract gate = `getByApplicationId` di-enforce modul Contract
+- 2026-08-29: Smoke meeting menemukan bug service `getOwnedMeeting` (mengecek status application, bukan status meeting) → fix: cek `meetings.status` di `getOwnedMeeting` sendiri
+- 2026-08-29: RLS verified via direct REST: hirer owner bisa PATCH, talent non-owner dapat 204 + 0 rows (blocked)
+- 2026-08-29: Smoke E2E meeting lulus (schedule → validasi past-date → complete → cancel terminal → talent view)
+
 ### Next Task
 
 1. ~~Smoke-test manual~~ ✅ Smoke test E2E lulus (register → create → moderate → browse → apply → review → select).
 2. ~~Match score di browse card & single-opportunity score~~ ✅ `getMatchScoresForTalent()` + badge shared `modules/matching/badge.ts`; browse card & detail page tampil untuk TALENT.
 3. ~~Seed master-data skills/interests~~ ✅ Seeded (20 skills, 12 interests) via `supabase/seed/seed-skills-interests.sql`.
 4. ~~Admin dashboard redirect~~ ✅ Route ADMIN → `/dashboard/admin` (page + link moderasi). Typecheck lulus.
+5. ~~Module Meeting~~ ✅ Spec + plan + 10 task selesai, E2E smoke lulus.
 
 ---
 
-**Status Terakhir:** ✅ Match score di browse & detail selesai. Typecheck & lint sukses.
+**Status Terakhir:** ✅ Sprint 5 — Module Meeting **selesai** (Task 1–10). Build, typecheck, lint, E2E smoke sukses. Next milestone: Consent → Contract → Payment.
