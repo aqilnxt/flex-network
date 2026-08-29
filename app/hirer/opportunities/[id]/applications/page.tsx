@@ -9,6 +9,7 @@ import {
 } from "@/modules/application/actions";
 import { listForApplications } from "@/modules/meeting/queries";
 import { completeMeeting, cancelMeeting } from "@/modules/meeting/actions";
+import { listForApplications as listConsentsForApplications } from "@/modules/consent/queries";
 import { ScheduleMeetingForm } from "./schedule-meeting-form";
 
 export default async function ApplicantsPage({
@@ -27,6 +28,9 @@ export default async function ApplicantsPage({
   if (error) notFound();
 
   const meetings = await listForApplications(
+    (applications ?? []).map((a) => a.id),
+  );
+  const consents = await listConsentsForApplications(
     (applications ?? []).map((a) => a.id),
   );
 
@@ -141,6 +145,22 @@ export default async function ApplicantsPage({
                         </div>
                       )}
                     </>
+                  )}
+                </div>
+              );
+            })()}
+
+            {(() => {
+              const consent = consents.get(a.id);
+              if (!consent) return null;
+              return (
+                <div className="mt-3 border-t pt-3 text-sm">
+                  Consent wali:{" "}
+                  <span className="text-xs bg-gray-100 rounded px-2 py-1">
+                    {consent.status}
+                  </span>
+                  {consent.status === "PENDING" && (
+                    <span className="text-gray-500"> — menunggu talent</span>
                   )}
                 </div>
               );
