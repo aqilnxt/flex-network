@@ -117,6 +117,17 @@ Format: `type(scope): deskripsi imperative lowercase`
 - agent-browser (for E2E testing)
 - deploy-to-vercel (for deployment)
 
+## Skill Discovery
+
+Sebelum mengerjakan task apa pun yang membutuhkan bantuan spesifik (testing, deployment, UI, refactor, dll), WAJIB cek dulu apakah ada skill yang relevan:
+
+1. Jalankan `npx skills find <keyword>` untuk mencari skill terkait.
+2. Kalo nemu skill dengan install count > 1K, rekomendasikan ke user.
+3. Tanyakan apakah user mau install skill itu sebelum lanjut.
+4. Jangan langsung menulis kode tanpa mengecek skill terlebih dahulu.
+
+Pengecualian: task yang sudah jelas (bikin file, update PROGRESS.md, dll) ga perlu pake `find-skills`.
+
 ## Progress Tracking
 
 - Setelah menyelesaikan setiap task yang terdaftar di `docs/PROGRESS.md`, WAJIB update file tersebut.

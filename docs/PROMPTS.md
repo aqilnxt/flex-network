@@ -55,7 +55,7 @@ Baca /docs/PROGRESS.md. Cari bagian "Next Task". Kerjakan task tersebut dengan m
 - **Deploy to Vercel:**
   `Panggil skill "deploy-to-vercel". Deploy ke preview (bukan production).`
   - **UI/UX Pro Max:**
-    `Panggil skill "ui-ux-pro-max". Cari rekomendasi style/color/font untuk [PROJECT_TYPE / KEYWORD] dengan --design-system.` 
+    `Panggil skill "ui-ux-pro-max". Cari rekomendasi style/color/font untuk [PROJECT_TYPE / KEYWORD] dengan --design-system.`
 
 ### 9. Update Progress (Wajib Setelah Task)
 
@@ -66,3 +66,15 @@ Task {N} selesai. Sekarang update /docs/PROGRESS.md:
 - Tambahkan ke Decision Log jika perlu
 
 Jangan ubah bagian lain. Langsung gas.
+
+### 10. Cari Skill Dulu (Sebelum Eksekusi)
+
+[MODE: PLAN]
+Task: {DESKRIPSI TASK}.
+
+Sebelum eksekusi, cari dulu skill yang relevan pake `find-skills`.
+Jalankan: `npx skills find {KEYWORD}`.
+Kalo nemu skill populer (>1K install), tawarkan ke saya.
+Kalo ga ada, lanjut manual.
+
+Jangan tulis kode sebelum skill discovery selesai.
