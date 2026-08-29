@@ -6,5 +6,6 @@ export default async function DashboardPage() {
   if (!user) redirect("/login");
   if (user.role === "TALENT") redirect("/dashboard/talent");
   if (user.role === "HIRER") redirect("/dashboard/hirer");
+  if (user.role === "ADMIN") redirect("/dashboard/admin");
   redirect("/login");
 }

@@ -3,6 +3,11 @@ import { notFound } from "next/navigation";
 import { requireUser } from "@/modules/lib/auth";
 import { getOpportunityById } from "@/modules/opportunity/queries";
 import { getApplicationStatus } from "@/modules/application/queries";
+import { getMatchScoresForTalent } from "@/modules/matching/queries";
+import {
+  classificationBadgeClass,
+  classificationLabel,
+} from "@/modules/matching/badge";
 import { ApplyForm } from "./apply-form";
 
 export default async function OpportunityDetailPage({
@@ -20,6 +25,11 @@ export default async function OpportunityDetailPage({
   const application =
     user.role === "TALENT" ? await getApplicationStatus(user.id, id) : null;
 
+  const match =
+    user.role === "TALENT"
+      ? ((await getMatchScoresForTalent(user.id, [id])).get(id) ?? null)
+      : null;
+
   return (
     <div className="p-8 max-w-3xl">
       <Link href="/opportunities" className="text-blue-600 text-sm">
@@ -31,6 +41,34 @@ export default async function OpportunityDetailPage({
       <p className="text-sm text-gray-600 mt-2">
         {data.company_name ?? data.hirer?.full_name ?? "Perusahaan"}
       </p>
+
+      {match && (
+        <div className="mt-4 border rounded p-4 bg-gray-50">
+          <div className="flex items-center justify-between gap-3">
+            <span className="text-sm font-medium">Kecocokan dengan profilmu</span>
+            <span
+              className={`text-xs rounded px-2 py-1 ${classificationBadgeClass(match.classification)}`}
+            >
+              {classificationLabel(match.classification)}
+            </span>
+          </div>
+          <div className="mt-3 flex items-center gap-3">
+            <div className="flex-1 h-2 bg-gray-200 rounded overflow-hidden">
+              <div
+                className="h-full bg-blue-600"
+                style={{ width: `${match.finalMatchScore}%` }}
+              />
+            </div>
+            <span className="text-sm font-semibold">
+              {match.finalMatchScore.toFixed(2)}%
+            </span>
+          </div>
+          <p className="mt-2 text-xs text-gray-500">
+            Skills {match.skillMatchScore.toFixed(0)}% · Interests{" "}
+            {match.interestMatchScore.toFixed(0)}% (70/30)
+          </p>
+        </div>
+      )}
 
       <div className="flex flex-wrap gap-2 mt-4 text-sm">
         <span className="bg-gray-100 rounded px-2 py-1">{data.opportunity_type}</span>

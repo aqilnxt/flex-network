@@ -40,7 +40,7 @@ Jangan ubah banyak file sekaligus.
 
 Baca /docs/PROGRESS.md. Cari bagian "Next Task". Kerjakan task tersebut dengan mengikuti workflow di atas.
 
-### 8. Panggil Skill Spesifik
+## 8. Panggil Skill Spesifik
 
 - **Brainstorming (Complex):**
   `Panggil skill "brainstorming" dengan klasifikasi ARCHITECTURAL untuk task: [DESKRIPSI]. Jangan tulis kode.`
@@ -52,12 +52,24 @@ Baca /docs/PROGRESS.md. Cari bagian "Next Task". Kerjakan task tersebut dengan m
   `Panggil skill "grilling". Evaluasi rencana/desain ini: [DESKRIPSI].`
 - **UI/UX Impeccable:**
   `Panggil skill "impeccable" dengan command "craft" untuk halaman [NAMA]. Baca docs/DESIGN.md.`
+- **UI/UX Pro Max:**
+  `Panggil skill "ui-ux-pro-max". Cari rekomendasi style/color/font untuk [PROJECT_TYPE / KEYWORD] dengan --design-system.`
 - **Deploy to Vercel:**
   `Panggil skill "deploy-to-vercel". Deploy ke preview (bukan production).`
-  - **UI/UX Pro Max:**
-    `Panggil skill "ui-ux-pro-max". Cari rekomendasi style/color/font untuk [PROJECT_TYPE / KEYWORD] dengan --design-system.`
+- **Caveman Commit:**
+  `Panggil skill "caveman-commit". Tulis commit message.`
+- **Caveman Review:**
+  `Panggil skill "caveman-review". Review file [FILE_PATH].`
+- **Investigate First:**
+  `Panggil skill "investigate-first". Task: [DESKRIPSI].`
+- **Safe Refactor:**
+  `Panggil skill "safe-refactor". Refactor [MODULE/FILE].`
+- **Surgical Patch:**
+  `Panggil skill "surgical-patch". Fix bug di [FILE_PATH].`
+- **Verify & Stop:**
+  `Panggil skill "verify-and-stop". Verifikasi [TASK/STATUS].`
 
-### 9. Update Progress (Wajib Setelah Task)
+## 9. Update Progress (Wajib Setelah Task)
 
 Task {N} selesai. Sekarang update /docs/PROGRESS.md:
 
@@ -66,15 +78,3 @@ Task {N} selesai. Sekarang update /docs/PROGRESS.md:
 - Tambahkan ke Decision Log jika perlu
 
 Jangan ubah bagian lain. Langsung gas.
-
-### 10. Cari Skill Dulu (Sebelum Eksekusi)
-
-[MODE: PLAN]
-Task: {DESKRIPSI TASK}.
-
-Sebelum eksekusi, cari dulu skill yang relevan pake `find-skills`.
-Jalankan: `npx skills find {KEYWORD}`.
-Kalo nemu skill populer (>1K install), tawarkan ke saya.
-Kalo ga ada, lanjut manual.
-
-Jangan tulis kode sebelum skill discovery selesai.

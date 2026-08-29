@@ -108,7 +108,7 @@
 
 ### Sedang Dikerjakan
 
-- Admin dashboard redirect (admin login landing ke `/dashboard` → perlu halaman/route admin sendiri)
+- Module Meeting — spec `docs/superpowers/specs/2026-08-29-meeting-module-design.md` + plan `docs/superpowers/plans/2026-08-29-meeting-module.md` (siap eksekusi, 10 task)
 
 ### Decision Log
 
@@ -137,14 +137,16 @@
 - 2026-08-29: "Confirm email" dimatikan di Supabase; user lama (admin) tetap perlu di-confirm manual via service role
 - 2026-08-29: Mutation actions pakai `redirect()` balik ke halaman asal (bukan cuma revalidatePath) supaya UI refresh deterministik
 - 2026-08-29: Seed 20 skills & 12 interests via supabase/seed/seed-skills-interests.sql
+- 2026-08-29: Match score browse/detail reuse `scoreOpportunity` (read-only, server-side); badge helper shared di `modules/matching/badge.ts`
+- 2026-08-29: Meeting CANCELLED terminal, tanpa edit/reschedule (YAGNI); contract gate = `getByApplicationId` di-enforce modul Contract
 
 ### Next Task
 
-1. ~~Smoke-test manual~~ ✅ Smoke test E2E lulus (register → create → moderate → browse → apply → review → select). 
-2. Match score di browse card & single-opportunity score (UI polish, deferred).
+1. ~~Smoke-test manual~~ ✅ Smoke test E2E lulus (register → create → moderate → browse → apply → review → select).
+2. ~~Match score di browse card & single-opportunity score~~ ✅ `getMatchScoresForTalent()` + badge shared `modules/matching/badge.ts`; browse card & detail page tampil untuk TALENT.
 3. ~~Seed master-data skills/interests~~ ✅ Seeded (20 skills, 12 interests) via `supabase/seed/seed-skills-interests.sql`.
-4. ~~Admin dashboard redirect~~ → pindah ke "Sedang Dikerjakan".
+4. ~~Admin dashboard redirect~~ ✅ Route ADMIN → `/dashboard/admin` (page + link moderasi). Typecheck lulus.
 
 ---
 
-**Status Terakhir:** ✅ Sprint 4 — Application Module **selesai** (Task 1–10). Build & typecheck sukses.
+**Status Terakhir:** ✅ Match score di browse & detail selesai. Typecheck & lint sukses.

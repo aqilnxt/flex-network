@@ -111,29 +111,41 @@ Format: `type(scope): deskripsi imperative lowercase`
 
 ## Installed Skills
 
-- brainstorming, writing-plans, grilling (for planning)
-- codebase-design, improve-architecture (for architecture)
-- impeccable, ui-ux-pro-max, vercel-composition, vercel-react-best-practices (for UI/React)
-- agent-browser (for E2E testing)
-- deploy-to-vercel (for deployment)
+- brainstorming, writing-plans, grilling (planning)
+- codebase-design, improve-architecture (architecture)
+- impeccable, ui-ux-pro-max, vercel-composition, vercel-react-best-practices (UI/React)
+- agent-browser (E2E testing)
+- deploy-to-vercel (deployment)
+- caveman, caveman-commit, caveman-review (communication & review)
+- investigate-first, safe-refactor, surgical-patch, verify-and-stop (agent behavior)
+- find-skills (skill discovery)
+
+## Communication Style
+
+**Default output mode: `caveman full`**
+Seluruh respon AI wajib menggunakan gaya komunikasi hemat token (caveman) level `full`.
+
+Aturan:
+
+- Drop filler, articles, pleasantries.
+- Gunakan fragment, langsung ke poin.
+- Technical terms, code, error messages tetap utuh.
+- Kalo user minta `normal mode`, balik ke gaya normal.
+
+Kecuali:
+
+- Security warnings → tulis lengkap.
+- Irreversible action → tulis lengkap.
+- User minta klarifikasi → tulis lengkap dulu, lalu balik ke caveman.
+
+Aktifkan caveman di awal setiap sesi: `/caveman full` atau sebut "caveman mode".
 
 ## Skill Discovery
 
-Sebelum mengerjakan task apa pun yang membutuhkan bantuan spesifik (testing, deployment, UI, refactor, dll), WAJIB cek dulu apakah ada skill yang relevan:
-
-1. Jalankan `npx skills find <keyword>` untuk mencari skill terkait.
-2. Kalo nemu skill dengan install count > 1K, rekomendasikan ke user.
-3. Tanyakan apakah user mau install skill itu sebelum lanjut.
-4. Jangan langsung menulis kode tanpa mengecek skill terlebih dahulu.
-
-Pengecualian: task yang sudah jelas (bikin file, update PROGRESS.md, dll) ga perlu pake `find-skills`.
+Sebelum task spesifik, cek skill relevan via `npx skills find <keyword>`. Rekomendasikan skill populer (>1K install) ke user sebelum mulai.
 
 ## Progress Tracking
 
-- Setelah menyelesaikan setiap task yang terdaftar di `docs/PROGRESS.md`, WAJIB update file tersebut.
-- Pindahkan task dari "Sedang Dikerjakan" ke "Sudah Selesai".
-- Tambahkan entri baru di "Decision Log" jika ada keputusan penting.
-- Jangan menghapus history yang sudah ada.
+Wajib update `docs/PROGRESS.md` setelah setiap task selesai. Pindahkan task ke "Sudah Selesai", update "Sedang Dikerjakan", catat Decision Log jika perlu.
 
-**Rule:** Untuk UI design, WAJIB baca `docs/DESIGN.md` terlebih dahulu.
-Untuk complex logic, WAJIB panggil `brainstorming` + `grill-me` sebelum ngoding.
+**Rule:** UI design WAJIB baca `docs/DESIGN.md`. Complex logic WAJIB panggil `brainstorming` + `grill-me` sebelum ngoding.

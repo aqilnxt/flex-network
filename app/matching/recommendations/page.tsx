@@ -1,20 +1,10 @@
 import Link from "next/link";
 import { requireRole } from "@/modules/lib/auth";
 import { getRecommendations } from "@/modules/matching/queries";
-import type { MatchClassification } from "@/modules/matching/service";
-
-function classificationBadge(c: MatchClassification) {
-  switch (c) {
-    case "STRONG_MATCH":
-      return "bg-green-100 text-green-700";
-    case "GOOD_MATCH":
-      return "bg-blue-100 text-blue-700";
-    case "WEAK_MATCH":
-      return "bg-amber-100 text-amber-700";
-    default:
-      return "bg-gray-100 text-gray-600";
-  }
-}
+import {
+  classificationBadgeClass,
+  classificationLabel,
+} from "@/modules/matching/badge";
 
 export default async function RecommendationsPage({
   searchParams,
@@ -49,9 +39,9 @@ export default async function RecommendationsPage({
             <div className="flex items-center justify-between">
               <h2 className="font-semibold">{r.opportunity.title}</h2>
               <span
-                className={`text-xs rounded px-2 py-1 ${classificationBadge(r.classification)}`}
+                className={`text-xs rounded px-2 py-1 ${classificationBadgeClass(r.classification)}`}
               >
-                {r.classification.replace("_MATCH", "")}
+                {classificationLabel(r.classification)}
               </span>
             </div>
             <p className="text-sm text-gray-600">

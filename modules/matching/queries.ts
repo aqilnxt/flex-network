@@ -1,5 +1,5 @@
 import { createSupabaseServerClient } from "@/lib/supabase/server";
-import { scoreOpportunity, type Recommendation } from "./service";
+import { scoreOpportunity, type MatchResult, type Recommendation } from "./service";
 
 export type RecommendationsResult = {
   items: Recommendation[];
@@ -87,4 +87,67 @@ export async function getRecommendations(
   const items = scored.slice(offset, offset + limit);
 
   return { items, total, page, limit };
+}
+
+export async function getMatchScoresForTalent(
+  talentId: string,
+  oppIds: string[],
+): Promise<Map<string, MatchResult>> {
+  const result = new Map<string, MatchResult>();
+  if (oppIds.length === 0) return result;
+
+  const supabase = await createSupabaseServerClient();
+
+  const [talentSkills, talentInterests, oppSkills, oppInterests] =
+    await Promise.all([
+      supabase
+        .from("talent_skills")
+        .select("skill_id")
+        .eq("profile_id", talentId),
+      supabase
+        .from("talent_interests")
+        .select("interest_id")
+        .eq("profile_id", talentId),
+      supabase
+        .from("opportunity_skills")
+        .select("opportunity_id, skill_id")
+        .in("opportunity_id", oppIds),
+      supabase
+        .from("opportunity_interests")
+        .select("opportunity_id, interest_id")
+        .in("opportunity_id", oppIds),
+    ]);
+
+  const talentSkillIds = (talentSkills.data ?? []).map((r) => r.skill_id);
+  const talentInterestIds = (talentInterests.data ?? []).map(
+    (r) => r.interest_id,
+  );
+
+  const skillsByOpp = new Map<string, string[]>();
+  for (const s of oppSkills.data ?? []) {
+    const arr = skillsByOpp.get(s.opportunity_id) ?? [];
+    arr.push(s.skill_id);
+    skillsByOpp.set(s.opportunity_id, arr);
+  }
+
+  const interestsByOpp = new Map<string, string[]>();
+  for (const i of oppInterests.data ?? []) {
+    const arr = interestsByOpp.get(i.opportunity_id) ?? [];
+    arr.push(i.interest_id);
+    interestsByOpp.set(i.opportunity_id, arr);
+  }
+
+  for (const oppId of oppIds) {
+    result.set(
+      oppId,
+      scoreOpportunity(
+        talentSkillIds,
+        talentInterestIds,
+        skillsByOpp.get(oppId) ?? [],
+        interestsByOpp.get(oppId) ?? [],
+      ),
+    );
+  }
+
+  return result;
 }
