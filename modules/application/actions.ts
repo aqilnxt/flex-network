@@ -1,6 +1,7 @@
 "use server";
 
 import { revalidatePath } from "next/cache";
+import { redirect } from "next/navigation";
 import type { ActionResult } from "@/lib/result";
 import { requireRole } from "@/modules/lib/auth";
 import { createApplicationSchema } from "./schemas";
@@ -44,21 +45,24 @@ export async function apply(
 
 export async function reviewApplication(id: string): Promise<void> {
   const user = await requireRole("HIRER");
-  const { error } = await review(user.id, id);
-  if (error) return;
-  revalidatePath("/hirer/opportunities", "layout");
+  const { data, error } = await review(user.id, id);
+  if (error || !data) return;
+  revalidatePath("/hirer/opportunities");
+  redirect(`/hirer/opportunities/${data.opportunityId}/applications`);
 }
 
 export async function selectApplication(id: string): Promise<void> {
   const user = await requireRole("HIRER");
-  const { error } = await select(user.id, id);
-  if (error) return;
-  revalidatePath("/hirer/opportunities", "layout");
+  const { data, error } = await select(user.id, id);
+  if (error || !data) return;
+  revalidatePath("/hirer/opportunities");
+  redirect(`/hirer/opportunities/${data.opportunityId}/applications`);
 }
 
 export async function rejectApplication(id: string): Promise<void> {
   const user = await requireRole("HIRER");
-  const { error } = await reject(user.id, id);
-  if (error) return;
-  revalidatePath("/hirer/opportunities", "layout");
+  const { data, error } = await reject(user.id, id);
+  if (error || !data) return;
+  revalidatePath("/hirer/opportunities");
+  redirect(`/hirer/opportunities/${data.opportunityId}/applications`);
 }

@@ -88,7 +88,10 @@ async function getOwnedApplication(
   };
 }
 
-export async function review(hirerId: string, id: string): Promise<ServiceResult<null>> {
+export async function review(
+  hirerId: string,
+  id: string,
+): Promise<ServiceResult<{ opportunityId: string }>> {
   const supabase = await createSupabaseServerClient();
   const { data: app, error: ownedError } = await getOwnedApplication(hirerId, id);
   if (ownedError || !app) return { data: null, error: ownedError };
@@ -101,10 +104,11 @@ export async function review(hirerId: string, id: string): Promise<ServiceResult
     .update({ status: "UNDER_REVIEW", reviewed_at: new Date().toISOString() })
     .eq("id", id);
 
-  return { data: null, error: error ? { message: error.message } : null };
+  if (error) return { data: null, error: { message: error.message } };
+  return { data: { opportunityId: app.opportunityId }, error: null };
 }
 
-export async function select(hirerId: string, id: string): Promise<ServiceResult<null>> {
+export async function select(hirerId: string, id: string): Promise<ServiceResult<{ opportunityId: string }>> {
   const supabase = await createSupabaseServerClient();
   const { data: app, error: ownedError } = await getOwnedApplication(hirerId, id);
   if (ownedError || !app) return { data: null, error: ownedError };
@@ -135,10 +139,11 @@ export async function select(hirerId: string, id: string): Promise<ServiceResult
     .update({ status: "SELECTED", selected_at: new Date().toISOString() })
     .eq("id", id);
 
-  return { data: null, error: error ? { message: error.message } : null };
+  if (error) return { data: null, error: { message: error.message } };
+  return { data: { opportunityId: app.opportunityId }, error: null };
 }
 
-export async function reject(hirerId: string, id: string): Promise<ServiceResult<null>> {
+export async function reject(hirerId: string, id: string): Promise<ServiceResult<{ opportunityId: string }>> {
   const supabase = await createSupabaseServerClient();
   const { data: app, error: ownedError } = await getOwnedApplication(hirerId, id);
   if (ownedError || !app) return { data: null, error: ownedError };
@@ -151,5 +156,6 @@ export async function reject(hirerId: string, id: string): Promise<ServiceResult
     .update({ status: "REJECTED", rejected_at: new Date().toISOString() })
     .eq("id", id);
 
-  return { data: null, error: error ? { message: error.message } : null };
+  if (error) return { data: null, error: { message: error.message } };
+  return { data: { opportunityId: app.opportunityId }, error: null };
 }

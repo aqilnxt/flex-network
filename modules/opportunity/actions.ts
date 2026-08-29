@@ -159,6 +159,7 @@ export async function moderate(
   if (error) return;
 
   revalidatePath("/admin/opportunities");
+  redirect("/admin/opportunities");
 }
 
 export async function deleteOpportunity(id: string): Promise<void> {
