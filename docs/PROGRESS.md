@@ -119,6 +119,21 @@
 - [x] Task 9 — Build, typecheck, lint, E2E smoke (schedule/complete/cancel/validasi/RLS)
 - [x] Task 10 — Update PROGRESS.md
 
+#### Module Consent
+
+- [x] Brainstorming ARCHITECTURAL + spec: `docs/superpowers/specs/2026-08-29-consent-module-design.md`
+- [x] Implementation plan: `docs/superpowers/plans/2026-08-29-consent-module.md`
+- [x] Task 1 — Migration `011_consent_rls.sql` (select involved/admin, insert talent owner+gates, update talent)
+- [x] Task 2 — Schemas `modules/consent/schemas.ts` (minimal, tanpa guardian field)
+- [x] Task 3 — Service `modules/consent/service.ts` (request/approve/reject + state machine terminal)
+- [x] Task 4 — Queries `modules/consent/queries.ts` (`getByApplicationId`, `listForApplications`, `getRequirementMap`, `getConsentDecision`)
+- [x] Task 5 — Server Actions `modules/consent/actions.ts`
+- [x] Task 6 — Form request `app/applications/consent-request-form.tsx`
+- [x] Task 7 — My Applications blok consent + aksi (TALENT)
+- [x] Task 8 — Applicant list badge read-only (HIRER)
+- [x] Task 9 — Build, typecheck, lint, E2E smoke (approve/reject path, NOT_REQUIRED senyap, gate meeting, RLS REST)
+- [x] Task 10 — Update PROGRESS.md
+
 ---
 
 ### Sedang Dikerjakan
@@ -159,6 +174,10 @@
 - 2026-08-29: Smoke meeting menemukan bug service `getOwnedMeeting` (mengecek status application, bukan status meeting) → fix: cek `meetings.status` di `getOwnedMeeting` sendiri
 - 2026-08-29: RLS verified via direct REST: hirer owner bisa PATCH, talent non-owner dapat 204 + 0 rows (blocked)
 - 2026-08-29: Smoke E2E meeting lulus (schedule → validasi past-date → complete → cancel terminal → talent view)
+- 2026-08-29: Consent lazy eksplisit — row hanya saat required; NOT_REQUIRED & MISSING derived, tanpa row
+- 2026-08-29: Consent APPROVED & REJECTED terminal; aktor TALENT (simulated declaration); is_minor dibaca apa adanya (defer pengisian)
+- 2026-08-29: Contract gate = getConsentDecision (eligible iff !required || APPROVED), di-enforce modul Contract
+- 2026-08-29: Smoke consent menemukan `is_minor` ada di `talent_profiles`, bukan `profiles` → fix queries (`getRequirementMap` batch talent_profiles) + service (`talent_profiles.maybeSingle`)
 
 ### Next Task
 
@@ -167,7 +186,8 @@
 3. ~~Seed master-data skills/interests~~ ✅ Seeded (20 skills, 12 interests) via `supabase/seed/seed-skills-interests.sql`.
 4. ~~Admin dashboard redirect~~ ✅ Route ADMIN → `/dashboard/admin` (page + link moderasi). Typecheck lulus.
 5. ~~Module Meeting~~ ✅ Spec + plan + 10 task selesai, E2E smoke lulus.
+6. ~~Module Consent~~ ✅ Spec + plan + 10 task selesai, E2E smoke + RLS lulus.
 
 ---
 
-**Status Terakhir:** ✅ Sprint 5 — Module Meeting **selesai** (Task 1–10). Build, typecheck, lint, E2E smoke sukses. Next milestone: Consent → Contract → Payment.
+**Status Terakhir:** ✅ Sprint 6 — Module Consent **selesai** (Task 1–10). Build, typecheck, lint, E2E smoke sukses (1 bug fix: is_minor di talent_profiles). Next milestone: Contract → Payment.
