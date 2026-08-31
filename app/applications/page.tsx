@@ -14,6 +14,7 @@ import {
 } from "@/modules/contract/actions";
 import { listForContracts } from "@/modules/work/queries";
 import { startWork, completeWork } from "@/modules/work/actions";
+import { listForContracts as listPaymentsForContracts } from "@/modules/payment/queries";
 import { ConsentRequestForm } from "./consent-request-form";
 
 export default async function MyApplicationsPage() {
@@ -26,6 +27,9 @@ export default async function MyApplicationsPage() {
   const requirements = await getRequirementMap(appIds);
   const contracts = await listContractsForApplications(appIds);
   const works = await listForContracts(
+    [...contracts.values()].map((c) => c.id),
+  );
+  const payments = await listPaymentsForContracts(
     [...contracts.values()].map((c) => c.id),
   );
 
@@ -216,6 +220,85 @@ export default async function MyApplicationsPage() {
                     {work.status === "COMPLETED" && work.hirer_confirmed && (
                       <p className="text-sm text-green-700 mt-1">
                         Pekerjaan selesai — dikonfirmasi hirer.
+                      </p>
+                    )}
+                  </div>
+                );
+              })()}
+              {(() => {
+                const contract = contracts.get(a.id);
+                if (!contract) return null;
+                const work = works.get(contract.id);
+                if (!work) return null;
+                return (
+                  <div className="mt-3 border-t pt-3">
+                    <div className="flex items-center gap-2">
+                      <span className="text-sm font-medium">Work:</span>
+                      <span className="text-xs bg-gray-100 rounded px-2 py-1">
+                        {work.status}
+                      </span>
+                      {work.hirer_confirmed && (
+                        <span className="text-xs bg-green-100 text-green-700 rounded px-2 py-1">
+                          Dikonfirmasi HIRER
+                        </span>
+                      )}
+                    </div>
+                    {contract.status === "ACTIVE" && work.status === "NOT_STARTED" && (
+                      <form action={startWork.bind(null, contract.id, "/applications")} className="mt-2">
+                        <button className="bg-blue-600 text-white rounded px-3 py-1 text-sm">
+                          Mulai Kerja
+                        </button>
+                      </form>
+                    )}
+                    {contract.status === "ACTIVE" && work.status === "IN_PROGRESS" && (
+                      <form action={completeWork.bind(null, contract.id, "/applications")} className="mt-2">
+                        <button className="bg-green-600 text-white rounded px-3 py-1 text-sm">
+                          Tandai Selesai
+                        </button>
+                      </form>
+                    )}
+                    {work.status === "COMPLETED" && !work.hirer_confirmed && (
+                      <p className="text-sm text-amber-600 mt-1">Menunggu konfirmasi hirer.</p>
+                    )}
+                    {work.status === "COMPLETED" && work.hirer_confirmed && (
+                      <p className="text-sm text-green-700 mt-1">
+                        Pekerjaan selesai — dikonfirmasi hirer.
+                      </p>
+                    )}
+                  </div>
+                );
+              })()}
+
+              {(() => {
+                const contract = contracts.get(a.id);
+                if (!contract) return null;
+                const payment = payments.get(contract.id);
+                if (!payment) return null;
+                return (
+                  <div className="mt-3 border-t pt-3">
+                    <div className="flex items-center gap-2">
+                      <span className="text-sm font-medium">Payment:</span>
+                      <span className="text-xs bg-gray-100 rounded px-2 py-1">
+                        {payment.status}
+                      </span>
+                      <span className="text-sm text-gray-600">
+                        Rp {payment.amount ?? "-"}
+                      </span>
+                    </div>
+                    {payment.status === "PENDING" && (
+                      <p className="text-sm text-gray-600 mt-1">
+                        Menunggu hirer membayar (simulasi).
+                      </p>
+                    )}
+                    {payment.status === "SIMULATED_PAID" && (
+                      <p className="text-sm text-blue-700 mt-1">
+                        Dana ditahan (escrow simulasi) — rilis setelah pekerjaan
+                        dikonfirmasi hirer.
+                      </p>
+                    )}
+                    {payment.status === "RELEASED" && (
+                      <p className="text-sm text-green-700 mt-1">
+                        Dana dirilis — kontrak selesai.
                       </p>
                     )}
                   </div>
