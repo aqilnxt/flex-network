@@ -164,6 +164,20 @@
 - [x] Task 9 — Build, typecheck, lint, E2E smoke (start→complete→confirm; skip transisi ditolak; payments tetap PENDING; RLS REST 42501 + isolation)
 - [x] Task 10 — Update PROGRESS.md
 
+#### Module Payment
+
+- [x] Spec: `docs/superpowers/specs/2026-08-31-payment-module-design.md`
+- [x] Implementation plan: `docs/superpowers/plans/2026-08-31-payment-module.md`
+- [x] Task 1 — Migration `014_payment_rls.sql` (select involved/admin, update hirer-only) + push + verifikasi 3 policy
+- [x] Task 2 — Schemas `modules/payment/schemas.ts` (`paymentStatusSchema`)
+- [x] Task 3 — Service `modules/payment/service.ts` (simulatePayment/releasePayment + state machine + gate work + side effect contract COMPLETED)
+- [x] Task 4 — Queries `modules/payment/queries.ts` (`getByContractId`, `listForContracts` batch)
+- [x] Task 5 — Server Actions `modules/payment/actions.ts` (simulatePayment/releasePayment, HIRER + redirectTo)
+- [x] Task 6 — My Applications badge payment (TALENT, read-only)
+- [x] Task 7 — Detail contract blok payment + aksi Bayar/Rilis (HIRER)
+- [x] Task 8 — Build, typecheck, lint, E2E smoke (bayar→rilis; gate-fail saat confirm di-reset; side effect contract COMPLETED; RLS REST talent PATCH 0 rows + anon []; UI 2 role)
+- [x] Task 9 — Update PROGRESS.md
+
 ---
 
 ### Sedang Dikerjakan
@@ -215,6 +229,10 @@
 - 2026-08-31: Work transisi status = TALENT saja (BRD 16.2); HIRER hanya confirm completion (verification event, irreversible)
 - 2026-08-31: Payment RELEASED = tanggung jawab modul Payment (sprint berikutnya); Work hanya expose gate `getByContractId` (COMPLETED + hirer_confirmed); gate Rating nanti = work COMPLETED
 - 2026-08-31: Work actions redirect balik via parameter redirectTo (dipakai 2 halaman: /applications dan /contracts/[id])
+- 2026-08-31: Payment SIMULATED_PAID & RELEASED aktor = HIRER (API-SPEC 12.3/12.4); tombol "Bayar (Simulasi)" + "Rilis Dana (Simulasi)" di detail contract
+- 2026-08-31: Contract COMPLETED = side effect modul Payment saat RELEASED (satu-satunya jalur; set status + completed_at)
+- 2026-08-31: RLS payments UPDATE = hirer-only (talent read-only di level RLS); notification side effect defer
+- 2026-08-31: Dua update berurutan non-atomik (payments → contracts) diterima utk simulated escrow; RPC/trigger ditolak demi konsistensi pola service-layer
 
 ### Next Task
 
@@ -229,4 +247,4 @@
 
 ---
 
-**Status Terakhir:** ✅ Sprint 8 — Module Work **selesai** (Task 1–10). Build, typecheck, lint, E2E smoke sukses. Next milestone: Payment (SIMULATED_PAID → RELEASED via gate work).
+**Status Terakhir:** ✅ Sprint 9 — Module Payment **selesai** (Task 1–9). Build, typecheck, lint, E2E smoke sukses. Next milestone: Rating (gate work COMPLETED) → Verified Work History.
