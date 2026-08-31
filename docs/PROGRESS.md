@@ -134,6 +134,21 @@
 - [x] Task 9 — Build, typecheck, lint, E2E smoke (approve/reject path, NOT_REQUIRED senyap, gate meeting, RLS REST)
 - [x] Task 10 — Update PROGRESS.md
 
+#### Module Contract
+
+- [x] Implementation plan: `docs/superpowers/plans/2026-08-29-contract-module.md` (spec: `docs/superpowers/specs/2026-08-29-contract-module-design.md`)
+- [x] Task 1 — Migration `012_contract_rls.sql` (select involved/admin, insert hirer gated, update involved; seed insert policies payments/works) + push + verifikasi 5 policy
+- [x] Task 2 — Schemas `modules/contract/schemas.ts` (create/update, tanpa field state)
+- [x] Task 3 — Service `modules/contract/service.ts` (create/edit/propose/agree/decline + contract_number + side effects seed payments/works)
+- [x] Task 4 — Queries `modules/contract/queries.ts` (`getById`, `getByApplicationId` gate Work, list batch)
+- [x] Task 5 — Server Actions `modules/contract/actions.ts` (create/update/propose/agree/decline)
+- [x] Task 6 — Form create + edit contract (client components)
+- [x] Task 7 — Detail contract page + aksi agree/decline/propose + edit page
+- [x] Task 8 — Hirer applicant list: form create + badge/link kontrak
+- [x] Task 9 — My Applications blok kontrak + aksi agree/decline (TALENT)
+- [x] Task 10 — Build, typecheck, lint, E2E smoke (create→edit→propose→agree→ACTIVE + seed payments/works; decline path TERMINATED; gate meeting/consent/duplikat; RLS REST 42501 + isolation)
+- [x] Task 11 — Update PROGRESS.md
+
 ---
 
 ### Sedang Dikerjakan
@@ -178,6 +193,10 @@
 - 2026-08-29: Consent APPROVED & REJECTED terminal; aktor TALENT (simulated declaration); is_minor dibaca apa adanya (defer pengisian)
 - 2026-08-29: Contract gate = getConsentDecision (eligible iff !required || APPROVED), di-enforce modul Contract
 - 2026-08-29: Smoke consent menemukan `is_minor` ada di `talent_profiles`, bukan `profiles` → fix queries (`getRequirementMap` batch talent_profiles) + service (`talent_profiles.maybeSingle`)
+- 2026-08-29: Contract propose = auto-agree HIRER (proposed_by + hirer_agreed); satu tombol agree TALENT cukup untuk ACTIVE
+- 2026-08-29: Contract ACTIVE side effects: service insert payments (PENDING, amount=compensation) + works (NOT_STARTED); 23505 dianggap sukses (idempotent)
+- 2026-08-29: Contract COMPLETED dicapai via alur Work (modul berikutnya); decline hanya dari PENDING_AGREEMENT → TERMINATED
+- 2026-08-29: Contract gate = application SELECTED + meeting COMPLETED + getConsentDecision eligible; gate modul Work = getByApplicationId status ACTIVE
 
 ### Next Task
 
@@ -187,7 +206,8 @@
 4. ~~Admin dashboard redirect~~ ✅ Route ADMIN → `/dashboard/admin` (page + link moderasi). Typecheck lulus.
 5. ~~Module Meeting~~ ✅ Spec + plan + 10 task selesai, E2E smoke lulus.
 6. ~~Module Consent~~ ✅ Spec + plan + 10 task selesai, E2E smoke + RLS lulus.
+7. ~~Module Contract~~ ✅ Spec + plan + 11 task selesai, E2E smoke + RLS lulus.
 
 ---
 
-**Status Terakhir:** ✅ Sprint 6 — Module Consent **selesai** (Task 1–10). Build, typecheck, lint, E2E smoke sukses (1 bug fix: is_minor di talent_profiles). Next milestone: Contract → Payment.
+**Status Terakhir:** ✅ Sprint 7 — Module Contract **selesai** (Task 1–11). Build, typecheck, lint, E2E smoke sukses (1 fix kecil: narrowing `data` di actions). Next milestone: Work → Payment.
