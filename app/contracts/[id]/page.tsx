@@ -4,6 +4,11 @@ import { requireUser } from "@/modules/lib/auth";
 import { getById } from "@/modules/contract/queries";
 import { getByContractId } from "@/modules/work/queries";
 import { startWork, completeWork, confirmWork } from "@/modules/work/actions";
+import { getByContractId as getPaymentByContractId } from "@/modules/payment/queries";
+import {
+  simulatePayment,
+  releasePayment,
+} from "@/modules/payment/actions";
 import {
   proposeContract,
   agreeContract,
@@ -27,6 +32,7 @@ export default async function ContractDetailPage({
     ((isHirer && !contract.hirer_agreed) ||
       (!isHirer && !contract.talent_agreed));
   const work = await getByContractId(id);
+  const payment = await getPaymentByContractId(id);
 
   return (
     <div className="p-8 max-w-2xl">
@@ -143,6 +149,66 @@ export default async function ContractDetailPage({
             )}
           {work.status === "COMPLETED" && !work.hirer_confirmed && (
             <p className="text-sm text-amber-600">Menunggu konfirmasi hirer.</p>
+          )}
+        </div>
+      )}
+
+      {payment && (
+        <div className="mt-3 border rounded p-4 text-sm flex flex-col gap-2">
+          <p>
+            <span className="font-medium">Payment:</span>{" "}
+            <span className="text-xs bg-gray-100 rounded px-2 py-1">
+              {payment.status}
+            </span>
+            <span className="ml-2">Rp {payment.amount ?? "-"}</span>
+          </p>
+          {payment.held_at && (
+            <p className="text-gray-600">
+              Ditahan: {new Date(payment.held_at).toLocaleString("id-ID")}
+            </p>
+          )}
+          {payment.released_at && (
+            <p className="text-gray-600">
+              Dirilis: {new Date(payment.released_at).toLocaleString("id-ID")}
+            </p>
+          )}
+          {isHirer &&
+            contract.status === "ACTIVE" &&
+            payment.status === "PENDING" && (
+              <form
+                action={simulatePayment.bind(null, contract.id, `/contracts/${contract.id}`)}
+                className="mt-2"
+              >
+                <button className="bg-blue-600 text-white rounded px-3 py-1 text-sm">
+                  Bayar (Simulasi)
+                </button>
+              </form>
+            )}
+          {isHirer &&
+            contract.status === "ACTIVE" &&
+            payment.status === "SIMULATED_PAID" &&
+            work?.status === "COMPLETED" &&
+            work.hirer_confirmed && (
+              <form
+                action={releasePayment.bind(null, contract.id, `/contracts/${contract.id}`)}
+                className="mt-2"
+              >
+                <button className="bg-green-600 text-white rounded px-3 py-1 text-sm">
+                  Rilis Dana (Simulasi)
+                </button>
+              </form>
+            )}
+          {payment.status === "SIMULATED_PAID" &&
+            !(work?.status === "COMPLETED" && work.hirer_confirmed) && (
+              <p className="text-sm text-amber-600">
+                Dana ditahan — rilis setelah pekerjaan selesai &amp; dikonfirmasi
+                hirer.
+              </p>
+            )}
+          {payment.status === "RELEASED" && (
+            <p className="text-sm text-green-700">
+              Dana dirilis (simulasi) — kontrak selesai.
+            </p>
           )}
         </div>
       )}
