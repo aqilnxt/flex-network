@@ -178,6 +178,20 @@
 - [x] Task 8 — Build, typecheck, lint, E2E smoke (bayar→rilis; gate-fail saat confirm di-reset; side effect contract COMPLETED; RLS REST talent PATCH 0 rows + anon []; UI 2 role)
 - [x] Task 9 — Update PROGRESS.md
 
+#### Module Rating
+
+- [x] Spec: `docs/superpowers/specs/2026-08-31-rating-module-design.md`
+- [x] Implementation plan: `docs/superpowers/plans/2026-08-31-rating-module.md`
+- [x] Task 1 — Migration `015_rating_rls.sql` (select involved/admin, insert involved + anti-spoof rater_id/rating_type) + push + verifikasi 2 policy
+- [x] Task 2 — Schemas `modules/rating/schemas.ts` (`ratingSchema`: contractId + score 1–5 + reviewText ops)
+- [x] Task 3 — Service `modules/rating/service.ts` (submitRating + gate work COMPLETED + derive ratingType/rateeId/work_id + 23505 error bisnis)
+- [x] Task 4 — Queries `modules/rating/queries.ts` (`listByContractId`, `listForContracts` map→array dua arah)
+- [x] Task 5 — Server Actions `modules/rating/actions.ts` (submitRating, requireUser dua role + FormData + redirectTo)
+- [x] Task 6 — Detail contract blok rating (form + badge + rating pihak lain read-only)
+- [x] Task 7 — My Applications blok rating TALENT + cleanup duplikat blok work
+- [x] Task 8 — Build, typecheck, lint, E2E smoke (rate dua arah; gate-fail form hilang saat IN_PROGRESS; restore; RLS REST involved 2 row / asing [] / anon [] / mismatch 42501 / spoof rater 42501 / PATCH 0 rows)
+- [x] Task 9 — Update PROGRESS.md
+
 ---
 
 ### Sedang Dikerjakan
@@ -233,6 +247,12 @@
 - 2026-08-31: Contract COMPLETED = side effect modul Payment saat RELEASED (satu-satunya jalur; set status + completed_at)
 - 2026-08-31: RLS payments UPDATE = hirer-only (talent read-only di level RLS); notification side effect defer
 - 2026-08-31: Dua update berurutan non-atomik (payments → contracts) diterima utk simulated escrow; RPC/trigger ditolak demi konsistensi pola service-layer
+- 2026-08-31: Rating gate = work.status COMPLETED saja (API-SPEC 14.2) — tanpa gate payment RELEASED (keputusan user); rating sah saat contract masih ACTIVE
+- 2026-08-31: Rating immutable — tanpa UPDATE/DELETE di UI/service/RLS; UNIQUE(work_id, rater_id, rating_type) + 23505 diterjemahkan error bisnis (beda dari precedent seeding yang idempotent-success)
+- 2026-08-31: ratingType/rateeId/raterId/work_id derived server-side dari posisi rater; client hanya kirim contractId + score + reviewText
+- 2026-08-31: RLS ratings INSERT anti-spoof: rater_id = auth.uid() + rating_type konsisten posisi pihak kontrak (talent→TALENT_RATES_HIRER, hirer→HIRER_RATES_TALENT)
+- 2026-08-31: Aktor rating = TALENT & HIRER (dua arah) — action pakai requireUser, ownership di service + RLS; admin read-only
+- 2026-08-31: Cleanup bug lama: duplikat blok Work di app/applications/page.tsx (render 2x sejak task UI Work) dihapus saat integrasi rating
 
 ### Next Task
 
@@ -244,7 +264,8 @@
 6. ~~Module Consent~~ ✅ Spec + plan + 10 task selesai, E2E smoke + RLS lulus.
 7. ~~Module Contract~~ ✅ Spec + plan + 11 task selesai, E2E smoke + RLS lulus.
 8. ~~Module Work~~ ✅ Spec + plan + 10 task selesai, E2E smoke + RLS lulus.
+9. ~~Module Rating~~ ✅ Spec + plan + 9 task selesai, E2E smoke + RLS lulus.
 
 ---
 
-**Status Terakhir:** ✅ Sprint 9 — Module Payment **selesai** (Task 1–9). Build, typecheck, lint, E2E smoke sukses. Next milestone: Rating (gate work COMPLETED) → Verified Work History.
+**Status Terakhir:** ✅ Sprint 10 — Module Rating **selesai** (Task 1–9). Build, typecheck, lint, E2E smoke + RLS sukses. Next milestone: Verified Work History (PENDING → VERIFIED, gate rating selesai).
