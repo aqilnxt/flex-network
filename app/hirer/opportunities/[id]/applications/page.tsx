@@ -10,7 +10,9 @@ import {
 import { listForApplications } from "@/modules/meeting/queries";
 import { completeMeeting, cancelMeeting } from "@/modules/meeting/actions";
 import { listForApplications as listConsentsForApplications } from "@/modules/consent/queries";
+import { listForApplications as listContractsForApplications } from "@/modules/contract/queries";
 import { ScheduleMeetingForm } from "./schedule-meeting-form";
+import { ContractCreateForm } from "./contract-create-form";
 
 export default async function ApplicantsPage({
   params,
@@ -31,6 +33,9 @@ export default async function ApplicantsPage({
     (applications ?? []).map((a) => a.id),
   );
   const consents = await listConsentsForApplications(
+    (applications ?? []).map((a) => a.id),
+  );
+  const contracts = await listContractsForApplications(
     (applications ?? []).map((a) => a.id),
   );
 
@@ -164,6 +169,27 @@ export default async function ApplicantsPage({
                   )}
                 </div>
               );
+            })()}
+
+            {(() => {
+              const contract = contracts.get(a.id);
+              if (a.status !== "SELECTED") return null;
+              if (contract) {
+                return (
+                  <div className="mt-3 border-t pt-3 text-sm">
+                    Kontrak:{" "}
+                    <span className="text-xs bg-gray-100 rounded px-2 py-1">
+                      {contract.status}
+                    </span>{" "}
+                    <Link href={`/contracts/${contract.id}`} className="text-blue-600">
+                      Lihat detail
+                    </Link>
+                  </div>
+                );
+              }
+              const meeting = meetings.get(a.id);
+              if (meeting?.status !== "COMPLETED") return null;
+              return <ContractCreateForm applicationId={a.id} />;
             })()}
           </div>
         ))}
