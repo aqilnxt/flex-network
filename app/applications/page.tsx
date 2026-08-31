@@ -15,6 +15,8 @@ import {
 import { listForContracts } from "@/modules/work/queries";
 import { startWork, completeWork } from "@/modules/work/actions";
 import { listForContracts as listPaymentsForContracts } from "@/modules/payment/queries";
+import { listForContracts as listRatingsForContracts } from "@/modules/rating/queries";
+import { submitRating } from "@/modules/rating/actions";
 import { ConsentRequestForm } from "./consent-request-form";
 
 export default async function MyApplicationsPage() {
@@ -30,6 +32,9 @@ export default async function MyApplicationsPage() {
     [...contracts.values()].map((c) => c.id),
   );
   const payments = await listPaymentsForContracts(
+    [...contracts.values()].map((c) => c.id),
+  );
+  const ratings = await listRatingsForContracts(
     [...contracts.values()].map((c) => c.id),
   );
 
@@ -228,50 +233,6 @@ export default async function MyApplicationsPage() {
               {(() => {
                 const contract = contracts.get(a.id);
                 if (!contract) return null;
-                const work = works.get(contract.id);
-                if (!work) return null;
-                return (
-                  <div className="mt-3 border-t pt-3">
-                    <div className="flex items-center gap-2">
-                      <span className="text-sm font-medium">Work:</span>
-                      <span className="text-xs bg-gray-100 rounded px-2 py-1">
-                        {work.status}
-                      </span>
-                      {work.hirer_confirmed && (
-                        <span className="text-xs bg-green-100 text-green-700 rounded px-2 py-1">
-                          Dikonfirmasi HIRER
-                        </span>
-                      )}
-                    </div>
-                    {contract.status === "ACTIVE" && work.status === "NOT_STARTED" && (
-                      <form action={startWork.bind(null, contract.id, "/applications")} className="mt-2">
-                        <button className="bg-blue-600 text-white rounded px-3 py-1 text-sm">
-                          Mulai Kerja
-                        </button>
-                      </form>
-                    )}
-                    {contract.status === "ACTIVE" && work.status === "IN_PROGRESS" && (
-                      <form action={completeWork.bind(null, contract.id, "/applications")} className="mt-2">
-                        <button className="bg-green-600 text-white rounded px-3 py-1 text-sm">
-                          Tandai Selesai
-                        </button>
-                      </form>
-                    )}
-                    {work.status === "COMPLETED" && !work.hirer_confirmed && (
-                      <p className="text-sm text-amber-600 mt-1">Menunggu konfirmasi hirer.</p>
-                    )}
-                    {work.status === "COMPLETED" && work.hirer_confirmed && (
-                      <p className="text-sm text-green-700 mt-1">
-                        Pekerjaan selesai — dikonfirmasi hirer.
-                      </p>
-                    )}
-                  </div>
-                );
-              })()}
-
-              {(() => {
-                const contract = contracts.get(a.id);
-                if (!contract) return null;
                 const payment = payments.get(contract.id);
                 if (!payment) return null;
                 return (
@@ -299,6 +260,76 @@ export default async function MyApplicationsPage() {
                     {payment.status === "RELEASED" && (
                       <p className="text-sm text-green-700 mt-1">
                         Dana dirilis — kontrak selesai.
+                      </p>
+                    )}
+                  </div>
+                );
+              })()}
+
+              {(() => {
+                const contract = contracts.get(a.id);
+                if (!contract) return null;
+                const work = works.get(contract.id);
+                if (!work) return null;
+                const rows = ratings.get(contract.id) ?? [];
+                const myRating = rows.find((r) => r.rater_id === user.id);
+                const rateeRating = rows.find((r) => r.ratee_id === user.id);
+                return (
+                  <div className="mt-3 border-t pt-3">
+                    <div className="flex items-center gap-2">
+                      <span className="text-sm font-medium">Rating:</span>
+                      {myRating ? (
+                        <>
+                          <span className="text-xs bg-green-100 text-green-700 rounded px-2 py-1">
+                            {myRating.score}/5
+                          </span>
+                          {myRating.review_text && (
+                            <span className="text-sm text-gray-600 truncate max-w-xs">
+                              “{myRating.review_text}”
+                            </span>
+                          )}
+                        </>
+                      ) : work.status === "COMPLETED" ? (
+                        <form
+                          action={submitRating.bind(null, contract.id, "/applications")}
+                          className="flex items-center gap-2"
+                        >
+                          <select
+                            name="score"
+                            required
+                            defaultValue=""
+                            className="border rounded px-2 py-1 text-sm"
+                          >
+                            <option value="" disabled>
+                              Nilai
+                            </option>
+                            {[1, 2, 3, 4, 5].map((s) => (
+                              <option key={s} value={s}>
+                                {s} — {["Buruk", "Kurang", "Cukup", "Baik", "Sangat baik"][s - 1]}
+                              </option>
+                            ))}
+                          </select>
+                          <input
+                            type="text"
+                            name="reviewText"
+                            maxLength={2000}
+                            placeholder="Review (opsional)"
+                            className="border rounded px-2 py-1 text-sm"
+                          />
+                          <button className="bg-blue-600 text-white rounded px-3 py-1 text-sm">
+                            Kirim Rating
+                          </button>
+                        </form>
+                      ) : (
+                        <span className="text-sm text-amber-600">
+                          Rating tersedia setelah pekerjaan selesai.
+                        </span>
+                      )}
+                    </div>
+                    {rateeRating && (
+                      <p className="text-sm text-gray-600 mt-1">
+                        Rating dari HIRER: {rateeRating.score}/5
+                        {rateeRating.review_text ? ` — “${rateeRating.review_text}”` : ""}
                       </p>
                     )}
                   </div>
