@@ -12,6 +12,8 @@ import {
   agreeContract,
   declineContract,
 } from "@/modules/contract/actions";
+import { listForContracts } from "@/modules/work/queries";
+import { startWork, completeWork } from "@/modules/work/actions";
 import { ConsentRequestForm } from "./consent-request-form";
 
 export default async function MyApplicationsPage() {
@@ -23,6 +25,9 @@ export default async function MyApplicationsPage() {
   const consents = await listConsentsForApplications(appIds);
   const requirements = await getRequirementMap(appIds);
   const contracts = await listContractsForApplications(appIds);
+  const works = await listForContracts(
+    [...contracts.values()].map((c) => c.id),
+  );
 
   return (
     <div className="p-8 max-w-3xl">
@@ -167,6 +172,50 @@ export default async function MyApplicationsPage() {
                     {contract.status === "ACTIVE" && (
                       <p className="text-sm text-green-700 mt-1">
                         Kontrak aktif — payment disiapkan.
+                      </p>
+                    )}
+                  </div>
+                );
+              })()}
+
+              {(() => {
+                const contract = contracts.get(a.id);
+                if (!contract) return null;
+                const work = works.get(contract.id);
+                if (!work) return null;
+                return (
+                  <div className="mt-3 border-t pt-3">
+                    <div className="flex items-center gap-2">
+                      <span className="text-sm font-medium">Work:</span>
+                      <span className="text-xs bg-gray-100 rounded px-2 py-1">
+                        {work.status}
+                      </span>
+                      {work.hirer_confirmed && (
+                        <span className="text-xs bg-green-100 text-green-700 rounded px-2 py-1">
+                          Dikonfirmasi HIRER
+                        </span>
+                      )}
+                    </div>
+                    {contract.status === "ACTIVE" && work.status === "NOT_STARTED" && (
+                      <form action={startWork.bind(null, contract.id, "/applications")} className="mt-2">
+                        <button className="bg-blue-600 text-white rounded px-3 py-1 text-sm">
+                          Mulai Kerja
+                        </button>
+                      </form>
+                    )}
+                    {contract.status === "ACTIVE" && work.status === "IN_PROGRESS" && (
+                      <form action={completeWork.bind(null, contract.id, "/applications")} className="mt-2">
+                        <button className="bg-green-600 text-white rounded px-3 py-1 text-sm">
+                          Tandai Selesai
+                        </button>
+                      </form>
+                    )}
+                    {work.status === "COMPLETED" && !work.hirer_confirmed && (
+                      <p className="text-sm text-amber-600 mt-1">Menunggu konfirmasi hirer.</p>
+                    )}
+                    {work.status === "COMPLETED" && work.hirer_confirmed && (
+                      <p className="text-sm text-green-700 mt-1">
+                        Pekerjaan selesai — dikonfirmasi hirer.
                       </p>
                     )}
                   </div>
