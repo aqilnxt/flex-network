@@ -13,6 +13,8 @@ import { listForApplications as listConsentsForApplications } from "@/modules/co
 import { listForApplications as listContractsForApplications } from "@/modules/contract/queries";
 import { ScheduleMeetingForm } from "./schedule-meeting-form";
 import { ContractCreateForm } from "./contract-create-form";
+import { listForContracts } from "@/modules/work/queries";
+import { confirmWork } from "@/modules/work/actions";
 
 export default async function ApplicantsPage({
   params,
@@ -37,6 +39,9 @@ export default async function ApplicantsPage({
   );
   const contracts = await listContractsForApplications(
     (applications ?? []).map((a) => a.id),
+  );
+  const works = await listForContracts(
+    [...contracts.values()].map((c) => c.id),
   );
 
   const isFull = selectedCount >= maxTalent;
@@ -190,6 +195,49 @@ export default async function ApplicantsPage({
               const meeting = meetings.get(a.id);
               if (meeting?.status !== "COMPLETED") return null;
               return <ContractCreateForm applicationId={a.id} />;
+            })()}
+
+            {(() => {
+              const contract = contracts.get(a.id);
+              if (!contract) return null;
+              const work = works.get(contract.id);
+              if (!work) return null;
+              return (
+                <div className="mt-3 border-t pt-3 text-sm">
+                  <div className="flex items-center gap-2">
+                    <span className="text-sm font-medium">Work:</span>
+                    <span className="text-xs bg-gray-100 rounded px-2 py-1">
+                      {work.status}
+                    </span>
+                    {work.hirer_confirmed && (
+                      <span className="text-xs bg-green-100 text-green-700 rounded px-2 py-1">
+                        Dikonfirmasi
+                      </span>
+                    )}
+                  </div>
+                  {contract.status === "ACTIVE" &&
+                    work.status === "COMPLETED" &&
+                    !work.hirer_confirmed && (
+                      <form
+                        action={confirmWork.bind(
+                          null,
+                          contract.id,
+                          `/hirer/opportunities/${id}/applications`,
+                        )}
+                        className="mt-2"
+                      >
+                        <button className="bg-green-600 text-white rounded px-3 py-1 text-sm">
+                          Konfirmasi Selesai
+                        </button>
+                      </form>
+                    )}
+                  {work.status === "COMPLETED" && work.hirer_confirmed && (
+                    <p className="text-sm text-green-700 mt-1">
+                      Pekerjaan dikonfirmasi — payment dapat dilepas (modul Payment).
+                    </p>
+                  )}
+                </div>
+              );
             })()}
           </div>
         ))}
