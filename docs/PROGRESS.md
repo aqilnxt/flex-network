@@ -149,6 +149,21 @@
 - [x] Task 10 — Build, typecheck, lint, E2E smoke (create→edit→propose→agree→ACTIVE + seed payments/works; decline path TERMINATED; gate meeting/consent/duplikat; RLS REST 42501 + isolation)
 - [x] Task 11 — Update PROGRESS.md
 
+#### Module Work
+
+- [x] Spec: `docs/superpowers/specs/2026-08-31-work-module-design.md`
+- [x] Implementation plan: `docs/superpowers/plans/2026-08-31-work-module.md`
+- [x] Task 1 — Migration `013_work_rls.sql` (select involved/admin, update involved) + push + verifikasi 3 policy
+- [x] Task 2 — Schemas `modules/work/schemas.ts` (`workStatusSchema`)
+- [x] Task 3 — Service `modules/work/service.ts` (startWork/completeWork/confirmCompletion + state machine + confirm gate)
+- [x] Task 4 — Queries `modules/work/queries.ts` (`getByContractId` gate Payment/Rating, `listForContracts` batch)
+- [x] Task 5 — Server Actions `modules/work/actions.ts` (startWork/completeWork/confirmWork + redirectTo)
+- [x] Task 6 — My Applications blok work + aksi mulai/selesai (TALENT)
+- [x] Task 7 — Applicant list badge work + tombol konfirmasi selesai (HIRER)
+- [x] Task 8 — Detail contract blok work + aksi
+- [x] Task 9 — Build, typecheck, lint, E2E smoke (start→complete→confirm; skip transisi ditolak; payments tetap PENDING; RLS REST 42501 + isolation)
+- [x] Task 10 — Update PROGRESS.md
+
 ---
 
 ### Sedang Dikerjakan
@@ -197,6 +212,9 @@
 - 2026-08-29: Contract ACTIVE side effects: service insert payments (PENDING, amount=compensation) + works (NOT_STARTED); 23505 dianggap sukses (idempotent)
 - 2026-08-29: Contract COMPLETED dicapai via alur Work (modul berikutnya); decline hanya dari PENDING_AGREEMENT → TERMINATED
 - 2026-08-29: Contract gate = application SELECTED + meeting COMPLETED + getConsentDecision eligible; gate modul Work = getByApplicationId status ACTIVE
+- 2026-08-31: Work transisi status = TALENT saja (BRD 16.2); HIRER hanya confirm completion (verification event, irreversible)
+- 2026-08-31: Payment RELEASED = tanggung jawab modul Payment (sprint berikutnya); Work hanya expose gate `getByContractId` (COMPLETED + hirer_confirmed); gate Rating nanti = work COMPLETED
+- 2026-08-31: Work actions redirect balik via parameter redirectTo (dipakai 2 halaman: /applications dan /contracts/[id])
 
 ### Next Task
 
@@ -207,7 +225,8 @@
 5. ~~Module Meeting~~ ✅ Spec + plan + 10 task selesai, E2E smoke lulus.
 6. ~~Module Consent~~ ✅ Spec + plan + 10 task selesai, E2E smoke + RLS lulus.
 7. ~~Module Contract~~ ✅ Spec + plan + 11 task selesai, E2E smoke + RLS lulus.
+8. ~~Module Work~~ ✅ Spec + plan + 10 task selesai, E2E smoke + RLS lulus.
 
 ---
 
-**Status Terakhir:** ✅ Sprint 7 — Module Contract **selesai** (Task 1–11). Build, typecheck, lint, E2E smoke sukses (1 fix kecil: narrowing `data` di actions). Next milestone: Work → Payment.
+**Status Terakhir:** ✅ Sprint 8 — Module Work **selesai** (Task 1–10). Build, typecheck, lint, E2E smoke sukses. Next milestone: Payment (SIMULATED_PAID → RELEASED via gate work).
