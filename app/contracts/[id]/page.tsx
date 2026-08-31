@@ -14,6 +14,8 @@ import {
   agreeContract,
   declineContract,
 } from "@/modules/contract/actions";
+import { listByContractId } from "@/modules/rating/queries";
+import { submitRating } from "@/modules/rating/actions";
 
 export default async function ContractDetailPage({
   params,
@@ -33,6 +35,10 @@ export default async function ContractDetailPage({
       (!isHirer && !contract.talent_agreed));
   const work = await getByContractId(id);
   const payment = await getPaymentByContractId(id);
+  const ratings = await listByContractId(id);
+  const myRating = ratings.find((r) => r.rater_id === user.id);
+  const rateeRating = ratings.find((r) => r.ratee_id === user.id);
+  const isTalent = user.id === contract.talent_id;
 
   return (
     <div className="p-8 max-w-2xl">
@@ -212,6 +218,72 @@ export default async function ContractDetailPage({
           )}
         </div>
       )}
+
+      <div className="mt-3 border rounded p-4 text-sm flex flex-col gap-2">
+        <p>
+          <span className="font-medium">Rating:</span>{" "}
+          {myRating ? (
+            <>
+              <span className="text-xs bg-green-100 text-green-700 rounded px-2 py-1">
+                {myRating.score}/5
+              </span>
+              {myRating.review_text && (
+                <span className="ml-2 text-gray-600">
+                  “{myRating.review_text}”
+                </span>
+              )}
+            </>
+          ) : work?.status === "COMPLETED" ? (
+            <form
+              action={submitRating.bind(null, contract.id, `/contracts/${contract.id}`)}
+              className="flex flex-col gap-2 mt-2"
+            >
+              <select
+                name="score"
+                required
+                defaultValue=""
+                className="border rounded px-2 py-1 text-sm max-w-xs"
+              >
+                <option value="" disabled>
+                  Pilih nilai
+                </option>
+                {[1, 2, 3, 4, 5].map((s) => (
+                  <option key={s} value={s}>
+                    {s} — {["Buruk", "Kurang", "Cukup", "Baik", "Sangat baik"][s - 1]}
+                  </option>
+                ))}
+              </select>
+              <textarea
+                name="reviewText"
+                maxLength={2000}
+                placeholder="Review (opsional)"
+                className="border rounded px-2 py-1 text-sm max-w-xs"
+              />
+              <button className="bg-blue-600 text-white rounded px-3 py-1 text-sm max-w-fit">
+                Kirim Rating
+              </button>
+            </form>
+          ) : (
+            <span className="text-amber-600">
+              Rating tersedia setelah pekerjaan selesai.
+            </span>
+          )}
+        </p>
+        {myRating && (
+          <p className="text-gray-500 text-xs">
+            Dirating: {new Date(myRating.created_at).toLocaleString("id-ID")}
+          </p>
+        )}
+        {rateeRating && (
+          <p className="text-gray-600">
+            Rating dari {isTalent ? "HIRER" : "TALENT"}:{" "}
+            <span className="text-xs bg-gray-100 rounded px-2 py-1">
+              {rateeRating.score}/5
+            </span>
+            {rateeRating.review_text ? ` — “${rateeRating.review_text}”` : ""}
+          </p>
+        )}
+      </div>
 
       <div className="flex gap-2 mt-4">
         {isHirer && contract.status === "DRAFT" && (
