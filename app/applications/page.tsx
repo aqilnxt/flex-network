@@ -7,6 +7,11 @@ import {
   getRequirementMap,
 } from "@/modules/consent/queries";
 import { approveConsent, rejectConsent } from "@/modules/consent/actions";
+import { listForApplications as listContractsForApplications } from "@/modules/contract/queries";
+import {
+  agreeContract,
+  declineContract,
+} from "@/modules/contract/actions";
 import { ConsentRequestForm } from "./consent-request-form";
 
 export default async function MyApplicationsPage() {
@@ -17,6 +22,7 @@ export default async function MyApplicationsPage() {
   const meetings = await listForApplications(appIds);
   const consents = await listConsentsForApplications(appIds);
   const requirements = await getRequirementMap(appIds);
+  const contracts = await listContractsForApplications(appIds);
 
   return (
     <div className="p-8 max-w-3xl">
@@ -122,6 +128,45 @@ export default async function MyApplicationsPage() {
                         <span className="text-xs bg-gray-100 rounded px-2 py-1">
                           {consent.status}
                         </span>
+                      </p>
+                    )}
+                  </div>
+                );
+              })()}
+
+              {(() => {
+                const contract = contracts.get(a.id);
+                if (!contract) return null;
+                return (
+                  <div className="mt-3 border-t pt-3">
+                    <div className="flex items-center gap-2">
+                      <span className="text-sm font-medium">
+                        Kontrak: {contract.role_title ?? "-"}
+                      </span>
+                      <span className="text-xs bg-gray-100 rounded px-2 py-1">
+                        {contract.status}
+                      </span>
+                    </div>
+                    <Link href={`/contracts/${contract.id}`} className="text-sm text-blue-600">
+                      Lihat kontrak
+                    </Link>
+                    {contract.status === "PENDING_AGREEMENT" && !contract.talent_agreed && (
+                      <div className="flex gap-2 mt-2">
+                        <form action={agreeContract.bind(null, contract.id)}>
+                          <button className="bg-green-600 text-white rounded px-3 py-1 text-sm">
+                            Setujui Kontrak
+                          </button>
+                        </form>
+                        <form action={declineContract.bind(null, contract.id)}>
+                          <button className="bg-red-600 text-white rounded px-3 py-1 text-sm">
+                            Tolak
+                          </button>
+                        </form>
+                      </div>
+                    )}
+                    {contract.status === "ACTIVE" && (
+                      <p className="text-sm text-green-700 mt-1">
+                        Kontrak aktif — payment disiapkan.
                       </p>
                     )}
                   </div>
