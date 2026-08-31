@@ -2,6 +2,8 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { requireUser } from "@/modules/lib/auth";
 import { getById } from "@/modules/contract/queries";
+import { getByContractId } from "@/modules/work/queries";
+import { startWork, completeWork, confirmWork } from "@/modules/work/actions";
 import {
   proposeContract,
   agreeContract,
@@ -24,6 +26,7 @@ export default async function ContractDetailPage({
     contract.status === "PENDING_AGREEMENT" &&
     ((isHirer && !contract.hirer_agreed) ||
       (!isHirer && !contract.talent_agreed));
+  const work = await getByContractId(id);
 
   return (
     <div className="p-8 max-w-2xl">
@@ -87,6 +90,62 @@ export default async function ContractDetailPage({
           <p className="text-gray-600">Alasan: {contract.decline_reason}</p>
         )}
       </div>
+
+      {work && (
+        <div className="mt-3 border rounded p-4 text-sm flex flex-col gap-2">
+          <p>
+            <span className="font-medium">Work:</span>{" "}
+            <span className="text-xs bg-gray-100 rounded px-2 py-1">
+              {work.status}
+            </span>
+            {work.hirer_confirmed && (
+              <span className="text-xs bg-green-100 text-green-700 rounded px-2 py-1 ml-2">
+                Dikonfirmasi HIRER ✔
+              </span>
+            )}
+          </p>
+          {user.id === contract.talent_id &&
+            contract.status === "ACTIVE" &&
+            work.status === "NOT_STARTED" && (
+              <form
+                action={startWork.bind(null, contract.id, `/contracts/${contract.id}`)}
+                className="mt-2"
+              >
+                <button className="bg-blue-600 text-white rounded px-3 py-1 text-sm">
+                  Mulai Kerja
+                </button>
+              </form>
+            )}
+          {user.id === contract.talent_id &&
+            contract.status === "ACTIVE" &&
+            work.status === "IN_PROGRESS" && (
+              <form
+                action={completeWork.bind(null, contract.id, `/contracts/${contract.id}`)}
+                className="mt-2"
+              >
+                <button className="bg-green-600 text-white rounded px-3 py-1 text-sm">
+                  Tandai Selesai
+                </button>
+              </form>
+            )}
+          {isHirer &&
+            contract.status === "ACTIVE" &&
+            work.status === "COMPLETED" &&
+            !work.hirer_confirmed && (
+              <form
+                action={confirmWork.bind(null, contract.id, `/contracts/${contract.id}`)}
+                className="mt-2"
+              >
+                <button className="bg-green-600 text-white rounded px-3 py-1 text-sm">
+                  Konfirmasi Selesai
+                </button>
+              </form>
+            )}
+          {work.status === "COMPLETED" && !work.hirer_confirmed && (
+            <p className="text-sm text-amber-600">Menunggu konfirmasi hirer.</p>
+          )}
+        </div>
+      )}
 
       <div className="flex gap-2 mt-4">
         {isHirer && contract.status === "DRAFT" && (
