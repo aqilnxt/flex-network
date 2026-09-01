@@ -192,6 +192,16 @@
 - [x] Task 8 — Build, typecheck, lint, E2E smoke (rate dua arah; gate-fail form hilang saat IN_PROGRESS; restore; RLS REST involved 2 row / asing [] / anon [] / mismatch 42501 / spoof rater 42501 / PATCH 0 rows)
 - [x] Task 9 — Update PROGRESS.md
 
+#### Module Verified Work History
+
+- [x] Spec: `docs/superpowers/specs/2026-09-01-workhistory-module-design.md`
+- [x] Implementation plan: `docs/superpowers/plans/2026-09-01-workhistory-module.md`
+- [x] Task 1 — Migration `016_work_history_rls.sql` (select involved/admin, insert involved, update involved) + push + verifikasi 3 policy
+- [x] Task 2 — Service `modules/work_history/service.ts` (`upsertVerifiedHistory`: insert PENDING → flip VERIFIED + verified_at/verified_by, idempotent)
+- [x] Task 3 — Trigger di `modules/rating/service.ts` (setelah insert rating sukses; gate kedua rating dua arah lengkap; side effect best-effort)
+- [x] Task 4 — Build, typecheck, lint, E2E smoke (rate 1 arah → 0 rows; rate arah kedua → VERIFIED + snapshot; rate ulang dua arah → tetap 1 row; RLS REST involved 1 row / asing [] / anon [] / PATCH 0 rows / INSERT spoof 42501)
+- [x] Task 5 — Update PROGRESS.md
+
 ---
 
 ### Sedang Dikerjakan
@@ -253,6 +263,10 @@
 - 2026-08-31: RLS ratings INSERT anti-spoof: rater_id = auth.uid() + rating_type konsisten posisi pihak kontrak (talent→TALENT_RATES_HIRER, hirer→HIRER_RATES_TALENT)
 - 2026-08-31: Aktor rating = TALENT & HIRER (dua arah) — action pakai requireUser, ownership di service + RLS; admin read-only
 - 2026-08-31: Cleanup bug lama: duplikat blok Work di app/applications/page.tsx (render 2x sejak task UI Work) dihapus saat integrasi rating
+- 2026-09-01: Gate Verified Work History = kedua rating dua arah lengkap (TALENT_RATES_HIRER + HIRER_RATES_TALENT) — bukan hirer confirmation (menyimpang API-SPEC 13.3/15.4; keputusan user)
+- 2026-09-01: work_history di-upsert on-demand oleh side effect modul Rating (satu-satunya jalur tulis); PENDING dulu lalu flip VERIFIED + verified_at/verified_by = rater pelengkap pasangan; idempotent (23505 race-benign, neq VERIFIED)
+- 2026-09-01: Side effect best-effort non-atomik — kegagalan flip tidak menggagalkan rating (precedent non-atomik Contract 2026-08-29)
+- 2026-09-01: RLS work_history = SELECT involved/admin, INSERT/UPDATE pihak kontrak; admin moderation & halaman Work History defer
 
 ### Next Task
 
@@ -265,7 +279,8 @@
 7. ~~Module Contract~~ ✅ Spec + plan + 11 task selesai, E2E smoke + RLS lulus.
 8. ~~Module Work~~ ✅ Spec + plan + 10 task selesai, E2E smoke + RLS lulus.
 9. ~~Module Rating~~ ✅ Spec + plan + 9 task selesai, E2E smoke + RLS lulus.
+10. ~~Module Verified Work History~~ ✅ Spec + plan + 5 task selesai, E2E smoke + RLS lulus.
 
 ---
 
-**Status Terakhir:** ✅ Sprint 10 — Module Rating **selesai** (Task 1–9). Build, typecheck, lint, E2E smoke + RLS sukses. Next milestone: Verified Work History (PENDING → VERIFIED, gate rating selesai).
+**Status Terakhir:** ✅ Sprint 11 — Verified Work History **selesai** (Task 1–5). Build, typecheck, lint, E2E smoke + RLS sukses. Business Flow inti lengkap (Register → … → Rating → Verified Work History). Next milestone kandidat (lihat BRD): halaman Work History (TALENT + publik VERIFIED-only), Notification, Report, atau Admin/Audit.

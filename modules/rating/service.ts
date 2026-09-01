@@ -1,5 +1,6 @@
 import { createSupabaseServerClient } from "@/lib/supabase/server";
 import { getByContractId as getWorkByContractId } from "@/modules/work/queries";
+import { upsertVerifiedHistory } from "@/modules/work_history/service";
 import { ratingSchema, type RatingInput, type RatingType } from "./schemas";
 
 type ServiceResult<T = unknown> = {
@@ -34,7 +35,9 @@ export async function submitRating(
 
   const { data: contract, error: contractError } = await supabase
     .from("contracts")
-    .select("id, talent_id, hirer_id, status")
+    .select(
+      "id, talent_id, hirer_id, opportunity_id, role_title, duration, compensation, status",
+    )
     .eq("id", parsed.data.contractId)
     .maybeSingle();
   if (contractError) {
@@ -48,6 +51,10 @@ export async function submitRating(
     id: string;
     talent_id: string;
     hirer_id: string;
+    opportunity_id: string;
+    role_title: string | null;
+    duration: string | null;
+    compensation: number | null;
     status: string;
   };
 
@@ -91,8 +98,35 @@ export async function submitRating(
     return { data: null, error: { message: insertError.message } };
   }
 
+  const ratingRow = inserted as unknown as { id: string };
+
+  // Trigger Verified Work History: kedua arah rating untuk work ini lengkap.
+  const { data: existingTypes } = await supabase
+    .from("ratings")
+    .select("rating_type")
+    .eq("work_id", work.id);
+
+  const types = new Set(
+    (existingTypes as unknown as { rating_type: string }[] | null)?.map(
+      (r) => r.rating_type,
+    ) ?? [],
+  );
+  if (types.has("TALENT_RATES_HIRER") && types.has("HIRER_RATES_TALENT")) {
+    await upsertVerifiedHistory(
+      {
+        id: row.id,
+        talent_id: row.talent_id,
+        opportunity_id: row.opportunity_id,
+        role_title: row.role_title,
+        duration: row.duration,
+        compensation: row.compensation,
+      },
+      raterId,
+    );
+  }
+
   return {
-    data: { ratingId: (inserted as unknown as { id: string }).id },
+    data: { ratingId: ratingRow.id },
     error: null,
   };
 }
