@@ -30,12 +30,26 @@ export function SignaturePanel({
 
   async function submitRequestSignature(): Promise<void> {
     "use server";
-    const formData = new FormData();
-    formData.set("contractId", contractId);
-    const result = await requestSignatureAction(formData);
-    if (!result.success) {
+    let result: Awaited<ReturnType<typeof requestSignatureAction>>;
+    try {
+      const formData = new FormData();
+      formData.set("contractId", contractId);
+      result = await requestSignatureAction(formData);
+    } catch (err) {
+      if (err && typeof err === "object" && "digest" in err && String((err as { digest: unknown }).digest).startsWith("NEXT_REDIRECT")) {
+        throw err;
+      }
       redirect(
-        `/contracts/${contractId}?signature_error=${encodeURIComponent(result.error.message)}`,
+        `/contracts/${contractId}?signature_error=${encodeURIComponent(
+          err instanceof Error ? err.message : "Gagal meminta tanda tangan",
+        )}`,
+      );
+    }
+    if (!result || !result.success) {
+      redirect(
+        `/contracts/${contractId}?signature_error=${encodeURIComponent(
+          result?.error?.message ?? "Gagal meminta tanda tangan",
+        )}`,
       );
     }
     redirect(`/contracts/${contractId}`);
@@ -43,12 +57,26 @@ export function SignaturePanel({
 
   async function submitSignDocument(): Promise<void> {
     "use server";
-    const formData = new FormData();
-    formData.set("contractId", contractId);
-    const result = await signDocumentAction(formData);
-    if (!result.success) {
+    let result: Awaited<ReturnType<typeof signDocumentAction>>;
+    try {
+      const formData = new FormData();
+      formData.set("contractId", contractId);
+      result = await signDocumentAction(formData);
+    } catch (err) {
+      if (err && typeof err === "object" && "digest" in err && String((err as { digest: unknown }).digest).startsWith("NEXT_REDIRECT")) {
+        throw err;
+      }
       redirect(
-        `/contracts/${contractId}?signature_error=${encodeURIComponent(result.error.message)}`,
+        `/contracts/${contractId}?signature_error=${encodeURIComponent(
+          err instanceof Error ? err.message : "Gagal menandatangani",
+        )}`,
+      );
+    }
+    if (!result || !result.success) {
+      redirect(
+        `/contracts/${contractId}?signature_error=${encodeURIComponent(
+          result?.error?.message ?? "Gagal menandatangani",
+        )}`,
       );
     }
     redirect(`/contracts/${contractId}`);

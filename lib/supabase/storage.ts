@@ -1,10 +1,12 @@
-import { createSupabaseServerClient } from "./server";
+import { admin } from "./admin";
 
 const BUCKET = "contracts-private";
+// ponytail: admin (service role) bypass storage RLS — dokumen kontrak hanya
+// diakses server via signed URL; kalau butuh per-user storage policy, pindah
+// ke session client + policy involved parties (migration 021/022 siap).
 
 export async function uploadPrivateDoc(path: string, bytes: Uint8Array): Promise<string> {
-  const supabase = await createSupabaseServerClient();
-  const { error } = await supabase.storage.from(BUCKET).upload(path, bytes, {
+  const { error } = await admin.storage.from(BUCKET).upload(path, bytes, {
     contentType: "application/pdf",
     upsert: true,
   });
@@ -13,15 +15,13 @@ export async function uploadPrivateDoc(path: string, bytes: Uint8Array): Promise
 }
 
 export async function getSignedDocUrl(path: string, expiresInSeconds = 3600): Promise<string> {
-  const supabase = await createSupabaseServerClient();
-  const { data } = await supabase.storage.from(BUCKET).createSignedUrl(path, expiresInSeconds);
+  const { data } = await admin.storage.from(BUCKET).createSignedUrl(path, expiresInSeconds);
   if (!data) throw new Error("Gagal membuat signed URL");
   return data.signedUrl;
 }
 
 export async function downloadPrivateDoc(path: string): Promise<Uint8Array> {
-  const supabase = await createSupabaseServerClient();
-  const { data, error } = await supabase.storage.from(BUCKET).download(path);
+  const { data, error } = await admin.storage.from(BUCKET).download(path);
   if (error || !data) throw new Error(`Download gagal: ${error?.message ?? "not found"}`);
   return new Uint8Array(await data.arrayBuffer());
 }

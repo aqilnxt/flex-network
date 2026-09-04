@@ -1,0 +1,12 @@
+alter table public.reports enable row level security;
+alter table public.audit_logs enable row level security;
+drop policy if exists "reports_select_own_or_admin" on public.reports;
+create policy "reports_select_own_or_admin" on public.reports for select to authenticated using (reporter_id = auth.uid() OR public.is_admin());
+drop policy if exists "reports_insert_authenticated" on public.reports;
+create policy "reports_insert_authenticated" on public.reports for insert to authenticated with check (reporter_id = auth.uid());
+drop policy if exists "reports_update_admin" on public.reports;
+create policy "reports_update_admin" on public.reports for update to authenticated using (public.is_admin()) with check (public.is_admin());
+drop policy if exists "audit_logs_select_admin" on public.audit_logs;
+create policy "audit_logs_select_admin" on public.audit_logs for select to authenticated using (public.is_admin());
+drop policy if exists "audit_logs_insert_admin" on public.audit_logs;
+create policy "audit_logs_insert_admin" on public.audit_logs for insert to authenticated with check (public.is_admin());
