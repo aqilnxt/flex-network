@@ -16,14 +16,19 @@ import {
 } from "@/modules/contract/actions";
 import { listByContractId } from "@/modules/rating/queries";
 import { submitRating } from "@/modules/rating/actions";
+import { getSignatureInfo } from "@/modules/signature/service";
+import { SignaturePanel } from "./signature-panel";
 
 export default async function ContractDetailPage({
   params,
+  searchParams,
 }: {
   params: Promise<{ id: string }>;
+  searchParams: Promise<{ signature_error?: string }>;
 }) {
   const user = await requireUser();
   const { id } = await params;
+  const { signature_error: signatureError } = await searchParams;
   const contract = await getById(id);
 
   if (!contract) notFound();
@@ -39,6 +44,8 @@ export default async function ContractDetailPage({
   const myRating = ratings.find((r) => r.rater_id === user.id);
   const rateeRating = ratings.find((r) => r.ratee_id === user.id);
   const isTalent = user.id === contract.talent_id;
+  const signatureInfo = await getSignatureInfo(id, user.id);
+  const signature = signatureInfo.data;
 
   return (
     <div className="p-8 max-w-2xl">
@@ -102,6 +109,18 @@ export default async function ContractDetailPage({
           <p className="text-gray-600">Alasan: {contract.decline_reason}</p>
         )}
       </div>
+
+      {signature && (
+        <SignaturePanel
+          info={signature}
+          contractId={contract.id}
+          viewerId={user.id}
+          talentId={contract.talent_id}
+          hirerId={contract.hirer_id}
+          contractStatus={contract.status}
+          actionError={signatureError}
+        />
+      )}
 
       {work && (
         <div className="mt-3 border rounded p-4 text-sm flex flex-col gap-2">
@@ -207,13 +226,13 @@ export default async function ContractDetailPage({
           {payment.status === "SIMULATED_PAID" &&
             !(work?.status === "COMPLETED" && work.hirer_confirmed) && (
               <p className="text-sm text-amber-600">
-                Dana ditahan — rilis setelah pekerjaan selesai &amp; dikonfirmasi
+                Dana ditahan - rilis setelah pekerjaan selesai &amp; dikonfirmasi
                 hirer.
               </p>
             )}
           {payment.status === "RELEASED" && (
             <p className="text-sm text-green-700">
-              Dana dirilis (simulasi) — kontrak selesai.
+              Dana dirilis (simulasi) - kontrak selesai.
             </p>
           )}
         </div>
@@ -249,7 +268,7 @@ export default async function ContractDetailPage({
                 </option>
                 {[1, 2, 3, 4, 5].map((s) => (
                   <option key={s} value={s}>
-                    {s} — {["Buruk", "Kurang", "Cukup", "Baik", "Sangat baik"][s - 1]}
+                    {s} - {["Buruk", "Kurang", "Cukup", "Baik", "Sangat baik"][s - 1]}
                   </option>
                 ))}
               </select>
@@ -280,7 +299,7 @@ export default async function ContractDetailPage({
             <span className="text-xs bg-gray-100 rounded px-2 py-1">
               {rateeRating.score}/5
             </span>
-            {rateeRating.review_text ? ` — “${rateeRating.review_text}”` : ""}
+            {rateeRating.review_text ? ` - “${rateeRating.review_text}”` : ""}
           </p>
         )}
       </div>
@@ -319,7 +338,7 @@ export default async function ContractDetailPage({
         )}
         {contract.status === "ACTIVE" && (
           <p className="text-sm text-green-700">
-            Kontrak aktif — payment & work otomatis disiapkan.
+            Kontrak aktif - payment & work otomatis disiapkan.
           </p>
         )}
       </div>
