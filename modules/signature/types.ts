@@ -18,6 +18,13 @@ export type ServiceResult<T = unknown> = {
   error: { message: string } | null;
 };
 
+export type PriorSignature = { name: string; at: string };
+
+export type PriorSignatures = {
+  talent: PriorSignature | null;
+  hirer: PriorSignature | null;
+};
+
 export type SignatureProvider = {
   id: SignatureProviderId;
   requestSignature(
@@ -28,9 +35,9 @@ export type SignatureProvider = {
   ): Promise<{ externalId: string | null; docUrl: string }>;
   signDocument(
     contractId: string,
-    existingDocBytes: Uint8Array,
     signedBy: "talent" | "hirer",
     signerName: string,
+    priorSignatures: PriorSignatures,
   ): Promise<{ docUrl: string; hash: string; signedAt: string }>;
   verifyWebhook(headers: Record<string, string>, rawBody: string): boolean;
 };
