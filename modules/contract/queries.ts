@@ -56,7 +56,7 @@ export async function getById(
   const { data } = await supabase
     .from("contracts")
     .select(
-      `${CONTRACT_COLUMNS}, opportunity:opportunities(title), talent:profiles!contracts_talent_id_fkey(full_name), hirer:profiles!contracts_hirer_id_fkey(full_name)`,
+      `${CONTRACT_COLUMNS}, opportunity:opportunities(title), talent:talent_id(full_name), hirer:hirer_id(full_name)`,
     )
     .eq("id", contractId)
     .maybeSingle();
