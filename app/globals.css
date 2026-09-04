@@ -1,26 +1,212 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+@theme {
+  --color-primary: #2447f9;
+  --color-primary-dark: #1a36cc;
+  --color-accent: #459ce8;
+  --color-ink: #0d0907;
+  --color-ink-2: #34364a;
+  --color-tint: #f3f6ff;
+  --color-tint-2: #f7f8fc;
+  --color-line: #e4e8f7;
+  --color-success: #22c55e;
+  --color-warning: #f59e0b;
+  --color-error: #ef4444;
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, monospace;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-sans);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+[id] {
+  scroll-margin-top: 6rem;
+}
+
+::selection {
+  background: #2447f9;
+  color: #ffffff;
+}
+
+:focus-visible {
+  outline: 2px solid #2447f9;
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+h1,
+h2,
+h3 {
+  text-wrap: balance;
+}
+
+h1,
+h2,
+h3 {
+  text-wrap: balance;
+}
+
+@layer components {
+  input,
+  select,
+  textarea {
+    border: 1px solid var(--color-line);
+    border-radius: 0.75rem;
+    background: #ffffff;
+    padding: 0.5rem 0.875rem;
+    font-size: 15px;
+    color: var(--color-ink);
+  }
+
+  input::placeholder,
+  textarea::placeholder {
+    color: #5b5e73;
+  }
+
+  input:disabled,
+  select:disabled,
+  textarea:disabled,
+  button:disabled {
+    opacity: 0.55;
+    cursor: not-allowed;
+  }
+
+  .btn-primary {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    border-radius: 0.75rem;
+    background-color: var(--color-primary);
+    color: #ffffff;
+    transition: background-color 0.15s ease;
+  }
+
+  .btn-primary:hover {
+    background-color: var(--color-primary-dark);
+  }
+
+  .btn-success {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    border-radius: 0.75rem;
+    background-color: var(--color-success);
+    color: #ffffff;
+    transition:
+      background-color 0.15s ease,
+      opacity 0.15s ease;
+  }
+
+  .btn-success:hover {
+    background-color: #16a34a;
+  }
+
+  .btn-danger {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    border-radius: 0.75rem;
+    background-color: var(--color-error);
+    color: #ffffff;
+    transition: background-color 0.15s ease;
+  }
+
+  .btn-danger:hover {
+    background-color: #dc2626;
+  }
+
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    white-space: nowrap;
+    border-radius: 9999px;
+    border: 1px solid var(--color-line);
+    background-color: var(--color-tint);
+    padding: 0.25rem 0.625rem;
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--color-ink-2);
+  }
+
+  .card {
+    border-radius: 1rem;
+    border: 1px solid var(--color-line);
+    background-color: #ffffff;
+  }
+
+  .card-hover {
+    transition:
+      box-shadow 0.15s ease,
+      border-color 0.15s ease;
+  }
+
+  .card-hover:hover {
+    border-color: rgba(36, 71, 249, 0.4);
+    box-shadow: 0 12px 28px -16px rgba(13, 9, 7, 0.16);
+  }
+}
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.rise {
+  opacity: 0;
+  animation: rise 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.rise-2 {
+  animation-delay: 0.08s;
+}
+.rise-3 {
+  animation-delay: 0.16s;
+}
+.rise-4 {
+  animation-delay: 0.24s;
+}
+.rise-5 {
+  animation-delay: 0.34s;
+}
+
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.marquee {
+  animation: marquee 22s linear infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .rise,
+  .rise-2,
+  .rise-3,
+  .rise-4,
+  .rise-5 {
+    opacity: 1;
+    animation: none;
+  }
+  .marquee {
+    animation: none;
+  }
 }

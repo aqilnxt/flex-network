@@ -2,7 +2,7 @@
 
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
-**Goal:** Membangun modul Matching — rekomendasi opportunity untuk TALENT berdasarkan weighted skill & interest matching (rule-based, deterministic, server-side, read-only).
+**Goal:** Membangun modul Matching - rekomendasi opportunity untuk TALENT berdasarkan weighted skill & interest matching (rule-based, deterministic, server-side, read-only).
 
 **Architecture:** Server Component → Matching Query/Service → Supabase (server client, RLS aktif). Service = pure scoring (tanpa supabase); query = data fetch + orchestration + in-memory sort/paginate. Tanpa Server Action, tanpa REST.
 
@@ -12,9 +12,9 @@
 
 ## Global Constraints
 
-- **Read-only** — tidak ada Server Action, tidak ada REST route; query/service dipanggil dari Server Component.
-- **Tanpa AI/ML** — murni rule-based; deterministik (input sama → hasil sama).
-- **Server-side 100%** — skor/classification dihitung server, client tidak bisa override.
+- **Read-only** - tidak ada Server Action, tidak ada REST route; query/service dipanggil dari Server Component.
+- **Tanpa AI/ML** - murni rule-based; deterministik (input sama → hasil sama).
+- **Server-side 100%** - skor/classification dihitung server, client tidak bisa override.
 - Formula:
   - `skillMatchScore = required===0 ? 100 : (matched/required)*100`
   - `interestMatchScore = relevant===0 ? 100 : (matched/relevant)*100`
@@ -95,13 +95,13 @@ create policy "talent_interests_delete_own"
 
 ---
 
-## Task 2: Service — `modules/matching/service.ts`
+## Task 2: Service - `modules/matching/service.ts`
 
 **Files:**
 - Create: `modules/matching/service.ts`
 
 **Interfaces:**
-- Consumes: (nothing — pure functions).
+- Consumes: (nothing - pure functions).
 - Produces: `MatchClassification`, `MatchResult` types; `skillMatchScore`, `interestMatchScore`, `finalMatchScore`, `classifyMatchScore`, `scoreOpportunity`, `round2`. Dipakai `queries.ts` (Task 3) dan `page.tsx` (Task 4 via type `MatchClassification`).
 
 **Isi:**
@@ -197,7 +197,7 @@ export type Recommendation = {
 
 ---
 
-## Task 3: Queries — `modules/matching/queries.ts`
+## Task 3: Queries - `modules/matching/queries.ts`
 
 **Files:**
 - Create: `modules/matching/queries.ts`
@@ -307,7 +307,7 @@ export async function getRecommendations(
 
 ---
 
-## Task 4: Recommendations page — `app/matching/recommendations/page.tsx`
+## Task 4: Recommendations page - `app/matching/recommendations/page.tsx`
 
 **Files:**
 - Create: `app/matching/recommendations/page.tsx`
@@ -426,7 +426,7 @@ export default async function RecommendationsPage({
 
 ---
 
-## Task 5: Verification — build & typecheck
+## Task 5: Verification - build & typecheck
 
 **Files:**
 - (none)
@@ -447,7 +447,7 @@ Tidak ada test runner terpasang. Verifikasi via `npm run build` + `npm run dev` 
 2. Opportunity yang sudah di-apply TIDAK muncul.
 3. UI menampilkan classification & score 2 desimal dengan benar.
 4. Edge case: opportunity tanpa required skills → skill score 100 (final score = 70 + interest*0.30); tanpa relevant interests → interest score 100.
-5. Deterministik — refresh halaman tidak mengubah skor.
+5. Deterministik - refresh halaman tidak mengubah skor.
 6. `npm run build` lulus.
 
-> Catatan: fungsi `scoreOpportunity` bersifat pure/deterministik — kandidat ideal untuk unit test saat test runner diperkenalkan (task terpisah). Untuk sprint ini verifikasi manual via UI.
+> Catatan: fungsi `scoreOpportunity` bersifat pure/deterministik - kandidat ideal untuk unit test saat test runner diperkenalkan (task terpisah). Untuk sprint ini verifikasi manual via UI.

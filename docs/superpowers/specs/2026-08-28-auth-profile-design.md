@@ -2,7 +2,7 @@
 
 **Status:** Approved
 **Date:** 2026-08-28
-**Scope:** Foundation — Module Auth & Profile (registrasi, login, logout, session, profile, skill/interest CRUD)
+**Scope:** Foundation - Module Auth & Profile (registrasi, login, logout, session, profile, skill/interest CRUD)
 
 ## Goal
 
@@ -11,7 +11,7 @@ Membangun module Auth & Profile sebagai foundation Flex Network: registrasi user
 ## Decisions (locked)
 
 1. **Profile dibuat via DB trigger** (`005_auth_triggers.sql`), bukan application-layer. Server Action register hanya memanggil `supabase.auth.signUp()` dengan `user_metadata { role, full_name }`; trigger `handle_new_user()` yang insert `profiles` + `talent_profiles`/`hirer_profiles`.
-2. **Server Actions dulu** — REST API route handlers ditunda ke task terpisah.
+2. **Server Actions dulu** - REST API route handlers ditunda ke task terpisah.
 3. **#A Email confirmation:** TIDAK wajib (langsung login setelah register). `emailRedirectTo` tidak di-set ke flow verifikasi ketat.
 4. **#B Error surface:** `ActionResult<T>` typed contract (API-SPEC Section 21) + `useActionState` (React 19) untuk tampilkan error generik di form.
 5. **#C Scope skill/interest:** Full CRUD `add`/`remove` untuk `talent_skills` & `talent_interests`. Master-data `GET /skills`/`GET /interests` TIDAK termasuk (task master data terpisah).
@@ -42,8 +42,8 @@ modules/
 ```
 
 Root:
-- `middleware.ts` — session refresh + protected-route enforcement.
-- `lib/supabase/` — sudah ada (`server.ts`, `browser.ts`, `admin.ts`).
+- `middleware.ts` - session refresh + protected-route enforcement.
+- `lib/supabase/` - sudah ada (`server.ts`, `browser.ts`, `admin.ts`).
 
 Dependency tambahan: `zod`.
 
@@ -68,15 +68,15 @@ Dependency tambahan: `zod`.
    - `signOut()`, redirect `/login`.
 
 `modules/lib/auth.ts`:
-- `getCurrentUser()` — `getUser()` + fetch `profiles` (role, status).
-- `requireUser()` — redirect kalau tidak login.
-- `requireRole(role)` — enforce RBAC server-side.
+- `getCurrentUser()` - `getUser()` + fetch `profiles` (role, status).
+- `requireUser()` - redirect kalau tidak login.
+- `requireRole(role)` - enforce RBAC server-side.
 
 ## Server Actions: Profile (`modules/profile/actions.ts`)
 
-- `updateProfile(formData)` — Zod `{ fullName, phone, bio, location }`; update `profiles` + `profile_private` (phone). Tidak boleh ubah `id`, `role`, `status`. `is_minor` server-side (APPENDIX A.5) — belum dihitung pada foundation ini.
-- `addSkill` / `removeSkill(skillId)` — insert/delete `talent_skills`.
-- `addInterest` / `removeInterest(interestId)` — insert/delete `talent_interests`.
+- `updateProfile(formData)` - Zod `{ fullName, phone, bio, location }`; update `profiles` + `profile_private` (phone). Tidak boleh ubah `id`, `role`, `status`. `is_minor` server-side (APPENDIX A.5) - belum dihitung pada foundation ini.
+- `addSkill` / `removeSkill(skillId)` - insert/delete `talent_skills`.
+- `addInterest` / `removeInterest(interestId)` - insert/delete `talent_interests`.
 - Semua guarded `requireUser()` + ownership (`.uid() = profile_id`).
 
 ## Pages (`app/`)
@@ -106,7 +106,7 @@ app/
 - Authorization selalu server-side; client tidak dipercaya.
 - Ownership check sebelum memproses resource.
 - RLS sebagai defense-in-depth (sudah diaktifkan di `003_rls_policies.sql`).
-- `SUPABASE_SERVICE_ROLE_KEY` hanya server — admin.ts tidak dipakai user flow biasa.
+- `SUPABASE_SERVICE_ROLE_KEY` hanya server - admin.ts tidak dipakai user flow biasa.
 - Jangan log password/token/service key/data sensitif.
 - `role` tidak boleh `ADMIN` dari client (self-register hanya TALENT/HIRER).
 - `is_minor` tidak dipercaya dari client.
@@ -117,7 +117,7 @@ app/
 - Master-data `GET /skills` / `GET /interests` (task terpisah).
 - `birth_date` + perhitungan `is_minor` server-side (task Profile lanjutan).
 - ADMIN self-registration & admin dashboard.
-- UI polish penuh (DESIGN.md) — foundation fokus ke alur fungsional.
+- UI polish penuh (DESIGN.md) - foundation fokus ke alur fungsional.
 
 ## Acceptance Criteria
 

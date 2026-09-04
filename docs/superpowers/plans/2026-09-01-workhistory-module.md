@@ -4,7 +4,7 @@
 
 **Goal:** Setelah kedua rating dua arah (`TALENT_RATES_HIRER` + `HIRER_RATES_TALENT`) untuk satu work lengkap, `work_history` talent otomatis di-upsert dan di-flip `PENDING → VERIFIED` (`verified_at`, `verified_by` terisi). Satu aksi, tanpa UI baru.
 
-**Architecture:** Side effect di dalam `submitRating` (`modules/rating/service.ts`) setelah insert rating sukses — satu-satunya jalur tulis ke `work_history`. Fungsi helper baru `modules/work_history/service.ts` (`upsertVerifiedHistory`) menangani upsert idempotent: pastikan row ada (insert PENDING, `23505` race-benign), lalu update ke `VERIFIED` bila belum. RLS granular baru di migration `016` (baseline `003`: RLS enabled default-deny tanpa policy). Tanpa DB trigger/RPC, tanpa UI, tanpa REST (spec Out of Scope).
+**Architecture:** Side effect di dalam `submitRating` (`modules/rating/service.ts`) setelah insert rating sukses - satu-satunya jalur tulis ke `work_history`. Fungsi helper baru `modules/work_history/service.ts` (`upsertVerifiedHistory`) menangani upsert idempotent: pastikan row ada (insert PENDING, `23505` race-benign), lalu update ke `VERIFIED` bila belum. RLS granular baru di migration `016` (baseline `003`: RLS enabled default-deny tanpa policy). Tanpa DB trigger/RPC, tanpa UI, tanpa REST (spec Out of Scope).
 
 **Tech Stack:** Next.js 16 App Router, TypeScript strict, Supabase (server client + RLS), Zod (tidak ada input baru).
 
@@ -12,14 +12,14 @@
 
 ## Global Constraints
 
-- Tabel `work_history` TIDAK diubah skemanya (001:293 — `contract_id` UNIQUE, `verification_status` CHECK `('PENDING','VERIFIED','REJECTED')`, `verified_at`, `verified_by`, snapshot kolom nullable).
-- **Gate VERIFIED = kedua rating dua arah ada untuk `work_id` yang sama** (keputusan user 2026-09-01) — bukan hirer-confirmation (menyimpang API-SPEC §13.3/§15.4 secara sadar; spec Decisions locked).
+- Tabel `work_history` TIDAK diubah skemanya (001:293 - `contract_id` UNIQUE, `verification_status` CHECK `('PENDING','VERIFIED','REJECTED')`, `verified_at`, `verified_by`, snapshot kolom nullable).
+- **Gate VERIFIED = kedua rating dua arah ada untuk `work_id` yang sama** (keputusan user 2026-09-01) - bukan hirer-confirmation (menyimpang API-SPEC §13.3/§15.4 secara sadar; spec Decisions locked).
 - Trigger hanya jalan pada rating yang **melengkapi pasangan** (setelah insert sukses); duplicate/gate-fail/not-owner tidak pernah memicu.
 - Idempotent penuh: row sudah VERIFIED → no-op; race insert (`23505` pada UNIQUE `contract_id`) → re-select lalu lanjut; tanpa duplikat.
 - Side effect best-effort: kegagalan flip TIDAK menggagalkan rating (rating sudah tersimpan; non-atomik dua statement diterima, precedent Contract 2026-08-29).
 - Semua kolom sensitif derived server-side (`verified_by`, `verified_at`, snapshot); client tidak mengirim apa pun baru.
 - Migration hanya menambah policy (baseline 003: RLS enabled, default-deny, tanpa policy).
-- Tidak ada notification, REST API, halaman Work History, admin moderation (semua defer — spec Out of Scope).
+- Tidak ada notification, REST API, halaman Work History, admin moderation (semua defer - spec Out of Scope).
 - Verifikasi project: `npx tsc --noEmit`, `npm run lint`, `npm run build` (tidak ada test framework).
 - Commit format: `type(scope): deskripsi imperative lowercase` (lihat `/GIT_COMMIT.md`).
 
@@ -37,7 +37,7 @@
 - [ ] **Step 1: Tulis migration**
 
 ```sql
--- 016_work_history_rls.sql — granular policies untuk work_history
+-- 016_work_history_rls.sql - granular policies untuk work_history
 -- Baseline 003: RLS enabled, default-deny, tanpa policy.
 -- Gate bisnis (kedua rating lengkap) di-enforce service modul Rating;
 -- RLS defense-in-depth (INSERT/UPDATE hanya pihak kontrak).
@@ -84,7 +84,7 @@ create policy "work_history_update_involved"
   );
 ```
 
-Catatan: `DELETE` hanya cascade dari `contracts` (tanpa policy — default-deny). Admin moderation (VERIFIED → REJECTED dsb.) = sprint terpisah; admin SELECT-only di sini. Policy UPDATE involved (talent + hirer) konsisten pola `works` (`013`); tanpa jalur UI, ini defense-in-depth semata.
+Catatan: `DELETE` hanya cascade dari `contracts` (tanpa policy - default-deny). Admin moderation (VERIFIED → REJECTED dsb.) = sprint terpisah; admin SELECT-only di sini. Policy UPDATE involved (talent + hirer) konsisten pola `works` (`013`); tanpa jalur UI, ini defense-in-depth semata.
 
 - [ ] **Step 2: Push ke Supabase**
 
@@ -94,7 +94,7 @@ Expected: migration applied.
 - [ ] **Step 3: Verifikasi policy**
 
 Run: `supabase db query --linked "select policyname, cmd from pg_policies where tablename = 'work_history' order by policyname;"`
-Expected: 3 rows — `work_history_insert_involved` (INSERT), `work_history_select_involved` (SELECT), `work_history_update_involved` (UPDATE).
+Expected: 3 rows - `work_history_insert_involved` (INSERT), `work_history_select_involved` (SELECT), `work_history_update_involved` (UPDATE).
 
 - [ ] **Step 4: Commit**
 
@@ -114,7 +114,7 @@ git commit -m "feat(db): add work history rls policies"
 - Consumes: `createSupabaseServerClient` (dari `@/lib/supabase/server`).
 - Produces:
   - `type ContractSnapshot = { id: string; talent_id: string; opportunity_id: string; role_title: string | null; duration: string | null; compensation: number | null }`
-  - `upsertVerifiedHistory(contract: ContractSnapshot, activatorId: string): Promise<void>` — idempotent, best-effort, tidak throw.
+  - `upsertVerifiedHistory(contract: ContractSnapshot, activatorId: string): Promise<void>` - idempotent, best-effort, tidak throw.
 
 - [ ] **Step 1: Tulis service**
 
@@ -168,7 +168,7 @@ export async function upsertVerifiedHistory(
 }
 ```
 
-Catatan: dua langkah sesuai keputusan user (PENDING dulu, lalu flip). Langkah 1 idempotent — row sudah ada → skip; `23505` = race benign → lanjut. Langkah 2 idempotent — `neq("verification_status", "VERIFIED")` mencegah update ulang; bila row belum VERIFIED → flip + `verified_at` + `verified_by` = aktivator (rater yang melengkapi pasangan). Best-effort `void`: error tidak dilempar (rating sudah tersimpan, precedent non-atomik 2026-08-31); `verification_notes` tidak disentuh (admin moderation sprint terpisah).
+Catatan: dua langkah sesuai keputusan user (PENDING dulu, lalu flip). Langkah 1 idempotent - row sudah ada → skip; `23505` = race benign → lanjut. Langkah 2 idempotent - `neq("verification_status", "VERIFIED")` mencegah update ulang; bila row belum VERIFIED → flip + `verified_at` + `verified_by` = aktivator (rater yang melengkapi pasangan). Best-effort `void`: error tidak dilempar (rating sudah tersimpan, precedent non-atomik 2026-08-31); `verification_notes` tidak disentuh (admin moderation sprint terpisah).
 
 - [ ] **Step 2: Verifikasi typecheck**
 
@@ -232,11 +232,11 @@ const row = contract as unknown as {
 };
 ```
 
-Catatan: semua kolom baru sudah ada di `contracts` (001:207 — `opportunity_id`, `role_title`, `duration`, `compensation`); snapshot tanpa fetch tambahan.
+Catatan: semua kolom baru sudah ada di `contracts` (001:207 - `opportunity_id`, `role_title`, `duration`, `compensation`); snapshot tanpa fetch tambahan.
 
 - [ ] **Step 3: Tambah trigger setelah insert sukses**
 
-Ganti return sukses di akhir `submitRating` (baris ~94–97) dengan:
+Ganti return sukses di akhir `submitRating` (baris ~94-97) dengan:
 
 ```ts
   const ratingId = (inserted as unknown as { id: string }).id;
@@ -272,9 +272,9 @@ Ganti return sukses di akhir `submitRating` (baris ~94–97) dengan:
   return { data: { ratingId: ratingRow.id }, error: null };
 ```
 
-(final block sebelumnya `const ratingRow = inserted as unknown as { id: string } | null;` ditarik ke atas sehingga `ratingId` aman non-null — sesuaikan deklarasi `ratingRow` sebelum blok side effect).
+(final block sebelumnya `const ratingRow = inserted as unknown as { id: string } | null;` ditarik ke atas sehingga `ratingId` aman non-null - sesuaikan deklarasi `ratingRow` sebelum blok side effect).
 
-Catatan urutan: trigger HANYA setelah insert rating sukses — path `23505` (duplicate) dan semua error path return sebelum titik ini, jadi rating gagal tidak pernah memicu flip (spec AC 4). Cek kelengkapan = query `ratings` by `work_id` (bukan `contract_id`) — konsisten UNIQUE rating per work. Hasil Set berisi ≥2 tipe berarti pasangan lengkap (max 2 row per work). Side effect best-effort: `upsertVerifiedHistory` void, tidak melempar; error rating tetap `null` (rating tersimpan sah). Contract `id` ikut dikirim sebagai `ContractSnapshot.id`.
+Catatan urutan: trigger HANYA setelah insert rating sukses - path `23505` (duplicate) dan semua error path return sebelum titik ini, jadi rating gagal tidak pernah memicu flip (spec AC 4). Cek kelengkapan = query `ratings` by `work_id` (bukan `contract_id`) - konsisten UNIQUE rating per work. Hasil Set berisi ≥2 tipe berarti pasangan lengkap (max 2 row per work). Side effect best-effort: `upsertVerifiedHistory` void, tidak melempar; error rating tetap `null` (rating tersimpan sah). Contract `id` ikut dikirim sebagai `ContractSnapshot.id`.
 
 - [ ] **Step 4: Verifikasi typecheck**
 
@@ -304,18 +304,18 @@ Expected: semua PASS tanpa error.
 
 Reuse kontrak smoke Rating: `b8ce8bdc-3fd1-40bd-832d-465c8daac86b` (CNTR-260831-DVA4, work COMPLETED + hirer_confirmed, payment RELEASED). Akun: `smoke-talent-consent@example.test` (TALENT) + `smoke-hirer-consent@example.test` (HIRER), password `Smoke123!`. Dev server: `npm run dev`.
 
-Pre-reset via SQL (rating sprint lama sudah dua arah — bersihkan supaya trigger bisa diamati):
+Pre-reset via SQL (rating sprint lama sudah dua arah - bersihkan supaya trigger bisa diamati):
 
 ```sql
 delete from ratings where contract_id = 'b8ce8bdc-3fd1-40bd-832d-465c8daac86b';
 delete from work_history where contract_id = 'b8ce8bdc-3fd1-40bd-832d-465c8daac86b';
 ```
 
-1. TALENT rate hirer (score 5) di detail contract → badge `5/5`. DB: `select * from work_history where contract_id = 'b8ce8bdc-...';` → **0 rows** (satu arah belum lengkap — AC 1).
-2. HIRER rate talent (score 4) → badge `4/5`. DB: row `work_history` muncul — `verification_status = 'VERIFIED'`, `verified_at` terisi, `verified_by` = **hirer id** (aktivator = rating terakhir), snapshot `title` = `contract.role_title`, `duration`, `compensation` terisi, `talent_id` + `opportunity_id` benar (AC 2).
-3. Idempotency: `delete from ratings where ...` lalu rate ulang dua arah dengan akun yang sama → tetap **1 row** VERIFIED (tidak duplikat, tanpa error — AC 3, UNIQUE `contract_id`).
+1. TALENT rate hirer (score 5) di detail contract → badge `5/5`. DB: `select * from work_history where contract_id = 'b8ce8bdc-...';` → **0 rows** (satu arah belum lengkap - AC 1).
+2. HIRER rate talent (score 4) → badge `4/5`. DB: row `work_history` muncul - `verification_status = 'VERIFIED'`, `verified_at` terisi, `verified_by` = **hirer id** (aktivator = rating terakhir), snapshot `title` = `contract.role_title`, `duration`, `compensation` terisi, `talent_id` + `opportunity_id` benar (AC 2).
+3. Idempotency: `delete from ratings where ...` lalu rate ulang dua arah dengan akun yang sama → tetap **1 row** VERIFIED (tidak duplikat, tanpa error - AC 3, UNIQUE `contract_id`).
 4. Not-owner/gate-fail tidak memicu: panggil action dengan akun pihak ketiga / sebelum reset work status → rating error, tanpa row baru.
-5. Admin/admin client tidak punya jalur tulis work_history (tanpa action baru) — verifikasi hanya ada satu call site (`modules/rating/service.ts`).
+5. Admin/admin client tidak punya jalur tulis work_history (tanpa action baru) - verifikasi hanya ada satu call site (`modules/rating/service.ts`).
 
 - [ ] **Step 3: RLS via REST**
 
@@ -339,13 +339,13 @@ git commit -m "fix(work-history): address smoke test findings"
 
 - [ ] **Step 1: Update progress**
 
-- Tambah seksi "Module Verified Work History" ke "Sudah Selesai" (Task 1–4).
+- Tambah seksi "Module Verified Work History" ke "Sudah Selesai" (Task 1-4).
 - Decision Log tambah:
-  - `2026-09-01: Gate Verified Work History = kedua rating dua arah lengkap (TALENT_RATES_HIRER + HIRER_RATES_TALENT) — bukan hirer confirmation (menyimpang API-SPEC 13.3/15.4; keputusan user)`
+  - `2026-09-01: Gate Verified Work History = kedua rating dua arah lengkap (TALENT_RATES_HIRER + HIRER_RATES_TALENT) - bukan hirer confirmation (menyimpang API-SPEC 13.3/15.4; keputusan user)`
   - `2026-09-01: work_history di-upsert on-demand oleh side effect modul Rating (satu-satunya jalur tulis); PENDING dulu lalu flip VERIFIED + verified_at/verified_by = rater pelengkap pasangan; idempotent (23505 race-benign, neq VERIFIED)`
-  - `2026-09-01: Side effect best-effort non-atomik — kegagalan flip tidak menggagalkan rating (precedent non-atomik Contract 2026-08-29)`
+  - `2026-09-01: Side effect best-effort non-atomik - kegagalan flip tidak menggagalkan rating (precedent non-atomik Contract 2026-08-29)`
   - `2026-09-01: RLS work_history = SELECT involved/admin, INSERT/UPDATE pihak kontrak; admin moderation & halaman Work History defer`
-- Status terakhir: Sprint 11 — Verified Work History selesai; next milestone dari roadmap (lihat BRD — kandidat: Notification / Report / Admin audit atau halaman Work History publik).
+- Status terakhir: Sprint 11 - Verified Work History selesai; next milestone dari roadmap (lihat BRD - kandidat: Notification / Report / Admin audit atau halaman Work History publik).
 
 - [ ] **Step 2: Commit**
 

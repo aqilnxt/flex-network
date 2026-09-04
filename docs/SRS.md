@@ -1,4 +1,4 @@
-SRS — Software Requirements Specification
+SRS - Software Requirements Specification
 Flex Network
 Version: Final rev. 1.2
 Status: FINAL & LOCKED 🔒
@@ -10,7 +10,7 @@ Sistem memungkinkan TALENT menemukan opportunity berdasarkan skill dan interest,
 Di sisi HIRER, sistem menyediakan fitur untuk membuat dan mengelola opportunity, melihat applicant, melakukan seleksi, menjadwalkan meeting, membuat contract, mengelola pekerjaan, serta memberikan rating setelah pekerjaan selesai.
 Admin bertanggung jawab terhadap moderation, reporting, verification, dan tindakan administratif sesuai kewenangannya.
 1.2 System Scope
-In Scope — MVP
+In Scope - MVP
 Sistem mencakup:
 User registration dan authentication
 Role-based authorization
@@ -35,7 +35,7 @@ Verified Work History
 Reporting
 Admin moderation
 Auditability untuk tindakan administratif penting
-Out of Scope — MVP
+Out of Scope - MVP
 Fitur berikut tidak menjadi fokus implementasi MVP:
 Real payment gateway
 Real escrow / financial transaction
@@ -93,9 +93,9 @@ Membangun mekanisme trust melalui moderation, meeting, contract, rating, review,
 Membantu TALENT memperoleh pengalaman kerja nyata yang dapat menjadi bahan pertimbangan dalam eksplorasi pendidikan dan karier.
 Mendukung subtema “Smart Sustainable Digital Solution for Inclusive Society” melalui perluasan akses TALENT terhadap opportunity dan pengalaman kerja nyata melalui platform digital yang terstruktur, inklusif, dan dapat ditelusuri.
 Mendukung Sustainable Development Goals (SDGs), terutama:
-SDG 8 — Decent Work and Economic Growth sebagai primary alignment.
-SDG 9 — Industry, Innovation and Infrastructure sebagai supporting alignment.
-SDG 11 — Sustainable Cities and Communities sebagai supporting alignment melalui perluasan akses terhadap opportunity lokal dan partisipasi komunitas.
+SDG 8 - Decent Work and Economic Growth sebagai primary alignment.
+SDG 9 - Industry, Innovation and Infrastructure sebagai supporting alignment.
+SDG 11 - Sustainable Cities and Communities sebagai supporting alignment melalui perluasan akses terhadap opportunity lokal dan partisipasi komunitas.
 1.4 Relationship with BRD
 SRS merupakan technical/system-level translation dari kebutuhan bisnis yang telah ditetapkan dalam BRD.
 BRD menjelaskan mengapa Flex Network dibangun dan kebutuhan bisnis apa yang ingin diselesaikan, sedangkan SRS mendefinisikan kebutuhan dan perilaku sistem yang diperlukan untuk memenuhi kebutuhan tersebut.
@@ -245,25 +245,25 @@ Verified Work History
 5. Functional Requirements
 Functional Requirements mendefinisikan perilaku dan kemampuan yang harus disediakan oleh sistem Flex Network. Setiap requirement dibuat agar dapat diimplementasikan dan diverifikasi melalui proses development dan testing.
 5.1 Authentication & Authorization
-FR-AUTH-001 — Registration
+FR-AUTH-001 - Registration
 Sistem harus memungkinkan user melakukan registrasi akun baru
 dengan memilih role:
 TALENT
 HIRER
 Registrasi harus menghasilkan akun dengan role sesuai pilihan user.
-FR-AUTH-002 — Login
+FR-AUTH-002 - Login
 Sistem harus memungkinkan user melakukan login menggunakan credential yang terdaftar.
-FR-AUTH-003 — Logout
+FR-AUTH-003 - Logout
 Sistem harus memungkinkan user melakukan logout dari session yang sedang aktif.
-FR-AUTH-004 — Authentication
+FR-AUTH-004 - Authentication
 Sistem harus memverifikasi authentication status user sebelum mengakses fitur yang memerlukan akun.
-FR-AUTH-005 — Role-Based Access
+FR-AUTH-005 - Role-Based Access
 Sistem harus membatasi akses fitur berdasarkan role:
 TALENT
 HIRER
 ADMIN
 User hanya dapat melakukan tindakan yang diizinkan oleh role yang dimilikinya.
-FR-AUTH-006 — Server-Side Authorization
+FR-AUTH-006 - Server-Side Authorization
 Sistem harus melakukan authorization pada sisi server sebelum menjalankan operasi yang membutuhkan permission.
 Authorization tidak boleh hanya bergantung pada:
 UI restriction
@@ -276,7 +276,7 @@ User role
 Resource ownership
 Business rules
 Permission yang diperlukan
-FR-AUTH-007 — Resource Ownership
+FR-AUTH-007 - Resource Ownership
 Sistem harus memastikan bahwa user hanya dapat mengakses atau mengubah resource yang:
 Dimilikinya; atau
 Secara eksplisit berada dalam kewenangan role user tersebut.
@@ -285,7 +285,7 @@ HIRER hanya dapat mengelola opportunity miliknya sendiri.
 TALENT hanya dapat melihat application miliknya sendiri.
 TALENT dan HIRER hanya dapat mengakses contract yang melibatkan dirinya.
 ADMIN dapat mengakses resource sesuai kewenangan administratifnya.
-FR-AUTH-008 — Ownership Validation
+FR-AUTH-008 - Ownership Validation
 Setiap operasi terhadap resource yang memiliki owner harus melakukan ownership validation pada server sebelum resource diproses.
 Contoh:
 Authenticated User
@@ -298,10 +298,10 @@ Business Rule Check
         ↓
 Process Request
 Apabila ownership tidak sesuai, operasi harus ditolak.
-FR-AUTH-009 — Database-Level Protection
+FR-AUTH-009 - Database-Level Protection
 Authorization dan ownership validation pada application layer harus didukung oleh database-level protection sesuai arsitektur sistem.
 Untuk sistem yang menggunakan Supabase PostgreSQL, Row Level Security (RLS) digunakan sebagai defense-in-depth dan bukan sebagai pengganti server-side authorization.
-FR-AUTH-010 — Unauthorized Access Prevention
+FR-AUTH-010 - Unauthorized Access Prevention
 Sistem harus mencegah user mengakses atau memodifikasi resource user lain tanpa permission yang sah.
 Contoh:
 TALENT A
@@ -319,7 +319,7 @@ TALENT
 ADMIN Resource
    ↓
 ACCESS DENIED
-FR-AUTH-011 — Privileged Operation Protection
+FR-AUTH-011 - Privileged Operation Protection
 Operasi sensitif harus selalu melewati authentication, authorization, ownership validation, dan business-rule validation.
 Operasi sensitif meliputi:
 Create Opportunity
@@ -334,56 +334,56 @@ Submit Rating
 Process Consent
 Admin Moderation
 Verification Override
-FR-AUTH-012 — Admin Authorization
+FR-AUTH-012 - Admin Authorization
 ADMIN memiliki kewenangan lebih tinggi dibandingkan TALENT dan HIRER, tetapi setiap tindakan ADMIN tetap harus melalui authentication dan authorization.
 ADMIN hanya dapat melakukan tindakan administratif yang memang didefinisikan oleh sistem.
 
 5.2 TALENT Profile
-FR-TALENT-001 — Create Profile
+FR-TALENT-001 - Create Profile
 Sistem harus memungkinkan TALENT membuat profile.
-FR-TALENT-002 — Update Profile
+FR-TALENT-002 - Update Profile
 Sistem harus memungkinkan TALENT mengubah informasi profile miliknya.
-FR-TALENT-003 — Skill Management
+FR-TALENT-003 - Skill Management
 Sistem harus memungkinkan TALENT menambahkan, melihat, mengubah, dan menghapus skill yang dimiliki.
-FR-TALENT-004 — Interest Management
+FR-TALENT-004 - Interest Management
 Sistem harus memungkinkan TALENT menambahkan, melihat, mengubah, dan menghapus interest.
-FR-TALENT-005 — Portfolio
+FR-TALENT-005 - Portfolio
 Sistem harus memungkinkan TALENT menambahkan informasi portfolio yang relevan dengan skill atau experience.
-FR-TALENT-006 — Work History
+FR-TALENT-006 - Work History
 Sistem harus memungkinkan TALENT melihat Work History yang telah tercatat melalui platform.
 
 5.3 HIRER Profile
-FR-HIRER-001 — Create Profile
+FR-HIRER-001 - Create Profile
 Sistem harus memungkinkan HIRER membuat profile.
-FR-HIRER-002 — Update Profile
+FR-HIRER-002 - Update Profile
 Sistem harus memungkinkan HIRER mengubah informasi profile miliknya.
-FR-HIRER-003 — Organization Information
+FR-HIRER-003 - Organization Information
 Sistem harus memungkinkan HIRER menyimpan informasi organisasi, perusahaan, startup, UMKM, komunitas, atau pihak lain yang diwakili.
 
 5.4 Opportunity Management
-FR-OPP-001 — Create Opportunity
+FR-OPP-001 - Create Opportunity
 Sistem harus memungkinkan HIRER membuat opportunity baru.
 Opportunity yang baru dibuat harus memiliki status:
 DRAFT
-FR-OPP-002 — Update Opportunity
+FR-OPP-002 - Update Opportunity
 Sistem harus memungkinkan HIRER mengubah opportunity yang masih dapat diedit.
 HIRER hanya dapat mengubah opportunity yang dimilikinya atau yang secara eksplisit berada dalam kewenangannya.
-FR-OPP-003 — Submit Opportunity
+FR-OPP-003 - Submit Opportunity
 Sistem harus memungkinkan HIRER mengirim opportunity untuk dilakukan moderation oleh ADMIN.
 Status berubah menjadi:
 PENDING_REVIEW
-FR-OPP-004 — Publish Opportunity
+FR-OPP-004 - Publish Opportunity
 Sistem harus memungkinkan opportunity yang telah disetujui ADMIN berubah menjadi:
 PUBLISHED
 Opportunity dengan status PUBLISHED dapat ditemukan oleh TALENT.
-FR-OPP-005 — Close Opportunity
+FR-OPP-005 - Close Opportunity
 Sistem harus memungkinkan HIRER menutup opportunity miliknya.
 Status berubah menjadi:
 CLOSED
 Opportunity dengan status CLOSED tidak dapat menerima application baru.
-FR-OPP-006 — Opportunity Detail
+FR-OPP-006 - Opportunity Detail
 Sistem harus memungkinkan TALENT melihat detail opportunity yang berstatus PUBLISHED.
-FR-OPP-007 — Opportunity Lifecycle
+FR-OPP-007 - Opportunity Lifecycle
 Lifecycle opportunity:
 DRAFT
   ↓
@@ -394,11 +394,11 @@ PUBLISHED
 CLOSED
 
 5.5 Opportunity Discovery
-FR-DISC-001 — Browse Opportunity
+FR-DISC-001 - Browse Opportunity
 Sistem harus memungkinkan TALENT melihat daftar opportunity yang berstatus PUBLISHED.
-FR-DISC-002 — Search Opportunity
+FR-DISC-002 - Search Opportunity
 Sistem harus memungkinkan TALENT melakukan pencarian opportunity berdasarkan informasi yang tersedia.
-FR-DISC-003 — Filter Opportunity
+FR-DISC-003 - Filter Opportunity
 Sistem harus memungkinkan TALENT melakukan filtering berdasarkan informasi seperti:
 Opportunity Type
 Location
@@ -406,7 +406,7 @@ Duration
 Compensation
 Required Skills
 Relevant Interests
-FR-DISC-004 — Opportunity Recommendation
+FR-DISC-004 - Opportunity Recommendation
 Sistem harus dapat memberikan rekomendasi opportunity berdasarkan hasil rule-based weighted matching antara data TALENT dan requirement opportunity.
 Rekomendasi harus menggunakan:
 Talent Skills
@@ -416,46 +416,46 @@ Opportunity Relevant Interests
 Match score dihitung oleh sistem dan digunakan sebagai recommendation/support mechanism.
 
 5.6 Matching
-FR-MATCH-001 — Skill Matching
+FR-MATCH-001 - Skill Matching
 Sistem harus membandingkan skill yang dimiliki TALENT dengan required skill pada opportunity.
 Perhitungan:
 Skill Match = (Matched Skills / Required Skills) × 100
 Apabila opportunity tidak memiliki required skill:
 Skill Match = 100
 
-FR-MATCH-002 — Interest Matching
+FR-MATCH-002 - Interest Matching
 Sistem harus membandingkan interest TALENT dengan relevant interest pada opportunity.
 Perhitungan:
 Interest Match = (Matched Interests / Relevant Interests) × 100
 Apabila opportunity tidak memiliki relevant interest:
 Interest Match = 100
 
-FR-MATCH-003 — Weighted Match Score
+FR-MATCH-003 - Weighted Match Score
 Sistem harus menghasilkan Final Match Score menggunakan weighted scoring:
 Final Match Score = (Skill Match × 0.70) + (Interest Match × 0.30)
 Weight yang digunakan:
 Skill Match = 70%
 Interest Match = 30%
 Nilai final berada pada rentang:
-0–100
+0-100
 Weighted matching bersifat deterministic dan rule-based.
 
-FR-MATCH-004 — Match Classification
+FR-MATCH-004 - Match Classification
 Sistem harus mengelompokkan Final Match Score menjadi:
 Score
 Classification
-80–100
+80-100
 STRONG_MATCH
-60–79
+60-79
 GOOD_MATCH
-30–59
+30-59
 WEAK_MATCH
-0–29
+0-29
 NO_MATCH
 
 Classification ditentukan oleh server berdasarkan Final Match Score.
 
-FR-MATCH-005 — Recommendation Only
+FR-MATCH-005 - Recommendation Only
 Matching hanya berfungsi sebagai recommendation/support mechanism.
 Matching:
 Tidak dapat melakukan automatic hiring.
@@ -464,7 +464,7 @@ Tidak dapat menggantikan proses review dan selection oleh HIRER.
 Tidak dapat membuat contract secara otomatis.
 Keputusan application dan selection tetap dilakukan oleh HIRER.
 
-FR-MATCH-006 — Server-Side Match Calculation
+FR-MATCH-006 - Server-Side Match Calculation
 Perhitungan match score harus dilakukan pada server/application layer.
 Frontend tidak boleh menghitung atau menentukan Final Match Score sebagai sumber kebenaran.
 Flow:
@@ -490,26 +490,26 @@ API Response
       ↓
 Frontend
 
-FR-MATCH-007 — Deterministic Matching
+FR-MATCH-007 - Deterministic Matching
 Untuk input TALENT dan opportunity yang sama, sistem harus menghasilkan score dan classification yang konsisten selama configuration weight dan rule tidak berubah.
 
 5.7 Application Management
-FR-APP-001 — Submit Application
+FR-APP-001 - Submit Application
 Sistem harus memungkinkan TALENT melakukan application terhadap opportunity yang berstatus PUBLISHED.
-FR-APP-002 — Application Status
+FR-APP-002 - Application Status
 Sistem harus menyimpan status application menggunakan canonical status:
 APPLIED
    ↓
 UNDER_REVIEW
    ├──→ SELECTED
    └──→ REJECTED
-FR-APP-003 — View Application
+FR-APP-003 - View Application
 TALENT harus dapat melihat application yang dimilikinya beserta statusnya.
-FR-APP-004 — Applicant Management
+FR-APP-004 - Applicant Management
 HIRER harus dapat melihat application yang berkaitan dengan opportunity miliknya.
-FR-APP-005 — Application Review
+FR-APP-005 - Application Review
 HIRER harus dapat melakukan review terhadap applicant pada opportunity miliknya.
-FR-APP-006 — Selection
+FR-APP-006 - Selection
 HIRER harus dapat mengubah application menjadi:
 SELECTED
 atau:
@@ -517,40 +517,40 @@ REJECTED
 HIRER hanya dapat melakukan selection terhadap application yang berada dalam scope opportunity miliknya.
 
 5.8 Meeting
-FR-MEET-001 — Schedule Meeting
+FR-MEET-001 - Schedule Meeting
 HIRER atau user yang memiliki kewenangan harus dapat membuat jadwal meeting terhadap application yang berada dalam kewenangannya.
-FR-MEET-002 — Meeting Information
+FR-MEET-002 - Meeting Information
 Sistem harus menyimpan informasi meeting seperti:
 Date
 Time
 Meeting Method
 Location / Meeting Information
-FR-MEET-003 — Meeting Status
+FR-MEET-003 - Meeting Status
 Sistem harus menyediakan status:
 SCHEDULED
 COMPLETED
 CANCELLED
-FR-MEET-004 — Meeting Completion
+FR-MEET-004 - Meeting Completion
 Meeting harus dapat ditandai sebagai COMPLETED sebelum proses contract dapat dilanjutkan.
 Meeting tidak harus dilakukan melalui video call di dalam platform.
 
 5.9 Parental / Guardian Consent
-FR-CONSENT-001 — Consent Requirement
+FR-CONSENT-001 - Consent Requirement
 Sistem harus dapat menentukan apakah suatu opportunity membutuhkan parental / guardian consent.
-FR-CONSENT-002 — Consent Request
+FR-CONSENT-002 - Consent Request
 Apabila consent diperlukan, sistem harus membuat consent dengan status:
 PENDING
-FR-CONSENT-003 — Simulated Consent Declaration
+FR-CONSENT-003 - Simulated Consent Declaration
 MVP harus menyediakan simulated consent declaration.
 Consent direpresentasikan sebagai declaration yang divalidasi server-side dan bukan sebagai independent Guardian approval.
-FR-CONSENT-004 — Consent Result
+FR-CONSENT-004 - Consent Result
 Consent dapat menghasilkan:
 APPROVED
 atau:
 REJECTED
-FR-CONSENT-005 — Contract Blocking
+FR-CONSENT-005 - Contract Blocking
 Apabila consent diwajibkan dan statusnya REJECTED, sistem tidak boleh mengaktifkan contract.
-FR-CONSENT-006 — Guardian Account Constraint
+FR-CONSENT-006 - Guardian Account Constraint
 MVP tidak menyediakan:
 Guardian Account
 Guardian Dashboard
@@ -558,12 +558,12 @@ Guardian Login
 Independent Guardian Authentication
 
 5.10 Contract
-FR-CONTRACT-001 — Create Contract
+FR-CONTRACT-001 - Create Contract
 Sistem harus dapat membuat simulated contract setelah:
 Application berstatus SELECTED
 Meeting berstatus COMPLETED
 Consent tidak diperlukan atau consent berstatus APPROVED
-FR-CONTRACT-002 — Contract Information
+FR-CONTRACT-002 - Contract Information
 Contract harus menyimpan informasi seperti:
 Contract ID
 Application
@@ -576,15 +576,15 @@ Duration
 Location
 Compensation
 Terms & Conditions
-FR-CONTRACT-003 — Contract Agreement
+FR-CONTRACT-003 - Contract Agreement
 Sistem harus memungkinkan TALENT dan HIRER memberikan persetujuan terhadap contract.
-FR-CONTRACT-004 — Contract Activation
+FR-CONTRACT-004 - Contract Activation
 Contract hanya dapat berstatus:
 ACTIVE
 setelah:
 Talent Agreement + Hirer Agreement
 dan seluruh requirement sebelumnya telah terpenuhi.
-FR-CONTRACT-005 — Contract Lifecycle
+FR-CONTRACT-005 - Contract Lifecycle
 Lifecycle contract:
 DRAFT
   ↓
@@ -597,89 +597,89 @@ Contract juga dapat berakhir melalui:
 TERMINATED
 
 5.11 Payment
-FR-PAY-001 — Simulated Payment
+FR-PAY-001 - Simulated Payment
 Sistem harus menyediakan simulated payment untuk menunjukkan alur pembayaran pada MVP.
-FR-PAY-002 — Payment Status
+FR-PAY-002 - Payment Status
 Sistem harus mencatat status pembayaran:
 PENDING
    ↓
 SIMULATED_PAID
    ↓
 RELEASED
-FR-PAY-003 — No Real Transaction
+FR-PAY-003 - No Real Transaction
 MVP tidak boleh memproses transaksi uang nyata.
-FR-PAY-004 — Payment Release
+FR-PAY-004 - Payment Release
 Payment hanya dapat berstatus RELEASED setelah kondisi completion yang diperlukan terpenuhi.
 
 5.12 Work Management
-FR-WORK-001 — Work Creation
+FR-WORK-001 - Work Creation
 Sistem harus membuat record pekerjaan berdasarkan contract yang berstatus ACTIVE.
-FR-WORK-002 — Work Status
+FR-WORK-002 - Work Status
 Sistem harus menyediakan status:
 NOT_STARTED
    ↓
 IN_PROGRESS
    ↓
 COMPLETED
-FR-WORK-003 — Work Completion
+FR-WORK-003 - Work Completion
 Work hanya dapat ditandai COMPLETED setelah pekerjaan dinyatakan selesai oleh pihak yang memiliki kewenangan.
 
 5.13 Completion Confirmation
-FR-COMP-001 — HIRER Confirmation
+FR-COMP-001 - HIRER Confirmation
 Sistem harus memungkinkan HIRER mengonfirmasi bahwa pekerjaan telah selesai.
 HIRER hanya dapat melakukan confirmation terhadap work yang berada dalam scope contract dan opportunity miliknya.
-FR-COMP-002 — Completion Verification
+FR-COMP-002 - Completion Verification
 Setelah HIRER melakukan confirmation, sistem dapat melanjutkan proses menuju:
 Payment Release
 Rating & Review
 Verified Work History
 
 5.14 Rating & Review
-FR-RATE-001 — Two-Way Rating
+FR-RATE-001 - Two-Way Rating
 Sistem harus memungkinkan:
 TALENT memberikan rating kepada HIRER.
 HIRER memberikan rating kepada TALENT.
-FR-RATE-002 — Rating Range
+FR-RATE-002 - Rating Range
 Rating menggunakan skala:
-1–5
-FR-RATE-003 — Review
+1-5
+FR-RATE-003 - Review
 Sistem harus memungkinkan user memberikan review setelah pekerjaan selesai.
-FR-RATE-004 — Rating Availability
+FR-RATE-004 - Rating Availability
 Rating hanya dapat diberikan setelah:
 WORK COMPLETED
 dan completion telah dikonfirmasi.
 User hanya dapat memberikan rating sebagai pihak yang terlibat dalam work tersebut.
 
 5.15 Verified Work History
-FR-WH-001 — Record Experience
+FR-WH-001 - Record Experience
 Sistem harus mencatat pekerjaan yang berhasil diselesaikan melalui platform.
-FR-WH-002 — Verification
+FR-WH-002 - Verification
 Work History dapat menjadi:
 VERIFIED
 setelah HIRER melakukan completion confirmation.
-FR-WH-003 — Work History Display
+FR-WH-003 - Work History Display
 TALENT harus dapat melihat Work History yang berkaitan dengan dirinya.
-FR-WH-004 — Verification Override
+FR-WH-004 - Verification Override
 ADMIN dapat melakukan verification override apabila terdapat laporan atau kasus khusus yang membutuhkan pemeriksaan.
 
 5.16 Reporting & Moderation
-FR-REPORT-001 — Create Report
+FR-REPORT-001 - Create Report
 User harus dapat membuat report terhadap user, opportunity,
 atau aktivitas yang dianggap melanggar aturan.
 Report yang baru dibuat harus memiliki status:
 SUBMITTED
-FR-REPORT-002 — View Report
+FR-REPORT-002 - View Report
 ADMIN harus dapat melihat report yang masuk.
-FR-REPORT-003 — Review Report
+FR-REPORT-003 - Review Report
 ADMIN harus dapat melakukan review terhadap report.
-FR-REPORT-004 — Moderation Action
+FR-REPORT-004 - Moderation Action
 ADMIN dapat melakukan tindakan seperti:
 Warning
 Suspend User
 Remove Opportunity
 Resolve Report
 Reject Report
-FR-REPORT-005 — Auditability
+FR-REPORT-005 - Auditability
 Tindakan administratif penting harus dicatat untuk kebutuhan accountability dan traceability.
 
 
@@ -923,7 +923,7 @@ Reviewed User ID
 Score
 Created At
 Score:
-1–5
+1-5
 
 6.15 Review
 Review menyimpan komentar atau review dari user.
@@ -1197,15 +1197,15 @@ UI/UX Flex Network harus dirancang untuk memberikan pengalaman yang sederhana, j
 ID
 Requirement
 UI-01
-Responsive Interface — Tampilan harus responsif pada Desktop, Tablet, dan Mobile.
+Responsive Interface - Tampilan harus responsif pada Desktop, Tablet, dan Mobile.
 UI-02
-Consistent Design — Elemen visual dan interaction pattern harus konsisten.
+Consistent Design - Elemen visual dan interaction pattern harus konsisten.
 UI-03
-Clear Navigation — Pengguna harus dapat berpindah antar fitur utama dengan mudah.
+Clear Navigation - Pengguna harus dapat berpindah antar fitur utama dengan mudah.
 UI-04
-Clear Information Hierarchy — Informasi penting harus mudah ditemukan.
+Clear Information Hierarchy - Informasi penting harus mudah ditemukan.
 UI-05
-Clear System Feedback — Sistem harus memberikan feedback setelah tindakan pengguna.
+Clear System Feedback - Sistem harus memberikan feedback setelah tindakan pengguna.
 
 8.2 TALENT Interface
 UI harus memprioritaskan proses:
@@ -1520,10 +1520,10 @@ Apabila opportunity tidak memiliki relevant interests:
 Interest Match = 100
 Hal tersebut mencegah division by zero dan memastikan opportunity yang memang tidak mensyaratkan skill atau interest tidak memperoleh score 0 hanya karena field requirement kosong.
 Classification
-80–100 → STRONG_MATCH
-60–79  → GOOD_MATCH
-30–59  → WEAK_MATCH
-0–29   → NO_MATCH
+80-100 → STRONG_MATCH
+60-79  → GOOD_MATCH
+30-59  → WEAK_MATCH
+0-29   → NO_MATCH
 Business Rule
 Matching:
 bukan automatic hiring.
@@ -1704,16 +1704,16 @@ Optional
 Medium
 Payment Gateway
 ❌
-—
+-
 Video Conference
 ❌
-—
+-
 Notification Service
 ✅
 Medium
 External Moderation Service
 ❌
-—
+-
 
 
 11. System Error Handling & Validation Requirements
@@ -2214,7 +2214,7 @@ Membuat & Menemukan Opportunity
 HIRER berhasil membuat dan mempublikasikan opportunity. TALENT berhasil menemukan opportunity melalui browse, search, atau filter.
 AC-04
 Matching & Apply
-Sistem membandingkan skill dan interest TALENT dengan requirement opportunity menggunakan weighted matching dengan bobot 70% skill dan 30% interest, menghasilkan Final Match Score 0–100 dan classification STRONG_MATCH, GOOD_MATCH, WEAK_MATCH, atau NO_MATCH. TALENT kemudian dapat membuat application dengan status APPLIED.
+Sistem membandingkan skill dan interest TALENT dengan requirement opportunity menggunakan weighted matching dengan bobot 70% skill dan 30% interest, menghasilkan Final Match Score 0-100 dan classification STRONG_MATCH, GOOD_MATCH, WEAK_MATCH, atau NO_MATCH. TALENT kemudian dapat membuat application dengan status APPLIED.
 AC-05
 Seleksi & Meeting
 HIRER berhasil melakukan review dan selection terhadap applicant, application menjadi SELECTED, meeting dapat dijadwalkan, dan meeting dapat menjadi COMPLETED.
@@ -2259,19 +2259,19 @@ Classification
 = GOOD_MATCH
 Nilai Final Match Score dan classification harus ditentukan oleh server dan digunakan sebagai sumber kebenaran untuk recommendation.
 
-Poin 13 — Final Matching Decision
+Poin 13 - Final Matching Decision
 Matching Type: Rule-Based Weighted Matching
 Skill Weight: 70%
 Interest Weight: 30%
 Final Score: (Skill Match × 0.70) + (Interest Match × 0.30)
-Score Range: 0–100
+Score Range: 0-100
 Classification: STRONG_MATCH, GOOD_MATCH, WEAK_MATCH, NO_MATCH
 Calculation: Server-side
 Purpose: Recommendation / Decision Support
 Automatic Hiring: Tidak diperbolehkan
 
 Document Status
-SRS — Software Requirements Specification
+SRS - Software Requirements Specification
 Project: Flex Network
 Version: Final rev. 1.2
 Total Points: 13
@@ -2300,5 +2300,5 @@ Testing
  ▼
 Deployment
 
-— END OF SRS —
+- END OF SRS -
 

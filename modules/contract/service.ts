@@ -1,5 +1,6 @@
 import { createSupabaseServerClient } from "@/lib/supabase/server";
 import { getConsentDecision } from "@/modules/consent/queries";
+import { notify } from "@/modules/notification/service";
 import type { CreateContractInput, UpdateContractInput } from "./schemas";
 
 type ServiceResult<T = unknown> = {
@@ -144,6 +145,16 @@ export async function createContract(
     return { data: null, error: { message: error.message } };
   }
 
+  notify({
+    recipientId: application.talent_id,
+    actorId: hirerId,
+    type: "CONTRACT_CREATED",
+    title: "Kontrak baru dibuat",
+    message: "Kontrak telah dibuat dan menunggu pengajuan",
+    link: `/contracts/${(created as { id: string }).id}`,
+    metadata: { contractId: (created as { id: string }).id, applicationId: input.applicationId },
+  }).catch(() => {});
+
   return { data: { contractId: (created as { id: string }).id }, error: null };
 }
 
@@ -195,17 +206,17 @@ export async function propose(
 
   const { data: contract } = await supabase
     .from("contracts")
-    .select("id, hirer_id, status")
+    .select("id, talent_id, hirer_id, status")
     .eq("id", contractId)
     .single();
 
   if (!contract) {
     return { data: null, error: { message: "Kontrak tidak ditemukan" } };
   }
-  if (contract.hirer_id !== hirerId) {
+  if ((contract as unknown as { hirer_id: string }).hirer_id !== hirerId) {
     return { data: null, error: { message: "Not owner" } };
   }
-  if (contract.status !== "DRAFT") {
+  if ((contract as unknown as { status: string }).status !== "DRAFT") {
     return {
       data: null,
       error: { message: "Hanya kontrak DRAFT yang bisa diajukan" },
@@ -225,6 +236,17 @@ export async function propose(
     .eq("id", contractId);
 
   if (error) return { data: null, error: { message: error.message } };
+
+  notify({
+    recipientId: (contract as unknown as { talent_id: string }).talent_id,
+    actorId: hirerId,
+    type: "CONTRACT_PROPOSED",
+    title: "Kontrak diajukan",
+    message: "Kontrak baru telah diajukan untuk disetujui",
+    link: `/contracts/${contractId}`,
+    metadata: { contractId },
+  }).catch(() => {});
+
   return { data: { contractId }, error: null };
 }
 
@@ -277,6 +299,16 @@ export async function agree(
     )
     .eq("id", contractId);
   if (updateError) return { data: null, error: { message: updateError.message } };
+
+  notify({
+    recipientId: isTalent ? contract.hirer_id : contract.talent_id,
+    actorId: userId,
+    type: "CONTRACT_AGREED",
+    title: "Kontrak disetujui",
+    message: `${isTalent ? "Talent" : "Hirer"} telah menyetujui kontrak`,
+    link: `/contracts/${contractId}`,
+    metadata: { contractId },
+  }).catch(() => {});
 
   if (willActivate) {
     const { error: activateError } = await supabase
@@ -338,5 +370,16 @@ export async function decline(
     .eq("id", contractId);
 
   if (error) return { data: null, error: { message: error.message } };
+
+  notify({
+    recipientId: contract.hirer_id === userId ? contract.talent_id : contract.hirer_id,
+    actorId: userId,
+    type: "CONTRACT_DECLINED",
+    title: "Kontrak ditolak",
+    message: "Salah satu pihak menolak kontrak",
+    link: `/contracts/${contractId}`,
+    metadata: { contractId },
+  }).catch(() => {});
+
   return { data: { contractId }, error: null };
 }

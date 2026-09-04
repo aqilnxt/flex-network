@@ -1,4 +1,4 @@
-Flex Network — Business Requirements Document (BRD)
+Flex Network - Business Requirements Document (BRD)
 Version: Revised & Canonical
 Status: FINAL & LOCKED 🔒
 Project: Flex Network
@@ -178,7 +178,7 @@ Admin Moderation.
 Admin Verification.
 Auditability.
 
-5.2 Out of Scope — MVP
+5.2 Out of Scope - MVP
 Fitur berikut tidak menjadi fokus implementasi MVP:
 Real Payment Gateway.
 Real Escrow.
@@ -241,7 +241,7 @@ Verification.
 Administrative actions.
 Auditability.
 
-7. User Flow — TALENT
+7. User Flow - TALENT
 Core flow TALENT:
 Register
 ↓
@@ -305,7 +305,7 @@ Rating & Review
 ↓
 Verified Work History
 
-8. User Flow — HIRER
+8. User Flow - HIRER
 Core flow HIRER:
 Register
 ↓
@@ -675,7 +675,7 @@ TALENT → HIRER
 dan:
 HIRER → TALENT
 Rating:
-1–5
+1-5
 Rating hanya dapat diberikan setelah:
 Work = COMPLETED
 
@@ -1013,15 +1013,15 @@ Flex Network menggunakan:
 Inter
 sebagai font family utama.
 24.1 Font Weight
-400 — Regular
+400 - Regular
 Body text, paragraph, description, caption, metadata.
-500 — Medium
+500 - Medium
 Navigation, labels, badges, tags.
-600 — Semi Bold
+600 - Semi Bold
 Primary buttons, card titles, UI actions.
-700 — Bold
+700 - Bold
 H1, H2, major section headings.
-800 — Extra Bold
+800 - Extra Bold
 Hero heading dan major brand statement.
 
 25. Logo & Brand Identity
@@ -1042,7 +1042,7 @@ Flex Network
 Tagline
 Your Skill, Your Opportunity
 Logo utama menggunakan:
-Royal Blue — #2447F9
+Royal Blue - #2447F9
 Varian logo:
 Primary Logo.
 Logo Mark.
@@ -1063,7 +1063,7 @@ Komunitas.
 Organisasi.
 Hirer lainnya.
 
-26.2 SDG 8 — Decent Work and Economic Growth
+26.2 SDG 8 - Decent Work and Economic Growth
 Primary SDG
 Flex Network mendukung SDG 8 melalui:
 Pengalaman kerja.
@@ -1076,7 +1076,7 @@ Real Work Experience → Skill Development → Career Exploration
 Positioning
 SDG 8 = Why Flex Network exists.
 
-26.3 SDG 9 — Industry, Innovation and Infrastructure
+26.3 SDG 9 - Industry, Innovation and Infrastructure
 Supporting SDG
 Flex Network menggunakan teknologi digital untuk mempertemukan:
 Skills + Interests + Opportunity Requirements
@@ -1090,7 +1090,7 @@ Digital Platform → Matching → Opportunity Access
 Positioning
 SDG 9 = How Flex Network delivers the solution.
 
-26.4 SDG 11 — Sustainable Cities and Communities
+26.4 SDG 11 - Sustainable Cities and Communities
 Supporting SDG
 Flex Network mendukung inklusivitas komunitas dengan membantu memperluas akses Young Talent terhadap opportunity yang tersedia di lingkungan lokal.
 Opportunity dapat berasal dari:
@@ -1122,7 +1122,7 @@ Nilai utama Flex Network bukan hanya jumlah opportunity, tetapi kemampuan mengha
 Relevant + Traceable + Experience-Driven Work Experience
 
 28. User Persona
-28.1 TALENT — Andi
+28.1 TALENT - Andi
 Name: Andi
 Age: 17
 Status: SMK Student
@@ -1154,7 +1154,7 @@ Meeting.
 Contract.
 Work History.
 
-28.2 HIRER — Budi
+28.2 HIRER - Budi
 Name: Budi
 Age: 29
 Role: HR / Recruiter Startup
@@ -1650,4 +1650,4 @@ Testing
  ↓
 Deployment
 
-— END OF BRD —
+- END OF BRD -

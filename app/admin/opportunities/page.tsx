@@ -14,23 +14,23 @@ export default async function AdminOpportunitiesPage() {
 
   return (
     <div className="p-8 max-w-4xl">
-      <h1 className="text-2xl font-bold mb-4">Moderasi Opportunity</h1>
+      <h1 className="text-2xl font-bold tracking-tight mb-4">Moderasi Opportunity</h1>
 
       {(queue ?? []).length === 0 && (
-        <p className="text-gray-500">Tidak ada opportunity menunggu review.</p>
+        <p className="text-ink-2">Tidak ada opportunity menunggu review.</p>
       )}
 
       <div className="flex flex-col gap-4">
         {(queue ?? []).map((o) => (
-          <div key={o.id} className="border rounded p-4">
+          <div key={o.id} className="card p-4">
             <h2 className="font-semibold">{o.title}</h2>
-            <p className="text-sm text-gray-600">Hirer: {o.hirer?.full_name ?? "-"}</p>
+            <p className="text-sm text-ink-2">Hirer: {o.hirer?.full_name ?? "-"}</p>
             <p className="text-sm mt-2 whitespace-pre-wrap">
               {o.description?.slice(0, 300)}
             </p>
 
             <form action={moderate.bind(null, o.id)} className="flex flex-col gap-2 mt-4">
-              <select name="action" className="border rounded px-3 py-2">
+              <select name="action" className="border border-line rounded-xl px-3 py-2">
                 <option value="APPROVE_PUBLISH">Approve (PUBLISHED)</option>
                 <option value="REQUEST_CHANGES">Request Changes (DRAFT)</option>
                 <option value="DELETE">Delete</option>
@@ -38,9 +38,9 @@ export default async function AdminOpportunitiesPage() {
               <input
                 name="notes"
                 placeholder="Catatan moderasi (opsional)"
-                className="border rounded px-3 py-2"
+                className="border border-line rounded-xl px-3 py-2"
               />
-              <button className="bg-blue-600 text-white rounded px-4 py-2 self-start">
+              <button className="btn-primary px-4 py-2 self-start">
                 Terapkan
               </button>
             </form>

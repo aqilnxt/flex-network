@@ -54,7 +54,7 @@ export default async function ApplicantsPage({
       <h1 className="text-2xl font-bold mt-2 mb-2">Pelamar</h1>
       <p className="text-sm text-gray-600 mb-4">
         Terpilih {selectedCount} / {maxTalent}
-        {isFull && <span className="text-amber-600"> — kuota penuh</span>}
+        {isFull && <span className="text-amber-600"> - kuota penuh</span>}
       </p>
 
       {(applications ?? []).length === 0 && (
@@ -170,7 +170,7 @@ export default async function ApplicantsPage({
                     {consent.status}
                   </span>
                   {consent.status === "PENDING" && (
-                    <span className="text-gray-500"> — menunggu talent</span>
+                    <span className="text-gray-500"> - menunggu talent</span>
                   )}
                 </div>
               );
@@ -233,7 +233,7 @@ export default async function ApplicantsPage({
                     )}
                   {work.status === "COMPLETED" && work.hirer_confirmed && (
                     <p className="text-sm text-green-700 mt-1">
-                      Pekerjaan dikonfirmasi — payment dapat dilepas (modul Payment).
+                      Pekerjaan dikonfirmasi - payment dapat dilepas (modul Payment).
                     </p>
                   )}
                 </div>

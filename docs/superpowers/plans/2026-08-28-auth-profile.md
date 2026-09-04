@@ -104,7 +104,7 @@ create trigger on_auth_user_created
 
 ---
 
-## Task 2: Shared types — `lib/result.ts`
+## Task 2: Shared types - `lib/result.ts`
 
 **Files:**
 - Create: `lib/result.ts`
@@ -146,7 +146,7 @@ export type ActionResult<T = unknown> =
 
 ---
 
-## Task 4: Auth helpers — `modules/lib/auth.ts`
+## Task 4: Auth helpers - `modules/lib/auth.ts`
 
 **Files:**
 - Create: `modules/lib/auth.ts`
@@ -214,7 +214,7 @@ export async function requireRole(role: SessionRole): Promise<CurrentUser> {
 
 ---
 
-## Task 5: Auth schemas — `modules/auth/schemas.ts`
+## Task 5: Auth schemas - `modules/auth/schemas.ts`
 
 **Files:**
 - Create: `modules/auth/schemas.ts`
@@ -248,7 +248,7 @@ export type LoginInput = z.infer<typeof loginSchema>;
 
 ---
 
-## Task 6: Auth service + actions — `modules/auth/service.ts`, `modules/auth/actions.ts`
+## Task 6: Auth service + actions - `modules/auth/service.ts`, `modules/auth/actions.ts`
 
 **Files:**
 - Create: `modules/auth/service.ts`
@@ -375,7 +375,7 @@ export async function logout(): Promise<void> {
 
 ---
 
-## Task 7: Profile schemas — `modules/profile/schemas.ts`
+## Task 7: Profile schemas - `modules/profile/schemas.ts`
 
 **Files:**
 - Create: `modules/profile/schemas.ts`
@@ -402,7 +402,7 @@ export type UpdateProfileInput = z.infer<typeof updateProfileSchema>;
 
 ---
 
-## Task 8: Profile service + actions — `modules/profile/service.ts`, `modules/profile/actions.ts`
+## Task 8: Profile service + actions - `modules/profile/service.ts`, `modules/profile/actions.ts`
 
 **Files:**
 - Create: `modules/profile/service.ts`
@@ -553,7 +553,7 @@ export async function removeInterest(interestId: string): Promise<ActionResult> 
 
 ---
 
-## Task 9: Middleware — `middleware.ts`
+## Task 9: Middleware - `middleware.ts`
 
 **Files:**
 - Create: `middleware.ts`
@@ -616,7 +616,7 @@ export const config = {
 
 ---
 
-## Task 10: Auth pages — `app/(auth)/login/page.tsx`, `app/(auth)/register/page.tsx`
+## Task 10: Auth pages - `app/(auth)/login/page.tsx`, `app/(auth)/register/page.tsx`
 
 **Files:**
 - Create: `app/(auth)/login/page.tsx`
@@ -692,7 +692,7 @@ export default function RegisterPage() {
 
 ---
 
-## Task 11: Dashboard pages — role router, talent & hirer
+## Task 11: Dashboard pages - role router, talent & hirer
 
 **Files:**
 - Create: `app/dashboard/page.tsx`
@@ -756,7 +756,7 @@ export default async function HirerDashboardPage() {
 
 ---
 
-## Task 12: Profile page — `app/profile/page.tsx`
+## Task 12: Profile page - `app/profile/page.tsx`
 
 **Files:**
 - Create: `app/profile/page.tsx`
@@ -810,7 +810,7 @@ Buat juga `app/profile/profile-form.tsx` (client component) yang memanggil `upda
 
 ---
 
-## Task 13: Verification — build & typecheck
+## Task 13: Verification - build & typecheck
 
 **Files:**
 - (none)

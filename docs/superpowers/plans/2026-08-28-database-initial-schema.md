@@ -8,7 +8,7 @@
 
 **Tech Stack:** Supabase PostgreSQL, raw SQL migration.
 
-**Spec:** APPENDIX.md A.4–A.50, TTD.md 23.17–23.24.
+**Spec:** APPENDIX.md A.4-A.50, TTD.md 23.17-23.24.
 
 ## Global Constraints
 
@@ -32,7 +32,7 @@ Semua di bawah `supabase/migrations/`:
 
 ---
 
-## Task 1: `001_initial_schema.sql` — Tabel, Constraint, & Helper
+## Task 1: `001_initial_schema.sql` - Tabel, Constraint, & Helper
 
 **Files:**
 - Create: `supabase/migrations/001_initial_schema.sql`
@@ -43,7 +43,7 @@ Semua di bawah `supabase/migrations/`:
 **Isi (urutan parent→child):**
 1. `skills(id uuid pk, name text not null unique, created_at)`
 2. `interests(id uuid pk, name text not null unique, created_at)`
-3. `profiles(id uuid pk, role text check in (TALENT,HIRER,ADMIN), full_name, bio, location, avatar_url, status text check(default ACTIVE), created_at, updated_at)` — FK `id → auth.users(id)`
+3. `profiles(id uuid pk, role text check in (TALENT,HIRER,ADMIN), full_name, bio, location, avatar_url, status text check(default ACTIVE), created_at, updated_at)` - FK `id → auth.users(id)`
 4. `profile_private(profile_id pk fk→profiles, email, phone, created_at, updated_at)`
 5. `talent_profiles(profile_id pk fk→profiles, school_name, grade_level, cv_url, portfolio_url, birth_date date, is_minor boolean default false, ...)`
 6. `hirer_profiles(profile_id pk fk→profiles, company_name, industry, company_description, website_url, ...)`
@@ -62,19 +62,19 @@ Semua di bawah `supabase/migrations/`:
 19. `work_history(contract_id fk, talent_id fk, opportunity_id fk, title, description, duration, compensation, verification_status check, verified_at, verified_by, verification_notes, UNIQUE(contract_id))`
 20. `notifications(id pk, user_id fk, type, title, message, link, is_read boolean, created_at)`
 21. `reports(id pk, reporter_id fk, target_user_id fk nullable, target_opportunity_id fk nullable, target_application_id fk nullable, reason, status check, CHECK(minimal satu target non-null))`
-22. `audit_logs(id pk, actor_id uuid, actor_type check(USER/ADMIN/SYSTEM), action, resource_type, resource_id uuid, metadata jsonb, created_at)` — tanpa FK ketat.
+22. `audit_logs(id pk, actor_id uuid, actor_type check(USER/ADMIN/SYSTEM), action, resource_type, resource_id uuid, metadata jsonb, created_at)` - tanpa FK ketat.
 
 - Helper: `CREATE FUNCTION set_updated_at()` (set `updated_at = now()`).
 
 **Steps:**
 - [ ] **Step 1:** Buat folder `supabase/migrations/`.
-- [ ] **Step 2:** Tulis `001_initial_schema.sql` (tabel 1–22 + helper function).
+- [ ] **Step 2:** Tulis `001_initial_schema.sql` (tabel 1-22 + helper function).
 - [ ] **Step 3:** Review urutan FK (tidak ada FK ke tabel yang belum dibuat).
 - [ ] **Step 4:** Commit `feat(db): add initial schema tables and constraints`.
 
 ---
 
-## Task 2: `002_indexes.sql` — Index Ownership & FK
+## Task 2: `002_indexes.sql` - Index Ownership & FK
 
 **Files:**
 - Create: `supabase/migrations/002_indexes.sql`
@@ -103,7 +103,7 @@ Semua di bawah `supabase/migrations/`:
 
 ---
 
-## Task 3: `003_rls_policies.sql` — RLS Dasar
+## Task 3: `003_rls_policies.sql` - RLS Dasar
 
 **Files:**
 - Create: `supabase/migrations/003_rls_policies.sql`
@@ -130,7 +130,7 @@ Semua di bawah `supabase/migrations/`:
 
 ---
 
-## Task 4: `004_updated_at_triggers.sql` — Auto-update Trigger
+## Task 4: `004_updated_at_triggers.sql` - Auto-update Trigger
 
 **Files:**
 - Create: `supabase/migrations/004_updated_at_triggers.sql`

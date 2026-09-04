@@ -9,13 +9,13 @@ Membangun modul Consent: simulated parent/guardian approval untuk application ya
 - **Lazy eksplisit (Pendekatan A).** Row consent dibuat hanya saat TALENT submit aksi "request". Tidak ada auto-create dari modul Meeting (modul terpisah, tanpa coupling).
 - **NOT_REQUIRED = tanpa row.** Status `NOT_REQUIRED` selalu derived (tidak pernah tersimpan di DB). Row hanya eksis ketika required.
 - **REJECTED = terminal.** APPROVED = terminal. Tidak ada re-open, re-request, atau edit (YAGNI, mengikuti pola Meeting CANCELLED terminal).
-- **Aktor semua mutation = TALENT owner** (API-SPEC 10.3–10.5: simulated consent flow dieksekusi TALENT, bukan akun guardian terpisah). HIRER & ADMIN read-only.
-- **`is_minor` dibaca apa adanya** dari `profiles.is_minor` (kolom ada di 001, default false, belum pernah diisi — register belum collect `birth_date`). Pengisian `is_minor`/`birth_date` = task terpisah di luar sprint ini. Consent tetap berfungsi via `opportunity.requires_consent`.
+- **Aktor semua mutation = TALENT owner** (API-SPEC 10.3-10.5: simulated consent flow dieksekusi TALENT, bukan akun guardian terpisah). HIRER & ADMIN read-only.
+- **`is_minor` dibaca apa adanya** dari `profiles.is_minor` (kolom ada di 001, default false, belum pernah diisi - register belum collect `birth_date`). Pengisian `is_minor`/`birth_date` = task terpisah di luar sprint ini. Consent tetap berfungsi via `opportunity.requires_consent`.
 - **Guardian data dilarang keras.** Schema Zod tidak menerima `guardianName`, `guardianContact`, `guardianEmail`, `guardianAccountId`, `identityDocument`, `identityNumber`, atau data wali sensitif apa pun. Consent = simulated declaration + metadata operasional saja (BRD 13.2, APPENDIX A.15 Privacy Rule, AGENTS.md Security/Privacy).
 - **Notification & audit → defer** (task terpisah).
 - **REST API → defer** (konsisten keputusan 2026-08-29: Server Actions dulu).
-- **Contract gate die-enforce di modul Contract (modul berikutnya)** — modul consent expose `getByApplicationId` + `getConsentDecision`; kontrak wajib blok bila `required && status !== 'APPROVED'`. Ditulis eksplisit agar tidak hilang.
-- DB tidak diubah — tabel `consents` sudah lengkap di 001 (kolom, CHECK status, UNIQUE application_id). Sprint ini hanya menambah RLS granular.
+- **Contract gate die-enforce di modul Contract (modul berikutnya)** - modul consent expose `getByApplicationId` + `getConsentDecision`; kontrak wajib blok bila `required && status !== 'APPROVED'`. Ditulis eksplisit agar tidak hilang.
+- DB tidak diubah - tabel `consents` sudah lengkap di 001 (kolom, CHECK status, UNIQUE application_id). Sprint ini hanya menambah RLS granular.
 
 ## Architecture
 
@@ -41,7 +41,7 @@ Status canonical: `NOT_REQUIRED` (derived, tanpa row) · `PENDING` · `APPROVED`
 
 | Transisi | Syarat | Aktor |
 |---|---|---|
-| `— → PENDING` (insert row) | application `SELECTED` + meeting `COMPLETED` + required + belum ada row | TALENT owner |
+| `- → PENDING` (insert row) | application `SELECTED` + meeting `COMPLETED` + required + belum ada row | TALENT owner |
 | `PENDING → APPROVED` | talent owner + `consent_required = true`; set `approved_at` | TALENT |
 | `PENDING → REJECTED` | talent owner + `consent_required = true`; set `rejected_at`; **terminal** | TALENT |
 
@@ -54,7 +54,7 @@ required = opportunity.requires_consent = true OR profiles.is_minor = true
 ```
 
 - Dievaluasi server-side di service saat `requestConsent`; client tidak pernah menentukan requirement (API-SPEC 10.1).
-- DB aktual: kolom ada di `opportunities.requires_consent` (001:116) dan `profiles.is_minor` (001:66) — **bukan** `talent_profiles` seperti tulisan API-SPEC; ikuti DB aktual (konsisten keputusan 2026-08-29).
+- DB aktual: kolom ada di `opportunities.requires_consent` (001:116) dan `profiles.is_minor` (001:66) - **bukan** `talent_profiles` seperti tulisan API-SPEC; ikuti DB aktual (konsisten keputusan 2026-08-29).
 - `required_reason` = metadata string yang dibangun server dari sumber requirement (mis. `"Opportunity requires consent; Talent is minor"`). Bukan input user.
 
 ## Consent Decision (derived)
@@ -80,7 +80,7 @@ Aturan derived (`row` = consent row untuk application, bisa `null`):
 - Tidak required → `{ required: false, status: "NOT_REQUIRED" }` (row tidak akan pernah ada).
 - Required + belum ada row → `{ required: true, status: "MISSING" }` (talent belum request).
 - Required + row ada → `{ required: true, status: row.status }` (PENDING/APPROVED/REJECTED).
-- `NOT_REQUIRED` dan `MISSING` bukan status DB — murni derived; "missing while required" diblok (APPENDIX A.17).
+- `NOT_REQUIRED` dan `MISSING` bukan status DB - murni derived; "missing while required" diblok (APPENDIX A.17).
 - **`getConsentDecision(applicationId)`** (lihat Queries) = single call contract gate modul Contract: eligible iff `!required || status === "APPROVED"`; blocked untuk `MISSING`, `PENDING`, `REJECTED`.
 
 ## Schemas (Zod)
@@ -95,9 +95,9 @@ export const createConsentSchema = z.object({
 export type CreateConsentInput = z.infer<typeof createConsentSchema>;
 ```
 
-Sengaja minimal (API-SPEC 22.6). Zod `.strip()` default membuang field tak dikenal — guardian data tidak pernah masuk meski di-inject client. Validasi business (ownership, state, requirement) tetap di service.
+Sengaja minimal (API-SPEC 22.6). Zod `.strip()` default membuang field tak dikenal - guardian data tidak pernah masuk meski di-inject client. Validasi business (ownership, state, requirement) tetap di service.
 
-## RLS — `011_consent_rls.sql`
+## RLS - `011_consent_rls.sql`
 
 Baseline `003_rls_policies.sql`: `consents` enable RLS, default-deny, tanpa policy (003:126 "TBD in application module").
 
@@ -138,7 +138,7 @@ create policy "consents_update_talent"
   with check (talent_id = auth.uid());
 ```
 
-Catatan: privacy-sensitive — HIRER hanya SELECT (butuh lihat status consent untuk tahu contract bisa lanjut), tidak pernah INSERT/UPDATE. Tidak ada policy DELETE.
+Catatan: privacy-sensitive - HIRER hanya SELECT (butuh lihat status consent untuk tahu contract bisa lanjut), tidak pernah INSERT/UPDATE. Tidak ada policy DELETE.
 
 ## Service
 
@@ -162,8 +162,8 @@ Helper ownership: `getOwnedConsent(consentId, talentId)`.
 - `type ConsentRow = { id, application_id, talent_id, opportunity_id, consent_required, required_reason, status, requested_at, approved_at, rejected_at }`.
 - `getByApplicationId(applicationId)` → `ConsentRow | null`. Dipakai: **contract gate nanti** + render kondisional.
 - `listForApplications(applicationIds)` → `Map<applicationId, ConsentRow>`. Batch render tanpa N+1.
-- `getRequirementMap(applicationIds)` → `Map<applicationId, { required: boolean; reason: string | null }>` — join `applications → opportunities.requires_consent` + `profiles.is_minor` per talent; dipakai UI talent & hirer untuk derived state.
-- `getConsentDecision(applicationId)` → `{ required, status }` — gabungan requirement + row (`row?.status ?? "NOT_REQUIRED"`); **single call untuk contract gate modul Contract**: blok bila `required && status !== "APPROVED"`.
+- `getRequirementMap(applicationIds)` → `Map<applicationId, { required: boolean; reason: string | null }>` - join `applications → opportunities.requires_consent` + `profiles.is_minor` per talent; dipakai UI talent & hirer untuk derived state.
+- `getConsentDecision(applicationId)` → `{ required, status }` - gabungan requirement + row (`row?.status ?? "NOT_REQUIRED"`); **single call untuk contract gate modul Contract**: blok bila `required && status !== "APPROVED"`.
 
 ## Server Actions
 
@@ -174,13 +174,13 @@ Helper ownership: `getOwnedConsent(consentId, talentId)`.
 
 ## Pages
 
-1. `app/applications/page.tsx` (TALENT) — blok consent per application:
+1. `app/applications/page.tsx` (TALENT) - blok consent per application:
    - required + row PENDING → info "Menunggu persetujuan wali (simulasi)" + tombol **Setujui** / **Tolak** (plain form actions).
    - required + row PENDING → juga deklarasi copy jelas: deklarasi disetujui talent atas nama wali (simulasi), tanpa input data wali.
    - required + belum ada row + meeting COMPLETED + app SELECTED → form "Ajukan Consent" (client component `ConsentRequestForm`, useActionState untuk error inline).
    - row APPROVED / REJECTED → badge read-only (terminal).
    - Tidak required → tidak render apa pun (NOT_REQUIRED = senyap).
-2. `app/hirer/opportunities/[id]/applications/page.tsx` (HIRER) — badge consent read-only per application: row ada → `Consent: <status>`; tidak ada → tanpa badge (talent belum request atau not required; detail tak diekspos ke hirer — `requires_consent` & minor status talent bukan urusan hirer).
+2. `app/hirer/opportunities/[id]/applications/page.tsx` (HIRER) - badge consent read-only per application: row ada → `Consent: <status>`; tidak ada → tanpa badge (talent belum request atau not required; detail tak diekspos ke hirer - `requires_consent` & minor status talent bukan urusan hirer).
 
 ## Security & Privacy Rules
 

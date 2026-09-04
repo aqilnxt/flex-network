@@ -36,7 +36,7 @@
 - [ ] **Step 1: Tulis migration**
 
 ```sql
--- 013_work_rls.sql — granular policies untuk works
+-- 013_work_rls.sql - granular policies untuk works
 -- Baseline 003: RLS enabled, default-deny, tanpa policy.
 -- INSERT (seed saat contract ACTIVE) sudah ada di 012_contract_rls.sql.
 -- Perbedaan peran (talent transisi vs hirer confirm) di-enforce service.
@@ -82,7 +82,7 @@ Expected: migration applied.
 - [ ] **Step 3: Verifikasi policy**
 
 Run: `supabase db query --linked "select tablename, policyname, cmd from pg_policies where tablename = 'works' order by policyname;"`
-Expected: 3 rows — `works_insert_seed` (INSERT, dari 012), `works_select_involved` (SELECT), `works_update_involved` (UPDATE).
+Expected: 3 rows - `works_insert_seed` (INSERT, dari 012), `works_select_involved` (SELECT), `works_update_involved` (UPDATE).
 
 - [ ] **Step 4: Commit**
 
@@ -313,7 +313,7 @@ export async function confirmCompletion(
 }
 ```
 
-Catatan: `loadWorkWithContract(supabase, contractId)` — helper bersama; semua service menerima `supabase` sebagai argumen pertama seperti modul Consent/Contract. `startWork` harus mengikuti pola `completeWork` (load + ownership + gate + state check sebelum write) — update `.eq("id", ctx.workId)`. Error message transisi: `startWork` menolak bila `workStatus !== "NOT_STARTED"` dengan pesan `"Work sudah dimulai"`; `completeWork` menolak skip dengan pesan `"Work belum dimulai"`.
+Catatan: `loadWorkWithContract(supabase, contractId)` - helper bersama; semua service menerima `supabase` sebagai argumen pertama seperti modul Consent/Contract. `startWork` harus mengikuti pola `completeWork` (load + ownership + gate + state check sebelum write) - update `.eq("id", ctx.workId)`. Error message transisi: `startWork` menolak bila `workStatus !== "NOT_STARTED"` dengan pesan `"Work sudah dimulai"`; `completeWork` menolak skip dengan pesan `"Work belum dimulai"`.
 
 - [ ] **Step 2: Verifikasi typecheck**
 
@@ -338,8 +338,8 @@ git commit -m "feat(work): add work service with state machine and confirm gate"
 - Produces:
   - `type WorkStatus = "NOT_STARTED" | "IN_PROGRESS" | "COMPLETED"`
   - `type WorkRow = { id, contract_id, status, started_at, completed_at, hirer_confirmed, hirer_confirmed_at, confirmed_by, notes }`
-  - `getByContractId(contractId: string): Promise<WorkRow | null>` — **single call gate modul Payment** (release iff `status === "COMPLETED" && hirer_confirmed`) **dan gate Rating** (rating iff `status === "COMPLETED"`); juga dipakai blok UI detail contract.
-  - `listForContracts(contractIds: string[]): Promise<Map<string, WorkRow>>` — batch render inline tanpa N+1.
+  - `getByContractId(contractId: string): Promise<WorkRow | null>` - **single call gate modul Payment** (release iff `status === "COMPLETED" && hirer_confirmed`) **dan gate Rating** (rating iff `status === "COMPLETED"`); juga dipakai blok UI detail contract.
+  - `listForContracts(contractIds: string[]): Promise<Map<string, WorkRow>>` - batch render inline tanpa N+1.
 
 - [ ] **Step 1: Tulis queries**
 
@@ -419,7 +419,7 @@ git commit -m "feat(work): add work queries with payment and rating gate"
   - `startWork(contractId: string, redirectTo: string): Promise<void>`
   - `completeWork(contractId: string, redirectTo: string): Promise<void>`
   - `confirmWork(contractId: string, redirectTo: string): Promise<void>`
-  - Ketiganya fire-and-forget `void` — error bisnis silent return; sukses `revalidatePath` + `redirect(redirectTo)` (konsisten keputusan 2026-08-29: redirect balik ke halaman asal supaya UI refresh deterministik).
+  - Ketiganya fire-and-forget `void` - error bisnis silent return; sukses `revalidatePath` + `redirect(redirectTo)` (konsisten keputusan 2026-08-29: redirect balik ke halaman asal supaya UI refresh deterministik).
 
 - [ ] **Step 1: Tulis actions**
 
@@ -466,7 +466,7 @@ export async function confirmWork(contractId: string, redirectTo: string): Promi
 }
 ```
 
-Catatan: `startWork`/`completeWork` = TALENT; `confirmWork` = HIRER. `redirectTo` disuplai caller (pemanggil punya path halaman asal). `redirect()` bertipe `never` — tidak butuh return setelahnya.
+Catatan: `startWork`/`completeWork` = TALENT; `confirmWork` = HIRER. `redirectTo` disuplai caller (pemanggil punya path halaman asal). `redirect()` bertipe `never` - tidak butuh return setelahnya.
 
 - [ ] **Step 2: Verifikasi typecheck**
 
@@ -482,7 +482,7 @@ git commit -m "feat(work): add work server actions"
 
 ---
 
-### Task 6: My Applications (TALENT) — blok work + aksi mulai/selesai
+### Task 6: My Applications (TALENT) - blok work + aksi mulai/selesai
 
 **Files:**
 - Modify: `app/applications/page.tsx`
@@ -546,7 +546,7 @@ const works = await listForContracts(
       )}
       {work.status === "COMPLETED" && work.hirer_confirmed && (
         <p className="text-sm text-green-700 mt-1">
-          Pekerjaan selesai — dikonfirmasi hirer.
+          Pekerjaan selesai - dikonfirmasi hirer.
         </p>
       )}
     </div>
@@ -570,7 +570,7 @@ git commit -m "feat(work): add work block to my applications"
 
 ---
 
-### Task 7: Applicant list (HIRER) — badge work + tombol konfirmasi selesai
+### Task 7: Applicant list (HIRER) - badge work + tombol konfirmasi selesai
 
 **Files:**
 - Modify: `app/hirer/opportunities/[id]/applications/page.tsx`
@@ -633,7 +633,7 @@ const works = await listForContracts(
         )}
       {work.status === "COMPLETED" && work.hirer_confirmed && (
         <p className="text-sm text-green-700 mt-1">
-          Pekerjaan dikonfirmasi — payment dapat dilepas (modul Payment).
+          Pekerjaan dikonfirmasi - payment dapat dilepas (modul Payment).
         </p>
       )}
     </div>
@@ -657,7 +657,7 @@ git commit -m "feat(work): add work block to applicant list"
 
 ---
 
-### Task 8: Detail contract — blok work + aksi sesuai role/status
+### Task 8: Detail contract - blok work + aksi sesuai role/status
 
 **Files:**
 - Modify: `app/contracts/[id]/page.tsx`
@@ -756,11 +756,11 @@ Expected: semua PASS tanpa error.
 Data reuse smoke Contract: contract `b8ce8bdc-3fd1-40bd-832d-465c8daac86b` (CNTR-260831-DVA4) status **ACTIVE** dengan work `NOT_STARTED` (seed). Akun: `smoke-talent-consent@example.test` (TALENT pihak kontrak) + `smoke-hirer-consent@example.test` (HIRER), password `Smoke123!` (sudah di-reset sprint Contract). Dev server: `npm run dev`.
 
 1. TALENT buka `/applications` → blok Work `NOT_STARTED` + tombol **Mulai Kerja** → klik → status `IN_PROGRESS` + `started_at` terisi (cek DB).
-2. Skip test: tombol **Tandai Selesai** TIDAK muncul saat `NOT_STARTED`; service `completeWork` menolak `NOT_STARTED` ("Work belum dimulai") — verifikasi UI (tanpa tombol) + service code path.
+2. Skip test: tombol **Tandai Selesai** TIDAK muncul saat `NOT_STARTED`; service `completeWork` menolak `NOT_STARTED` ("Work belum dimulai") - verifikasi UI (tanpa tombol) + service code path.
 3. TALENT **Tandai Selesai** → status `COMPLETED` + `completed_at` terisi.
 4. HIRER buka applicant list opportunity Smoke Consent (`/hirer/opportunities/c13e9c82-fd73-4a55-aeda-0ba47a3d57ff/applications`) → badge work `COMPLETED` + tombol **Konfirmasi Selesai** → klik → badge "Dikonfirmasi".
 5. DB: `hirer_confirmed = true`, `hirer_confirmed_at` terisi, `confirmed_by` = hirer id; **`payments` masih PENDING** (modul Work tidak menyentuh payments).
-6. Terminal test: confirm kedua ditolak service ("Sudah dikonfirmasi") — tombol hilang dari UI; verify via service error di langkah smoke opsional.
+6. Terminal test: confirm kedua ditolak service ("Sudah dikonfirmasi") - tombol hilang dari UI; verify via service error di langkah smoke opsional.
 7. Gate contract: coba transisi work pada kontrak TERMINATED (5192b7fc) → tidak ada work row → UI senyap; service menolak bila dipangsa.
 8. RLS via REST: talent asing SELECT `/rest/v1/works` → hanya row kontraknya; PATCH works kontrak orang lain → 0 rows (204); INSERT works → 42501 (policy seed 012 mewajibkan contract ACTIVE + pihak kontrak).
 9. UI TALENT: blok work status-aware (Mulai Kerja → Tandai Selesai → menunggu/dikonfirmasi) tanpa N+1 (1 query batch `listForContracts`).
@@ -778,12 +778,12 @@ git commit -m "fix(work): address smoke test findings"
 
 - [ ] **Step 1: Update progress**
 
-- Tambah "Module Work" ke "Sudah Selesai" (Task 1–9).
+- Tambah "Module Work" ke "Sudah Selesai" (Task 1-9).
 - Decision Log tambah:
   - `2026-08-31: Work transisi status = TALENT saja (BRD 16.2); HIRER hanya confirm completion (verification event, irreversible)`
   - `2026-08-31: Payment RELEASED = tanggung jawab modul Payment (sprint berikutnya); Work hanya expose gate getByContractId (COMPLETED + hirer_confirmed); gate Rating nanti = work COMPLETED`
   - `2026-08-29: Work actions redirect balik via parameter redirectTo (dipakai 2 halaman: /applications dan /contracts/[id])`
-- Status terakhir: Sprint 8 — Module Work selesai; next: Payment (SIMULATED_PAID → RELEASED via gate work).
+- Status terakhir: Sprint 8 - Module Work selesai; next: Payment (SIMULATED_PAID → RELEASED via gate work).
 
 - [ ] **Step 2: Commit**
 
@@ -796,6 +796,6 @@ git commit -m "docs: update progress work module"
 
 ## Self-Review Notes
 
-- **Spec coverage:** RLS (Task 1), schemas (Task 2), service state machine 3 transisi (Task 3), queries gate payment/rating (Task 4), actions + redirectTo (Task 5), UI TALENT (Task 6), UI HIRER (Task 7), UI detail contract (Task 8), verification + smoke + RLS (Task 9), progress (Task 10). Acceptance criteria 1–7 spec terpetakan (AC 1 di Task 1+9, AC 2–3 di Task 3+5, AC 4 eksplisit di constraint + Task 5, AC 5 di Task 1+9, AC 6 di Task 6–8, AC 7 di Task 8).
+- **Spec coverage:** RLS (Task 1), schemas (Task 2), service state machine 3 transisi (Task 3), queries gate payment/rating (Task 4), actions + redirectTo (Task 5), UI TALENT (Task 6), UI HIRER (Task 7), UI detail contract (Task 8), verification + smoke + RLS (Task 9), progress (Task 10). Acceptance criteria 1-7 spec terpetakan (AC 1 di Task 1+9, AC 2-3 di Task 3+5, AC 4 eksplisit di constraint + Task 5, AC 5 di Task 1+9, AC 6 di Task 6-8, AC 7 di Task 8).
 - **Placeholder scan:** tidak ada TBD/TODO; service lengkap dengan helper `loadWorkWithContract`; actions menerima `redirectTo` (pola redirect balik).
-- **Type consistency:** `ServiceResult`, `WorkRow`, `WorkStatus`, `getByContractId`, `listForContracts`, signatures `startWork(talentId, contractId)` / `completeWork(talentId, contractId)` / `confirmCompletion(hirerId, contractId)` konsisten dipakai di Task 5–8. Action names `startWork`/`completeWork`/`confirmWork` (void, 2 param) dipakai konsisten di Task 6/7/8.
+- **Type consistency:** `ServiceResult`, `WorkRow`, `WorkStatus`, `getByContractId`, `listForContracts`, signatures `startWork(talentId, contractId)` / `completeWork(talentId, contractId)` / `confirmCompletion(hirerId, contractId)` konsisten dipakai di Task 5-8. Action names `startWork`/`completeWork`/`confirmWork` (void, 2 param) dipakai konsisten di Task 6/7/8.

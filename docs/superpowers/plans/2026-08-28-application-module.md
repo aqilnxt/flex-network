@@ -2,7 +2,7 @@
 
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
-**Goal:** Membangun modul Application — TALENT apply ke opportunity PUBLISHED, HIRER melihat pelamar lalu me-review/memilih/menolak.
+**Goal:** Membangun modul Application - TALENT apply ke opportunity PUBLISHED, HIRER melihat pelamar lalu me-review/memilih/menolak.
 
 **Architecture:** UI → Server Actions → Application Service → Supabase (server client, RLS aktif). Read-side di `queries.ts`. Konsisten dengan `modules/auth`, `modules/profile`, `modules/opportunity`.
 
@@ -26,7 +26,7 @@
 
 | Transisi | Syarat | Aktor |
 |---|---|---|
-| `— → APPLIED` | opportunity `PUBLISHED`, deadline belum lewat, belum duplikat | TALENT |
+| `- → APPLIED` | opportunity `PUBLISHED`, deadline belum lewat, belum duplikat | TALENT |
 | `APPLIED → UNDER_REVIEW` | hirer owner opportunity | HIRER |
 | `UNDER_REVIEW → SELECTED` | hirer owner + `SELECTED count < max_talent` | HIRER |
 | `APPLIED / UNDER_REVIEW → REJECTED` | hirer owner | HIRER |
@@ -86,7 +86,7 @@ create policy "applications_update_hirer"
 
 ---
 
-## Task 2: Schemas — `modules/application/schemas.ts`
+## Task 2: Schemas - `modules/application/schemas.ts`
 
 **Files:**
 - Create: `modules/application/schemas.ts`
@@ -111,7 +111,7 @@ export type CreateApplicationInput = z.infer<typeof createApplicationSchema>;
 
 ---
 
-## Task 3: Queries — `modules/application/queries.ts`
+## Task 3: Queries - `modules/application/queries.ts`
 
 **Files:**
 - Create: `modules/application/queries.ts`
@@ -192,7 +192,7 @@ export async function getApplicationStatus(talentId: string, opportunityId: stri
 
 ---
 
-## Task 4: Service — `modules/application/service.ts`
+## Task 4: Service - `modules/application/service.ts`
 
 **Files:**
 - Create: `modules/application/service.ts`
@@ -368,7 +368,7 @@ export async function reject(hirerId: string, id: string): Promise<ServiceResult
 
 ---
 
-## Task 5: Server Actions — `modules/application/actions.ts`
+## Task 5: Server Actions - `modules/application/actions.ts`
 
 **Files:**
 - Create: `modules/application/actions.ts`
@@ -450,7 +450,7 @@ export async function rejectApplication(id: string): Promise<void> {
 
 ---
 
-## Task 6: My Applications page — `app/applications/page.tsx`
+## Task 6: My Applications page - `app/applications/page.tsx`
 
 **Files:**
 - Create: `app/applications/page.tsx`
@@ -508,7 +508,7 @@ export default async function MyApplicationsPage() {
 
 ---
 
-## Task 7: Apply form on detail — modify `app/opportunities/[id]/page.tsx` + create `apply-form.tsx`
+## Task 7: Apply form on detail - modify `app/opportunities/[id]/page.tsx` + create `apply-form.tsx`
 
 **Files:**
 - Modify: `app/opportunities/[id]/page.tsx`
@@ -567,7 +567,7 @@ export function ApplyForm({
 }
 ```
 
-**Modifikasi `page.tsx`** — ubah bagian awal menjadi:
+**Modifikasi `page.tsx`** - ubah bagian awal menjadi:
 
 ```tsx
 import Link from "next/link";
@@ -610,7 +610,7 @@ Lalu tambahkan di bagian bawah (sebelum penutup `</div>`), setelah blok deadline
 
 ---
 
-## Task 8: Applicant list — `app/hirer/opportunities/[id]/applications/page.tsx`
+## Task 8: Applicant list - `app/hirer/opportunities/[id]/applications/page.tsx`
 
 **Files:**
 - Create: `app/hirer/opportunities/[id]/applications/page.tsx`
@@ -656,7 +656,7 @@ export default async function ApplicantsPage({
       <h1 className="text-2xl font-bold mt-2 mb-2">Pelamar</h1>
       <p className="text-sm text-gray-600 mb-4">
         Terpilih {selectedCount} / {maxTalent}
-        {isFull && <span className="text-amber-600"> — kuota penuh</span>}
+        {isFull && <span className="text-amber-600"> - kuota penuh</span>}
       </p>
 
       {(applications ?? []).length === 0 && (
@@ -721,7 +721,7 @@ export default async function ApplicantsPage({
 
 ---
 
-## Task 9: Link "Lihat Applicant" — modify `app/hirer/opportunities/page.tsx`
+## Task 9: Link "Lihat Applicant" - modify `app/hirer/opportunities/page.tsx`
 
 **Files:**
 - Modify: `app/hirer/opportunities/page.tsx`
@@ -745,7 +745,7 @@ Tambahkan link ini untuk SEMUA status (bukan hanya DRAFT). Letakkan di baris aks
 
 ---
 
-## Task 10: Verification — build & typecheck
+## Task 10: Verification - build & typecheck
 
 **Files:**
 - (none)

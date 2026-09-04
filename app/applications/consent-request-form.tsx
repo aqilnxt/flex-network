@@ -10,18 +10,23 @@ export function ConsentRequestForm({ applicationId }: { applicationId: string })
     <form action={action} className="flex flex-col gap-2">
       <p className="text-sm font-medium">Consent Wali (Simulasi)</p>
       <input type="hidden" name="applicationId" value={applicationId} />
-      <p className="text-sm text-gray-600">
+      <p className="text-sm text-ink-2">
         Opportunity ini atau status akun Anda mewajibkan persetujuan
-        orang tua/wali. Deklarasi bersifat simulasi — tidak ada data wali
+        orang tua/wali. Deklarasi bersifat simulasi - tidak ada data wali
         yang dikumpulkan.
       </p>
       {state && !state.success && (
-        <p className="text-red-500">{state.error.message}</p>
+        <p
+          role="alert"
+          className="rounded-lg bg-[#FEF2F2] px-3 py-2 text-sm text-[#B91C1C]"
+        >
+          {state.error.message}
+        </p>
       )}
       <button
         type="submit"
         disabled={pending}
-        className="bg-blue-600 text-white rounded px-4 py-1 self-start disabled:opacity-50"
+        className="btn-primary self-start px-4 py-2 text-sm"
       >
         {pending ? "Mengajukan..." : "Ajukan Consent"}
       </button>

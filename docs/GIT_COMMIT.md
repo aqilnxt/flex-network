@@ -1,4 +1,4 @@
-# GIT_COMMIT.md — Commit Message Convention
+# GIT_COMMIT.md - Commit Message Convention
 
 Gunakan Conventional Commits untuk semua pesan commit.
 

@@ -4,16 +4,16 @@
 
 Melengkapi akhir alur bisnis Flex Network: setelah kedua pihak selesai saling memberi rating, Work History talent otomatis ter-VERIFIED. Ini milestone terakhir dari Business Flow (Register → … → Rating → Verified Work History).
 
-Modul `modules/work_history/` di atas skema DB yang sudah live (`001_initial_schema.sql:293`, tabel `work_history`: `contract_id` UNIQUE, `talent_id`, `opportunity_id`, snapshot `title`/`description`/`duration`/`compensation`, `verification_status` CHECK `PENDING/VERIFIED/REJECTED`, `verified_at`, `verified_by`, `verification_notes`). Tanpa perubahan skema — sprint ini menambah RLS granular (baseline `003_rls_policies.sql:131` menandai policy work_history TBD) dan satu side effect di modul Rating.
+Modul `modules/work_history/` di atas skema DB yang sudah live (`001_initial_schema.sql:293`, tabel `work_history`: `contract_id` UNIQUE, `talent_id`, `opportunity_id`, snapshot `title`/`description`/`duration`/`compensation`, `verification_status` CHECK `PENDING/VERIFIED/REJECTED`, `verified_at`, `verified_by`, `verification_notes`). Tanpa perubahan skema - sprint ini menambah RLS granular (baseline `003_rls_policies.sql:131` menandai policy work_history TBD) dan satu side effect di modul Rating.
 
 ## Decisions (locked, dari user 2026-09-01)
 
-- **Gate VERIFIED = work COMPLETED + kedua rating sudah ada** (`TALENT_RATES_HIRER` **dan** `HIRER_RATES_TALENT` untuk `work_id` yang sama). Bukan hirer-confirmation (menyimpang dari API-SPEC §13.3/§15.4 yang memakai "Hirer Confirms" — keputusan user: trigger VERIFIED saat rating dua arah lengkap).
-- **Side effect di flow `submitRating`** (`modules/rating/service.ts`) — setelah insert rating sukses, cek kelengkapan dua arah; jika lengkap → flip VERIFIED. Client tidak pernah mengirim status.
+- **Gate VERIFIED = work COMPLETED + kedua rating sudah ada** (`TALENT_RATES_HIRER` **dan** `HIRER_RATES_TALENT` untuk `work_id` yang sama). Bukan hirer-confirmation (menyimpang dari API-SPEC §13.3/§15.4 yang memakai "Hirer Confirms" - keputusan user: trigger VERIFIED saat rating dua arah lengkap).
+- **Side effect di flow `submitRating`** (`modules/rating/service.ts`) - setelah insert rating sukses, cek kelengkapan dua arah; jika lengkap → flip VERIFIED. Client tidak pernah mengirim status.
 - **Aktivator** = pihak yang memberi rating terakhir (rating yang melengkapi pasangan). `verified_by` = raterId aktivator (traceability), `verified_at = now()`.
-- **Upsert work_history on demand** — belum ada pencipta row di flow mana pun (side effect Contract hanya seed `payments` + `works`). Saat trigger: insert row PENDING (kolom wajib dari contract: `contract_id`, `talent_id`, `opportunity_id`; snapshot murah: `title` = `contract.role_title`, `duration`, `compensation`) jika belum ada, lalu update ke VERIFIED. Idempotent: `23505` saat insert dianggap race-benign → re-select lalu lanjut flip; row sudah VERIFIED → no-op.
-- **Aktivator HIRER atau TALENT** — mana pun yang rating-nya datang terakhir; tidak ada role restriction di trigger (keduanya pihak kontrak).
-- **Klasifikasi BOUNDED** — satu aksi: update status. Tanpa UI baru, tanpa REST, tanpa admin moderation (VERIFIED → REJECTED dsb. defer).
+- **Upsert work_history on demand** - belum ada pencipta row di flow mana pun (side effect Contract hanya seed `payments` + `works`). Saat trigger: insert row PENDING (kolom wajib dari contract: `contract_id`, `talent_id`, `opportunity_id`; snapshot murah: `title` = `contract.role_title`, `duration`, `compensation`) jika belum ada, lalu update ke VERIFIED. Idempotent: `23505` saat insert dianggap race-benign → re-select lalu lanjut flip; row sudah VERIFIED → no-op.
+- **Aktivator HIRER atau TALENT** - mana pun yang rating-nya datang terakhir; tidak ada role restriction di trigger (keduanya pihak kontrak).
+- **Klasifikasi BOUNDED** - satu aksi: update status. Tanpa UI baru, tanpa REST, tanpa admin moderation (VERIFIED → REJECTED dsb. defer).
 - **Pendekatan: satu fungsi service + RLS granular.** Tanpa DB trigger/RPC (konsisten pola service-layer, keputusan 2026-08-31 tentang non-atomik dua update diterima).
 - **Notification defer** (konsisten Payment/Rating 2026-08-31).
 
@@ -21,7 +21,7 @@ Modul `modules/work_history/` di atas skema DB yang sudah live (`001_initial_sch
 
 UI (rating form, sudah ada) → Server Action rating → Rating Service → **Work History Service** → Supabase (server client, RLS aktif).
 
-Tidak ada Server Action, page, atau form baru — satu-satunya jalur tulis adalah side effect rating.
+Tidak ada Server Action, page, atau form baru - satu-satunya jalur tulis adalah side effect rating.
 
 ## Module Structure
 
@@ -45,15 +45,15 @@ Ditambah satu call site di `modules/rating/service.ts`. `schemas.ts`/`queries.ts
       - UPDATE set `verification_status='VERIFIED'`, `verified_at=now()`, `verified_by=activatorId`.
 3. Jika belum lengkap (baru satu arah) → tidak ada efek.
 
-Rating yang sudah ada sebelumnya (dari sprint sebelumnya) tidak di-backfill — trigger hanya jalan pada rating yang melengkapi pasangan. Data lama yang terlanjur dua arah sebelum deploy tidak di-flip otomatis (tidak ada data production; YAGNI).
+Rating yang sudah ada sebelumnya (dari sprint sebelumnya) tidak di-backfill - trigger hanya jalan pada rating yang melengkapi pasangan. Data lama yang terlanjur dua arah sebelum deploy tidak di-flip otomatis (tidak ada data production; YAGNI).
 
 ## Service
 
 - `upsertVerifiedHistory(contract: {contract_id, talent_id, opportunity_id, role_title, duration, compensation}, workId, activatorId)` → `Promise<void>` (best-effort):
-  - Error side effect **tidak menggagalkan rating** — rating sudah terlanjur tersimpan; return sukses rating tetap dikirim (non-atomik dua statement, precedent Contract 2026-08-29). Kegagalan terlihat di smoke test.
+  - Error side effect **tidak menggagalkan rating** - rating sudah terlanjur tersimpan; return sukses rating tetap dikirim (non-atomik dua statement, precedent Contract 2026-08-29). Kegagalan terlihat di smoke test.
 - Gate: fungsi hanya dipanggil dari rating service (bukan API publik modul lain).
 
-## RLS — `016_work_history_rls.sql`
+## RLS - `016_work_history_rls.sql`
 
 Baseline `003`: RLS enabled, default-deny, tanpa policy. Tambahan (gaya `014`/`015`, semua `to authenticated`):
 
@@ -114,7 +114,7 @@ Tidak ada. Trigger murni server-side; verifikasi lewat E2E smoke + cek DB.
 
 ## Out of Scope
 
-- Halaman/list Work History (TALENT "Riwayat Pekerjaan", public profile VERIFIED-only) — milestone berikutnya.
+- Halaman/list Work History (TALENT "Riwayat Pekerjaan", public profile VERIFIED-only) - milestone berikutnya.
 - Admin moderation VERIFIED ↔ REJECTED.
 - REST API §15 (defer, konsisten keputusan 2026-08-29).
 - Notification, audit log (defer).

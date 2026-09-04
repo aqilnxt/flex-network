@@ -1,4 +1,5 @@
 import { createSupabaseServerClient } from "@/lib/supabase/server";
+import { notify } from "@/modules/notification/service";
 import type { CreateApplicationInput } from "./schemas";
 
 type ServiceResult<T = unknown> = {
@@ -14,7 +15,7 @@ export async function apply(
 
   const { data: opportunity } = await supabase
     .from("opportunities")
-    .select("id, status, application_deadline")
+    .select("id, status, application_deadline, hirer_id")
     .eq("id", input.opportunityId)
     .single();
 
@@ -49,18 +50,28 @@ export async function apply(
     return { data: null, error: { message: error.message } };
   }
 
+  notify({
+    recipientId: (opportunity as { hirer_id: string }).hirer_id,
+    actorId: talentId,
+    type: "APPLICATION_APPLIED",
+    title: "Lamaran baru diterima",
+    message: "Seorang talent telah melamar opportunity Anda",
+    link: `/hirer/opportunities/${input.opportunityId}/applications`,
+    metadata: { applicationId: (data as { id: string }).id, opportunityId: input.opportunityId },
+  }).catch(() => {});
+
   return { data, error: null };
 }
 
 async function getOwnedApplication(
   hirerId: string,
   id: string,
-): Promise<ServiceResult<{ id: string; status: string; opportunityId: string }>> {
+): Promise<ServiceResult<{ id: string; status: string; opportunityId: string; talentId: string }>> {
   const supabase = await createSupabaseServerClient();
 
   const { data: application } = await supabase
     .from("applications")
-    .select("id, status, opportunity_id")
+    .select("id, status, opportunity_id, talent_id")
     .eq("id", id)
     .single();
 
@@ -83,6 +94,7 @@ async function getOwnedApplication(
       id: application.id,
       status: application.status,
       opportunityId: application.opportunity_id,
+      talentId: (application as { talent_id: string }).talent_id,
     },
     error: null,
   };
@@ -140,6 +152,15 @@ export async function select(hirerId: string, id: string): Promise<ServiceResult
     .eq("id", id);
 
   if (error) return { data: null, error: { message: error.message } };
+  notify({
+    recipientId: app.talentId,
+    actorId: hirerId,
+    type: "APPLICATION_SELECTED",
+    title: "Lamaran diterima",
+    message: "Selamat, lamaran Anda telah diterima",
+    link: `/applications`,
+    metadata: { applicationId: id, opportunityId: app.opportunityId },
+  }).catch(() => {});
   return { data: { opportunityId: app.opportunityId }, error: null };
 }
 
@@ -157,5 +178,14 @@ export async function reject(hirerId: string, id: string): Promise<ServiceResult
     .eq("id", id);
 
   if (error) return { data: null, error: { message: error.message } };
+  notify({
+    recipientId: app.talentId,
+    actorId: hirerId,
+    type: "APPLICATION_REJECTED",
+    title: "Lamaran ditolak",
+    message: "Lamaran Anda belum dapat diproses lebih lanjut",
+    link: `/applications`,
+    metadata: { applicationId: id, opportunityId: app.opportunityId },
+  }).catch(() => {});
   return { data: { opportunityId: app.opportunityId }, error: null };
 }

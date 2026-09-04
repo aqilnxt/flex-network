@@ -1,4 +1,5 @@
 import { createSupabaseServerClient } from "@/lib/supabase/server";
+import { notify } from "@/modules/notification/service";
 import { getByContractId as getWorkByContractId } from "@/modules/work/queries";
 import { upsertVerifiedHistory } from "@/modules/work_history/service";
 import { ratingSchema, type RatingInput, type RatingType } from "./schemas";
@@ -99,6 +100,16 @@ export async function submitRating(
   }
 
   const ratingRow = inserted as unknown as { id: string };
+
+  notify({
+    recipientId: derived.rateeId,
+    actorId: raterId,
+    type: "RATING_SUBMITTED",
+    title: "Ulasan baru",
+    message: "Anda mendapatkan penilaian baru",
+    link: `/contracts/${row.id}`,
+    metadata: { ratingId: ratingRow.id, contractId: row.id },
+  }).catch(() => {});
 
   // Trigger Verified Work History: kedua arah rating untuk work ini lengkap.
   const { data: existingTypes } = await supabase

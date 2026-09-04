@@ -13,13 +13,13 @@
 ## Global Constraints
 
 - Status canonical consent: `NOT_REQUIRED / PENDING / APPROVED / REJECTED` (CHECK constraint DB, jangan diubah). `NOT_REQUIRED` dan `MISSING` derived, tidak pernah tersimpan (spec: Consent Decision).
-- Row consent hanya dibuat saat required (lazy eksplisit). Requirement: `opportunity.requires_consent = true OR profiles.is_minor = true` — evaluasi server-side (API-SPEC 10.1).
+- Row consent hanya dibuat saat required (lazy eksplisit). Requirement: `opportunity.requires_consent = true OR profiles.is_minor = true` - evaluasi server-side (API-SPEC 10.1).
 - Create PENDING hanya untuk application `SELECTED` + meeting `COMPLETED` + belum ada row + TALENT owner (API-SPEC 10.3).
-- `APPROVED` dan `REJECTED` terminal — tidak ada transisi keluar; `consent_required = false` tidak pernah bisa di-approve/reject.
+- `APPROVED` dan `REJECTED` terminal - tidak ada transisi keluar; `consent_required = false` tidak pernah bisa di-approve/reject.
 - **Guardian data dilarang keras:** schema tidak menerima `guardianName`, `guardianContact`, `guardianEmail`, `guardianAccountId`, `identityDocument`, `identityNumber`, dokumen KTP/KK/Akta. Tidak ada guardian account/login/dashboard.
 - `is_minor` dibaca apa adanya dari `profiles.is_minor` (defer pengisian; jangan tambah logika pengisian di modul ini).
 - Validasi semua input via Zod di server; `requireRole("TALENT")` + ownership check sebelum setiap mutation; HIRER read-only.
-- Tidak ada halaman consent terpisah — info inline.
+- Tidak ada halaman consent terpisah - info inline.
 - Verifikasi project: `npx tsc --noEmit`, `npm run lint`, `npm run build` (tidak ada test framework).
 - Commit format: `type(scope): deskripsi imperative lowercase` (lihat `/GIT_COMMIT.md`).
 
@@ -32,12 +32,12 @@
 
 **Interfaces:**
 - Consumes: tabel `consents` (001), tabel `meetings` (001), helper `is_admin()` (006).
-- Produces: RLS aktif granular pada `consents` — SELECT involved/admin, INSERT/UPDATE talent owner.
+- Produces: RLS aktif granular pada `consents` - SELECT involved/admin, INSERT/UPDATE talent owner.
 
 - [ ] **Step 1: Tulis migration**
 
 ```sql
--- 011_consent_rls.sql — granular policies untuk consents
+-- 011_consent_rls.sql - granular policies untuk consents
 -- Baseline 003: RLS enabled, default-deny, tanpa policy.
 
 -- SELECT: talent pemilik consent, hirer owner opportunity, admin
@@ -115,7 +115,7 @@ export const createConsentSchema = z.object({
 export type CreateConsentInput = z.infer<typeof createConsentSchema>;
 ```
 
-Catatan: sengaja minimal (API-SPEC 22.6). Zod strip membuang field tak dikenal — guardian data tidak pernah masuk meski di-inject client. DILARANG menambah field `guardian*` / `identity*`.
+Catatan: sengaja minimal (API-SPEC 22.6). Zod strip membuang field tak dikenal - guardian data tidak pernah masuk meski di-inject client. DILARANG menambah field `guardian*` / `identity*`.
 
 - [ ] **Step 2: Verifikasi typecheck**
 
@@ -386,10 +386,10 @@ git commit -m "feat(consent): add consent service with state machine"
 - Produces:
   - `type ConsentStatus = "NOT_REQUIRED" | "PENDING" | "APPROVED" | "REJECTED" | "MISSING"`
   - `type ConsentRow = { id, application_id, talent_id, opportunity_id, consent_required, required_reason, status, requested_at, approved_at, rejected_at }`
-  - `getByApplicationId(applicationId: string): Promise<ConsentRow | null>` — contract gate + inline render.
-  - `listForApplications(applicationIds: string[]): Promise<Map<string, ConsentRow>>` — batch render tanpa N+1.
-  - `getRequirementMap(applicationIds: string[]): Promise<Map<string, { required: boolean; reason: string | null }>>` — evaluasi server-side `opportunity.requires_consent || profiles.is_minor`.
-  - `getConsentDecision(applicationId: string): Promise<ConsentDecision>` — `ConsentDecision = { required: boolean; status: ConsentStatus }`; **single call contract gate modul Contract**: eligible iff `!required || status === "APPROVED"`; blocked untuk `MISSING`, `PENDING`, `REJECTED`.
+  - `getByApplicationId(applicationId: string): Promise<ConsentRow | null>` - contract gate + inline render.
+  - `listForApplications(applicationIds: string[]): Promise<Map<string, ConsentRow>>` - batch render tanpa N+1.
+  - `getRequirementMap(applicationIds: string[]): Promise<Map<string, { required: boolean; reason: string | null }>>` - evaluasi server-side `opportunity.requires_consent || profiles.is_minor`.
+  - `getConsentDecision(applicationId: string): Promise<ConsentDecision>` - `ConsentDecision = { required: boolean; status: ConsentStatus }`; **single call contract gate modul Contract**: eligible iff `!required || status === "APPROVED"`; blocked untuk `MISSING`, `PENDING`, `REJECTED`.
 
 - [ ] **Step 1: Tulis queries**
 
@@ -623,7 +623,7 @@ git commit -m "feat(consent): add consent server actions"
 
 **Interfaces:**
 - Consumes: `createConsent` action (Task 5).
-- Produces: `<ConsentRequestForm applicationId={string} />` — dipakai Task 7.
+- Produces: `<ConsentRequestForm applicationId={string} />` - dipakai Task 7.
 
 - [ ] **Step 1: Tulis form**
 
@@ -642,7 +642,7 @@ export function ConsentRequestForm({ applicationId }: { applicationId: string })
       <input type="hidden" name="applicationId" value={applicationId} />
       <p className="text-sm text-gray-600">
         Opportunity ini atau status akun Anda mewajibkan persetujuan
-        orang tua/wali. Deklarasi bersifat simulasi — tidak ada data wali
+        orang tua/wali. Deklarasi bersifat simulasi - tidak ada data wali
         yang dikumpulkan.
       </p>
       {state && !state.success && (
@@ -674,7 +674,7 @@ git commit -m "feat(consent): add consent request form"
 
 ---
 
-### Task 7: Halaman My Applications (TALENT) — blok consent + aksi
+### Task 7: Halaman My Applications (TALENT) - blok consent + aksi
 
 **Files:**
 - Modify: `app/applications/page.tsx`
@@ -718,7 +718,7 @@ const requirements = await getRequirementMap(appIds);
           <ConsentRequestForm applicationId={a.id} />
         ) : (
           <p className="text-sm text-gray-600">
-            Consent wali diperlukan untuk melanjutkan — selesaikan meeting
+            Consent wali diperlukan untuk melanjutkan - selesaikan meeting
             terlebih dahulu.
           </p>
         ))}
@@ -774,7 +774,7 @@ git commit -m "feat(consent): add consent block to my applications"
 
 ---
 
-### Task 8: Applicant list (HIRER) — badge consent read-only
+### Task 8: Applicant list (HIRER) - badge consent read-only
 
 **Files:**
 - Modify: `app/hirer/opportunities/[id]/applications/page.tsx`
@@ -810,14 +810,14 @@ const consents = await listConsentsForApplications(
         {consent.status}
       </span>
       {consent.status === "PENDING" && (
-        <span className="text-gray-500"> — menunggu talent</span>
+        <span className="text-gray-500"> - menunggu talent</span>
       )}
     </div>
   );
 })()}
 ```
 
-Catatan: tanpa row → tanpa badge (talent belum request atau not required). HIRER tidak boleh lihat `requires_consent` opportunity-nya sendiri maupun minor-status talent — tidak diekspos. Tidak ada tombol aksi (HIRER read-only).
+Catatan: tanpa row → tanpa badge (talent belum request atau not required). HIRER tidak boleh lihat `requires_consent` opportunity-nya sendiri maupun minor-status talent - tidak diekspos. Tidak ada tombol aksi (HIRER read-only).
 
 - [ ] **Step 3b: Verifikasi typecheck + lint**
 
@@ -869,12 +869,12 @@ git commit -m "fix(consent): address smoke test findings"
 
 - [ ] **Step 1: Update progress**
 
-- Tambah "Module Consent" ke "Sudah Selesai" (Task 1–9).
+- Tambah "Module Consent" ke "Sudah Selesai" (Task 1-9).
 - Decision Log tambah:
-  - `2026-08-29: Consent lazy eksplisit — row hanya saat required; NOT_REQUIRED & MISSING derived, tanpa row`
+  - `2026-08-29: Consent lazy eksplisit - row hanya saat required; NOT_REQUIRED & MISSING derived, tanpa row`
   - `2026-08-29: Consent APPROVED & REJECTED terminal; aktor TALENT (simulated declaration); is_minor dibaca apa adanya (defer pengisian)`
   - `2026-08-29: Contract gate = getConsentDecision (eligible iff !required || APPROVED), di-enforce modul Contract`
-- Status terakhir: Sprint 6 — Module Consent selesai; next: Contract → Payment.
+- Status terakhir: Sprint 6 - Module Consent selesai; next: Contract → Payment.
 
 - [ ] **Step 2: Commit**
 
@@ -887,6 +887,6 @@ git commit -m "docs: update progress consent module"
 
 ## Self-Review Notes
 
-- **Spec coverage:** Migration RLS (Task 1), schemas minimal tanpa guardian field (Task 2), service state machine + requirement server-side (Task 3), queries + `getConsentDecision` contract gate (Task 4), actions (Task 5), form request (Task 6), UI talent approve/reject (Task 7), hirer badge read-only (Task 8), verification + smoke + RLS (Task 9), progress (Task 10). Acceptance criteria 1–7 spec terpetakan. Prohibisi guardian data tercakup: schema minimal (Task 2) + tidak ada field guardian di service (Task 3) dan UI (Task 6/7).
+- **Spec coverage:** Migration RLS (Task 1), schemas minimal tanpa guardian field (Task 2), service state machine + requirement server-side (Task 3), queries + `getConsentDecision` contract gate (Task 4), actions (Task 5), form request (Task 6), UI talent approve/reject (Task 7), hirer badge read-only (Task 8), verification + smoke + RLS (Task 9), progress (Task 10). Acceptance criteria 1-7 spec terpetakan. Prohibisi guardian data tercakup: schema minimal (Task 2) + tidak ada field guardian di service (Task 3) dan UI (Task 6/7).
 - **Placeholder scan:** tidak ada TBD/TODO; semua step berisi kode konkret.
 - **Type consistency:** `ConsentRow`/`ConsentStatus`/`ConsentDecision` konsisten spec ↔ Task 4 ↔ Task 5/6/7/8. Service signature `requestConsent(talentId, input)`, `approve(talentId, consentId)`, `reject(talentId, consentId)` dipakai sama di Task 5. `createConsent(_prev, formData)` match `useActionState(createConsent, null)` di Task 6. `approveConsent.bind(null, consent.id)` match signature `approveConsent(consentId)`.

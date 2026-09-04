@@ -3,13 +3,13 @@ import type { MatchClassification } from "./service";
 export function classificationBadgeClass(c: MatchClassification): string {
   switch (c) {
     case "STRONG_MATCH":
-      return "bg-green-100 text-green-700";
+      return "bg-[#EAFBF1] text-[#15803D] border-[#BBF7D0]";
     case "GOOD_MATCH":
-      return "bg-blue-100 text-blue-700";
+      return "bg-tint text-primary border-[#C7D3FC]";
     case "WEAK_MATCH":
-      return "bg-amber-100 text-amber-700";
+      return "bg-[#FEF3C7] text-[#B45309] border-[#FDE68A]";
     default:
-      return "bg-gray-100 text-gray-600";
+      return "bg-tint-2 text-ink-2";
   }
 }
 

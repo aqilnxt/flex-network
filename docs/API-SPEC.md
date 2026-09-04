@@ -1,4 +1,4 @@
-FLEX NETWORK — API SPECIFICATION
+FLEX NETWORK - API SPECIFICATION
 Version: 1.2
 Status: FINAL & LOCKED 🔒
 Base URL: /api
@@ -14,8 +14,8 @@ MVP Scope: Simulated Contract, Simulated Payment, Simulated Parental Consent
 API Specification ini menjadi kontrak backend untuk implementation dan harus sinkron dengan:
 BRD Final
 SRS Final
-TDD Point 19–43
-TDD Appendix A — Database ERD & Supabase Schema
+TDD Point 19-43
+TDD Appendix A - Database ERD & Supabase Schema
 ITechnoCup Guidebook requirements
 Prioritas keputusan:
 SRS Final
@@ -747,18 +747,18 @@ Matching Weight
 Skill Match    = 70%
 Interest Match = 30%
 Score Range
-0–100
+0-100
 Nilai dapat berupa decimal.
 Match Classification
 Score
 Classification
-80.00–100.00
+80.00-100.00
 STRONG_MATCH
-60.00–79.99
+60.00-79.99
 GOOD_MATCH
-30.00–59.99
+30.00-59.99
 WEAK_MATCH
-0.00–29.99
+0.00-29.99
 NO_MATCH
 
 Classification ditentukan oleh server berdasarkan finalMatchScore.
@@ -947,7 +947,7 @@ Auth:
 Talent owner
 Hirer owner
 Admin
-Response — Consent Required
+Response - Consent Required
 {
   "success": true,
   "data": {
@@ -955,7 +955,7 @@ Response — Consent Required
     "status": "PENDING"
   }
 }
-Response — Consent Not Required
+Response - Consent Not Required
 {
   "success": true,
   "data": {
@@ -1314,7 +1314,7 @@ rateeId harus merupakan pihak lain.
 Work harus COMPLETED.
 Rating belum pernah diberikan oleh rater untuk work tersebut.
 Score:
-1–5
+1-5
 
 Database protection:
 UNIQUE(work_id, rater_id, rating_type)
@@ -2054,10 +2054,10 @@ Final Match Score =
 (Skill Match × 0.70) +
 (Interest Match × 0.30)
 Classification
-80.00–100.00 → STRONG_MATCH
-60.00–79.99  → GOOD_MATCH
-30.00–59.99  → WEAK_MATCH
-0.00–29.99   → NO_MATCH
+80.00-100.00 → STRONG_MATCH
+60.00-79.99  → GOOD_MATCH
+30.00-59.99  → WEAK_MATCH
+0.00-29.99   → NO_MATCH
 Matching Rules
 Server-side calculation
         ↓
@@ -2140,12 +2140,12 @@ Rating does not already exist
 =
 Rating allowed
 
-API MATCHING DECISION — FINAL
+API MATCHING DECISION - FINAL
 Matching Type: Rule-Based Weighted Matching
 Skill Weight: 70%
 Interest Weight: 30%
 Final Score: (Skill Match × 0.70) + (Interest Match × 0.30)
-Score Range: 0–100
+Score Range: 0-100
 Classification: STRONG_MATCH, GOOD_MATCH, WEAK_MATCH, NO_MATCH
 Calculation: Server-side
 Deterministic: Yes
@@ -2153,7 +2153,7 @@ Purpose: Recommendation / Decision Support
 Automatic Hiring: Not allowed
 Frontend Source of Truth: No
 Backend Source of Truth: Yes
-API MATCHING MODULE — LOCKED 🔒
+API MATCHING MODULE - LOCKED 🔒
 
 25. IDEMPOTENCY & DUPLICATE PROTECTION
 Critical duplicate operations harus dicegah.
@@ -2459,7 +2459,7 @@ app/
     └── health/
 
 
-34. API SPECIFICATION — FINAL DECISION
+34. API SPECIFICATION - FINAL DECISION
 API Architecture: REST API menjadi primary backend contract.
 Server Actions: Digunakan untuk form-based UI operations dan selalu memanggil application/module layer.
 Base Path: /api.
@@ -2484,6 +2484,6 @@ Security: Client tidak dipercaya; authorization dan business rules selalu diveri
 Idempotency: Database constraints + state validation digunakan sebagai protection MVP.
 Observability: Request/correlation identifiers dan structured logging digunakan untuk critical operations.
 MVP Constraints: Tidak ada real payment gateway, tidak ada guardian account, tidak ada internal video meeting system, dan tidak ada AI/ML black-box matching.
-Database Alignment: API contract harus tetap konsisten dengan TDD Appendix A — Database ERD & Supabase Schema v1.1.
-API SPECIFICATION v1.2 — LOCKED 🔒
+Database Alignment: API contract harus tetap konsisten dengan TDD Appendix A - Database ERD & Supabase Schema v1.1.
+API SPECIFICATION v1.2 - LOCKED 🔒
 END OF API SPECIFICATION

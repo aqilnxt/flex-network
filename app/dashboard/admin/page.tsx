@@ -5,12 +5,14 @@ export default async function AdminDashboardPage() {
   await requireRole("ADMIN");
   return (
     <div className="p-8">
-      <h1 className="text-2xl font-bold">Admin Dashboard</h1>
-      <p className="mt-1 text-sm text-gray-600">Placeholder dashboard admin.</p>
+      <h1 className="text-2xl font-bold tracking-tight">Dashboard Admin</h1>
+      <p className="mt-2 max-w-[60ch] text-ink-2">
+        Placeholder dashboard admin.
+      </p>
       <nav className="mt-6 flex flex-col gap-2">
         <Link
           href="/admin/opportunities"
-          className="text-sm font-medium text-blue-600 hover:underline"
+          className="font-medium text-primary hover:underline underline-offset-2"
         >
           Moderasi Opportunity
         </Link>

@@ -1,4 +1,4 @@
-# PROMPTS.md — Template Prompt AI
+# PROMPTS.md - Template Prompt AI
 
 ## 1. Mulai Sesi
 

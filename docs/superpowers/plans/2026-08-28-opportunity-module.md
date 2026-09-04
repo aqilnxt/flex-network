@@ -2,7 +2,7 @@
 
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
-**Goal:** Membangun inti marketplace — HIRER membuat/mengelola opportunity, ADMIN memoderasi, TALENT menelusuri. Modul `modules/opportunity/` di atas skema DB yang sudah live (`001_initial_schema.sql`).
+**Goal:** Membangun inti marketplace - HIRER membuat/mengelola opportunity, ADMIN memoderasi, TALENT menelusuri. Modul `modules/opportunity/` di atas skema DB yang sudah live (`001_initial_schema.sql`).
 
 **Architecture:** UI → Server Actions → Application Service → Supabase (server client, RLS aktif). Read-side dipisah ke `queries.ts` karena browse punya banyak filter.
 
@@ -171,7 +171,7 @@ create policy "opportunity_interests_delete_owner_or_admin"
 
 ---
 
-## Task 2: Schemas — `modules/opportunity/schemas.ts`
+## Task 2: Schemas - `modules/opportunity/schemas.ts`
 
 **Files:**
 - Create: `modules/opportunity/schemas.ts`
@@ -245,7 +245,7 @@ export type ModerateInput = z.infer<typeof moderateSchema>;
 
 ---
 
-## Task 3: Queries — `modules/opportunity/queries.ts`
+## Task 3: Queries - `modules/opportunity/queries.ts`
 
 **Files:**
 - Create: `modules/opportunity/queries.ts`
@@ -340,7 +340,7 @@ export async function getOpportunityById(id: string) {
 
 ---
 
-## Task 4: Service — `modules/opportunity/service.ts`
+## Task 4: Service - `modules/opportunity/service.ts`
 
 **Files:**
 - Create: `modules/opportunity/service.ts`
@@ -600,7 +600,7 @@ export async function deleteOpty(hirerId: string, id: string) {
 
 ---
 
-## Task 5: Server Actions — `modules/opportunity/actions.ts`
+## Task 5: Server Actions - `modules/opportunity/actions.ts`
 
 **Files:**
 - Create: `modules/opportunity/actions.ts`
@@ -756,7 +756,7 @@ export async function deleteOpportunity(id: string): Promise<ActionResult> {
 
 ---
 
-## Task 6: Browse page — `app/opportunities/page.tsx`
+## Task 6: Browse page - `app/opportunities/page.tsx`
 
 **Files:**
 - Create: `app/opportunities/page.tsx`
@@ -798,7 +798,7 @@ export default async function OpportunitiesPage({
 
 ---
 
-## Task 7: Detail page — `app/opportunities/[id]/page.tsx`
+## Task 7: Detail page - `app/opportunities/[id]/page.tsx`
 
 **Files:**
 - Create: `app/opportunities/[id]/page.tsx`
@@ -814,7 +814,7 @@ export default async function OpportunitiesPage({
 
 ---
 
-## Task 8: Hirer list — `app/hirer/opportunities/page.tsx`
+## Task 8: Hirer list - `app/hirer/opportunities/page.tsx`
 
 **Files:**
 - Create: `app/hirer/opportunities/page.tsx`
@@ -830,7 +830,7 @@ export default async function OpportunitiesPage({
 
 ---
 
-## Task 9: Hirer create form — `app/hirer/opportunities/new/page.tsx`
+## Task 9: Hirer create form - `app/hirer/opportunities/new/page.tsx`
 
 **Files:**
 - Create: `app/hirer/opportunities/new/page.tsx`
@@ -839,7 +839,7 @@ export default async function OpportunitiesPage({
 **Interfaces:**
 - Consumes: `modules/opportunity/actions.ts` (`create`), `modules/lib/auth.ts` (`requireRole`).
 
-**Isi:** server component `requireRole("HIRER")` me-render `OpportunityForm` (client component `useActionState(create)`); form field lengkap sesuai schema (title, description, type, location, workMode, date, compensation, requirement booleans, deadline, skillIds/interestIds — untuk sprint ini skill/interest lewat input id manual atau select master-data secukupnya).
+**Isi:** server component `requireRole("HIRER")` me-render `OpportunityForm` (client component `useActionState(create)`); form field lengkap sesuai schema (title, description, type, location, workMode, date, compensation, requirement booleans, deadline, skillIds/interestIds - untuk sprint ini skill/interest lewat input id manual atau select master-data secukupnya).
 
 **Steps:**
 - [ ] **Step 1:** Tulis `opportunity-form.tsx` (client, dipakai new & edit).
@@ -848,7 +848,7 @@ export default async function OpportunitiesPage({
 
 ---
 
-## Task 10: Hirer edit form — `app/hirer/opportunities/[id]/edit/page.tsx`
+## Task 10: Hirer edit form - `app/hirer/opportunities/[id]/edit/page.tsx`
 
 **Files:**
 - Create: `app/hirer/opportunities/[id]/edit/page.tsx`
@@ -864,7 +864,7 @@ export default async function OpportunitiesPage({
 
 ---
 
-## Task 11: Admin moderation page — `app/admin/opportunities/page.tsx`
+## Task 11: Admin moderation page - `app/admin/opportunities/page.tsx`
 
 **Files:**
 - Create: `app/admin/opportunities/page.tsx`
@@ -880,7 +880,7 @@ export default async function OpportunitiesPage({
 
 ---
 
-## Task 12: Verification — build & typecheck
+## Task 12: Verification - build & typecheck
 
 **Files:**
 - (none)

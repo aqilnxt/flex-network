@@ -1,4 +1,5 @@
 import { createSupabaseServerClient } from "@/lib/supabase/server";
+import { notify } from "@/modules/notification/service";
 import type { ScheduleMeetingInput } from "./schemas";
 
 type ServiceResult<T = unknown> = {
@@ -15,11 +16,11 @@ async function getOwnedApplication(
   hirerId: string,
   applicationId: string,
 ): Promise<
-  ServiceResult<{ id: string; status: string; opportunityId: string }>
+  ServiceResult<{ id: string; status: string; opportunityId: string; talentId: string }>
 > {
   const { data: application } = await supabase
     .from("applications")
-    .select("id, status, opportunity_id")
+    .select("id, status, opportunity_id, talent_id")
     .eq("id", applicationId)
     .single();
 
@@ -42,6 +43,7 @@ async function getOwnedApplication(
       id: application.id,
       status: application.status,
       opportunityId: application.opportunity_id,
+      talentId: (application as { talent_id: string }).talent_id,
     },
     error: null,
   };
@@ -95,6 +97,16 @@ export async function schedule(
     return { data: null, error: { message: error.message } };
   }
 
+  notify({
+    recipientId: app.talentId,
+    actorId: hirerId,
+    type: "MEETING_SCHEDULED",
+    title: "Meeting dijadwalkan",
+    message: "Meeting telah dijadwalkan, silakan cek detail",
+    link: `/applications`,
+    metadata: { applicationId: input.applicationId, opportunityId: app.opportunityId },
+  }).catch(() => {});
+
   return { data: { opportunityId: app.opportunityId }, error: null };
 }
 
@@ -102,7 +114,7 @@ async function getOwnedMeeting(
   hirerId: string,
   meetingId: string,
 ): Promise<
-  ServiceResult<{ id: string; status: string; opportunityId: string }>
+  ServiceResult<{ id: string; status: string; opportunityId: string; talentId: string }>
 > {
   const supabase = await createSupabaseServerClient();
 
@@ -118,7 +130,7 @@ async function getOwnedMeeting(
 
   const { data: application } = await supabase
     .from("applications")
-    .select("id, status, opportunity_id")
+    .select("id, status, opportunity_id, talent_id")
     .eq("id", meeting.application_id)
     .single();
 
@@ -137,7 +149,7 @@ async function getOwnedMeeting(
   }
 
   return {
-    data: { id: meeting.id, status: meeting.status, opportunityId: opportunity.id },
+    data: { id: meeting.id, status: meeting.status, opportunityId: opportunity.id, talentId: (application as { talent_id: string }).talent_id },
     error: null,
   };
 }
@@ -165,6 +177,15 @@ export async function complete(
     .eq("id", meetingId);
 
   if (error) return { data: null, error: { message: error.message } };
+  notify({
+    recipientId: meeting.talentId,
+    actorId: hirerId,
+    type: "MEETING_COMPLETED",
+    title: "Meeting selesai",
+    message: "Meeting telah ditandai selesai",
+    link: `/applications`,
+    metadata: { meetingId, opportunityId: meeting.opportunityId },
+  }).catch(() => {});
   return { data: { opportunityId: meeting.opportunityId }, error: null };
 }
 
@@ -191,5 +212,14 @@ export async function cancel(
     .eq("id", meetingId);
 
   if (error) return { data: null, error: { message: error.message } };
+  notify({
+    recipientId: meeting.talentId,
+    actorId: hirerId,
+    type: "MEETING_CANCELLED",
+    title: "Meeting dibatalkan",
+    message: "Meeting telah dibatalkan",
+    link: `/applications`,
+    metadata: { meetingId, opportunityId: meeting.opportunityId },
+  }).catch(() => {});
   return { data: { opportunityId: meeting.opportunityId }, error: null };
 }

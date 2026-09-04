@@ -1,4 +1,5 @@
 import { createSupabaseServerClient } from "@/lib/supabase/server";
+import { notify } from "@/modules/notification/service";
 import { getByContractId as getWorkByContractId } from "@/modules/work/queries";
 
 type ServiceResult<T = unknown> = {
@@ -85,6 +86,15 @@ export async function simulatePayment(
     })
     .eq("id", ctx.paymentId);
   if (error) return { data: null, error: { message: error.message } };
+  notify({
+    recipientId: ctx.contractTalentId,
+    actorId: hirerId,
+    type: "PAYMENT_SIMULATED_PAID",
+    title: "Pembayaran diamankan",
+    message: "Hirer telah mengamankan dana untuk kontrak Anda",
+    link: `/contracts/${contractId}`,
+    metadata: { contractId, paymentId: ctx.paymentId },
+  }).catch(() => {});
   return { data: { paymentId: ctx.paymentId }, error: null };
 }
 
@@ -139,6 +149,15 @@ export async function releasePayment(
     })
     .eq("id", ctx.paymentId);
   if (payError) return { data: null, error: { message: payError.message } };
+  notify({
+    recipientId: ctx.contractTalentId,
+    actorId: hirerId,
+    type: "PAYMENT_RELEASED",
+    title: "Dana dirilis",
+    message: "Dana untuk kontrak Anda telah dirilis",
+    link: `/contracts/${contractId}`,
+    metadata: { contractId, paymentId: ctx.paymentId },
+  }).catch(() => {});
 
   const { error: contractError } = await supabase
     .from("contracts")

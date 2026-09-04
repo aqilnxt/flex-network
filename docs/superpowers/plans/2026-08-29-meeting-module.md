@@ -14,11 +14,11 @@
 
 - Status canonical meeting: `SCHEDULED → COMPLETED / CANCELLED`; CANCELLED & COMPLETED terminal (APPENDIX A.14).
 - Schedule hanya dari application `SELECTED`, oleh HIRER owner opportunity (API-SPEC 9.2).
-- 1 meeting per application — `UNIQUE(application_id)` sudah ada di DB, jangan diubah.
+- 1 meeting per application - `UNIQUE(application_id)` sudah ada di DB, jangan diubah.
 - Validasi semua input via Zod di server; date/time future check server-side.
 - `requireRole("HIRER")` + ownership check (`opportunity.hirer_id = auth.uid()`) sebelum setiap mutation.
 - Tidak ada edit/reschedule meeting di sprint ini.
-- Tidak ada halaman detail meeting terpisah — info inline.
+- Tidak ada halaman detail meeting terpisah - info inline.
 - Verifikasi project: `npx tsc --noEmit`, `npm run lint`, `npm run build` (tidak ada test framework).
 - Commit format: `type(scope): deskripsi imperative lowercase` (lihat `/GIT_COMMIT.md`).
 
@@ -31,12 +31,12 @@
 
 **Interfaces:**
 - Consumes: tabel `meetings` (001), helper `is_admin()` (006), `opportunities.hirer_id`.
-- Produces: RLS aktif granular pada `meetings` — SELECT involved/admin, INSERT/UPDATE hirer owner.
+- Produces: RLS aktif granular pada `meetings` - SELECT involved/admin, INSERT/UPDATE hirer owner.
 
 - [ ] **Step 1: Tulis migration**
 
 ```sql
--- 010_meeting_rls.sql — granular policies untuk meetings
+-- 010_meeting_rls.sql - granular policies untuk meetings
 -- Baseline 003: RLS enabled, default-deny, tanpa policy.
 
 -- SELECT: hirer owner opportunity, talent pemilik application, admin
@@ -345,8 +345,8 @@ git commit -m "feat(meeting): add meeting service with state machine"
 **Interfaces:**
 - Produces:
   - `type MeetingRow = { id, application_id, meeting_date, meeting_time, meeting_link, meeting_method, notes, status, completed_at }`
-  - `getByApplicationId(applicationId: string): Promise<MeetingRow | null>` — contract gate + inline render.
-  - `listForApplications(applicationIds: string[]): Promise<Map<string, MeetingRow>>` — batch render tanpa N+1.
+  - `getByApplicationId(applicationId: string): Promise<MeetingRow | null>` - contract gate + inline render.
+  - `listForApplications(applicationIds: string[]): Promise<Map<string, MeetingRow>>` - batch render tanpa N+1.
 
 - [ ] **Step 1: Tulis queries**
 
@@ -532,7 +532,7 @@ git commit -m "feat(meeting): add meeting server actions"
 
 **Interfaces:**
 - Consumes: `scheduleMeeting` action (Task 5).
-- Produces: `<ScheduleMeetingForm applicationId={string} opportunityId={string} />` — dipakai Task 7.
+- Produces: `<ScheduleMeetingForm applicationId={string} opportunityId={string} />` - dipakai Task 7.
 
 - [ ] **Step 1: Tulis form**
 
@@ -618,7 +618,7 @@ git commit -m "feat(meeting): add schedule meeting form"
 
 ---
 
-### Task 7: Applicant list — render meeting + aksi
+### Task 7: Applicant list - render meeting + aksi
 
 **Files:**
 - Modify: `app/hirer/opportunities/[id]/applications/page.tsx`
@@ -717,7 +717,7 @@ git commit -m "feat(meeting): add schedule form and meeting actions to applicant
 
 ---
 
-### Task 8: Halaman My Applications (TALENT) — blok meeting read-only
+### Task 8: Halaman My Applications (TALENT) - blok meeting read-only
 
 **Files:**
 - Modify: `app/applications/page.tsx`
@@ -740,7 +740,7 @@ Per item (hanya bila `meetingMap.get(a.id)` ada):
 {meeting && (
   <div className="mt-2 border rounded p-3 bg-gray-50 text-sm">
     <p className="font-medium">
-      Meeting {meeting.status} — {meeting.meeting_date ?? "-"}{" "}
+      Meeting {meeting.status} - {meeting.meeting_date ?? "-"}{" "}
       {meeting.meeting_time ?? ""}
     </p>
     {meeting.meeting_method && <p className="text-sm text-gray-600">Metode: {meeting.meeting_method}</p>}
@@ -801,9 +801,9 @@ git commit -m "fix(meeting): address smoke test findings"
 
 - [ ] **Step 1: Update progress**
 
-- Pindahkan "Module Meeting" ke "Sudah Selesai" (Task 1–9).
+- Pindahkan "Module Meeting" ke "Sudah Selesai" (Task 1-9).
 - Decision Log tambah: `2026-08-29: Meeting CANCELLED terminal, tanpa edit/reschedule (YAGNI); contract gate = getByApplicationId, di-enforce modul Contract`.
-- Status terakhir: Sprint 5 — Meeting Module selesai.
+- Status terakhir: Sprint 5 - Meeting Module selesai.
 
 - [ ] **Step 2: Commit**
 

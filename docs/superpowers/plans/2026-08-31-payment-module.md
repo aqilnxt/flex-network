@@ -4,7 +4,7 @@
 
 **Goal:** HIRER mensimulasikan pembayaran (`PENDING → SIMULATED_PAID`, set `held_at/held_by`) dan melepas dana (`SIMULATED_PAID → RELEASED`, set `released_at/released_by`) hanya setelah gate `work.status = COMPLETED && hirer_confirmed = true`; RELEASED men-trigger side effect `contracts.status = 'COMPLETED'`.
 
-**Architecture:** Modular monolith pattern sama dengan modul Meeting/Consent/Contract/Work: `modules/payment/` (schemas → queries → service → actions) di atas tabel `payments` yang sudah live + row di-seed modul Contract saat ACTIVE (tanpa perubahan skema). State machine di-enforce server-side di service; RLS granular baru di migration `014` (SELECT involved/admin, UPDATE hirer-only). Modul Payment membaca gate work via `getByContractId` dari `modules/work/queries` (precedent: Contract service memanggil Consent queries) — tanpa siklus import.
+**Architecture:** Modular monolith pattern sama dengan modul Meeting/Consent/Contract/Work: `modules/payment/` (schemas → queries → service → actions) di atas tabel `payments` yang sudah live + row di-seed modul Contract saat ACTIVE (tanpa perubahan skema). State machine di-enforce server-side di service; RLS granular baru di migration `014` (SELECT involved/admin, UPDATE hirer-only). Modul Payment membaca gate work via `getByContractId` dari `modules/work/queries` (precedent: Contract service memanggil Consent queries) - tanpa siklus import.
 
 **Tech Stack:** Next.js 16 App Router, React 19, TypeScript strict, Supabase (server client + RLS), Zod, Tailwind 4.
 
@@ -15,10 +15,10 @@
 - Status canonical payment: `PENDING / SIMULATED_PAID / RELEASED` (CHECK constraint DB 001:240, jangan diubah).
 - `PENDING → SIMULATED_PAID` hanya oleh HIRER pihak kontrak, hanya dari contract ACTIVE (API-SPEC 12.3); set `held_at` + `held_by`.
 - `SIMULATED_PAID → RELEASED` hanya oleh HIRER pihak kontrak, hanya jika `payment.status = 'SIMULATED_PAID'` && `work.status = 'COMPLETED'` && `work.hirer_confirmed = true` (BRD 15.3); skip `PENDING → RELEASED` ditolak.
-- Side effect RELEASED: `contracts.status = 'COMPLETED'` + `completed_at` — satu-satunya jalur kontrak jadi COMPLETED (keputusan user 2026-08-31).
+- Side effect RELEASED: `contracts.status = 'COMPLETED'` + `completed_at` - satu-satunya jalur kontrak jadi COMPLETED (keputusan user 2026-08-31).
 - Admin read-only (tidak ada transisi payment oleh admin).
 - Kolom `held_at/held_by/released_at/released_by` di-set service dari session user server-side, tidak pernah dari client.
-- Tidak ada notification, tidak ada REST API, tidak ada refund/gateway (defer — spec Out of Scope).
+- Tidak ada notification, tidak ada REST API, tidak ada refund/gateway (defer - spec Out of Scope).
 - Migration tidak mengubah skema tabel (kolom `payments` sudah live di 001; INSERT policy seed sudah ada di 012).
 - Verifikasi project: `npx tsc --noEmit`, `npm run lint`, `npm run build` (tidak ada test framework).
 - Commit format: `type(scope): deskripsi imperative lowercase` (lihat `/GIT_COMMIT.md`).
@@ -37,10 +37,10 @@
 - [ ] **Step 1: Tulis migration**
 
 ```sql
--- 014_payment_rls.sql — granular policies untuk payments
+-- 014_payment_rls.sql - granular policies untuk payments
 -- Baseline 003: RLS enabled, default-deny, tanpa policy.
 -- INSERT (seed saat contract ACTIVE) sudah ada di 012_contract_rls.sql.
--- Kedua transisi (SIMULATED_PAID, RELEASED) aktornya HIRER — state machine di-enforce service.
+-- Kedua transisi (SIMULATED_PAID, RELEASED) aktornya HIRER - state machine di-enforce service.
 
 -- SELECT: talent/hirer pihak contract, admin
 create policy "payments_select_involved"
@@ -73,7 +73,7 @@ create policy "payments_update_hirer"
   );
 ```
 
-Catatan: tidak ada policy INSERT (row di-seed modul Contract via `payments_insert_seed` dari 012) dan DELETE (cascade dari contracts). UPDATE lebih ketat dari Work — hirer-only (bukan involved) karena talent tidak pernah menransisi payment; RLS defense-in-depth, gate bisnis (SIMULATED_PAID + work COMPLETED + hirer_confirmed) di-enforce service.
+Catatan: tidak ada policy INSERT (row di-seed modul Contract via `payments_insert_seed` dari 012) dan DELETE (cascade dari contracts). UPDATE lebih ketat dari Work - hirer-only (bukan involved) karena talent tidak pernah menransisi payment; RLS defense-in-depth, gate bisnis (SIMULATED_PAID + work COMPLETED + hirer_confirmed) di-enforce service.
 
 - [ ] **Step 2: Push ke Supabase**
 
@@ -83,7 +83,7 @@ Expected: migration applied.
 - [ ] **Step 3: Verifikasi policy**
 
 Run: `supabase db query --linked "select tablename, policyname, cmd from pg_policies where tablename = 'payments' order by policyname;"`
-Expected: 2 rows — `payments_insert_seed` (INSERT, dari 012), `payments_select_involved` (SELECT), `payments_update_hirer` (UPDATE).
+Expected: 2 rows - `payments_insert_seed` (INSERT, dari 012), `payments_select_involved` (SELECT), `payments_update_hirer` (UPDATE).
 
 - [ ] **Step 4: Commit**
 
@@ -116,7 +116,7 @@ export const paymentStatusSchema = z.enum([
 export type PaymentStatus = z.infer<typeof paymentStatusSchema>;
 ```
 
-Catatan: transisi status dikirim sebagai konstanta server-side per action (client tidak pernah mengirim status bebas). Kolom `held_at`, `held_by`, `released_at`, `released_by` tidak pernah diterima dari client — di-set service dari session user.
+Catatan: transisi status dikirim sebagai konstanta server-side per action (client tidak pernah mengirim status bebas). Kolom `held_at`, `held_by`, `released_at`, `released_by` tidak pernah diterima dari client - di-set service dari session user.
 
 - [ ] **Step 2: Verifikasi typecheck**
 
@@ -308,7 +308,7 @@ export async function releasePayment(
 }
 ```
 
-Catatan: `loadPaymentWithContract` — helper bersama, pola sama dengan `loadWorkWithContract` modul Work. Urutan cek: ownership → contract ACTIVE → state payment → gate work. `releasePayment` mengimpor `getByContractId` dari modul Work sebagai gate (precedent: modul Contract mengimpor `getConsentDecision` modul Consent; tidak ada siklus karena Work tidak mengimpor Payment). Dua update berurutan non-atomic diterima (spec Decisions); kegagalan update contract setelah payment RELEASED menghasilkan error eksplisit dengan pesan diagnostik.
+Catatan: `loadPaymentWithContract` - helper bersama, pola sama dengan `loadWorkWithContract` modul Work. Urutan cek: ownership → contract ACTIVE → state payment → gate work. `releasePayment` mengimpor `getByContractId` dari modul Work sebagai gate (precedent: modul Contract mengimpor `getConsentDecision` modul Consent; tidak ada siklus karena Work tidak mengimpor Payment). Dua update berurutan non-atomic diterima (spec Decisions); kegagalan update contract setelah payment RELEASED menghasilkan error eksplisit dengan pesan diagnostik.
 
 - [ ] **Step 2: Verifikasi typecheck**
 
@@ -333,8 +333,8 @@ git commit -m "feat(payment): add payment service with release gate"
 - Produces:
   - `type PaymentStatus = "PENDING" | "SIMULATED_PAID" | "RELEASED"`
   - `type PaymentRow = { id, contract_id, amount, currency, status, held_at, released_at, held_by, released_by }`
-  - `getByContractId(contractId: string): Promise<PaymentRow | null>` — dipakai blok UI detail contract.
-  - `listForContracts(contractIds: string[]): Promise<Map<string, PaymentRow>>` — batch render inline tanpa N+1.
+  - `getByContractId(contractId: string): Promise<PaymentRow | null>` - dipakai blok UI detail contract.
+  - `listForContracts(contractIds: string[]): Promise<Map<string, PaymentRow>>` - batch render inline tanpa N+1.
 
 - [ ] **Step 1: Tulis queries**
 
@@ -413,7 +413,7 @@ git commit -m "feat(payment): add payment queries"
 - Produces:
   - `simulatePayment(contractId: string, redirectTo: string): Promise<void>`
   - `releasePayment(contractId: string, redirectTo: string): Promise<void>`
-  - Keduanya fire-and-forget `void` — error bisnis silent return; sukses `revalidatePath` + `redirect(redirectTo)` (keputusan 2026-08-29).
+  - Keduanya fire-and-forget `void` - error bisnis silent return; sukses `revalidatePath` + `redirect(redirectTo)` (keputusan 2026-08-29).
 
 - [ ] **Step 1: Tulis actions**
 
@@ -469,7 +469,7 @@ git commit -m "feat(payment): add payment server actions"
 
 ---
 
-### Task 6: My Applications (TALENT) — badge payment read-only
+### Task 6: My Applications (TALENT) - badge payment read-only
 
 **Files:**
 - Modify: `app/applications/page.tsx`
@@ -518,13 +518,13 @@ const payments = await listForContracts(
       )}
       {payment.status === "SIMULATED_PAID" && (
         <p className="text-sm text-blue-700 mt-1">
-          Dana ditahan (escrow simulasi) — dirilis setelah pekerjaan
+          Dana ditahan (escrow simulasi) - dirilis setelah pekerjaan
           dikonfirmasi hirer.
         </p>
       )}
       {payment.status === "RELEASED" && (
         <p className="text-sm text-green-700 mt-1">
-          Dana dirilis — kontrak selesai.
+          Dana dirilis - kontrak selesai.
         </p>
       )}
     </div>
@@ -532,7 +532,7 @@ const payments = await listForContracts(
 })()}
 ```
 
-Catatan: read-only untuk TALENT — tidak ada tombol (aksi keduanya HIRER). Payment row ada untuk contract yang pernah ACTIVE; kontrak PENDING_AGREEMENT/TERMINATED tidak punya row → blok senyap.
+Catatan: read-only untuk TALENT - tidak ada tombol (aksi keduanya HIRER). Payment row ada untuk contract yang pernah ACTIVE; kontrak PENDING_AGREEMENT/TERMINATED tidak punya row → blok senyap.
 
 - [ ] **Step 3: Verifikasi typecheck + lint**
 
@@ -548,7 +548,7 @@ git commit -m "feat(payment): add payment badge to my applications"
 
 ---
 
-### Task 7: Detail contract — blok payment + aksi HIRER
+### Task 7: Detail contract - blok payment + aksi HIRER
 
 **Files:**
 - Modify: `app/contracts/[id]/page.tsx`
@@ -628,12 +628,12 @@ Tambahkan blok setelah blok work (`{work && (...)}`), sebelum div aksi kontrak:
       payment.status === "SIMULATED_PAID" &&
       !(work?.status === "COMPLETED" && work.hirer_confirmed) && (
         <p className="text-sm text-amber-600">
-          Dana ditahan — rilis setelah pekerjaan selesai &amp; dikonfirmasi.
+          Dana ditahan - rilis setelah pekerjaan selesai &amp; dikonfirmasi.
         </p>
       )}
     {payment.status === "RELEASED" && (
       <p className="text-green-700">
-        Dana dirilis (simulasi) — kontrak selesai.
+        Dana dirilis (simulasi) - kontrak selesai.
       </p>
     )}
   </div>
@@ -672,8 +672,8 @@ Data reuse smoke Work: contract `b8ce8bdc-3fd1-40bd-832d-465c8daac86b` (CNTR-260
 
 1. HIRER buka `/contracts/b8ce8bdc-3fd1-40bd-832d-465c8daac86b` → blok Payment `PENDING` + tombol **Bayar (Simulasi)** → klik → badge `SIMULATED_PAID` + "Ditahan: <timestamp>".
 2. DB: `payments.status = 'SIMULATED_PAID'`, `held_at` terisi, `held_by` = hirer id; `released_at` masih NULL.
-3. Double-transisi: tombol **Bayar** hilang; service `simulatePayment` menolak panggilan kedua ("Payment sudah disimulasikan") — verifikasi UI (tombol hilang) + code path.
-4. Rilis gate sukses (work COMPLETED + confirmed): tombol **Rilis Dana (Simulasi)** muncul → klik → badge `RELEASED` + "Dana dirilis (simulasi) — kontrak selesai".
+3. Double-transisi: tombol **Bayar** hilang; service `simulatePayment` menolak panggilan kedua ("Payment sudah disimulasikan") - verifikasi UI (tombol hilang) + code path.
+4. Rilis gate sukses (work COMPLETED + confirmed): tombol **Rilis Dana (Simulasi)** muncul → klik → badge `RELEASED` + "Dana dirilis (simulasi) - kontrak selesai".
 5. DB: `payments.status = 'RELEASED'`, `released_at`/`released_by` terisi; **`contracts.status = 'COMPLETED'` + `completed_at` terisi** (side effect).
 6. Gate-fail path: reset state via SQL `update works set hirer_confirmed = false where contract_id = 'b8ce8bdc-...';` + `update payments set status = 'SIMULATED_PAID' ...` (jaga payment tetap SIMULATED_PAID) → HIRER reload detail → tombol **Rilis** TIDAK muncul (hint biru "rilis setelah pekerjaan selesai & dikonfirmasi") → restore confirm work via UI → tombol release muncul lagi.
 7. RLS via REST: TALENT pihak kontrak SELECT `/rest/v1/payments?contract_id=eq.b8ce8bdc-...` → 1 row (involved); TALENT asing SELECT → `[]`; PATCH payments oleh talent → 0 rows / 42501 (`payments_update_hirer` hanya hirer).
@@ -692,13 +692,13 @@ git commit -m "fix(payment): address smoke test findings"
 
 - [ ] **Step 1: Update progress**
 
-- Tambah "Module Payment" ke "Sudah Selesai" (Task 1–8).
+- Tambah "Module Payment" ke "Sudah Selesai" (Task 1-8).
 - Decision Log tambah:
   - `2026-08-31: Payment SIMULATED_PAID & RELEASED aktor = HIRER (API-SPEC 12.3/12.4); admin read-only`
   - `2026-08-31: Contract COMPLETED = side effect modul Payment saat RELEASED (satu-satunya jalur); jalur non-atomik dua update diterima (simulated escrow)`
   - `2026-08-31: RLS payments UPDATE = hirer-only (kedua transisi aktor HIRER); talent read-only di level RLS`
   - `2026-08-31: Notification side effect payment defer (modul Notification terpisah); audit via held_by/released_by`
-- Status terakhir: Sprint 9 — Module Payment selesai; next: Rating (gate work COMPLETED) atau Verified Work History.
+- Status terakhir: Sprint 9 - Module Payment selesai; next: Rating (gate work COMPLETED) atau Verified Work History.
 
 - [ ] **Step 2: Commit**
 
@@ -713,4 +713,4 @@ git commit -m "docs: update progress payment module"
 
 - **Spec coverage:** RLS (Task 1), schemas (Task 2), service simulate/release + side effect contract COMPLETED (Task 3), queries (Task 4), actions + redirectTo (Task 5), UI TALENT badge (Task 6), UI detail contract + aksi HIRER (Task 7), verification + smoke + RLS (Task 8), progress (Task 9). Acceptance criteria spec: AC 1 → Task 3+7 (simulate gate), AC 2 → Task 3+7 (release gate + hint), AC 3 → Task 3 side effect + smoke step 5, AC 4 → constraint + Task 3, AC 5 → Task 1 + smoke step 7, AC 6 → Task 6+7, AC 7 → Task 8 Step 1.
 - **Placeholder scan:** tidak ada TBD/TODO; service lengkap dengan helper `loadPaymentWithContract`; actions menerima `redirectTo` (pola redirect balik); semua kode lengkap.
-- **Type consistency:** `ServiceResult`, `PaymentRow`, `PaymentStatus`, `getByContractId` (payment), `listForContracts` (payment), signatures `simulatePayment(hirerId, contractId)` / `releasePayment(hirerId, contractId)` konsisten dipakai Task 5–7. Action names `simulatePayment`/`releasePayment` (void, 2 param: contractId + redirectTo) konsisten di Task 7 UI. Gate konsumsi `WorkRow.status`/`WorkRow.hirer_confirmed` dari modul Work (`getByContractId`) — sudah live, tanpa perubahan modul Work.
+- **Type consistency:** `ServiceResult`, `PaymentRow`, `PaymentStatus`, `getByContractId` (payment), `listForContracts` (payment), signatures `simulatePayment(hirerId, contractId)` / `releasePayment(hirerId, contractId)` konsisten dipakai Task 5-7. Action names `simulatePayment`/`releasePayment` (void, 2 param: contractId + redirectTo) konsisten di Task 7 UI. Gate konsumsi `WorkRow.status`/`WorkRow.hirer_confirmed` dari modul Work (`getByContractId`) - sudah live, tanpa perubahan modul Work.

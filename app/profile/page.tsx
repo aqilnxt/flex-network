@@ -19,14 +19,22 @@ export default async function ProfilePage() {
     .single();
 
   return (
-    <div className="p-8 max-w-lg">
-      <h1 className="text-2xl font-bold mb-4">Profile</h1>
-      <ProfileForm
-        defaultFullName={profile?.full_name ?? ""}
-        defaultPhone={privateData?.phone ?? ""}
-        defaultBio={profile?.bio ?? ""}
-        defaultLocation={profile?.location ?? ""}
-      />
+    <div className="p-8">
+      <div className="max-w-lg">
+        <h1 className="text-2xl font-bold tracking-tight">Profil</h1>
+        <p className="mt-2 text-ink-2">
+          Informasi dasar akun kamu - nama dan kontak hanya untuk keperluan
+          akun.
+        </p>
+        <div className="card mt-6 p-6">
+          <ProfileForm
+            defaultFullName={profile?.full_name ?? ""}
+            defaultPhone={privateData?.phone ?? ""}
+            defaultBio={profile?.bio ?? ""}
+            defaultLocation={profile?.location ?? ""}
+          />
+        </div>
+      </div>
     </div>
   );
 }

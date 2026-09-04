@@ -2,11 +2,11 @@
 
 ## Goal
 
-Membangun modul Matching — rekomendasi opportunity untuk TALENT berdasarkan weighted skill & interest matching (rule-based, deterministic, server-side). Tanpa AI/ML, hanya decision support (tidak hiring otomatis).
+Membangun modul Matching - rekomendasi opportunity untuk TALENT berdasarkan weighted skill & interest matching (rule-based, deterministic, server-side). Tanpa AI/ML, hanya decision support (tidak hiring otomatis).
 
 ## Decisions (locked)
 
-- **Read-only** — query/service server-side dipanggil dari Server Component, bukan REST / Server Action (API-SPEC 20.5 + decision log "Server Actions dulu; REST ditunda").
+- **Read-only** - query/service server-side dipanggil dari Server Component, bukan REST / Server Action (API-SPEC 20.5 + decision log "Server Actions dulu; REST ditunda").
 - **Halaman rekomendasi khusus** `/matching/recommendations` (TALENT): title + final score + classification. Browse-card integration ditunda.
 - **Filter keluar** opportunity yang sudah di-apply (dan non-`PUBLISHED` otomatis).
 - **Migration `008`** menambahkan policy owner-scoped untuk `talent_skills`/`talent_interests` (membutuhkan read + memperbaiki latent bug CRUD profile).
@@ -69,7 +69,7 @@ export type Recommendation = {
   - `>= 30` → `WEAK_MATCH`
   - else `NO_MATCH`
 
-## Service — `service.ts` (pure, tanpa supabase)
+## Service - `service.ts` (pure, tanpa supabase)
 
 - `skillMatchScore(matched: number, required: number): number`
 - `interestMatchScore(matched: number, relevant: number): number`
@@ -77,9 +77,9 @@ export type Recommendation = {
 - `classifyMatchScore(score: number): MatchClassification`
 - `scoreOpportunity(talentSkillIds, talentInterestIds, oppSkillIds, oppInterestIds): MatchResult`
 
-`matchedSkills`/`matchedInterests` berisi id (atau name) yang cocok — dihitung via set intersection.
+`matchedSkills`/`matchedInterests` berisi id (atau name) yang cocok - dihitung via set intersection.
 
-## Queries — `queries.ts`
+## Queries - `queries.ts`
 
 `getRecommendations(talentId, { page = 1, limit = 12 })`:
 
@@ -92,7 +92,7 @@ export type Recommendation = {
 
 > Performa: skor dihitung app-layer, sort-by-score mewajibkan scoring seluruh candidate PUBLISHED lalu paginate di memori. Bounded untuk MVP (jumlah PUBLISHED kecil). Optimasi DB-function/DB-pagination jadi task lanjutan bila workload naik (TDD 8.12).
 
-## RLS — `008_talent_skills_interests_rls.sql`
+## RLS - `008_talent_skills_interests_rls.sql`
 
 Menambahkan policy owner-scoped untuk `talent_skills` & `talent_interests` (melengkapi `TBD` di `003`; dipakai matching untuk baca + memperbaiki latent bug CRUD profile):
 
@@ -118,7 +118,7 @@ create policy "talent_skills_delete_own"
 
 ## Page
 
-- `app/matching/recommendations/page.tsx` — `requireRole("TALENT")` → `getRecommendations(user.id, searchParams)` → render list (card: title, work_mode, lokasi, compensation, final match score progress/badge, classification color-coded). Link ke `/opportunities/:id`.
+- `app/matching/recommendations/page.tsx` - `requireRole("TALENT")` → `getRecommendations(user.id, searchParams)` → render list (card: title, work_mode, lokasi, compensation, final match score progress/badge, classification color-coded). Link ke `/opportunities/:id`.
 
 ## Security & Rules
 
@@ -129,9 +129,9 @@ create policy "talent_skills_delete_own"
 
 ## Out of Scope
 
-- Single-opportunity match score (API-SPEC 8.2) — defer.
-- Match score di browse card & detail — defer (UI polish).
-- Notifikasi/audit — n/a (read-only).
+- Single-opportunity match score (API-SPEC 8.2) - defer.
+- Match score di browse card & detail - defer (UI polish).
+- Notifikasi/audit - n/a (read-only).
 
 ## Acceptance Criteria
 

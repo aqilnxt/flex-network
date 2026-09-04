@@ -47,7 +47,7 @@ Status canonical: `DRAFT → PENDING_REVIEW → PUBLISHED → CLOSED`.
 
 Semua transisi divalidasi di service layer (cek status saat ini + kepemilikan) sebelum write. Transisi ilegal ditolak.
 
-## Schemas (Zod) — sesuai DB aktual
+## Schemas (Zod) - sesuai DB aktual
 
 `createOpportunitySchema`:
 - `title` string min 5 max 150
@@ -76,7 +76,7 @@ Semua transisi divalidasi di service layer (cek status saat ini + kepemilikan) s
 
 Inferred types: `CreateOpportunityInput`, `UpdateOpportunityInput`, `ModerateInput`.
 
-## RLS — `006_opportunity_rls.sql`
+## RLS - `006_opportunity_rls.sql`
 
 Baseline (`003_rls_policies.sql`) sudah menyediakan owner-scoped policy untuk `opportunities`. Tambahan bersifat **additive** (permissive policy di-OR):
 
@@ -88,39 +88,39 @@ ADMIN moderation tetap lewat **server client** (bukan `admin.ts`); policy admin 
 
 ## Server Actions (semua return `ActionResult<T>`, ownership check di awal)
 
-- `createOpportunity(formData)` — HIRER; insert status `DRAFT` + skill/interest junction.
-- `updateOpportunity(id, formData)` — HIRER owner; hanya status `DRAFT`/`PENDING_REVIEW` yang boleh diubah.
-- `submitReview(id)` — HIRER owner; validasi required fields + deadline; set `submitted_for_review_at`, status `PENDING_REVIEW`.
-- `closeOpportunity(id)` — HIRER owner / ADMIN; `PUBLISHED → CLOSED`, set `closed_at`.
-- `moderateOpportunity(id, action, notes)` — ADMIN; mapping ke transisi; set `moderated_by/at/notes`.
-- `deleteOpportunity(id)` — HIRER owner (hanya DRAFT).
+- `createOpportunity(formData)` - HIRER; insert status `DRAFT` + skill/interest junction.
+- `updateOpportunity(id, formData)` - HIRER owner; hanya status `DRAFT`/`PENDING_REVIEW` yang boleh diubah.
+- `submitReview(id)` - HIRER owner; validasi required fields + deadline; set `submitted_for_review_at`, status `PENDING_REVIEW`.
+- `closeOpportunity(id)` - HIRER owner / ADMIN; `PUBLISHED → CLOSED`, set `closed_at`.
+- `moderateOpportunity(id, action, notes)` - ADMIN; mapping ke transisi; set `moderated_by/at/notes`.
+- `deleteOpportunity(id)` - HIRER owner (hanya DRAFT).
 
 ## Queries
 
-- `listPublished({ search, type, workMode, location, skillId, interestId, compensationType, sort, page, limit })` — filter `status = PUBLISHED`; HIRER juga melihat miliknya (klausa owner).
-- `getOpportunityById(id, viewer)` — enforce visibility (published / owner hirer / admin).
+- `listPublished({ search, type, workMode, location, skillId, interestId, compensationType, sort, page, limit })` - filter `status = PUBLISHED`; HIRER juga melihat miliknya (klausa owner).
+- `getOpportunityById(id, viewer)` - enforce visibility (published / owner hirer / admin).
 
 ## Pages
 
-- `app/opportunities/page.tsx` — browse/search/filter.
-- `app/opportunities/[id]/page.tsx` — detail (data + hirer + skills/interests).
-- `app/hirer/opportunities/page.tsx` — daftar opportunity milik hirer (semua status).
-- `app/hirer/opportunities/new/page.tsx` & `[id]/edit/page.tsx` — form create/edit (`useActionState`).
-- `app/admin/opportunities/page.tsx` — antrean moderasi (PENDING_REVIEW) + form approve/reject.
+- `app/opportunities/page.tsx` - browse/search/filter.
+- `app/opportunities/[id]/page.tsx` - detail (data + hirer + skills/interests).
+- `app/hirer/opportunities/page.tsx` - daftar opportunity milik hirer (semua status).
+- `app/hirer/opportunities/new/page.tsx` & `[id]/edit/page.tsx` - form create/edit (`useActionState`).
+- `app/admin/opportunities/page.tsx` - antrean moderasi (PENDING_REVIEW) + form approve/reject.
 
 ## Security Rules (dari AGENTS.md)
 
-- Jangan percaya input/client — Zod validasi semua input.
-- Authorization selalu server-side — `requireUser()` / `requireRole()` sebelum mutation; ownership check `hirer_id = user.id`.
+- Jangan percaya input/client - Zod validasi semua input.
+- Authorization selalu server-side - `requireUser()` / `requireRole()` sebelum mutation; ownership check `hirer_id = user.id`.
 - RLS sebagai defense-in-depth.
 - Jangan log data sensitif.
 
 ## Out of Scope
 
-- Matching (skill/interest) — task terpisah.
+- Matching (skill/interest) - task terpisah.
 - REST API routes (tetap Server Actions).
 - Notification trigger saat moderasi.
-- Hirer profile enrichment (company name) — pakai join `hirer_profiles` secukupnya.
+- Hirer profile enrichment (company name) - pakai join `hirer_profiles` secukupnya.
 
 ## Acceptance Criteria
 

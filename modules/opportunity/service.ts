@@ -4,6 +4,7 @@ import type {
   UpdateOpportunityInput,
   ModerateInput,
 } from "./schemas";
+import { logAudit } from "@/modules/audit/service";
 
 type ServiceResult<T = null> = {
   data: T | null;
@@ -244,6 +245,7 @@ export async function moderateOpty(
         .from("opportunities")
         .update({ ...meta, status: "PUBLISHED", published_at: now })
         .eq("id", id);
+      if (!error) logAudit({ actorId: adminId, action: "MODERATE_OPPORTUNITY", resourceType: "opportunities", resourceId: id, metadata: { action: "APPROVE_PUBLISH" } }).catch(()=>{});
       return toServiceError(error);
     }
     case "REQUEST_CHANGES": {
@@ -257,6 +259,7 @@ export async function moderateOpty(
         .from("opportunities")
         .update({ ...meta, status: "DRAFT" })
         .eq("id", id);
+      if (!error) logAudit({ actorId: adminId, action: "MODERATE_OPPORTUNITY", resourceType: "opportunities", resourceId: id, metadata: { action: "REQUEST_CHANGES" } }).catch(()=>{});
       return toServiceError(error);
     }
     case "CLOSE": {
@@ -270,6 +273,7 @@ export async function moderateOpty(
         .from("opportunities")
         .update({ ...meta, status: "CLOSED", closed_at: now })
         .eq("id", id);
+      if (!error) logAudit({ actorId: adminId, action: "MODERATE_OPPORTUNITY", resourceType: "opportunities", resourceId: id, metadata: { action: "CLOSE" } }).catch(()=>{});
       return toServiceError(error);
     }
     case "DELETE": {
@@ -283,6 +287,7 @@ export async function moderateOpty(
         .from("opportunities")
         .delete()
         .eq("id", id);
+      if (!error) logAudit({ actorId: adminId, action: "MODERATE_OPPORTUNITY", resourceType: "opportunities", resourceId: id, metadata: { action: "DELETE" } }).catch(()=>{});
       return toServiceError(error);
     }
   }

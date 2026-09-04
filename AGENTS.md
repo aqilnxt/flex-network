@@ -149,3 +149,10 @@ Sebelum task spesifik, cek skill relevan via `npx skills find <keyword>`. Rekome
 Wajib update `docs/PROGRESS.md` setelah setiap task selesai. Pindahkan task ke "Sudah Selesai", update "Sedang Dikerjakan", catat Decision Log jika perlu.
 
 **Rule:** UI design WAJIB baca `docs/DESIGN.md`. Complex logic WAJIB panggil `brainstorming` + `grill-me` sebelum ngoding.
+
+## Future Development Tracking
+
+- File `docs/FUTURE-ROADMAP.md` berisi daftar fitur lanjutan.
+- Wajib update status di file tersebut SETELAH fitur selesai di-implementasi & di-test.
+- Ubah `⏳ Belum` → `✅ Selesai` saat fitur benar-benar selesai (build + test + deploy).
+- Jangan ubah status tanpa konfirmasi user, kecuali user minta auto-update.

@@ -9,7 +9,7 @@ Membangun modul Application: TALENT apply ke opportunity yang PUBLISHED, HIRER m
 - **Reject** dari `APPLIED` **atau** `UNDER_REVIEW`; **select** hanya dari `UNDER_REVIEW` (gabungan APPENDIX A.12 + API-SPEC 7).
 - **Notification & audit → defer** (task terpisah).
 - **`max_talent` di-enforce saat select** (block bila jumlah `SELECTED` pada opportunity tersebut sudah `>= max_talent`).
-- **Reject reason TIDAK disimpan** — tabel `applications` tidak punya kolom reason (ikuti DB aktual, konsisten keputusan Opportunity). Reject tanpa reason.
+- **Reject reason TIDAK disimpan** - tabel `applications` tidak punya kolom reason (ikuti DB aktual, konsisten keputusan Opportunity). Reject tanpa reason.
 - **UI menu inti** saja (bukan minimal, tanpa halaman detail application terpisah).
 
 ## Architecture
@@ -36,7 +36,7 @@ Status canonical: `APPLIED → UNDER_REVIEW → SELECTED / REJECTED`.
 
 | Transisi | Syarat | Aktor |
 |---|---|---|
-| `— → APPLIED` | opportunity `PUBLISHED`, `application_deadline > now()`, belum ada duplikat | TALENT |
+| `- → APPLIED` | opportunity `PUBLISHED`, `application_deadline > now()`, belum ada duplikat | TALENT |
 | `APPLIED → UNDER_REVIEW` | hirer owner opportunity | HIRER |
 | `UNDER_REVIEW → SELECTED` | hirer owner + jumlah `SELECTED` < `max_talent` | HIRER |
 | `APPLIED → REJECTED` | hirer owner | HIRER |
@@ -55,11 +55,11 @@ export const createApplicationSchema = z.object({
 export type CreateApplicationInput = z.infer<typeof createApplicationSchema>;
 ```
 
-## RLS — `007_application_rls.sql`
+## RLS - `007_application_rls.sql`
 
 Baseline (`003_rls_policies.sql`) sudah ada:
-- `applications_select_owner_or_hirer` — select (talent owner / hirer terkait).
-- `applications_insert_talent` — insert `with check (talent_id = auth.uid())`.
+- `applications_select_owner_or_hirer` - select (talent owner / hirer terkait).
+- `applications_insert_talent` - insert `with check (talent_id = auth.uid())`.
 
 Tambahan (additive): policy **update** untuk HIRER.
 
@@ -84,18 +84,18 @@ Catatan: admin access tidak ditambahkan (di luar scope task ini; defer ke sprint
 
 ## Service
 
-- `apply(talentId, input)` — ambil opportunity; tolak bila bukan `PUBLISHED` atau `application_deadline <= now()`; insert status `APPLIED` (UNIQUE jadi defense duplikat); return `{ data, error }`.
-- `review(hirerId, id)` — verify `hirer` owner opportunity terkait; hanya status `APPLIED`; set `UNDER_REVIEW` + `reviewed_at`.
-- `select(hirerId, id)` — verify owner; hanya status `UNDER_REVIEW`; hitung count `SELECTED` pada opportunity itu → block bila `>= max_talent`; set `SELECTED` + `selected_at`.
-- `reject(hirerId, id)` — verify owner; status `APPLIED`/`UNDER_REVIEW`; set `REJECTED` + `rejected_at`.
+- `apply(talentId, input)` - ambil opportunity; tolak bila bukan `PUBLISHED` atau `application_deadline <= now()`; insert status `APPLIED` (UNIQUE jadi defense duplikat); return `{ data, error }`.
+- `review(hirerId, id)` - verify `hirer` owner opportunity terkait; hanya status `APPLIED`; set `UNDER_REVIEW` + `reviewed_at`.
+- `select(hirerId, id)` - verify owner; hanya status `UNDER_REVIEW`; hitung count `SELECTED` pada opportunity itu → block bila `>= max_talent`; set `SELECTED` + `selected_at`.
+- `reject(hirerId, id)` - verify owner; status `APPLIED`/`UNDER_REVIEW`; set `REJECTED` + `rejected_at`.
 
 Semua mutation mengembalikan `{ data, error }` custom (untuk konsistensi) dan melakukan ownership/state check sebelum write.
 
 ## Queries
 
-- `listForTalent(talentId)` — daftar application milik talent (semua status), join opportunity title/status untuk tampilan.
-- `listForOpportunity(opportunityId, hirerId)` — return `{ applications, maxTalent, selectedCount }`; hanya valid untuk hirer owner (jika bukan owner → return `{ error }`). `applications` = daftar pelamar + join talent profile (full_name). `maxTalent` dan `selectedCount` dipakai UI untuk men-disable tombol Select saat kuota penuh.
-- `getApplicationStatus(talentId, opportunityId)` — return status application bila ada (atau `null`), dipakai halaman detail opportunity untuk men-disable tombol Apply bila talent sudah apply + menampilkan status.
+- `listForTalent(talentId)` - daftar application milik talent (semua status), join opportunity title/status untuk tampilan.
+- `listForOpportunity(opportunityId, hirerId)` - return `{ applications, maxTalent, selectedCount }`; hanya valid untuk hirer owner (jika bukan owner → return `{ error }`). `applications` = daftar pelamar + join talent profile (full_name). `maxTalent` dan `selectedCount` dipakai UI untuk men-disable tombol Select saat kuota penuh.
+- `getApplicationStatus(talentId, opportunityId)` - return status application bila ada (atau `null`), dipakai halaman detail opportunity untuk men-disable tombol Apply bila talent sudah apply + menampilkan status.
 
 ## Server Actions (return `ActionResult`; `requireUser`/`requireRole` di awal)
 
@@ -106,15 +106,15 @@ Semua mutation mengembalikan `{ data, error }` custom (untuk konsistensi) dan me
 
 ## Pages
 
-1. `app/applications/page.tsx` — **TALENT** "My Applications" (`requireRole("TALENT")`), list + status badge + link opportunity.
-2. `app/opportunities/[id]/page.tsx` — tambah form **Apply** (client component) hanya untuk role TALENT; tampil disable + status bila sudah apply (`getApplicationStatus`).
-3. `app/hirer/opportunities/[id]/applications/page.tsx` — **HIRER** applicant list (`requireRole("HIRER")` + ownership check), semua status + aksi review/select/reject + indikator kuota (`maxTalent`/`selectedCount`).
-4. `app/hirer/opportunities/page.tsx` — tambah link "Lihat Applicant" ke halaman applicant.
+1. `app/applications/page.tsx` - **TALENT** "My Applications" (`requireRole("TALENT")`), list + status badge + link opportunity.
+2. `app/opportunities/[id]/page.tsx` - tambah form **Apply** (client component) hanya untuk role TALENT; tampil disable + status bila sudah apply (`getApplicationStatus`).
+3. `app/hirer/opportunities/[id]/applications/page.tsx` - **HIRER** applicant list (`requireRole("HIRER")` + ownership check), semua status + aksi review/select/reject + indikator kuota (`maxTalent`/`selectedCount`).
+4. `app/hirer/opportunities/page.tsx` - tambah link "Lihat Applicant" ke halaman applicant.
 
 ## Security Rules
 
-- Jangan percaya input/client — Zod validasi input.
-- Authorization selalu server-side — `requireUser()`/`requireRole()` sebelum mutation; ownership check `hirer_id = auth.uid()` / `talent_id = auth.uid()`.
+- Jangan percaya input/client - Zod validasi input.
+- Authorization selalu server-side - `requireUser()`/`requireRole()` sebelum mutation; ownership check `hirer_id = auth.uid()` / `talent_id = auth.uid()`.
 - RLS sebagai defense-in-depth.
 - Jangan log data sensitif.
 

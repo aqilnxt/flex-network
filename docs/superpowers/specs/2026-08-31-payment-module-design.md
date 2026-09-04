@@ -2,21 +2,21 @@
 
 ## Goal
 
-Membangun modul Payment: simulated escrow berdasarkan contract ACTIVE. Payment row sudah di-seed oleh modul Contract saat contract menjadi ACTIVE (`status = PENDING`, `amount = compensation`). HIRER mensimulasikan pembayaran (`PENDING → SIMULATED_PAID` — dana dianggap ditahan escrow), lalu setelah pekerjaan selesai dan dikonfirmasi, HIRER melepas dana (`SIMULATED_PAID → RELEASED`). Saat RELEASED, contract ikut menjadi `COMPLETED` (side effect modul Payment) — menutup siklus bisnis Contract → Payment → Work → Rating.
+Membangun modul Payment: simulated escrow berdasarkan contract ACTIVE. Payment row sudah di-seed oleh modul Contract saat contract menjadi ACTIVE (`status = PENDING`, `amount = compensation`). HIRER mensimulasikan pembayaran (`PENDING → SIMULATED_PAID` - dana dianggap ditahan escrow), lalu setelah pekerjaan selesai dan dikonfirmasi, HIRER melepas dana (`SIMULATED_PAID → RELEASED`). Saat RELEASED, contract ikut menjadi `COMPLETED` (side effect modul Payment) - menutup siklus bisnis Contract → Payment → Work → Rating.
 
-Modul `modules/payment/` di atas skema DB yang sudah live (`001_initial_schema.sql`, tabel `payments`, kolom lengkap + CHECK status). Tanpa perubahan skema — sprint ini hanya menambah RLS granular.
+Modul `modules/payment/` di atas skema DB yang sudah live (`001_initial_schema.sql`, tabel `payments`, kolom lengkap + CHECK status). Tanpa perubahan skema - sprint ini hanya menambah RLS granular.
 
 ## Decisions (locked)
 
 - **Modul mandiri `modules/payment/` (Pendekatan A).** Payment = capability terpisah sesuai Module Ownership di AGENTS.md (`payments` → Payment). Modul Contract tidak menampung payment actions; kontrak hanya seed row saat ACTIVE (sudah terlaksana).
-- **Pendekatan A: modul standar, side effect di service.** Pola sama dengan Meeting/Consent/Contract/Work. Dua update berurutan saat release (payments lalu contracts) bukan atomic — window inkonsisten tipis dianggap acceptable untuk simulated MVP; tidak ada DB trigger / RPC atomik (ditolak: keluar pola codebase, logic tersembunyi, susah test).
+- **Pendekatan A: modul standar, side effect di service.** Pola sama dengan Meeting/Consent/Contract/Work. Dua update berurutan saat release (payments lalu contracts) bukan atomic - window inkonsisten tipis dianggap acceptable untuk simulated MVP; tidak ada DB trigger / RPC atomik (ditolak: keluar pola codebase, logic tersembunyi, susah test).
 - **Aktor `SIMULATED_PAID` = HIRER** via tombol **Bayar (Simulasi)** (API-SPEC 12.3). Tidak ada otomatisasi sistem; PENDING tetap perlu aksi manual hirer. Admin tidak bisa menransisi (read-only).
 - **Aktor RELEASED = HIRER**, gate (BRD 15.3 / API-SPEC 12.4): `payment.status = 'SIMULATED_PAID'` && `work.status = 'COMPLETED'` && `work.hirer_confirmed = true`. Gate work dibaca via `getByContractId` modul Work (single call gate yang sudah disiapkan).
 - **Contract COMPLETED = side effect modul Payment saat RELEASED** (keputusan user 2026-08-31). Service update `contracts.status = 'COMPLETED'` + `completed_at` setelah payments RELEASED. Tidak ada modul lain yang menulis status contract COMPLETED.
-- **Notification defer** — API-SPEC menyebut "notification dibuat" pada simulate-paid/release; ditunda ke modul Notification terpisah. Audit trail tetap ada via `held_at`/`held_by`/`released_at`/`released_by`.
+- **Notification defer** - API-SPEC menyebut "notification dibuat" pada simulate-paid/release; ditunda ke modul Notification terpisah. Audit trail tetap ada via `held_at`/`held_by`/`released_at`/`released_by`.
 - **REST API → defer** (konsisten keputusan 2026-08-29: Server Actions dulu).
-- **Tidak ada refund/withdrawal/gateway** — MVP simulated (BRD 15.4). RELEASED terminal; tidak ada transisi mundur.
-- DB tidak diubah — tabel `payments` sudah lengkap di 001 (kolom, CHECK status, UNIQUE contract_id). Sprint ini hanya menambah RLS granular (INSERT policy seed sudah ada di `012_contract_rls.sql`).
+- **Tidak ada refund/withdrawal/gateway** - MVP simulated (BRD 15.4). RELEASED terminal; tidak ada transisi mundur.
+- DB tidak diubah - tabel `payments` sudah lengkap di 001 (kolom, CHECK status, UNIQUE contract_id). Sprint ini hanya menambah RLS granular (INSERT policy seed sudah ada di `012_contract_rls.sql`).
 
 ## Architecture
 
@@ -42,7 +42,7 @@ Status canonical: `PENDING` → `SIMULATED_PAID` → `RELEASED` (CHECK DB 001:24
 
 | Transisi | Syarat | Aktor | Side effect |
 |---|---|---|---|
-| `PENDING → SIMULATED_PAID` | hirer pihak kontrak + contract `ACTIVE` + payment `PENDING`; set `held_at`, `held_by` | HIRER | — (notification defer) |
+| `PENDING → SIMULATED_PAID` | hirer pihak kontrak + contract `ACTIVE` + payment `PENDING`; set `held_at`, `held_by` | HIRER | - (notification defer) |
 | `SIMULATED_PAID → RELEASED` | hirer pihak kontrak + payment `SIMULATED_PAID` + work `COMPLETED` + `hirer_confirmed = true`; set `released_at`, `released_by` | HIRER | contract → `COMPLETED` + `completed_at` |
 
 - RELEASED hanya jika ketiga syarat terpenuhi (BRD 15.3); tidak ada skip `PENDING → RELEASED` langsung.
@@ -66,11 +66,11 @@ export const paymentStatusSchema = z.enum(["PENDING", "SIMULATED_PAID", "RELEASE
 export type PaymentStatus = z.infer<typeof paymentStatusSchema>;
 ```
 
-Transisi tidak diterima dari client — konstanta server-side per action. Kolom `held_at`, `held_by`, `released_at`, `released_by` tidak pernah diterima dari client (service yang set).
+Transisi tidak diterima dari client - konstanta server-side per action. Kolom `held_at`, `held_by`, `released_at`, `released_by` tidak pernah diterima dari client (service yang set).
 
-## RLS — `014_payment_rls.sql`
+## RLS - `014_payment_rls.sql`
 
-Baseline `003_rls_policies.sql`: `payments` enable RLS, default-deny, tanpa policy. INSERT policy seed sudah dibuat `012_contract_rls.sql` (`payments_insert_seed` — pihak kontrak saat contract ACTIVE).
+Baseline `003_rls_policies.sql`: `payments` enable RLS, default-deny, tanpa policy. INSERT policy seed sudah dibuat `012_contract_rls.sql` (`payments_insert_seed` - pihak kontrak saat contract ACTIVE).
 
 Tambahan (mengikuti gaya `010`/`011`/`012`, semua `to authenticated`):
 
@@ -125,7 +125,7 @@ Helper: `loadPaymentWithContract(supabase, contractId)` → fetch payment by `co
   1. Load payment + contract.
   2. Tolak bila `contract.hirer_id !== hirerId` ("Not owner").
   3. Tolak bila `contract.status !== 'ACTIVE'`.
-  4. Tolak bila `payment.status !== 'SIMULATED_PAID'` ("Payment belum disimulasikan" — blok skip PENDING → RELEASED).
+  4. Tolak bila `payment.status !== 'SIMULATED_PAID'` ("Payment belum disimulasikan" - blok skip PENDING → RELEASED).
   5. Load work via `getByContractId` (modul Work) → tolak bila `work.status !== 'COMPLETED'` ("Pekerjaan belum selesai") atau `!work.hirer_confirmed` ("Pekerjaan belum dikonfirmasi hirer").
   6. Update `payments`: `status = 'RELEASED'`, `released_at = now()`, `released_by = hirerId`.
   7. Update `contracts.status = 'COMPLETED'`, `completed_at = now()` (side effect; keputusan 2026-08-31).
@@ -136,8 +136,8 @@ Cross-module import: service Payment memanggil `getByContractId` dari `modules/w
 
 - `type PaymentStatus = "PENDING" | "SIMULATED_PAID" | "RELEASED"`.
 - `type PaymentRow = { id, contract_id, amount, currency, status, held_at, released_at, held_by, released_by }`.
-- `getByContractId(contractId)` → `PaymentRow | null` — dipakai blok UI detail contract.
-- `listForContracts(contractIds)` → `Map<contractId, PaymentRow>` — batch render inline tanpa N+1.
+- `getByContractId(contractId)` → `PaymentRow | null` - dipakai blok UI detail contract.
+- `listForContracts(contractIds)` → `Map<contractId, PaymentRow>` - batch render inline tanpa N+1.
 
 ## Server Actions
 
@@ -147,13 +147,13 @@ Cross-module import: service Payment memanggil `getByContractId` dari `modules/w
 
 ## Pages (UI inline)
 
-1. `app/contracts/[id]/page.tsx` — blok payment setelah blok work (kedua role):
+1. `app/contracts/[id]/page.tsx` - blok payment setelah blok work (kedua role):
    - Badge status + amount (`Rp {amount}`) + waktu held/released.
    - HIRER + contract ACTIVE + `PENDING` → tombol **Bayar (Simulasi)**.
    - HIRER + `SIMULATED_PAID` + gate terpenuhi (work COMPLETED + confirmed) → tombol **Rilis Dana (Simulasi)**.
    - HIRER + `SIMULATED_PAID` + gate belum terpenuhi → hint "Menunggu pekerjaan selesai & dikonfirmasi".
    - TALENT read-only (badge saja).
-2. `app/applications/page.tsx` (TALENT) — badge payment read-only per application block (listForContracts batch).
+2. `app/applications/page.tsx` (TALENT) - badge payment read-only per application block (listForContracts batch).
 
 Semua inline; tidak ada halaman payment terpisah. HIRER aksi utama di detail contract (task scope: "inline di detail contract / my applications").
 
@@ -167,7 +167,7 @@ Semua inline; tidak ada halaman payment terpisah. HIRER aksi utama di detail con
 
 ## Out of Scope
 
-- Notification (defer — modul Notification terpisah).
+- Notification (defer - modul Notification terpisah).
 - REST API endpoints (defer; spec API-SPEC 12 menjadi referensi nanti).
 - Real payment gateway, real escrow, refund, withdrawal (BRD 15.4).
 - Halaman payment terpisah `/payments`.

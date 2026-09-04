@@ -402,7 +402,7 @@ Interest Match
 30%
 
 Final Match Score berada pada rentang:
-0–100
+0-100
 Contoh:
 Skill Match    = 80
 Interest Match = 66.67
@@ -421,13 +421,13 @@ Final Match Score = 76.00
 Sistem mengelompokkan Final Match Score menjadi classification berikut:
 Score
 Classification
-80–100
+80-100
 STRONG_MATCH
-60–79
+60-79
 GOOD_MATCH
-30–59
+30-59
 WEAK_MATCH
-0–29
+0-29
 NO_MATCH
 
 Classification ditentukan oleh server berdasarkan Final Match Score.
@@ -437,7 +437,7 @@ Final Match Score = 76.00
 
 76.00
 ↓
-60–79
+60-79
 ↓
 GOOD_MATCH
 
@@ -577,7 +577,7 @@ MVP 🔒
 Rule-Based Weighted Matching
 Skill Weight 70%
 Interest Weight 30%
-Final Match Score 0–100
+Final Match Score 0-100
 Match Classification
 Server-side calculation
 Deterministic result
@@ -599,7 +599,7 @@ Interest Weight: 30%
 Skill Match: (Matched Skills / Required Skills) × 100
 Interest Match: (Matched Interests / Relevant Interests) × 100
 Final Match Score: (Skill Match × 0.70) + (Interest Match × 0.30)
-Score Range: 0–100
+Score Range: 0-100
 Classification: STRONG_MATCH, GOOD_MATCH, WEAK_MATCH, NO_MATCH
 Calculation: Server-side
 Behavior: Deterministic
@@ -659,7 +659,7 @@ Integrated video conference
 Meeting reminder
 Calendar integration
 Automated scheduling
-POINT 9 — LOCKED 🔒
+POINT 9 - LOCKED 🔒
 10. Contract
 10.1 MVP Approach
 Flex Network menggunakan simulated digital contract.
@@ -1191,7 +1191,7 @@ Advanced deployment capability dapat dikembangkan menjadi:
 - Advanced automated rollback
 - Advanced infrastructure scaling
 - Advanced deployment observability
-POINT 16 — LOCKED 🔒
+POINT 16 - LOCKED 🔒
 
 17. Testing & Quality Assurance
 17.1 Testing Strategy
@@ -1393,7 +1393,7 @@ Advanced testing capability dapat dikembangkan menjadi:
 - Chaos testing
 - Advanced automated security scanning
 - Large-scale performance testing
-POINT 17 — LOCKED 🔒
+POINT 17 - LOCKED 🔒
 
 18. Future Development & Scalability Roadmap
 18.1 Purpose
@@ -1470,7 +1470,7 @@ Data Volume
 Reliability
 Domain Complexity
 18.4 Scalability Priorities
-Phase 1 — MVP
+Phase 1 - MVP
 Fokus:
 - Core functionality
 - Competition requirements
@@ -1479,7 +1479,7 @@ Fokus:
 - Basic monitoring
 - Basic CI/CD
 - Database integrity
-Phase 2 — Product Expansion
+Phase 2 - Product Expansion
 Fokus:
 - Real payment
 - Email notification
@@ -1487,7 +1487,7 @@ Fokus:
 - Advanced matching
 - Portfolio storage
 - Advanced analytics
-Phase 3 — Scale
+Phase 3 - Scale
 Fokus:
 - Advanced caching
 - Background workers
@@ -1502,7 +1502,7 @@ Flex Network menggunakan pendekatan incremental scaling.
 Sistem tidak melakukan premature optimization dan tidak membangun infrastructure yang terlalu kompleks sebelum dibutuhkan.
 Tujuannya adalah:
 Membangun MVP yang sederhana untuk dikembangkan sekarang, tetapi tetap memiliki struktur yang memungkinkan pengembangan dan scaling di masa depan.
-POINT 18 — LOCKED 🔒
+POINT 18 - LOCKED 🔒
 
 TECHNICAL ARCHITECTURE SUMMARY
 Sebagai rangkuman dari keputusan architecture:
@@ -1553,9 +1553,9 @@ Consent        → Simulated Declaration
 Testing        → Unit + Integration + Security/RLS + E2E + Manual + Acceptance
 MVP Principle
 Keep the architecture simple enough for a 3-person team and a limited competition timeline, while maintaining clear modular boundaries so the system can be expanded when Flex Network is scaled in the future.
-POINT 18 SUMMARY — LOCKED 🔒
+POINT 18 SUMMARY - LOCKED 🔒
 
-POINT 20 — MODULE ARCHITECTURE
+POINT 20 - MODULE ARCHITECTURE
 20.1 Module Architecture Overview
 Flex Network menggunakan Modular Monolith.
 Setiap business capability dipisahkan menjadi module berdasarkan responsibility dan ownership.
@@ -1754,10 +1754,10 @@ Final Match Score
 + (Interest Match × 0.30)
 
 Classification
-80–100 → STRONG_MATCH
-60–79  → GOOD_MATCH
-30–59  → WEAK_MATCH
-0–29   → NO_MATCH
+80-100 → STRONG_MATCH
+60-79  → GOOD_MATCH
+30-59  → WEAK_MATCH
+0-29   → NO_MATCH
 
 Edge Cases
 Required Skills = 0
@@ -2206,7 +2206,7 @@ private user content.
 
 20.23 Cross-Module Communication
 Module berkomunikasi melalui public contract.
-Example — Application Selected
+Example - Application Selected
 Application Module
       ↓
 Application State = SELECTED
@@ -2215,7 +2215,7 @@ Notification Module
       ↓
 Create Notification
 
-Example — Contract Activated
+Example - Contract Activated
 Contract Module
       ↓
 Contract ACTIVE
@@ -2228,7 +2228,7 @@ Notification Module
       ↓
 Audit Log Module
 
-Example — Work Confirmed
+Example - Work Confirmed
 Work Module
       ↓
 Work Confirmed
@@ -2437,8 +2437,8 @@ Health & Observability menyediakan health endpoint dan structured operational lo
 Tidak ada microservices requirement pada MVP.
 Selective service extraction hanya dilakukan apabila terdapat measurable technical requirement.
 
-21 — DATABASE ARCHITECTURE
-21.1 — Architecture Approach
+21 - DATABASE ARCHITECTURE
+21.1 - Architecture Approach
 Database architecture mengikuti prinsip:
 Application
      ↓
@@ -2450,7 +2450,7 @@ Database
 Database tidak menjadi tempat business logic utama.
 Business logic tetap berada pada Application / Domain Layer, sedangkan database bertanggung jawab terhadap persistence dan integrity.
 
-21.2 — Database Responsibility
+21.2 - Database Responsibility
 Database bertanggung jawab terhadap:
 Data Persistence
 Data Integrity
@@ -2461,7 +2461,7 @@ Querying
 Business rules tetap berada pada application/domain layer.
 Database constraints digunakan sebagai defense-in-depth untuk menjaga integritas data.
 
-21.3 — Relational Database
+21.3 - Relational Database
 Untuk core transactional data digunakan relational database karena membutuhkan:
 Structured Data
 Relationships
@@ -2473,7 +2473,7 @@ Flex Network menggunakan:
 Supabase PostgreSQL
 sebagai primary transactional database.
 
-21.4 — Data Ownership
+21.4 - Data Ownership
 Setiap module memiliki ownership terhadap data yang menjadi tanggung jawabnya.
 Contoh:
 Identity
@@ -2498,7 +2498,7 @@ Consent
  → Consent Data
 Module lain tidak boleh melakukan direct database manipulation terhadap data milik module lain tanpa melalui boundary yang telah ditentukan.
 
-21.5 — Schema Design
+21.5 - Schema Design
 Schema dirancang berdasarkan:
 Domain
 Relationship
@@ -2507,14 +2507,14 @@ Integrity Requirement
 Security Requirement
 bukan hanya berdasarkan tampilan UI.
 
-21.6 — Normalization
+21.6 - Normalization
 Data dinormalisasi untuk mengurangi:
 Duplication
 Inconsistency
 Update Anomaly
 Denormalization hanya dilakukan apabila terdapat alasan performance yang terukur.
 
-21.7 — Primary Key
+21.7 - Primary Key
 Setiap entity utama memiliki identifier yang unik.
 Contoh:
 Profile
@@ -2526,18 +2526,18 @@ Payment
 Work
 masing-masing memiliki identity yang dapat direferensikan secara konsisten.
 
-21.8 — Foreign Key
+21.8 - Foreign Key
 Relasi antar entity menggunakan foreign key ketika membutuhkan referential integrity.
 Foreign key digunakan untuk memastikan hubungan antar entity tetap valid.
 
-21.9 — Referential Integrity
+21.9 - Referential Integrity
 Database harus mencegah:
 Orphan Records
 Invalid References
 Broken Relationships
 jika constraint tersebut memang diperlukan oleh domain.
 
-21.10 — Constraints
+21.10 - Constraints
 Gunakan constraint untuk menjaga data integrity.
 Contoh:
 PRIMARY KEY
@@ -2547,7 +2547,7 @@ NOT NULL
 CHECK
 Database constraints menjadi lapisan perlindungan terakhir terhadap invalid data.
 
-21.11 — Unique Constraints
+21.11 - Unique Constraints
 Data yang memang harus unik harus memiliki unique constraint.
 Contoh:
 User Email
@@ -2558,11 +2558,11 @@ One Contract + One Payment
 One Contract + One Work
 Unique constraint digunakan berdasarkan business requirement.
 
-21.12 — Nullability
+21.12 - Nullability
 Field harus nullable hanya jika secara domain memang diperbolehkan tidak memiliki value.
 Required data menggunakan NOT NULL.
 
-21.13 — Transaction
+21.13 - Transaction
 Operation yang membutuhkan atomicity harus menggunakan transaction.
 Operation A
     +
@@ -2571,14 +2571,14 @@ Operation B
 Transaction
 Jika salah satu gagal, perubahan dapat di-rollback sesuai kebutuhan.
 
-21.14 — ACID
+21.14 - ACID
 Transactional operations memanfaatkan prinsip:
 Atomicity
 Consistency
 Isolation
 Durability
 
-21.15 — Transaction Boundary
+21.15 - Transaction Boundary
 Transaction boundary ditentukan pada application/service layer berdasarkan business operation.
 Contoh:
 Business Operation
@@ -2589,7 +2589,7 @@ Transaction
        ↓
 Multiple Data Mutations
 
-21.16 — Concurrency
+21.16 - Concurrency
 System harus mempertimbangkan kemungkinan beberapa request mengubah data yang sama secara bersamaan.
 Critical state transitions harus dilindungi melalui:
 Business Validation
@@ -2598,7 +2598,7 @@ Database Constraints
 +
 Transactional / Atomic Operations
 
-21.17 — Data Consistency
+21.17 - Data Consistency
 Consistency dijaga melalui kombinasi:
 Application Validation
 +
@@ -2608,12 +2608,12 @@ Database Constraints
 +
 Transactions
 
-21.18 — Soft Delete
+21.18 - Soft Delete
 Soft delete digunakan hanya untuk entity yang memang membutuhkan preservation/history.
 Tidak semua data harus menggunakan soft delete.
 Untuk data yang memiliki privacy/deletion requirement, deletion atau anonymization mengikuti business dan privacy rules.
 
-21.19 — Audit Data
+21.19 - Audit Data
 Perubahan penting dapat memiliki audit information sesuai kebutuhan entity.
 Audit trail utama menggunakan:
 Audit Log
@@ -2624,13 +2624,13 @@ Audit Log
 └── Metadata
 Informasi seperti created_at dan updated_at tetap digunakan pada entity yang memerlukannya.
 
-21.20 — Timestamp
+21.20 - Timestamp
 Timestamp harus konsisten dan memiliki timezone strategy yang jelas.
 MVP menggunakan:
 UTC timestamps
 untuk data yang disimpan di database.
 
-21.21 — Migration
+21.21 - Migration
 Perubahan schema harus dilakukan melalui migration yang versioned.
 Contoh:
 Migration 001
@@ -2646,7 +2646,7 @@ supabase/
     ├── 003_rls_policies.sql
     └── 004_updated_at_triggers.sql
 
-21.22 — Production Migration
+21.22 - Production Migration
 Migration production harus:
 Reviewed
 Tested
@@ -2655,11 +2655,11 @@ Traceable
 Backward-compatible where practical
 Destructive change harus dihindari jika masih ada safer migration strategy.
 
-21.23 — Backward Compatibility
+21.23 - Backward Compatibility
 Schema change harus mempertimbangkan compatibility terhadap application version yang sedang berjalan.
 Perubahan besar harus menggunakan rollout strategy yang aman.
 
-21.24 — Expand & Contract
+21.24 - Expand & Contract
 Untuk perubahan besar:
 Expand
    ↓
@@ -2672,7 +2672,7 @@ Switch Application
 Contract
 digunakan bila diperlukan untuk mengurangi deployment risk.
 
-21.25 — Seed Data
+21.25 - Seed Data
 Seed data hanya digunakan untuk:
 Development
 Testing
@@ -2680,7 +2680,7 @@ Required System Defaults
 Competition Demo
 Seed data tidak boleh mencampur data dummy dengan production data secara sembarangan.
 
-21.26 — Database Access
+21.26 - Database Access
 Application tidak boleh memberikan akses database secara bebas kepada seluruh module.
 Access harus mengikuti:
 Ownership
@@ -2688,7 +2688,7 @@ Module Boundary
 Authorization
 RLS
 
-21.27 — Repository / Data Access
+21.27 - Repository / Data Access
 Data access dapat diabstraksikan melalui repository atau mekanisme setara sesuai kebutuhan.
 Tujuannya:
 Separation
@@ -2696,7 +2696,7 @@ Testability
 Maintainability
 bukan abstraction untuk abstraction's sake.
 
-21.28 — Query Optimization
+21.28 - Query Optimization
 Query harus:
 Bounded
 Efficient
@@ -2704,7 +2704,7 @@ Indexed where appropriate
 dan menghindari query yang tidak diperlukan.
 Hanya field yang diperlukan yang sebaiknya diambil apabila memungkinkan.
 
-21.29 — N+1 Query
+21.29 - N+1 Query
 N+1 query harus diidentifikasi dan dihindari ketika menyebabkan performance issue.
 Pendekatan dapat menggunakan:
 Join
@@ -2713,7 +2713,7 @@ Batch Query
 Appropriate Data Fetching
 sesuai kebutuhan.
 
-21.30 — Pagination
+21.30 - Pagination
 Dataset besar tidak boleh diambil seluruhnya dalam satu request.
 Gunakan:
 Pagination
@@ -2722,7 +2722,7 @@ Cursor
 sesuai kebutuhan.
 MVP dapat menggunakan offset/page pagination untuk dataset kecil, kemudian beralih ke cursor pagination apabila workload meningkat.
 
-21.31 — Indexing
+21.31 - Indexing
 Index dibuat berdasarkan:
 Query Pattern
 Filtering
@@ -2731,24 +2731,24 @@ Joining
 Uniqueness
 Index tidak dibuat hanya karena sebuah field tersedia.
 
-21.32 — Over-Indexing
+21.32 - Over-Indexing
 Index berlebihan harus dihindari karena dapat meningkatkan:
 Storage
 Write Cost
 Maintenance Cost
 
-21.33 — Connection Management
+21.33 - Connection Management
 Application menggunakan connection management / pooling mechanism yang sesuai dengan:
 Next.js Deployment Model
 Supabase Architecture
 Serverless Workload
 Application tidak membuat database connections secara tidak terkendali.
 
-21.34 — Connection Limit
+21.34 - Connection Limit
 Connection management harus memiliki limit atau mekanisme pengendalian yang sesuai untuk mencegah database overload.
 Pengaturan mengikuti kemampuan Supabase dan deployment environment yang digunakan.
 
-21.35 — Backup
+21.35 - Backup
 MVP memiliki basic database backup strategy.
 Untuk environment yang menggunakan Supabase Free Tier:
 Scheduled pg_dump
@@ -2756,7 +2756,7 @@ Scheduled pg_dump
 Secure Storage Terpisah
 Backup tidak disimpan di public repository.
 
-21.36 — Recovery
+21.36 - Recovery
 Backup harus dapat digunakan untuk recovery.
 Backup
   ↓
@@ -2768,7 +2768,7 @@ Integrity Verification
   ↓
 Service Recovery
 
-21.37 — Recovery Testing
+21.37 - Recovery Testing
 Recovery procedure perlu diuji secara berkala sesuai risk.
 Minimal:
 Backup availability
@@ -2777,7 +2777,7 @@ Schema compatibility
 Data integrity
 Application connectivity
 
-21.38 — Retention
+21.38 - Retention
 Backup retention mengikuti:
 Business Requirement
 Storage Cost
@@ -2785,7 +2785,7 @@ Recovery Requirement
 Compliance Requirement
 Untuk MVP, retention mengikuti kapasitas dan operational requirements yang telah ditetapkan.
 
-21.39 — Sensitive Data
+21.39 - Sensitive Data
 Sensitive data harus mendapatkan protection yang sesuai.
 Contoh:
 Encryption / Secure Transport
@@ -2794,32 +2794,32 @@ Restricted Access
 Restricted Logging
 Data Minimization
 
-21.40 — Password Storage
+21.40 - Password Storage
 Flex Network tidak menyimpan password authentication secara langsung di application database.
 Authentication dan credential handling dikelola oleh:
 Supabase Auth
 Application tidak membuat custom password storage untuk MVP.
 
-21.41 — Database Credentials
+21.41 - Database Credentials
 Credential database:
 Tidak di-hardcode
 Tidak disimpan di repository
 Tidak ditulis di source code
 Credential dikelola melalui secure configuration / secrets mechanism.
 
-21.42 — Least Privilege
+21.42 - Least Privilege
 Database access hanya mendapatkan permission yang diperlukan.
 Privileged service-role credential hanya digunakan pada server-side operation yang memang membutuhkan privilege tersebut.
 
-21.43 — Production Access
+21.43 - Production Access
 Akses langsung ke production database dibatasi dan diaudit sesuai kebutuhan.
 Developer tidak menggunakan production database sebagai playground.
 
-21.44 — SQL Injection
+21.44 - SQL Injection
 Database interaction harus menggunakan parameterized queries atau database APIs / mechanisms yang aman.
 Query tidak boleh dibangun melalui unsafe string concatenation.
 
-21.45 — Data Validation
+21.45 - Data Validation
 Validation dilakukan pada application layer, tetapi database constraints tetap digunakan sebagai final integrity protection.
 Client Validation
       ↓
@@ -2829,7 +2829,7 @@ Business Validation
       ↓
 Database Constraints
 
-21.46 — Large Data
+21.46 - Large Data
 Untuk dataset besar, architecture mempertimbangkan:
 Indexing
 Pagination
@@ -2837,11 +2837,11 @@ Archiving
 Partitioning
 hanya jika workload memang membutuhkannya.
 
-21.47 — Archiving
+21.47 - Archiving
 Data lama dapat dipindahkan ke archival storage jika retention requirement dan workload membutuhkannya.
 Archiving bukan requirement utama MVP.
 
-21.48 — Database Monitoring
+21.48 - Database Monitoring
 Monitor:
 Query Latency
 Connections
@@ -2853,7 +2853,7 @@ Slow Queries
 Database Errors
 Monitoring dilakukan menggunakan capability yang tersedia pada Supabase/infrastructure.
 
-21.49 — Slow Query
+21.49 - Slow Query
 Slow queries harus dapat diidentifikasi dan dianalisis.
 Flow:
 Slow Query
@@ -2866,17 +2866,17 @@ Optimize
    ↓
 Measure Again
 
-21.50 — Database Availability
+21.50 - Database Availability
 Database merupakan critical dependency sehingga availability strategy menjadi bagian dari system reliability.
 
-21.51 — Failure Handling
+21.51 - Failure Handling
 Application harus menangani database failure tanpa:
 Data Corruption
 Silent Failure
 Uncontrolled Retry
 Duplicate Mutation
 
-21.52 — Retry
+21.52 - Retry
 Retry hanya digunakan untuk error yang memang transient.
 Retry harus memiliki:
 Limit
@@ -2884,7 +2884,7 @@ Backoff
 Timeout
 Critical mutation tidak boleh melakukan blind retry.
 
-21.53 — Idempotency
+21.53 - Idempotency
 Operation yang berpotensi di-retry harus mempertimbangkan idempotency.
 MVP menggunakan:
 Unique Constraints
@@ -2894,14 +2894,14 @@ Duplicate Detection
 Future critical external integrations dapat menggunakan:
 Idempotency Key
 
-21.54 — Deadlock
+21.54 - Deadlock
 Transaction design harus meminimalkan kemungkinan deadlock.
 Jika deadlock terjadi, application harus mampu menangani failure tersebut secara aman.
 
-21.55 — Read / Write Separation
+21.55 - Read / Write Separation
 Read/write separation hanya diterapkan ketika workload benar-benar membutuhkannya.
 
-21.56 — Read Replica
+21.56 - Read Replica
 Read replica merupakan future scaling option.
 Primary
    → Write
@@ -2910,14 +2910,14 @@ Replica
    → Read
 Consistency implications harus dipertimbangkan.
 
-21.57 — Partitioning
+21.57 - Partitioning
 Partitioning hanya digunakan jika dataset dan query workload telah menunjukkan kebutuhan yang jelas.
 
-21.58 — Sharding
+21.58 - Sharding
 Sharding bukan bagian dari MVP.
 Sharding merupakan advanced scaling strategy apabila system berkembang secara signifikan.
 
-21.59 — Database Vendor
+21.59 - Database Vendor
 Database technology dipilih berdasarkan:
 Requirement
 Reliability
@@ -2928,11 +2928,11 @@ Ecosystem
 Untuk MVP, pilihan tersebut adalah:
 Supabase PostgreSQL
 
-21.60 — Database Independence
+21.60 - Database Independence
 Application architecture tidak boleh terlalu tightly coupled dengan implementation detail database apabila hal tersebut tidak diperlukan.
 Repository/Data Access Layer digunakan sebagai boundary untuk membantu separation tersebut.
 
-21.61 — Data Lifecycle
+21.61 - Data Lifecycle
 Data mengikuti lifecycle:
 Create
   ↓
@@ -2946,7 +2946,7 @@ Delete
 sesuai business dan retention requirements.
 Tidak semua entity harus melewati seluruh tahap tersebut.
 
-21.62 — Data Deletion
+21.62 - Data Deletion
 Deletion harus mempertimbangkan:
 Business Rules
 Relationships
@@ -2955,10 +2955,10 @@ Privacy
 Retention
 Untuk data pribadi/minor, deletion atau anonymization harus mengikuti privacy requirements yang berlaku.
 
-21.63 — Privacy
+21.63 - Privacy
 Data pribadi hanya disimpan jika dibutuhkan oleh system.
 
-21.64 — Data Minimization
+21.64 - Data Minimization
 Jangan menyimpan data:
 “siapa tahu nanti kepake.”
 Data collection harus memiliki purpose yang jelas.
@@ -2967,7 +2967,7 @@ No Guardian Identity Document
 No Unnecessary Guardian PII
 Consent hanya menyimpan metadata yang diperlukan untuk workflow dan auditability.
 
-21.65 — Data Export
+21.65 - Data Export
 Jika diperlukan oleh business/privacy requirement, system harus dapat menyediakan mekanisme export data yang aman.
 Export harus melalui:
 Authentication
@@ -2975,14 +2975,14 @@ Authorization
 Data Filtering
 Secure Delivery
 
-21.66 — Data Import
+21.66 - Data Import
 Import data harus melalui:
 Validation
 Authorization
 Integrity Check
 Auditability
 
-21.67 — Bulk Operations
+21.67 - Bulk Operations
 Bulk operations harus memiliki:
 Validation
 Authorization
@@ -2991,7 +2991,7 @@ Performance Consideration
 Auditability
 sesuai risk.
 
-21.68 — Database Documentation
+21.68 - Database Documentation
 Database documentation minimal mencakup:
 Schema
 Relationships
@@ -3001,7 +3001,7 @@ Important Constraints
 RLS
 Index Strategy
 
-21.69 — Database Governance
+21.69 - Database Governance
 Database changes mengikuti engineering governance:
 Design
   ↓
@@ -3015,7 +3015,7 @@ Deployment
   ↓
 Monitoring
 
-21.70 — FINAL DECISION
+21.70 - FINAL DECISION
 Database Architecture: Flex Network menggunakan relational database sebagai primary transactional data store dengan data ownership yang jelas berdasarkan module.
 Responsibility: Database bertanggung jawab terhadap persistence, integrity, constraints, relationships, dan transactions, sedangkan business logic tetap berada pada application/domain layer.
 Database: Supabase PostgreSQL.
@@ -3028,9 +3028,9 @@ Backup: MVP menggunakan basic backup/recovery strategy, termasuk scheduled pg_du
 Advanced Scaling: Read replicas, partitioning, dan sharding bukan bagian dari MVP dan hanya diperkenalkan berdasarkan workload yang terukur.
 Privacy: Data minimization diterapkan pada seluruh schema, termasuk simulated consent.
 Governance: Seluruh perubahan database harus melalui design, review, migration, testing, deployment, dan monitoring.
-POINT 21 — LOCKED 🔒
+POINT 21 - LOCKED 🔒
 
-POINT 22 — API ARCHITECTURE
+POINT 22 - API ARCHITECTURE
 Karena stack yang sudah locked:
 Frontend      → Next.js
 Backend       → Next.js
@@ -3039,7 +3039,7 @@ Database      → Supabase PostgreSQL
 Auth          → Supabase Auth
 maka API architecture mengikuti stack tersebut.
 
-22.1 — API Architecture Pattern
+22.1 - API Architecture Pattern
 Kita menggunakan:
 REST API sebagai primary backend contract.
 Bukan GraphQL untuk MVP.
@@ -3073,7 +3073,7 @@ API / Server Action tidak langsung query database.
 Route Handler dan Server Action hanya menjadi entrypoint.
 Business logic tetap berada di Application Service / Module Layer.
 
-22.2 — API Base URL
+22.2 - API Base URL
 Untuk production:
 /api
 Contoh:
@@ -3083,7 +3083,7 @@ Contoh:
 Karena backend dan frontend berada dalam satu Next.js application, MVP tidak membutuhkan:
 api.flexnetwork.com
 
-22.3 — HTTP Methods
+22.3 - HTTP Methods
 Standard REST:
 Method
 Purpose
@@ -3105,7 +3105,7 @@ DELETE /api/opportunities/:id
 DELETE tidak otomatis tersedia untuk semua resource.
 Deletion mengikuti data lifecycle dan business rule.
 
-22.4 — API Resources
+22.4 - API Resources
 Resource utama:
 /api/auth
 /api/profile
@@ -3129,7 +3129,7 @@ Search/discovery dapat menggunakan:
 dengan query/filter parameter tanpa harus membuat dedicated search service pada MVP.
 Beberapa endpoint dapat berupa action endpoint apabila operasi bukan CRUD sederhana.
 
-22.5 — Authentication
+22.5 - Authentication
 Authentication menggunakan:
 Supabase Auth
 Flow:
@@ -3146,7 +3146,7 @@ Next.js
 Authenticated Request
 API tidak membuat sistem password sendiri.
 
-22.6 — Authentication vs Authorization
+22.6 - Authentication vs Authorization
 Authentication:
 “Siapa lu?”
 Authorization:
@@ -3163,7 +3163,7 @@ Owner?
 NO ❌
 Request tetap ditolak walaupun user sudah login.
 
-22.7 — API Authorization
+22.7 - API Authorization
 Authorization dilakukan di server.
 Conceptual flow:
 Request
@@ -3189,7 +3189,7 @@ TALENT
 ADMIN
  └── Moderation
 
-22.8 — API Layer Responsibility
+22.8 - API Layer Responsibility
 Route Handler dan Server Action hanya menangani:
 Request Extraction
 Validation
@@ -3221,7 +3221,7 @@ Repository
      ↓
 Database
 
-22.9 — Application Service
+22.9 - Application Service
 Contoh:
 ApplicationService
 dapat memiliki use case:
@@ -3232,7 +3232,7 @@ API memanggil use case tersebut.
 Untuk penyelarasan dengan SRS:
 accept = select
 
-22.10 — Module Ownership
+22.10 - Module Ownership
 Setiap resource memiliki module owner.
 Profile Module
     ↓
@@ -3287,7 +3287,7 @@ Audit Log
 /api/audit-logs
 Ini konsisten dengan Modular Monolith.
 
-22.11 — Opportunity API
+22.11 - Opportunity API
 Candidate endpoints:
 GET    /api/opportunities
 POST   /api/opportunities
@@ -3310,7 +3310,7 @@ CLOSED
 Untuk MVP, opportunity dapat dipublikasikan setelah validasi dasar.
 Moderation tetap tersedia melalui admin dashboard dan report-based moderation.
 
-22.12 — Application API
+22.12 - Application API
 GET  /api/applications
 POST /api/applications
 Specific:
@@ -3323,7 +3323,7 @@ POST /api/applications/:id/reject
 accept = select.
 Action endpoint digunakan karena state transition bukan sekadar update status.
 
-22.13 — Application State Machine
+22.13 - Application State Machine
 Canonical status:
 APPLIED
    │
@@ -3340,7 +3340,7 @@ REJECTED → SELECTED
 SELECTED → APPLIED
 State transition dikontrol oleh application service.
 
-22.14 — Meeting API
+22.14 - Meeting API
 GET   /api/meetings
 POST  /api/meetings
 GET   /api/meetings/:id
@@ -3362,7 +3362,7 @@ PROPOSED
 SCHEDULED
 PROPOSED tidak menjadi mandatory MVP.
 
-22.15 — Contract API
+22.15 - Contract API
 Resource:
 GET /api/contracts
 POST /api/contracts
@@ -3440,7 +3440,7 @@ Resource ownership
 Contract eligibility
 Client tidak dapat mengubah contract state secara langsung tanpa melalui authorized business flow.
 
-22.16 — Payment API
+22.16 - Payment API
 Karena payment MVP masih simulated:
 GET  /api/payments
 POST /api/payments
@@ -3469,7 +3469,7 @@ Webhook
 /api/webhooks/payment
 Webhook payment belum masuk MVP.
 
-22.17 — Parental Consent API
+22.17 - Parental Consent API
 Resource
 GET /api/parental-consents?applicationId=:id
 Auth:
@@ -3535,7 +3535,7 @@ Tidak ada Guardian role.
 Tidak ada independent Guardian verification.
 Akses data consent harus ketat.
 
-22.18 — Notification API
+22.18 - Notification API
 GET /api/notifications
 PATCH /api/notifications/:id/read
 Bulk:
@@ -3543,7 +3543,7 @@ POST /api/notifications/read-all
 Notification creation dilakukan oleh server-side business process.
 Client tidak boleh bebas membuat notification ke user lain.
 
-22.19 — Rating API
+22.19 - Rating API
 GET  /api/ratings
 POST /api/ratings
 GET  /api/ratings/:id
@@ -3561,14 +3561,14 @@ Check Eligibility
 Create Rating
 Rating hanya tersedia setelah pekerjaan selesai.
 
-22.20 — Profile API
+22.20 - Profile API
 GET   /api/profile
 PATCH /api/profile
 Public profile:
 GET /api/profiles/:id
 Data sensitif tidak boleh ikut dikembalikan ke public response.
 
-22.21 — Admin API
+22.21 - Admin API
 Admin endpoint:
 /api/admin/users
 /api/admin/opportunities
@@ -3580,7 +3580,7 @@ Authenticated
 +
 ADMIN role
 
-22.22 — Request Validation
+22.22 - Request Validation
 Semua input API harus divalidasi server-side.
 Contoh:
 POST /api/opportunities
@@ -3593,7 +3593,7 @@ Database
 Implementation validation library yang disarankan:
 Zod
 
-22.23 — Response Format
+22.23 - Response Format
 Success:
 {
   "success": true,
@@ -3610,7 +3610,7 @@ List:
   }
 }
 
-22.24 — Error Format
+22.24 - Error Format
 {
   "success": false,
   "error": {
@@ -3620,7 +3620,7 @@ List:
 }
 Frontend tidak perlu menebak-nebak response format.
 
-22.25 — HTTP Status Codes
+22.25 - HTTP Status Codes
 200 OK
 201 CREATED
 204 NO CONTENT
@@ -3646,7 +3646,7 @@ Resource doesn't exist
 Duplicate application
 → 409
 
-22.26 — Error Code
+22.26 - Error Code
 HTTP status belum cukup.
 Contoh:
 409
@@ -3656,7 +3656,7 @@ atau:
 OPPORTUNITY_ACCESS_DENIED
 Error code harus stabil agar frontend dapat menangani error secara deterministic.
 
-22.27 — Pagination
+22.27 - Pagination
 Semua endpoint yang mengembalikan collection wajib mempertimbangkan pagination.
 Contoh:
 GET /api/opportunities?page=1&limit=20
@@ -3665,7 +3665,7 @@ limit = 20
 Maximum:
 limit = 100
 
-22.28 — Filtering
+22.28 - Filtering
 Filtering berdasarkan query parameters.
 Contoh:
 GET /api/opportunities
@@ -3673,7 +3673,7 @@ GET /api/opportunities
     &category=DESIGN
 Backend harus memvalidasi parameter.
 
-22.29 — Sorting
+22.29 - Sorting
 Contoh:
 GET /api/opportunities?sort=created_at&order=desc
 Sorting field harus whitelist.
@@ -3683,7 +3683,7 @@ deadline
 title
 Jangan izinkan arbitrary field dari user.
 
-22.30 — API Security
+22.30 - API Security
 Minimum:
 Authentication
 Authorization
@@ -3695,7 +3695,7 @@ CORS Policy
 Error Sanitization
 Karena frontend dan backend berada pada Next.js yang sama, CORS untuk internal calls lebih sederhana, tetapi external-facing endpoint tetap harus memiliki policy yang sesuai.
 
-22.31 — Rate Limiting
+22.31 - Rate Limiting
 Endpoint sensitif harus memiliki rate limit.
 Contoh:
 Login
@@ -3704,7 +3704,7 @@ Password-related actions
 Public search
 Untuk MVP dapat menggunakan basic/managed rate limiting.
 
-22.32 — Sensitive Information
+22.32 - Sensitive Information
 API response tidak boleh membocorkan:
 Password
 Service Role Key
@@ -3716,7 +3716,7 @@ PostgreSQL stack trace
 SQL query
 Internal filesystem path
 
-22.33 — API Logging
+22.33 - API Logging
 Server dapat mencatat:
 Request
 User ID
@@ -3733,7 +3733,7 @@ Sensitive Consent Data
 Payment Secrets
 Service Credentials
 
-22.34 — API Idempotency
+22.34 - API Idempotency
 Operation tertentu perlu dicegah duplicate.
 Contoh:
 POST /api/applications
@@ -3748,7 +3748,7 @@ Untuk payment/webhook future:
 Idempotency Key
 menjadi important.
 
-22.35 — API Transactions
+22.35 - API Transactions
 API yang menjalankan multi-step operation dapat menggunakan transaction.
 Contoh:
 Select Application
@@ -3768,7 +3768,7 @@ Jika gagal:
 ROLLBACK
 Notification side effect tidak harus memaksa rollback core transaction.
 
-22.36 — API ↔ RLS
+22.36 - API ↔ RLS
 Architecture final:
 Client
  ↓
@@ -3787,7 +3787,7 @@ RLS
 PostgreSQL
 RLS adalah last line of defense.
 
-22.37 — API ↔ Supabase
+22.37 - API ↔ Supabase
 Kita menggunakan Supabase SDK dari server/client sesuai kebutuhan.
 Privileged operation:
 Service Role
@@ -3796,7 +3796,7 @@ SERVER
 Tidak pernah di:
 Browser
 
-22.38 — API Versioning
+22.38 - API Versioning
 Untuk MVP:
 /api/...
 belum perlu:
@@ -3806,7 +3806,7 @@ Jika platform berkembang menjadi public API:
 /api/v2
 bisa diperkenalkan.
 
-22.39 — API Documentation
+22.39 - API Documentation
 API harus terdokumentasi.
 Minimal:
 Endpoint
@@ -3820,7 +3820,7 @@ Future dapat menggunakan:
 OpenAPI / Swagger
 Tetapi dokumentasi endpoint tetap wajib walaupun Swagger belum dibuat.
 
-22.40 — API Testing Strategy
+22.40 - API Testing Strategy
 API akan dites pada beberapa level:
 Unit Test
 Integration Test
@@ -3837,7 +3837,7 @@ Create application?
 Create notification?
 Create audit?
 
-22.41 — API Architecture Diagram
+22.41 - API Architecture Diagram
 Final:
                         CLIENT
                            │
@@ -3883,7 +3883,7 @@ Final:
                     ▼             ▼
                PostgreSQL        RLS
 
-22.42 — API Principles
+22.42 - API Principles
 Kita lock prinsip:
 1. REST API sebagai primary backend contract.
 2. Next.js Route Handlers dan Server Actions sebagai entrypoints.
@@ -3905,7 +3905,7 @@ Kita lock prinsip:
 18. No sensitive data exposure.
 19. No direct database logic in route handlers/server actions.
 20. No premature API versioning.
-22.43 — FINAL DECISION
+22.43 - FINAL DECISION
 API Architecture: REST API.
 Implementation: Next.js API layer dalam Modular Monolith.
 Base Path: /api.
@@ -3927,10 +3927,10 @@ Idempotency: Digunakan berdasarkan business requirement dan critical external in
 Documentation: Setiap endpoint harus memiliki request, response, authorization, dan error documentation.
 Versioning: Tidak menggunakan /v1 untuk MVP.
 Testing: API akan diuji melalui unit, integration, dan end-to-end testing sesuai kebutuhan.
-POINT 22 — LOCKED 🔒
+POINT 22 - LOCKED 🔒
 
-23 — CODEBASE / PROJECT STRUCTURE
-23.1 — Repository Strategy
+23 - CODEBASE / PROJECT STRUCTURE
+23.1 - Repository Strategy
 Flex Network menggunakan:
 Single Repository / Single Next.js Application
 Bukan microservices.
@@ -3938,7 +3938,7 @@ flex-network/
 └── satu Next.js application
 Frontend dan backend berada dalam repository yang sama karena menggunakan Next.js Full-Stack / Modular Monolith.
 
-23.2 — High-Level Folder Structure
+23.2 - High-Level Folder Structure
 Struktur final MVP:
 flex-network/
 │
@@ -4005,7 +4005,7 @@ flex-network/
 Ini adalah blueprint struktur.
 Detail file per module dapat berkembang saat development.
 
-23.3 — App Directory
+23.3 - App Directory
 app/ bertanggung jawab terhadap:
 Routing
 Pages
@@ -4015,7 +4015,7 @@ Loading
 Error Boundaries
 Business logic tidak diletakkan di app/.
 
-23.4 — Route Handler
+23.4 - Route Handler
 Contoh:
 app/api/opportunities/route.ts
 Tugasnya:
@@ -4032,11 +4032,11 @@ Call Service
 Response
 Business logic tidak diletakkan penuh di route handler.
 
-23.5 — Module Directory
+23.5 - Module Directory
 modules/ adalah jantung Modular Monolith.
 Setiap module memiliki ownership terhadap domain/business capability tertentu.
 
-23.6 — Internal Module Structure
+23.6 - Internal Module Structure
 Setiap module dapat mengikuti pola:
 module/
 ├── domain/
@@ -4062,7 +4062,7 @@ modules/opportunity/
 Value Objects bersifat optional.
 Gunakan hanya jika memang memiliki business meaning yang jelas.
 
-23.7 — Domain Layer
+23.7 - Domain Layer
 Domain berisi:
 Business Concepts
 Business Rules
@@ -4075,7 +4075,7 @@ React
 Supabase SDK
 HTTP
 
-23.8 — Application Layer
+23.8 - Application Layer
 Application Layer mengatur use case.
 Contoh:
 CreateOpportunity
@@ -4091,7 +4091,7 @@ Domain
  ↓
 Repository
 
-23.9 — Infrastructure Layer
+23.9 - Infrastructure Layer
 Infrastructure menangani implementasi eksternal.
 Contoh:
 SupabaseOpportunityRepository
@@ -4104,13 +4104,13 @@ Supabase Repository
      ↓
 PostgreSQL
 
-23.10 — Repository Pattern
+23.10 - Repository Pattern
 Repository abstraction digunakan secukupnya.
 Tujuan:
 Memisahkan business logic dari database implementation.
 Repository bukan dibuat hanya demi pattern.
 
-23.11 — Dependency Direction
+23.11 - Dependency Direction
 Rule:
 UI
  ↓
@@ -4128,7 +4128,7 @@ Domain
  ↓
 Supabase SDK
 
-23.12 — Module Dependency
+23.12 - Module Dependency
 Module boleh berkomunikasi melalui public interface.
 Application Module
        ↓
@@ -4140,13 +4140,13 @@ Contract Module Internal Files
        ↓
 Random Repository
 
-23.13 — Public Module Interface
+23.13 - Public Module Interface
 Setiap module memiliki:
 index.ts
 sebagai public boundary.
 Hanya export sesuatu yang memang boleh digunakan module lain.
 
-23.14 — Circular Dependency
+23.14 - Circular Dependency
 Harus dihindari:
 Application
  ↓
@@ -4157,7 +4157,7 @@ Application
 Contract
 Jika dua module terlalu tightly coupled, evaluasi domain boundary atau gunakan orchestration pada application layer.
 
-23.15 — Shared Components
+23.15 - Shared Components
 components/ hanya untuk UI yang reusable.
 Contoh:
 components/
@@ -4166,7 +4166,7 @@ components/
 └── shared/
 Business logic berat tidak dimasukkan ke shared UI.
 
-23.16 — UI vs Domain
+23.16 - UI vs Domain
 Component UI boleh:
 Display title
 Display status
@@ -4176,7 +4176,7 @@ Direct Supabase Query
 Change Contract State
 Bypass Authorization
 
-23.17 — Supabase Client Structure
+23.17 - Supabase Client Structure
 lib/supabase/
 ├── browser.ts
 ├── server.ts
@@ -4188,7 +4188,7 @@ admin.ts tidak boleh di-import ke Client Component.
 admin.ts tidak dipakai untuk flow user normal jika server client + RLS sudah cukup.
 SUPABASE_SERVICE_ROLE_KEY tidak boleh terekspos ke browser.
 
-23.18 — Validation
+23.18 - Validation
 Generic validation utilities:
 lib/validation/
 Module-specific schemas sebaiknya berada dekat module.
@@ -4197,7 +4197,7 @@ modules/opportunity/
 └── application/
     └── schemas/
 
-23.19 — Types
+23.19 - Types
 types/ hanya untuk types yang benar-benar shared.
 Contoh:
 types/
@@ -4206,7 +4206,7 @@ types/
 └── common.ts
 Type yang khusus module sebaiknya tetap berada di module tersebut.
 
-23.20 — Database Types
+23.20 - Database Types
 Supabase generated types digunakan sebagai database-level types.
 Conceptually:
 Database
@@ -4220,7 +4220,7 @@ types/database.types.ts
 atau:
 supabase/database.types.ts
 
-23.21 — Config
+23.21 - Config
 Configuration:
 config/
 ├── app.ts
@@ -4231,7 +4231,7 @@ MAX_APPLICATIONS
 DEFAULT_PAGE_SIZE
 Environment secret tetap berada di environment variables.
 
-23.22 — Environment Variables
+23.22 - Environment Variables
 Conceptually:
 .env.local
 Contoh:
@@ -4242,7 +4242,7 @@ Service role:
 ❌ NEXT_PUBLIC_
 Privileged secret tidak boleh terekspos ke client.
 
-23.23 — Supabase Migrations
+23.23 - Supabase Migrations
 supabase/
 └── migrations/
     ├── 001_initial_schema.sql
@@ -4251,7 +4251,7 @@ supabase/
     └── 004_updated_at_triggers.sql
 Migration menjadi bagian dari Git.
 
-23.24 — Seed Data
+23.24 - Seed Data
 Development seed:
 supabase/seed/
 └── seed.sql
@@ -4274,7 +4274,7 @@ Notifications
 Reports
 Seed membantu development, testing, dan competition demo.
 
-23.25 — Tests Structure
+23.25 - Tests Structure
 tests/
 ├── unit/
 ├── integration/
@@ -4289,7 +4289,7 @@ Integration
 E2E
 → User Flow
 
-23.26 — Naming Convention
+23.26 - Naming Convention
 Files:
 kebab-case
 Components:
@@ -4302,7 +4302,7 @@ create-opportunity.ts
 OpportunityCard.tsx
 createOpportunity()
 
-23.27 — Import Rules
+23.27 - Import Rules
 Hindari relative import yang terlalu dalam:
 ../../../../../../
 Gunakan alias:
@@ -4310,7 +4310,7 @@ Gunakan alias:
 @/components/ui
 @/lib/supabase
 
-23.28 — Module Boundary Rules
+23.28 - Module Boundary Rules
 Contoh:
 modules/application/
 tidak boleh mengakses:
@@ -4319,7 +4319,7 @@ secara langsung.
 Harus melalui:
 modules/opportunity/index.ts
 
-23.29 — Business Logic Placement
+23.29 - Business Logic Placement
 Logic
 Location
 UI behavior
@@ -4339,7 +4339,7 @@ Supabase migrations
 
 Ini wajib dijaga.
 
-23.30 — Example Full Module
+23.30 - Example Full Module
 Contoh:
 modules/opportunity/
 │
@@ -4366,7 +4366,7 @@ modules/opportunity/
 │
 └── index.ts
 
-23.31 — Example API Connection
+23.31 - Example API Connection
 POST /api/opportunities
           ↓
 route.ts
@@ -4381,7 +4381,7 @@ Supabase
           ↓
 PostgreSQL
 
-23.32 — Example Frontend Connection
+23.32 - Example Frontend Connection
 OpportunityForm
        ↓
 Server Action / API Client
@@ -4395,7 +4395,7 @@ Repository
 PostgreSQL
 Frontend tidak perlu tahu bagaimana database bekerja.
 
-23.33 — API Client
+23.33 - API Client
 Kita dapat membuat:
 lib/api/
 atau module-specific API client.
@@ -4403,7 +4403,7 @@ Contoh:
 lib/api/client.ts
 Tujuannya agar frontend tidak melakukan fetch() secara random di semua component.
 
-23.34 — Server vs Client Components
+23.34 - Server vs Client Components
 Next.js:
 Gunakan Server Components secara default.
 Client Components digunakan jika membutuhkan:
@@ -4413,7 +4413,7 @@ Browser APIs
 Interactive UI
 Jangan menggunakan "use client" di semua file tanpa alasan.
 
-23.35 — Server Actions
+23.35 - Server Actions
 Server Actions boleh digunakan untuk operasi internal UI.
 Namun:
 REST API / Route Handlers tetap menjadi primary backend contract untuk konsistensi MVP.
@@ -4430,7 +4430,7 @@ Supabase
 Server Action tidak boleh direct database manipulation.
 Consistency > hype.
 
-23.36 — File Ownership
+23.36 - File Ownership
 Dengan tim 3 orang, module ownership membantu.
 Contoh:
 Developer A
@@ -4445,7 +4445,7 @@ Ownership bukan berarti:
 "folder ini milik gue, orang lain dilarang sentuh."
 Semua code tetap melalui Git workflow.
 
-23.37 — Code Review
+23.37 - Code Review
 Setiap perubahan significant:
 Feature Branch
       ↓
@@ -4457,7 +4457,7 @@ Merge
 Untuk tim 3 orang:
 minimal 1 reviewer untuk perubahan penting.
 
-23.38 — Dependency Rule
+23.38 - Dependency Rule
 Domain
 ❌ Next.js
 ❌ Supabase SDK
@@ -4472,7 +4472,7 @@ Infrastructure
 ✅ Supabase
 Dengan begitu domain tetap portable.
 
-23.39 — Architecture Dependency Diagram
+23.39 - Architecture Dependency Diagram
                    ┌─────────────┐
                     │     UI      │
                     └──────┬──────┘
@@ -4499,7 +4499,7 @@ Dengan begitu domain tetap portable.
                           ▼
                      Supabase
 
-23.40 — Final Project Structure
+23.40 - Final Project Structure
 flex-network/
 │
 ├── app/
@@ -4564,7 +4564,7 @@ flex-network/
 ├── tsconfig.json
 └── ...
 
-23.41 — Future Scaling
+23.41 - Future Scaling
 Kalau Flex Network scale up:
 MVP
  ↓
@@ -4583,7 +4583,7 @@ Notification Module
 Separate Service
 hanya jika traffic/complexity mengharuskannya.
 
-23.42 — Anti-Overengineering Rule
+23.42 - Anti-Overengineering Rule
 Architecture harus cukup kuat untuk berkembang, tetapi tidak boleh membuat MVP lebih kompleks dari kebutuhan.
 Jadi kita tidak menggunakan:
 ❌ Microservices
@@ -4595,7 +4595,7 @@ Jadi kita tidak menggunakan:
 ❌ GraphQL
 untuk MVP tanpa kebutuhan nyata.
 
-23.43 — FINAL DECISION
+23.43 - FINAL DECISION
 Repository: Single Next.js repository.
 Architecture: Modular Monolith.
 Routing: Next.js App Router.
@@ -4613,10 +4613,10 @@ Testing: Unit, integration, RLS/security, dan E2E sesuai kebutuhan.
 Migration: Version-controlled melalui Git.
 Environment: Development, Preview/Testing, Production.
 Scaling: Evolutionary scaling, bukan premature microservices.
-POINT 23 — LOCKED 🔒
+POINT 23 - LOCKED 🔒
 
-24 — COMMUNICATION & SYSTEM FLOW
-24.1 — Tujuan
+24 - COMMUNICATION & SYSTEM FLOW
+24.1 - Tujuan
 Kita lock bagaimana:
 User berinteraksi dengan frontend
 Frontend berkomunikasi dengan backend
@@ -4643,7 +4643,7 @@ Data Layer
  ↓
 Supabase
 
-24.2 — Communication Pattern
+24.2 - Communication Pattern
 Untuk MVP kita gunakan:
 Synchronous communication sebagai default.
 Contoh:
@@ -4660,7 +4660,7 @@ Response
 Frontend
 User mendapatkan hasil langsung.
 
-24.3 — Internal Module Communication
+24.3 - Internal Module Communication
 Module tidak boleh melakukan direct database manipulation terhadap module lain.
 ❌:
 Application Module
@@ -4676,7 +4676,7 @@ Contract Module Public Interface
 Contract Service
 Ownership tetap jelas.
 
-24.4 — Core Business Flow
+24.4 - Core Business Flow
 Canonical flow:
 Register
    ↓
@@ -4730,7 +4730,7 @@ Rating
    ↓
 Verified Work History
 
-24.5 — Registration Flow
+24.5 - Registration Flow
 User
  ↓
 Register
@@ -4750,7 +4750,7 @@ Supabase Auth
 +
 profiles table
 
-24.6 — Login Flow
+24.6 - Login Flow
 User
  ↓
 Login Form
@@ -4771,7 +4771,7 @@ Error
  ↓
 Frontend
 
-24.7 — Profile Completion
+24.7 - Profile Completion
 User
  ↓
 Profile
@@ -4790,7 +4790,7 @@ Profile Completed
 Untuk MVP:
 CV dan portfolio menggunakan link, bukan file upload internal.
 
-24.8 — Opportunity Creation
+24.8 - Opportunity Creation
 Hirer
  ↓
 Create Opportunity
@@ -4811,7 +4811,7 @@ Repository
  ↓
 PostgreSQL
 
-24.9 — Opportunity Publishing
+24.9 - Opportunity Publishing
 Flow:
 DRAFT
  ↓
@@ -4826,7 +4826,7 @@ MVP practical note:
 Untuk MVP, opportunity dapat dipublikasikan setelah validasi dasar.
 Moderation tetap tersedia melalui admin dashboard dan report-based moderation.
 
-24.10 — Opportunity Discovery
+24.10 - Opportunity Discovery
 Talent
  ↓
 Browse Opportunities
@@ -4839,7 +4839,7 @@ Matching / Ranking
  ↓
 Results
 
-24.11 — Matching Flow
+24.11 - Matching Flow
 Opportunity
      +
 Talent Profile
@@ -4860,7 +4860,7 @@ Availability
 Experience
 MVP tidak menggunakan AI/ML matching.
 
-24.12 — Application Flow
+24.12 - Application Flow
 Opportunity
  ↓
 Apply
@@ -4883,7 +4883,7 @@ Notification
  ↓
 Response
 
-24.13 — Application State
+24.13 - Application State
 Canonical:
 APPLIED
    │
@@ -4898,7 +4898,7 @@ PENDING = APPLIED
 ACCEPTED = SELECTED
 Transition harus melalui business rules.
 
-24.14 — Application Selection
+24.14 - Application Selection
 Hirer
  ↓
 Application
@@ -4919,7 +4919,7 @@ Application
  ↓
 Meeting Flow
 
-24.15 — Meeting Flow
+24.15 - Meeting Flow
 MVP:
 Hirer
  ↓
@@ -4948,7 +4948,7 @@ PROPOSED
 SCHEDULED
 PROPOSED bukan mandatory MVP.
 
-24.16 — Meeting Notification
+24.16 - Meeting Notification
 Ketika meeting dibuat:
 Meeting Module
       │
@@ -4960,7 +4960,7 @@ Meeting Module
                   Talent
 Notification bukan dibuat langsung oleh frontend.
 
-24.17 — Contract Flow
+24.17 - Contract Flow
 Eligibility:
 Application SELECTED
 +
@@ -4980,7 +4980,7 @@ Hirer Agrees
 ↓
 Contract ACTIVE
 
-24.18 — Contract State
+24.18 - Contract State
 DRAFT
  ↓
 PENDING_AGREEMENT
@@ -4998,7 +4998,7 @@ ACTIVE
 TERMINATED
 Contract MVP menggunakan simulated agreement, bukan digital signature.
 
-24.19 — Parental Consent Flow
+24.19 - Parental Consent Flow
 Jika talent adalah minor atau opportunity membutuhkan consent:
 Meeting COMPLETED
  ↓
@@ -5019,7 +5019,7 @@ MVP constraint:
 Parent/Guardian tidak memiliki account platform.
 Consent menggunakan simulated flow.
 
-24.20 — Parent / Guardian Communication Boundary
+24.20 - Parent / Guardian Communication Boundary
 MVP tidak memiliki Guardian account atau direct Guardian communication channel.
 Karena itu:
 Talent
@@ -5032,7 +5032,7 @@ Consent Status
 menjadi communication boundary.
 Platform tidak mengirimkan data platform Talent secara langsung kepada Guardian melalui account platform.
 
-24.21 — Payment Flow
+24.21 - Payment Flow
 MVP simulated escrow:
 Contract ACTIVE
  ↓
@@ -5059,7 +5059,7 @@ Webhook
  ↓
 Payment Status Updated
 
-24.22 — Rating Flow
+24.22 - Rating Flow
 Setelah pekerjaan selesai:
 Contract
  ↓
@@ -5075,7 +5075,7 @@ Rating Created
 Verified Work History
 Tidak boleh rating sebelum memenuhi eligibility.
 
-24.23 — Notification Architecture
+24.23 - Notification Architecture
 Notification module menerima trigger dari business process.
 Contoh:
 Application Selected
@@ -5090,7 +5090,7 @@ In-app notification menjadi primary notification.
 Email notification:
 Future Development
 
-24.24 — Audit Flow
+24.24 - Audit Flow
 Important action:
 User
  ↓
@@ -5112,7 +5112,7 @@ USER
 ADMIN
 SYSTEM
 
-24.25 — Error Flow
+24.25 - Error Flow
 Jika terjadi error:
 User
  ↓
@@ -5136,7 +5136,7 @@ Frontend mendapatkan:
   }
 }
 
-24.26 — Database Failure
+24.26 - Database Failure
 Misalnya PostgreSQL unavailable:
 API
  ↓
@@ -5151,7 +5151,7 @@ Error Handler
 500
 Jangan mengembalikan internal database error ke user.
 
-24.27 — External Service Failure
+24.27 - External Service Failure
 Jika future payment provider down:
 Payment Module
  ↓
@@ -5163,7 +5163,7 @@ Retry / Failure Handling
 Payment tidak boleh langsung dianggap berhasil hanya karena request dikirim.
 Future external payment tetap PENDING sampai confirmation tersedia.
 
-24.28 — Communication Boundary
+24.28 - Communication Boundary
 Final boundary:
 ┌───────────────────────────────────────┐
 │              FRONTEND                 │
@@ -5186,7 +5186,7 @@ Final boundary:
 │ Repository → Supabase → PostgreSQL    │
 └───────────────────────────────────────┘
 
-24.29 — Client Responsibility
+24.29 - Client Responsibility
 Frontend boleh:
 Display
 Input
@@ -5203,7 +5203,7 @@ Consent Validity
 Rating Eligibility
 Work Completion Status
 
-24.30 — Server Responsibility
+24.30 - Server Responsibility
 Server adalah authority untuk:
 Authentication Verification
 Authorization
@@ -5214,7 +5214,7 @@ Database Mutations
 External Service Integration
 Audit
 
-24.31 — Source of Truth
+24.31 - Source of Truth
 Data
 Source of Truth
 Authentication
@@ -5246,7 +5246,7 @@ PostgreSQL
 Payment Provider Confirmation
 Frontend state bukan source of truth.
 
-24.32 — State Synchronization
+24.32 - State Synchronization
 Contoh:
 Application Selected
        ↓
@@ -5259,7 +5259,7 @@ Jangan hanya:
 setStatus("SELECTED")
 tanpa memastikan server berhasil.
 
-24.33 — Communication Style
+24.33 - Communication Style
 Client → Backend
 HTTP / API / Server Action
 Backend → Database
@@ -5271,7 +5271,7 @@ HTTP API / SDK
 External Service → Backend
 Webhook
 
-24.34 — Synchronous vs Asynchronous
+24.34 - Synchronous vs Asynchronous
 Synchronous
 Digunakan untuk:
 Create Application
@@ -5290,7 +5290,7 @@ Payment Processing
 Scheduled Tasks
 Untuk MVP tidak perlu membangun dedicated queue system hanya demi kompleksitas.
 
-24.35 — Communication Diagram
+24.35 - Communication Diagram
                    ┌─────────────┐
                     │    USER     │
                     └──────┬──────┘
@@ -5328,7 +5328,7 @@ Untuk MVP tidak perlu membangun dedicated queue system hanya demi kompleksitas.
                     │ PostgreSQL  │
                     └─────────────┘
 
-24.36 — Full Business Flow
+24.36 - Full Business Flow
 REGISTER
    │
    ▼
@@ -5398,7 +5398,7 @@ APPLICATION
            ▼
    VERIFIED WORK HISTORY
 
-24.37 — Notification Trigger Map
+24.37 - Notification Trigger Map
 Event
 Recipient
 Application submitted
@@ -5434,7 +5434,7 @@ Relevant party
 
 Email notification: future development.
 
-24.38 — Security Principle
+24.38 - Security Principle
 Semua communication mengikuti:
 Never trust the client.
 Client tidak dapat menentukan:
@@ -5446,7 +5446,7 @@ Consent State
 Admin Privilege
 Server tetap melakukan verification.
 
-24.39 — Idempotency Principle
+24.39 - Idempotency Principle
 Operation yang berpotensi dipanggil ulang harus aman.
 Contoh:
 User clicks Apply twice
@@ -5456,7 +5456,7 @@ bukan:
 2 Applications
 Unique constraint + business validation menjadi defense.
 
-24.40 — Transaction Principle
+24.40 - Transaction Principle
 Operation critical seperti:
 Select Application
 Create Contract
@@ -5464,7 +5464,7 @@ Record Payment
 Complete Work
 jika terdiri dari beberapa database mutations yang harus konsisten, menggunakan transaction sesuai kebutuhan.
 
-24.41 — Communication Principles
+24.41 - Communication Principles
 Kita lock:
 1. Client is not trusted.
 2. Server is business authority.
@@ -5482,7 +5482,7 @@ Kita lock:
 14. Important actions produce audit records.
 15. Notification is triggered by business events.
 
-24.42 — Future Development
+24.42 - Future Development
 Future Development:
 ├── Email Notification
 ├── Push Notification
@@ -5493,7 +5493,7 @@ Future Development:
 └── Advanced Analytics
 Basic background jobs remain part of MVP baseline where required.
 
-24.43 — FINAL DECISION
+24.43 - FINAL DECISION
 Communication Pattern: Synchronous by default.
 Client → Backend: REST API / controlled server calls / Server Actions.
 Backend → Database: Repository/Data Access Layer melalui Supabase.
@@ -5512,13 +5512,13 @@ Parental Consent: Dilakukan setelah Meeting Completed dan sebelum Contract jika 
 Consent Model: Talent Consent Declaration, bukan independent Guardian verification.
 Payment: Simulated escrow dengan status PENDING → SIMULATED_PAID → RELEASED.
 Future: Email, push, advanced matching, payment gateway, webhook, advanced real-time, dan advanced analytics.
-POINT 24 — LOCKED 🔒
+POINT 24 - LOCKED 🔒
 
-25 — ERROR HANDLING & RELIABILITY
+25 - ERROR HANDLING & RELIABILITY
 Point ini membahas:
 “Kalau sesuatu gagal, sistem harus ngapain?”
 
-25.1 — Tujuan
+25.1 - Tujuan
 System harus tetap predictable ketika terjadi:
 Input User Salah
 Authentication Gagal
@@ -5535,7 +5535,7 @@ Server Error
 Prinsip:
 Error harus ditangani secara terstruktur, bukan dengan try/catch random di setiap file.
 
-25.2 — Error Classification
+25.2 - Error Classification
 Kita bedakan error menjadi:
 Client Error
 Server Error
@@ -5546,7 +5546,7 @@ Authentication Error
 Authorization Error
 Validation Error
 
-25.3 — Validation Error
+25.3 - Validation Error
 Contoh:
 Title kosong
 Description kosong
@@ -5565,7 +5565,7 @@ Response:
 HTTP:
 400 Bad Request
 
-25.4 — Authentication Error
+25.4 - Authentication Error
 User melakukan request tanpa session valid.
 Request
  ↓
@@ -5583,7 +5583,7 @@ Contoh:
   }
 }
 
-25.5 — Authorization Error
+25.5 - Authorization Error
 User sudah login tetapi tidak memiliki permission.
 Contoh:
 Talent
@@ -5599,7 +5599,7 @@ Perbedaan:
 401 = Authentication Missing / Invalid
 403 = Authenticated but Not Allowed
 
-25.6 — Resource Not Found
+25.6 - Resource Not Found
 Contoh:
 GET /api/opportunities/123
 Opportunity tidak ada.
@@ -5613,7 +5613,7 @@ Response:
   }
 }
 
-25.7 — Business Rule Error
+25.7 - Business Rule Error
 Business rule error bukan validation biasa.
 Contoh:
 Application = REJECTED
@@ -5635,7 +5635,7 @@ UNDER_REVIEW
 SELECTED
 REJECTED
 
-25.8 — Duplicate Application
+25.8 - Duplicate Application
 Talent mencoba apply dua kali.
 First Request
  ↓
@@ -5648,7 +5648,7 @@ Response:
 409 Conflict
 Database membantu mencegah duplicate melalui unique constraint.
 
-25.9 — Rate Limiting
+25.9 - Rate Limiting
 User melakukan repeated sensitive requests.
 POST /api/applications
 POST /api/applications
@@ -5658,7 +5658,7 @@ Jika threshold tercapai:
 429 Too Many Requests
 MVP menggunakan basic rate limiting pada endpoint sensitif.
 
-25.10 — Database Error
+25.10 - Database Error
 Flow:
 API
  ↓
@@ -5679,7 +5679,7 @@ Supabase Credentials
 SQL Query
 Internal Architecture
 
-25.11 — Internal Server Error
+25.11 - Internal Server Error
 Unexpected error:
 500 Internal Server Error
 Response:
@@ -5692,7 +5692,7 @@ Response:
 }
 Detail asli masuk server logs.
 
-25.12 — Error Response Standard
+25.12 - Error Response Standard
 Semua API mengikuti:
 {
   "success": false,
@@ -5708,7 +5708,7 @@ Success:
   "data": {}
 }
 
-25.13 — Error Code Convention
+25.13 - Error Code Convention
 Contoh:
 AUTH_REQUIRED
 AUTH_INVALID
@@ -5736,7 +5736,7 @@ CONSENT_PENDING
 CONSENT_REJECTED
 Error code harus stabil dan machine-readable.
 
-25.14 — Error Handling Layer
+25.14 - Error Handling Layer
 Jangan:
 route.ts
  ├── try
@@ -5765,7 +5765,7 @@ Server Actions
 Application Service Boundary
 Server Action tidak boleh melempar raw error langsung ke UI tanpa handling.
 
-25.15 — Domain Errors
+25.15 - Domain Errors
 Contoh:
 ApplicationCannotBeSelectedError
 ContractAlreadyActiveError
@@ -5774,7 +5774,7 @@ ContractBlockedByConsentError
 PaymentCannotBeReleasedError
 Application layer menerjemahkannya menjadi API / action error.
 
-25.16 — Error Mapping
+25.16 - Error Mapping
 Domain Error
      ↓
 Application Error
@@ -5787,7 +5787,7 @@ APPLICATION_ALREADY_EXISTS
         ↓
 409 Conflict
 
-25.17 — Retry Strategy
+25.17 - Retry Strategy
 Tidak semua error boleh di-retry.
 Aman untuk retry:
 Temporary Network Error
@@ -5801,7 +5801,7 @@ Select Application
 Release Payment
 karena dapat menghasilkan duplicate operation.
 
-25.18 — Idempotency
+25.18 - Idempotency
 MVP idempotency menggunakan:
 Unique Constraint
 Business Validation
@@ -5819,7 +5819,7 @@ Future:
 Idempotency Key
 untuk payment / webhook / critical external integrations.
 
-25.19 — Timeout
+25.19 - Timeout
 External request tidak boleh menunggu selamanya.
 Request
  ↓
@@ -5830,7 +5830,7 @@ Timeout
 Failure Handling
 Timeout tidak boleh dianggap sebagai success.
 
-25.20 — Payment Failure
+25.20 - Payment Failure
 MVP menggunakan simulated payment.
 Canonical payment status:
 PENDING
@@ -5853,7 +5853,7 @@ TIMEOUT
 REFUNDED
 sesuai provider dan business requirement.
 
-25.21 — Webhook Reliability
+25.21 - Webhook Reliability
 Future payment provider:
 Payment Provider
  ↓
@@ -5867,7 +5867,7 @@ Event ID
 Idempotency
 Webhook payment belum masuk MVP.
 
-25.22 — Notification Failure
+25.22 - Notification Failure
 Notification failure tidak membatalkan core business transaction.
 Contoh:
 Application Selected
@@ -5879,7 +5879,7 @@ Application tetap:
 SELECTED
 Notification dapat di-retry atau ditandai failed.
 
-25.23 — Critical vs Non-Critical
+25.23 - Critical vs Non-Critical
 Critical
 Authentication
 Authorization
@@ -5897,7 +5897,7 @@ Logging Enrichment
 Recommendation Availability
 Failure tidak boleh otomatis membatalkan core transaction.
 
-25.24 — Transaction Boundary
+25.24 - Transaction Boundary
 Contoh:
 Select Application
       │
@@ -5913,7 +5913,7 @@ COMMIT
 Jika gagal:
 ROLLBACK
 
-25.25 — Partial Failure
+25.25 - Partial Failure
 Contoh:
 Application Selected
  ↓
@@ -5928,7 +5928,7 @@ Side Effects
       ↓
 Notification
 
-25.26 — Logging
+25.26 - Logging
 Server harus memiliki structured logging.
 Contoh:
 {
@@ -5941,7 +5941,7 @@ Contoh:
   "timestamp": "..."
 }
 
-25.27 — Sensitive Data
+25.27 - Sensitive Data
 Jangan log:
 Password
 Access Token
@@ -5952,7 +5952,7 @@ Private Secrets
 Guardian Contact Detail
 Sensitive Consent Detail
 
-25.28 — Request ID
+25.28 - Request ID
 Setiap request dapat memiliki:
 requestId
 Flow:
@@ -5969,7 +5969,7 @@ Repository
 Logs
 Request ID membantu tracing error dari awal sampai akhir.
 
-25.29 — User-Friendly Error
+25.29 - User-Friendly Error
 Backend:
 DATABASE_CONNECTION_TIMEOUT
 User:
@@ -5978,7 +5978,7 @@ Developer logs:
 DATABASE_CONNECTION_TIMEOUT
 Internal technical details dan user-facing messages dipisahkan.
 
-25.30 — Frontend Error State
+25.30 - Frontend Error State
 UI memiliki:
 Loading
 Success
@@ -5993,12 +5993,12 @@ Loading...
     ↓
 Error → Retry
 
-25.31 — Retry UX
+25.31 - Retry UX
 Jika request gagal sementara:
 [ Try Again ]
 User tidak perlu refresh seluruh website.
 
-25.32 — Offline / Network Failure
+25.32 - Offline / Network Failure
 Jika browser kehilangan connection:
 Request
  ↓
@@ -6009,14 +6009,14 @@ Jangan menampilkan:
 500 Internal Server Error
 karena belum tentu server yang bermasalah.
 
-25.33 — Concurrent Update
+25.33 - Concurrent Update
 Contoh:
 Hirer A → Select Application
 Hirer B → Select Application
 secara hampir bersamaan.
 Database/business layer harus memastikan hanya valid state transition yang berhasil.
 
-25.34 — State Machine Protection
+25.34 - State Machine Protection
 Canonical:
 APPLIED
  ↓
@@ -6030,7 +6030,7 @@ APPLIED
 secara sembarangan.
 Invalid transition harus ditolak.
 
-25.35 — Database Constraints
+25.35 - Database Constraints
 Reliability tidak hanya bergantung pada code.
 Database juga memiliki:
 Primary Key
@@ -6047,7 +6047,7 @@ One Opportunity
 One Application
 diperkuat dengan unique constraint.
 
-25.36 — Backup & Recovery
+25.36 - Backup & Recovery
 System memiliki:
 Migration Files
 Database Schema
@@ -6064,7 +6064,7 @@ Seed / Recovery Data
  ↓
 Application
 
-25.37 — Environment Isolation
+25.37 - Environment Isolation
 Minimal:
 Development
 Preview / Testing
@@ -6081,7 +6081,7 @@ Production
 → Production Project
 Dedicated staging infrastructure bukan requirement MVP.
 
-25.38 — Deployment Failure
+25.38 - Deployment Failure
 Jika deployment baru bermasalah:
 New Deployment
  ↓
@@ -6092,7 +6092,7 @@ Health Check
 Rollback / Previous Stable Version
 Jangan memaksa production menggunakan build broken.
 
-25.39 — Health Check
+25.39 - Health Check
 Backend memiliki endpoint:
 GET /api/health
 Response:
@@ -6106,14 +6106,14 @@ Stack Trace
 Environment Secret
 Sensitive Internal Detail
 
-25.40 — Graceful Degradation
+25.40 - Graceful Degradation
 Jika feature non-critical gagal:
 Recommendation Unavailable
 system tetap dapat:
 Browse Opportunities
 Satu module failure tidak otomatis mematikan seluruh platform.
 
-25.41 — Reliability Principles
+25.41 - Reliability Principles
 Kita lock:
 1. Fail safely.
 2. Never expose internal errors.
@@ -6134,7 +6134,7 @@ Kita lock:
 17. Maintain migration-based recovery.
 18. Support rollback for failed deployments.
 
-25.42 — Full Failure Flow
+25.42 - Full Failure Flow
                  USER REQUEST
                        │
                        ▼
@@ -6175,7 +6175,7 @@ Kita lock:
                                          ▼           ▼
                                        500        Response
 
-25.43 — Final Architecture
+25.43 - Final Architecture
                   ┌──────────────┐
                    │     USER     │
                    └──────┬───────┘
@@ -6218,7 +6218,7 @@ Kita lock:
         │ External Services               │
         └─────────────────────────────────┘
 
-25.44 — FINAL DECISION
+25.44 - FINAL DECISION
 Error Handling: Centralized and standardized.
 Validation: Before business logic.
 Authentication: 401 when authentication is missing/invalid.
@@ -6244,8 +6244,8 @@ Consent Error: Contract creation harus blocked jika consent required belum appro
 Consent Model: Simulated Consent Declaration oleh Talent; bukan independent Guardian verification.
 Payment Error: MVP menggunakan simulated payment. Failure/timeout menjaga status tetap PENDING dan tidak dianggap berhasil.
 
-POINT 26 — OBSERVABILITY & MONITORING
-26.1 — Tujuan
+POINT 26 - OBSERVABILITY & MONITORING
+26.1 - Tujuan
 Observability digunakan untuk mengetahui kondisi sistem dari tiga aspek utama:
 Logs
 Metrics
@@ -6257,11 +6257,11 @@ Metrics → Seberapa sering / seberapa besar?
 Traces  → Request melewati jalur mana saja?
 
 
-26.2 — Observability Principle
+26.2 - Observability Principle
 Kita lock:
 Application harus dapat memberikan informasi yang cukup untuk mengetahui health, performance, dan failure tanpa harus menebak dari sisi user.
 
-26.3 — Three Pillars
+26.3 - Three Pillars
             OBSERVABILITY
                   │
        ┌──────────┼──────────┐
@@ -6272,7 +6272,7 @@ Application harus dapat memberikan informasi yang cukup untuk mengetahui health,
     Events     Numbers    Request Flow
 
 
-26.4 — Logging
+26.4 - Logging
 Logging digunakan untuk mencatat event penting.
 Contoh:
 User registered
@@ -6291,7 +6291,7 @@ Authorization denied
 Database error
 
 
-26.5 — Log Levels
+26.5 - Log Levels
 Kita gunakan:
 DEBUG
 INFO
@@ -6315,7 +6315,7 @@ Failure yang perlu diperhatikan.
 ERROR: contract activation failed
 
 
-26.6 — Production Logging
+26.6 - Production Logging
 Production tidak perlu spam DEBUG.
 Default production:
 INFO
@@ -6324,7 +6324,7 @@ ERROR
 
 DEBUG dapat diaktifkan ketika troubleshooting dengan kontrol yang sesuai.
 
-26.7 — Structured Logging
+26.7 - Structured Logging
 Jangan hanya:
 console.log("something went wrong")
 
@@ -6340,7 +6340,7 @@ Lebih baik event terstruktur:
 
 Ini membuat log gampang dicari dan dianalisis.
 
-26.8 — Request ID
+26.8 - Request ID
 Setiap request diberi:
 requestId
 
@@ -6370,7 +6370,7 @@ Background jobs / scheduled tasks
 Audit-related operations
 
 
-26.9 — Correlation ID
+26.9 - Correlation ID
 Untuk workflow yang melibatkan beberapa operation:
 Application
  ↓
@@ -6399,7 +6399,7 @@ Contoh:
 }
 
 
-26.10 — Metrics
+26.10 - Metrics
 Metrics berupa angka yang dipantau dari waktu ke waktu.
 Contoh:
 Requests / minute
@@ -6412,7 +6412,7 @@ Payment failures
 429 rate-limit spikes
 
 
-26.11 — Core Application Metrics
+26.11 - Core Application Metrics
 Untuk MVP kita pantau:
 Total requests
 Successful requests
@@ -6422,7 +6422,7 @@ Average response time
 95th percentile response time
 
 
-26.12 — Error Rate
+26.12 - Error Rate
 Contoh:
 1000 requests
 20 errors
@@ -6440,7 +6440,7 @@ Contoh:
 
 Something is wrong.
 
-26.13 — Latency
+26.13 - Latency
 Kita ukur:
 Request received
         ↓
@@ -6458,7 +6458,7 @@ GET /api/opportunities
 
 Itu indikasi performance issue.
 
-26.14 — Percentile
+26.14 - Percentile
 Average saja tidak cukup.
 Kita perhatikan:
 p50
@@ -6472,7 +6472,7 @@ p99 = 1.2s
 
 Artinya sebagian besar request cepat, tetapi tail latency perlu diperhatikan.
 
-26.15 — Database Monitoring
+26.15 - Database Monitoring
 Supabase/PostgreSQL perlu dipantau untuk:
 Query latency
 Connection issues
@@ -6483,7 +6483,7 @@ CPU/resource usage
 
 Kita tidak perlu membuat monitoring database sendiri kalau platform sudah menyediakan monitoring yang relevan.
 
-26.16 — Slow Query
+26.16 - Slow Query
 Jika:
 GET /api/opportunities
 
@@ -6508,7 +6508,7 @@ Too much data
 N+1 query
 
 
-26.17 — Authentication Monitoring
+26.17 - Authentication Monitoring
 Kita monitor event seperti:
 Login success
 Login failure
@@ -6522,7 +6522,7 @@ service issue
 abuse attempt
 
 
-26.18 — Security Events
+26.18 - Security Events
 Event penting:
 Unauthorized access / 401 spike
 Forbidden access / 403 spike
@@ -6536,7 +6536,7 @@ Report handling action
 
 Event security harus lebih serius dibanding log biasa.
 
-26.19 — Business Metrics
+26.19 - Business Metrics
 Observability tidak hanya technical.
 Kita juga pantau business metrics:
 Registered users
@@ -6559,7 +6559,7 @@ Verified work histories created
 
 Ini membantu mengetahui apakah sistem benar-benar digunakan.
 
-26.20 — Funnel Monitoring
+26.20 - Funnel Monitoring
 Canonical funnel:
 Registered Users
       ↓
@@ -6602,7 +6602,7 @@ Mapping lama:
 Accepted = SELECTED
 
 
-26.21 — Health Check
+26.21 - Health Check
 Endpoint:
 GET /api/health
 
@@ -6614,7 +6614,7 @@ Response:
 Digunakan untuk mengetahui apakah application server hidup.
 Health check tidak boleh mengembalikan data sensitif.
 
-26.22 — Readiness vs Liveness
+26.22 - Readiness vs Liveness
 Kalau nantinya diperlukan:
 Liveness
 Apakah application process masih hidup?
@@ -6628,7 +6628,7 @@ Untuk MVP:
 satu health endpoint sederhana sudah cukup.
 Kita tidak perlu membangun Kubernetes-style infrastructure sebelum ada kebutuhan.
 
-26.23 — External Service Monitoring
+26.23 - External Service Monitoring
 External service:
 Supabase
 Future payment provider
@@ -6644,7 +6644,7 @@ Latency
 Timeout
 
 
-26.24 — Payment Monitoring
+26.24 - Payment Monitoring
 Payment merupakan critical area.
 MVP Payment Monitoring:
 Payment created
@@ -6667,7 +6667,7 @@ Simulated payment completion rate
 
 Ini bukan real financial success rate.
 
-26.25 — Notification Monitoring
+26.25 - Notification Monitoring
 Notification adalah non-critical tetapi tetap dipantau.
 Notification created
 Notification delivered
@@ -6680,7 +6680,7 @@ Jika:
 perlu investigation.
 Tetapi core transaction tetap tidak otomatis rollback.
 
-26.26 — Alerting
+26.26 - Alerting
 Tidak semua log harus membuat alert.
 Contoh alert:
 Error rate > threshold
@@ -6698,7 +6698,7 @@ ALERT
 developer gets 500 notifications
 
 
-26.27 — Alert Severity
+26.27 - Alert Severity
 Gunakan:
 INFO
 WARNING
@@ -6711,7 +6711,7 @@ Perlu diperiksa.
 CRITICAL
 Butuh tindakan cepat.
 
-26.28 — Example Alert
+26.28 - Example Alert
 CRITICAL
 
 API error rate exceeded threshold.
@@ -6728,7 +6728,7 @@ berapa
 di mana
 
 
-26.29 — Dashboard
+26.29 - Dashboard
 Kita bisa punya dashboard monitoring yang memperlihatkan:
 ┌────────────────────────────────────┐
 │ System Health                      │
@@ -6742,7 +6742,7 @@ Kita bisa punya dashboard monitoring yang memperlihatkan:
 └────────────────────────────────────┘
 
 
-26.30 — Production Monitoring Stack
+26.30 - Production Monitoring Stack
 Untuk MVP kita tidak perlu membangun monitoring platform sendiri.
 Candidate MVP monitoring stack:
 Vercel logs / deployment metrics
@@ -6752,7 +6752,7 @@ Error tracking service jika diperlukan
 
 Tool final akan ditentukan pada Infrastructure/Deployment point.
 
-26.31 — Error Tracking
+26.31 - Error Tracking
 Selain logs, error tracking berguna untuk:
 Stack trace
 Request context
@@ -6770,7 +6770,7 @@ Ini jauh lebih berguna daripada sekadar:
 500 Internal Server Error
 
 
-26.32 — Release Monitoring
+26.32 - Release Monitoring
 Setiap deployment harus dapat diidentifikasi.
 Contoh:
 version: 1.4.0
@@ -6784,7 +6784,7 @@ Error rate
 
 kita bisa menghubungkan masalah dengan release tersebut.
 
-26.33 — Deployment → Monitoring
+26.33 - Deployment → Monitoring
 Flow:
 Git Push
    ↓
@@ -6806,7 +6806,7 @@ Jika bermasalah:
 Rollback
 
 
-26.34 — Privacy
+26.34 - Privacy
 Observability harus mengikuti prinsip:
 Monitor system, not people's private content.
 Jangan memasukkan ke log:
@@ -6822,7 +6822,7 @@ Parental consent sensitive detail
 Minor personal data yang tidak diperlukan
 
 
-26.35 — User ID Logging
+26.35 - User ID Logging
 User ID boleh digunakan untuk debugging bila memang diperlukan, tetapi:
 minimum necessary data
 
@@ -6837,7 +6837,7 @@ actor/action
 
 Jangan log isi detail persetujuan atau data wali secara berlebihan.
 
-26.36 — Audit vs Logs
+26.36 - Audit vs Logs
 Ini penting.
 Logs
 Untuk:
@@ -6854,7 +6854,7 @@ API request took 240ms
 
 itu operational log/metric.
 
-26.37 — Monitoring vs Analytics
+26.37 - Monitoring vs Analytics
 Jangan dicampur.
 Monitoring
 Apakah sistem sehat?
@@ -6869,7 +6869,7 @@ Most users drop at meeting stage
 
 Dua-duanya penting, tapi tujuan berbeda.
 
-26.38 — Reliability SLO
+26.38 - Reliability SLO
 Untuk tahap awal kita tidak perlu menjanjikan SLA enterprise.
 SRS target:
 Normal operation response time ≤ 3 detik
@@ -6882,7 +6882,7 @@ Error rate: < 2%
 Ini target internal, bukan contractual SLA.
 Internal SLO lebih ketat dari SRS untuk menjaga kualitas demo dan penilaian.
 
-26.39 — Monitoring Development vs Production
+26.39 - Monitoring Development vs Production
 Development:
 Detailed logs
 Debug enabled
@@ -6896,7 +6896,7 @@ Alerts
 Limited sensitive information
 
 
-26.40 — Observability Flow
+26.40 - Observability Flow
                    APPLICATION
                          │
             ┌────────────┼────────────┐
@@ -6916,7 +6916,7 @@ Limited sensitive information
        Developer / Team          Investigation
 
 
-26.41 — What We Monitor
+26.41 - What We Monitor
 Technical
 API availability
 API latency
@@ -6949,7 +6949,7 @@ Admin actions
 Suspicious activity
 
 
-26.42 — What We DON’T Monitor
+26.42 - What We DON’T Monitor
 Kita tidak melakukan:
 Logging passwords
 Logging tokens
@@ -6960,7 +6960,7 @@ Recording every user action forever
 Building invasive surveillance
 
 
-26.43 — Incident Flow
+26.43 - Incident Flow
 Kalau production bermasalah:
 Alert
  ↓
@@ -6990,7 +6990,7 @@ Error rate normal
 Root cause analysis
 
 
-26.44 — Root Cause Analysis
+26.44 - Root Cause Analysis
 Setelah incident penting:
 What happened?
 Why happened?
@@ -7002,7 +7002,7 @@ Jangan cuma:
 “udah normal.”
 Harus tahu kenapa.
 
-26.45 — Observability Principles
+26.45 - Observability Principles
 Kita lock:
 1. Logs must be structured.
 2. Important requests have request IDs.
@@ -7020,7 +7020,7 @@ Kita lock:
 14. Monitoring should remain proportional to system complexity.
 
 
-26.46 — MVP vs Future
+26.46 - MVP vs Future
 MVP
 Structured application logs
 Error logging
@@ -7044,7 +7044,7 @@ Web Vitals monitoring
 Real User Monitoring
 
 
-26.47 — FINAL DECISION
+26.47 - FINAL DECISION
 Observability Model: Logs + Metrics + Traces.
 Logging: Structured.
 Request Tracking: Request ID.
@@ -7061,9 +7061,9 @@ Deployment: Monitored after release.
 Incident: Identify → Investigate → Contain → Fix/Rollback → Verify → Document.
 Payment Monitoring: MVP menggunakan simulated escrow metric, bukan real payment gateway metric.
 Scaling: Start simple, introduce distributed tracing dan advanced monitoring only when justified.
-POINT 26 — LOCKED 🔒
-POINT 27 — PERFORMANCE & SCALABILITY
-27.1 — Tujuan
+POINT 26 - LOCKED 🔒
+POINT 27 - PERFORMANCE & SCALABILITY
+27.1 - Tujuan
 Sistem harus:
 responsif untuk user
 query database efisien
@@ -7074,7 +7074,7 @@ tetap sederhana selama traffic masih kecil
 
 Prinsip utama:
 Optimize based on actual bottlenecks, not assumptions.
-27.2 — Performance Layers
+27.2 - Performance Layers
 Performance kita lihat dari:
 User
  ↓
@@ -7089,7 +7089,7 @@ PostgreSQL
 External Services
 
 Masalah bisa muncul di layer mana pun.
-27.3 — Target Performance MVP
+27.3 - Target Performance MVP
 SRS target:
 Normal operation response time ≤ 3 detik
 
@@ -7102,11 +7102,11 @@ Untuk operasi yang memang membutuhkan external service:
 lebih tinggi masih acceptable
 
 Target internal lebih ketat untuk menjaga kualitas demo, penilaian juri, dan stabilitas production.
-27.4 — Database First
+27.4 - Database First
 Karena kita menggunakan Supabase + PostgreSQL, bottleneck yang paling mungkin muncul adalah query database.
 Maka:
 Database query optimization menjadi prioritas performance.
-27.5 — Indexing
+27.5 - Indexing
 Field yang sering digunakan untuk:
 WHERE
 JOIN
@@ -7133,7 +7133,7 @@ notifications.user_id
 reports.status
 
 Tapi jangan membuat index untuk semua kolom.
-27.6 — Index Trade-off
+27.6 - Index Trade-off
 Index mempercepat read:
 SELECT
 
@@ -7145,7 +7145,7 @@ Storage
 
 Jadi:
 Index berdasarkan query pattern nyata.
-27.7 — Query Optimization
+27.7 - Query Optimization
 Hindari:
 SELECT *
 
@@ -7155,7 +7155,7 @@ title
 status
 
 Lebih baik mengambil field yang diperlukan saja.
-27.8 — N+1 Query
+27.8 - N+1 Query
 Contoh buruk:
 Get 100 opportunities
        ↓
@@ -7172,7 +7172,7 @@ batch query
 Supabase relational select
 
 sesuai kebutuhan.
-27.9 — Pagination
+27.9 - Pagination
 Jangan:
 GET /api/opportunities
 
@@ -7183,7 +7183,7 @@ Gunakan pagination.
 Contoh:
 GET /api/opportunities?page=1&limit=20
 
-27.10 — Limit
+27.10 - Limit
 Backend harus punya maximum limit.
 Misalnya:
 default = 20
@@ -7192,7 +7192,7 @@ max = 100
 Jadi user tidak bisa meminta:
 ?limit=999999999
 
-27.11 — Cursor Pagination
+27.11 - Cursor Pagination
 Untuk dataset besar, kita dapat menggunakan:
 cursor pagination
 
@@ -7214,7 +7214,7 @@ Untuk MVP:
 Offset pagination masih acceptable untuk dataset kecil.
 Ketika data besar:
 migrate hot feeds/search ke cursor pagination.
-27.12 — Sorting
+27.12 - Sorting
 Sorting harus dilakukan dengan field yang jelas.
 Contoh:
 created_at
@@ -7222,7 +7222,7 @@ deadline
 rating
 
 Jangan melakukan sorting dataset besar di application memory kalau database dapat melakukannya.
-27.13 — Filtering
+27.13 - Filtering
 Filtering dilakukan sedini mungkin.
 Buruk:
 Database
@@ -7243,7 +7243,7 @@ Database query with filter
 20 records
 
 Database mengerjakan filtering.
-27.14 — Search
+27.14 - Search
 Untuk search opportunity:
 title
 description
@@ -7263,7 +7263,7 @@ Full-text search lebih advanced
 Ranking/relevance tuning
 Dedicated search service jika dibutuhkan
 
-27.15 — Caching
+27.15 - Caching
 Tidak semua data harus query database setiap kali.
 Candidate untuk cache:
 Public opportunity data
@@ -7283,7 +7283,7 @@ Admin moderation state
 Notification unread count
 Real-time user-specific dashboard data
 
-27.16 — Next.js Caching
+27.16 - Next.js Caching
 Next.js dapat menggunakan caching sesuai jenis data.
 Prinsip:
 Static / relatively stable
@@ -7298,7 +7298,7 @@ atau dynamic fetch
 atau revalidate dengan invalidation yang jelas
 
 Jangan cache halaman dashboard secara agresif.
-27.17 — Cache Invalidation
+27.17 - Cache Invalidation
 Rule:
 Cache invalidation harus dianggap sebagai bagian dari design, bukan tambahan belakangan.
 Contoh:
@@ -7321,7 +7321,7 @@ Mapping lama:
 PENDING = APPLIED
 ACCEPTED = SELECTED
 
-27.18 — CDN
+27.18 - CDN
 Static assets:
 Images
 CSS
@@ -7330,7 +7330,7 @@ Fonts
 
 idealnya dilayani melalui CDN/infrastructure platform.
 Next.js deployment platform biasanya membantu bagian ini.
-27.19 — Image Optimization
+27.19 - Image Optimization
 MVP image optimization:
 Optimasi static assets
 Gunakan next/image jika menampilkan gambar
@@ -7342,7 +7342,7 @@ Tetap URL-based
 Tidak upload file besar di MVP
 
 Jika menampilkan preview image, tetap gunakan optimized dimensions dan lazy loading.
-27.20 — Portfolio
+27.20 - Portfolio
 Karena sebelumnya kita sepakat CV dan portfolio menggunakan link, ini justru mengurangi beban storage.
 Flow:
 User
@@ -7361,7 +7361,7 @@ Application server
 Database
 
 Lebih ringan.
-27.21 — Lazy Loading
+27.21 - Lazy Loading
 Data/komponen yang belum diperlukan tidak harus langsung dimuat.
 Contoh:
 Opportunity detail
@@ -7371,7 +7371,7 @@ Main information
 Additional sections
 
 Heavy component dapat di-load ketika diperlukan.
-27.22 — Server vs Client Components
+27.22 - Server vs Client Components
 Next.js:
 Server Component
 
@@ -7386,7 +7386,7 @@ event handlers
 
 Prinsip:
 Don't make the entire page a Client Component without a reason.
-27.23 — Data Fetching
+27.23 - Data Fetching
 Data yang dibutuhkan server:
 Server
  ↓
@@ -7400,7 +7400,7 @@ Client
 API / appropriate data layer
 
 Pemilihan berdasarkan kebutuhan, bukan dogma.
-27.24 — Request Deduplication
+27.24 - Request Deduplication
 Jika beberapa component meminta data yang sama:
 Component A → opportunity
 Component B → opportunity
@@ -7408,7 +7408,7 @@ Component C → opportunity
 
 jangan sampai menghasilkan unnecessary duplicate requests.
 Gunakan mekanisme caching/deduplication yang sesuai dengan data-fetching architecture kita.
-27.25 — Debouncing
+27.25 - Debouncing
 Untuk search:
 User types:
 
@@ -7428,7 +7428,7 @@ wait ~300ms
  ↓
 search
 
-27.26 — Rate Limiting
+27.26 - Rate Limiting
 Performance juga berhubungan dengan abuse protection.
 Endpoint sensitif:
 Login
@@ -7438,7 +7438,7 @@ Meeting
 Payment
 
 perlu rate limiting sesuai kebutuhan.
-27.27 — Background Jobs
+27.27 - Background Jobs
 Operation yang tidak harus selesai dalam request:
 Send notification
 Generate report
@@ -7460,7 +7460,7 @@ MVP implementation:
 Dapat menggunakan scheduled function / cron / edge function / manual admin trigger jika diperlukan
 Tidak langsung membangun dedicated queue infrastructure
 
-27.28 — Timeout
+27.28 - Timeout
 Setiap external request harus punya timeout.
 Contoh:
 Next.js
@@ -7474,7 +7474,7 @@ fallback/error
 Tidak boleh:
 request hangs forever
 
-27.29 — Concurrency
+27.29 - Concurrency
 Misalnya:
 100 users
  ↓
@@ -7484,7 +7484,7 @@ database
 
 Application harus mampu menangani concurrent request tanpa race condition.
 Critical state transitions tetap dilindungi database/business rules.
-27.30 — Connection Management
+27.30 - Connection Management
 Database connection harus dikelola dengan benar.
 Jangan membuat connection baru secara tidak terkendali setiap request.
 Next.js + Supabase serverless pattern:
@@ -7493,7 +7493,7 @@ Hindari membuat client baru secara berlebihan di setiap function
 Gunakan connection mechanism/pooler yang direkomendasikan Supabase untuk serverless jika diperlukan
 Pastikan service role client hanya berjalan di server-side
 
-27.31 — Database Connection Bottleneck
+27.31 - Database Connection Bottleneck
 Jika traffic meningkat:
 Users
  ↓
@@ -7512,14 +7512,14 @@ architecture scaling
 
 bukan sekadar:
 “Tambah server.”
-27.32 — Horizontal Scaling
+27.32 - Horizontal Scaling
 Kalau traffic meningkat:
                ┌── App Instance 1
 Users → Router ─┼── App Instance 2
                 └── App Instance 3
 
 Application layer dibuat stateless sebisa mungkin.
-27.33 — Stateless Application
+27.33 - Stateless Application
 Jangan menyimpan state penting hanya di memory instance.
 Buruk:
 User data
@@ -7534,7 +7534,7 @@ Database
 Session/Auth infrastructure
 External durable storage
 
-27.34 — Supabase Scaling
+27.34 - Supabase Scaling
 Supabase menangani bagian database/infrastructure tertentu.
 Tetapi aplikasi tetap harus:
 efficient queries
@@ -7544,7 +7544,7 @@ connection management
 
 Jangan menganggap:
 “Supabase = unlimited.”
-27.35 — Storage Scaling
+27.35 - Storage Scaling
 Jika nanti portfolio upload berubah dari URL menjadi file:
 User
  ↓
@@ -7555,7 +7555,7 @@ CDN
 Jangan menyimpan file besar sebagai database row.
 Untuk MVP:
 URL-based portfolio tetap menjadi pilihan utama.
-27.36 — Performance Budget
+27.36 - Performance Budget
 Kita bisa menetapkan budget:
 API p95 < 1s
 Initial page load reasonable for target network
@@ -7563,7 +7563,7 @@ Image size optimized
 API payload only required fields
 
 Performance budget membantu mencegah feature creep.
-27.37 — Monitoring Performance
+27.37 - Monitoring Performance
 Point 26 sudah menyediakan:
 Latency
 p50
@@ -7582,7 +7582,7 @@ Optimize
  ↓
 Measure again
 
-27.38 — Performance Testing
+27.38 - Performance Testing
 Sebelum production besar:
 Load Test
 Stress Test
@@ -7591,7 +7591,7 @@ Database Query Test
 
 MVP tidak perlu testing dengan jutaan simulated users.
 Test realistic expected traffic.
-27.39 — Load Testing
+27.39 - Load Testing
 Contoh scenario:
 100 concurrent users
  ↓
@@ -7609,7 +7609,7 @@ Error rate
 Database load
 Throughput
 
-27.40 — Bottleneck Identification
+27.40 - Bottleneck Identification
 Jika sistem lambat:
 Frontend?
    ↓
@@ -7624,7 +7624,7 @@ External service?
 Cari bottleneck dulu.
 Jangan asal:
 “Tambah Redis.”
-27.41 — Optimization Priority
+27.41 - Optimization Priority
 Urutan kita:
 1. Correctness
 2. Database query optimization
@@ -7636,7 +7636,7 @@ Urutan kita:
 8. Infrastructure scaling
 
 Jangan optimize sebelum correctness.
-27.42 — Avoid Premature Optimization
+27.42 - Avoid Premature Optimization
 Kita tidak langsung memakai:
 Microservices
 Kubernetes
@@ -7653,8 +7653,8 @@ Next.js
 +
 Supabase
 
-27.43 — Scaling Path
-Stage 1 — MVP
+27.43 - Scaling Path
+Stage 1 - MVP
 Next.js
 +
 Supabase
@@ -7665,7 +7665,7 @@ Indexes
 +
 Pagination
 
-Stage 2 — Growth
+Stage 2 - Growth
 Better caching
 +
 Cursor pagination
@@ -7674,7 +7674,7 @@ Background jobs
 +
 Performance monitoring
 
-Stage 3 — High Traffic
+Stage 3 - High Traffic
 Horizontal scaling
 +
 Dedicated workers
@@ -7685,14 +7685,14 @@ Search optimization
 +
 Read optimization
 
-Stage 4 — Very Large Scale
+Stage 4 - Very Large Scale
 Baru pertimbangkan:
 Dedicated services
 Advanced event architecture
 Dedicated search infrastructure
 Specialized databases
 
-27.44 — Performance Architecture
+27.44 - Performance Architecture
                     USERS
                        │
                        ▼
@@ -7721,7 +7721,7 @@ Specialized databases
           Optimized          Indexed
             Query              Data
 
-27.45 — Performance Principles
+27.45 - Performance Principles
 Kita lock:
 1. Optimize based on measurements.
 2. Database queries must be efficient.
@@ -7744,7 +7744,7 @@ Kita lock:
 19. Monitor p95/p99 latency.
 20. Scale only when actual bottlenecks justify it.
 
-27.46 — MVP vs Future
+27.46 - MVP vs Future
 MVP
 PostgreSQL indexing
 Efficient queries
@@ -7766,7 +7766,7 @@ Advanced load testing
 Horizontal scaling optimization
 Distributed performance tracing
 
-27.47 — FINAL DECISION
+27.47 - FINAL DECISION
 Architecture: Modular Monolith tetap dipertahankan.
 Backend: Next.js.
 Database: Supabase PostgreSQL.
@@ -7786,9 +7786,9 @@ Connection Management: Supabase client singleton dan serverless-aware connection
 Background Jobs: Mengikuti Point 20.19 dan tidak langsung menggunakan dedicated queue.
 Scaling: Bertahap berdasarkan actual traffic.
 Premature Optimization: Dihindari.
-POINT 27 — LOCKED 🔒
-POINT 28 — TESTING STRATEGY
-28.1 — Tujuan
+POINT 27 - LOCKED 🔒
+POINT 28 - TESTING STRATEGY
+28.1 - Tujuan
 Testing bertujuan memastikan:
 fitur bekerja sesuai requirement
 business rules tidak rusak
@@ -7801,7 +7801,7 @@ deployment tidak membawa regression
 
 Prinsip utama:
 Test behavior and business rules, not implementation details.
-28.2 — Testing Pyramid
+28.2 - Testing Pyramid
 Kita gunakan pendekatan:
                  ┌───────────┐
                   │    E2E    │
@@ -7818,7 +7818,7 @@ Banyak  → Unit Test
 Sedang  → Integration Test
 Sedikit → E2E Test
 
-28.3 — Test Layers
+28.3 - Test Layers
 Untuk Flex Network:
 1. Unit Test
 2. Integration Test
@@ -7830,7 +7830,7 @@ Untuk Flex Network:
 8. Performance Test
 
 Tidak semua test harus memiliki jumlah yang sama.
-28.4 — Unit Test
+28.4 - Unit Test
 Unit test menguji logic kecil secara terisolasi.
 Contoh:
 calculateMatchScore()
@@ -7847,7 +7847,7 @@ Opportunity skills = React, TypeScript
 Expected:
 matchScore > 0
 
-28.5 — Apa yang Wajib Unit Test?
+28.5 - Apa yang Wajib Unit Test?
 Prioritas tinggi:
 Business rules
 State transitions
@@ -7865,7 +7865,7 @@ getter
 simple object mapping
 trivial UI wrapper
 
-28.6 — Domain Test
+28.6 - Domain Test
 Domain layer harus sangat mudah dites.
 Canonical application status:
 APPLIED
@@ -7893,7 +7893,7 @@ Test:
 expect(() => application.select())
   .toThrow(INVALID_APPLICATION_STATE)
 
-28.7 — State Machine Testing
+28.7 - State Machine Testing
 Karena sistem kita punya banyak status:
 Application
 Meeting
@@ -7912,7 +7912,7 @@ UNDER_REVIEW → REJECTED ✅
 REJECTED → SELECTED ❌
 SELECTED → APPLIED ❌
 
-28.8 — Integration Test
+28.8 - Integration Test
 Integration test menguji beberapa layer sekaligus.
 Contoh:
 API / Server Action
@@ -7924,7 +7924,7 @@ Repository
 Database
 
 Tujuannya memastikan komponen benar-benar bekerja bersama.
-28.9 — API & Server Action Testing
+28.9 - API & Server Action Testing
 Setiap critical backend entrypoint harus punya test.
 Backend entrypoints yang dites:
 Route Handlers / API endpoints
@@ -7972,7 +7972,7 @@ POST /api/payments
 POST /api/parental-consents
 POST /api/ratings
 
-28.10 — API Success Test
+28.10 - API Success Test
 Contoh:
 POST /api/applications
 
@@ -7985,7 +7985,7 @@ dan:
   "data": {}
 }
 
-28.11 — API Validation Test
+28.11 - API Validation Test
 Invalid request:
 POST /api/applications
 
@@ -7996,21 +7996,21 @@ POST /api/applications
 Expected:
 400 Bad Request
 
-28.12 — Authentication Test
+28.12 - Authentication Test
 Request tanpa session:
 POST /api/applications
 
 Expected:
 401 Unauthorized
 
-28.13 — Authorization Test
+28.13 - Authorization Test
 User A mencoba mengubah resource milik User B.
 Expected:
 403 Forbidden
 
 atau resource tidak terekspos sesuai authorization design.
 Ini wajib, karena security bug jauh lebih bahaya daripada UI bug.
-28.14 — Database / RLS Testing
+28.14 - Database / RLS Testing
 Karena kita menggunakan Supabase, kita harus mengetes:
 Row Level Security
 
@@ -8027,7 +8027,7 @@ Talent update opportunity milik Hirer → denied
 Hirer membaca application dari opportunity Hirer lain → denied
 Admin moderation access → allowed with ADMIN role
 
-28.15 — RLS Test Matrix
+28.15 - RLS Test Matrix
 Contoh:
 Role
 Resource
@@ -8075,7 +8075,7 @@ Manage
 ✅
 
 Matrix seperti ini harus menjadi bagian testing.
-28.16 — Database Constraint Testing
+28.16 - Database Constraint Testing
 Database juga harus dites.
 Contoh:
 Duplicate application
@@ -8095,7 +8095,7 @@ Invalid status transition
 Expected:
 rejected
 
-28.17 — E2E Testing
+28.17 - E2E Testing
 E2E menguji sistem dari sudut pandang user.
 Contoh flow:
 Register
@@ -8129,9 +8129,9 @@ Rating
 Verified Work History
 
 Test seperti user nyata.
-28.18 — Critical E2E Flows
-Critical E2E Flows — Revised:
-Flow 1 — Registration & Login
+28.18 - Critical E2E Flows
+Critical E2E Flows - Revised:
+Flow 1 - Registration & Login
 Register
  ↓
 Role selection
@@ -8140,25 +8140,25 @@ Login
  ↓
 Dashboard
 
-Flow 2 — Profile Completion
+Flow 2 - Profile Completion
 Talent completes profile, skills, interests
 Hirer completes profile/company information
 
-Flow 3 — Opportunity Creation & Discovery
+Flow 3 - Opportunity Creation & Discovery
 Hirer creates opportunity
  ↓
 Opportunity published / available
  ↓
 Talent browses/searches/filters opportunity
 
-Flow 4 — Matching & Application
+Flow 4 - Matching & Application
 Talent sees recommendation/matching
  ↓
 Talent applies
  ↓
 Application APPLIED
 
-Flow 5 — Selection & Meeting
+Flow 5 - Selection & Meeting
 Hirer reviews application
  ↓
 Hirer selects Talent
@@ -8167,7 +8167,7 @@ Meeting scheduled
  ↓
 Meeting completed
 
-Flow 6 — Parental Consent if required
+Flow 6 - Parental Consent if required
 System checks consent requirement
  ↓
 If required, consent pending
@@ -8178,7 +8178,7 @@ Consent approved
  ↓
 Contract can proceed
 
-Flow 7 — Contract Agreement
+Flow 7 - Contract Agreement
 Contract created
  ↓
 Talent agrees
@@ -8187,14 +8187,14 @@ Hirer agrees
  ↓
 Contract ACTIVE
 
-Flow 8 — Simulated Payment
+Flow 8 - Simulated Payment
 Payment created
  ↓
 Payment HELD / SIMULATED_PAID
  ↓
 Work started
 
-Flow 9 — Work Completion
+Flow 9 - Work Completion
 Work In Progress
  ↓
 Work Completed
@@ -8203,31 +8203,31 @@ Hirer confirms completion
  ↓
 Payment RELEASED
 
-Flow 10 — Rating & Verified Work History
+Flow 10 - Rating & Verified Work History
 Talent rates Hirer
  ↓
 Hirer rates Talent
  ↓
 Work History becomes Verified
 
-Flow 11 — Admin Moderation
+Flow 11 - Admin Moderation
 Admin views users/opportunities/reports
  ↓
 Admin performs moderation action
 
-Flow 12 — Error Handling & Responsive UI
+Flow 12 - Error Handling & Responsive UI
 Invalid action produces clear error
  ↓
 Main flows usable on Desktop, Tablet, Mobile
 
-28.19 — E2E Tidak Perlu Menguji Semua
+28.19 - E2E Tidak Perlu Menguji Semua
 Jangan membuat:
 500 E2E tests
 
 karena E2E lebih lambat dan lebih fragile.
 Gunakan E2E untuk:
 critical user journeys.
-28.20 — Security Testing
+28.20 - Security Testing
 Security testing mencakup:
 Authentication bypass
 Authorization bypass
@@ -8238,7 +8238,7 @@ Rate limiting
 Session handling
 Sensitive data exposure
 
-28.21 — IDOR Test
+28.21 - IDOR Test
 Contoh:
 GET /api/applications/123
 
@@ -8252,7 +8252,7 @@ Jangan sampai hanya karena user tahu:
 125
 
 dia bisa melihat semua application.
-28.22 — Input Security
+28.22 - Input Security
 Test input:
 Empty
 Too long
@@ -8264,7 +8264,7 @@ Contoh:
 title = 10.000 karakter
 
 harus ditolak atau dibatasi.
-28.23 — XSS Protection
+28.23 - XSS Protection
 User-generated content seperti:
 Profile
 Opportunity description
@@ -8278,10 +8278,10 @@ malicious HTML/script-like input
 Expected:
 tidak dieksekusi sebagai script
 
-28.24 — SQL Injection
+28.24 - SQL Injection
 Karena kita menggunakan database API/ORM/query layer, tetap harus memastikan query tidak dibangun menggunakan string concatenation berbahaya.
 Test security pada data-access layer.
-28.25 — Rate Limit Testing
+28.25 - Rate Limit Testing
 Test:
 Repeated login attempts
 Repeated application requests
@@ -8291,7 +8291,7 @@ Expected:
 429 Too Many Requests
 
 ketika threshold tercapai.
-28.26 — Payment Testing
+28.26 - Payment Testing
 Payment wajib punya test lebih ketat.
 MVP Payment Testing:
 Valid flow:
@@ -8322,7 +8322,7 @@ Out-of-order event
 Timeout handling
 
 Webhook payment belum mandatory MVP.
-28.27 — Contract Testing
+28.27 - Contract Testing
 Contract state testing:
 Valid:
 DRAFT → PENDING_AGREEMENT ✅
@@ -8341,7 +8341,7 @@ If consent required, Consent must be APPROVED
 Both Talent and Hirer must agree before ACTIVE
 
 Contract MVP menggunakan simulated agreement, bukan digital signature.
-28.28 — Parental Consent Testing
+28.28 - Parental Consent Testing
 Karena ada user minor:
 Minor / opportunity requiring consent
  ↓
@@ -8368,7 +8368,7 @@ Parent/Guardian tidak memiliki platform account
 Consent menggunakan simulated flow
 Test tidak perlu login sebagai guardian
 
-28.29 — Notification Testing
+28.29 - Notification Testing
 Notification bukan core transaction, tetapi tetap dites.
 Test:
 Notification created
@@ -8383,7 +8383,7 @@ Core business operation
 must remain successful
 
 sesuai keputusan Point 25.
-28.30 — Mock External Services
+28.30 - Mock External Services
 Testing tidak boleh selalu memanggil:
 Real payment provider
 Real email provider
@@ -8397,7 +8397,7 @@ PaymentService
  ↓
 MockPaymentProvider
 
-28.31 — Test Data
+28.31 - Test Data
 Gunakan data khusus testing.
 Contoh:
 test-talent@example.test
@@ -8405,7 +8405,7 @@ test-hirer@example.test
 test-admin@example.test
 
 Jangan menggunakan production user.
-28.32 — Database Test Isolation
+28.32 - Database Test Isolation
 Setiap test harus sebisa mungkin tidak bergantung pada test lain.
 Buruk:
 Test A
@@ -8420,7 +8420,7 @@ Kalau Test A gagal:
 Test B ikut gagal
 
 lebih susah debugging.
-28.33 — Seed Data
+28.33 - Seed Data
 Untuk development/testing kita dapat memiliki:
 seed users
 seed opportunities
@@ -8432,7 +8432,7 @@ seed consents
 seed ratings
 
 Tujuannya memudahkan reproduksi scenario.
-28.34 — Test Environment
+28.34 - Test Environment
 Minimal:
 Development
 Testing/Staging
@@ -8444,7 +8444,7 @@ Local / Development
 Production
 
 Staging optional, tetapi secara arsitektur tetap bagus ditulis.
-28.35 — CI Testing
+28.35 - CI Testing
 Flow:
 Git Push
  ↓
@@ -8464,7 +8464,7 @@ E2E / Staging Tests
  ↓
 Deploy
 
-28.36 — Pull Request Gate
+28.36 - Pull Request Gate
 PR tidak boleh merge jika critical checks gagal.
 Contoh:
 Type Check failed
@@ -8474,7 +8474,7 @@ Build failed
 Maka:
 Merge blocked
 
-28.37 — Test Coverage
+28.37 - Test Coverage
 Coverage berguna, tapi:
 100% coverage bukan berarti 100% aman.
 Contoh:
@@ -8492,7 +8492,7 @@ Payment
 Consent
 Authorization
 
-28.38 — Coverage Target
+28.38 - Coverage Target
 Untuk awal:
 Domain / critical business logic
 → high coverage
@@ -8509,7 +8509,7 @@ UI
 Kita tidak menetapkan:
 semua file wajib 100%
 
-28.39 — Regression Testing
+28.39 - Regression Testing
 Setiap bug yang ditemukan:
 Bug
  ↓
@@ -8520,7 +8520,7 @@ Test added
 Future regression prevented
 
 Jadi bug yang pernah terjadi menjadi testcase.
-28.40 — Testing SDLC
+28.40 - Testing SDLC
 Karena kita menggunakan SDLC, testing tidak hanya dilakukan di akhir.
 Planning
  ↓
@@ -8539,7 +8539,7 @@ Monitoring
 Feedback
 
 Testing ikut masuk sepanjang lifecycle.
-28.41 — Test During Development
+28.41 - Test During Development
 Developer:
 Write code
  ↓
@@ -8549,7 +8549,7 @@ Run integration tests
  ↓
 Commit
 
-28.42 — Test During Pull Request
+28.42 - Test During Pull Request
 PR
  ↓
 Lint
@@ -8565,7 +8565,7 @@ Build
 Jika critical failure:
 PR blocked
 
-28.43 — Test Before Release
+28.43 - Test Before Release
 Staging / Preview
  ↓
 E2E
@@ -8576,7 +8576,7 @@ Smoke test
  ↓
 Release
 
-28.44 — Smoke Test
+28.44 - Smoke Test
 Setelah deployment:
 Homepage
  ↓
@@ -8589,7 +8589,7 @@ Database connectivity
 Kalau critical flow gagal:
 deployment issue
 
-28.45 — Production Verification
+28.45 - Production Verification
 Setelah release:
 Deploy
  ↓
@@ -8602,7 +8602,7 @@ Observe Metrics
 Confirm
 
 Ini terhubung langsung dengan Point 26.
-28.46 — Testing & Observability
+28.46 - Testing & Observability
 Testing:
 memastikan sistem seharusnya bekerja.
 Observability:
@@ -8613,7 +8613,7 @@ Observability
    =
 Confidence
 
-28.47 — Test Failure Handling
+28.47 - Test Failure Handling
 Jika test gagal:
 Test failed
  ↓
@@ -8632,7 +8632,7 @@ Disable test
  ↓
 Merge
 
-28.48 — Flaky Test
+28.48 - Flaky Test
 Test yang kadang pass, kadang fail tanpa perubahan code disebut flaky test.
 Run #1 → PASS
 Run #2 → FAIL
@@ -8644,7 +8644,7 @@ fix
 or remove invalid assumption
 
 Jangan dibiarkan karena akan membuat CI kehilangan kepercayaan.
-28.49 — Testing Principles
+28.49 - Testing Principles
 Kita lock:
 1. Test business behavior.
 2. Prioritize critical logic.
@@ -8667,7 +8667,7 @@ Kita lock:
 19. Server Actions dan Route Handlers harus sama-sama dites.
 20. Consent timing mengikuti flow setelah Meeting Completed dan sebelum Contract.
 
-28.50 — Testing Matrix
+28.50 - Testing Matrix
 Area
 Unit
 Integration
@@ -8744,7 +8744,7 @@ Admin
 ✅
 ✅
 
-28.51 — MVP Testing Stack
+28.51 - MVP Testing Stack
 Untuk MVP:
 TypeScript
       │
@@ -8761,7 +8761,7 @@ TypeScript
       └── E2E Testing
 
 Tool spesifik kita lock saat masuk implementation/CI setup supaya tidak asal memilih tool sebelum melihat final project structure.
-28.52 — MVP vs Future
+28.52 - MVP vs Future
 MVP
 Unit tests
 Integration tests
@@ -8781,7 +8781,7 @@ Advanced security scanning
 Chaos testing
 Large-scale performance testing
 
-28.53 — Acceptance Criteria Traceability
+28.53 - Acceptance Criteria Traceability
 Acceptance Criteria dari SRS harus terhubung ke testing.
 AC-01 Registration & Login
 → Auth unit/integration/E2E/security test
@@ -8819,7 +8819,7 @@ AC-11 Error Handling
 AC-12 Responsive UI
 → Manual/E2E viewport testing Desktop/Tablet/Mobile
 
-28.54 — FINAL DECISION
+28.54 - FINAL DECISION
 Testing Strategy: Testing Pyramid.
 Unit: Business logic dan domain rules.
 Integration: Interaksi application, repository, dan database.
@@ -8838,17 +8838,17 @@ Coverage: Fokus pada risk dan business criticality, bukan angka 100%.
 Environment: Testing terpisah dari production.
 SDLC: Testing dilakukan sepanjang lifecycle, bukan hanya sebelum deployment.
 Acceptance Traceability: AC-01 sampai AC-12 harus terpetakan ke test yang relevan.
-29 — CI/CD & DEPLOYMENT PIPELINE
-29.1 — Tujuan
+29 - CI/CD & DEPLOYMENT PIPELINE
+29.1 - Tujuan
 Pipeline harus memastikan setiap perubahan code melewati:
 Code → Check → Test → Build → Review → Deploy → Verify → Monitor
 
 Tujuannya: mengurangi human error, mencegah code rusak masuk production, membuat deployment konsisten, memudahkan rollback, dan memastikan setiap perubahan dapat dilacak.
-29.2 — Prinsip CI/CD
+29.2 - Prinsip CI/CD
 Kita lock:
 No direct production deployment from a developer's local machine.
 Production deployment harus melalui pipeline.
-29.3 — Continuous Integration
+29.3 - Continuous Integration
 CI berarti setiap perubahan yang masuk repository diverifikasi secara otomatis.
 Developer
    ↓
@@ -8860,7 +8860,7 @@ CI
    ↓
 Checks
 
-29.4 — Continuous Delivery / Deployment
+29.4 - Continuous Delivery / Deployment
 Setelah code lolos validation:
 CI
  ↓
@@ -8873,7 +8873,7 @@ Verification
 Production
 
 Deployment production tetap mengikuti approval/rules repository yang kita tetapkan.
-29.5 — Environment Strategy
+29.5 - Environment Strategy
 Minimal kita punya:
 Development
 Staging / Preview
@@ -8892,12 +8892,12 @@ Production
 Vercel Production
 Supabase production project
 Production environment variables
-29.6 — Environment Separation
+29.6 - Environment Separation
 Jangan:
 Development → Production Database
 
 Setiap environment harus memiliki configuration/resource yang sesuai.
-29.7 — Branch Strategy
+29.7 - Branch Strategy
 main
  │
  ├── feature/...
@@ -8906,7 +8906,7 @@ main
  └── chore/...
 
 main menjadi branch utama yang merepresentasikan code yang siap dirilis.
-29.8 — Feature Branch & Pull Request
+29.8 - Feature Branch & Pull Request
 Developer membuat feature branch, coding, commit, push, lalu membuat Pull Request ke main.
 PR harus menjelaskan:
 What changed?
@@ -8914,7 +8914,7 @@ Why?
 How tested?
 Any breaking changes?
 
-29.9 — PR Quality Gate
+29.9 - PR Quality Gate
 Minimal:
 Lint ✅
 Type Check ✅
@@ -8925,7 +8925,7 @@ Build ✅
 Jika critical check gagal:
 ❌ Merge blocked
 
-29.10 — CI Pipeline Flow
+29.10 - CI Pipeline Flow
 Git Push
  ↓
 Install Dependencies via Lockfile
@@ -8940,7 +8940,7 @@ Integration Tests
  ↓
 Build
 
-29.11 — Staging Deployment & Verification
+29.11 - Staging Deployment & Verification
 Setelah CI sukses, build artifact masuk ke Staging melalui Vercel Preview.
 Staging Verification mencakup:
 Smoke Test
@@ -8959,7 +8959,7 @@ Rating
 Admin
 Responsive
 
-29.12 — Production Deployment & Rollback
+29.12 - Production Deployment & Rollback
 Jika staging sukses:
 Approval / Release Rule
  ↓
@@ -8967,13 +8967,13 @@ Production
 
 Vercel Rollback Strategy: gunakan previous stable deployment dari Vercel. Rollback dapat dilakukan ke deployment sebelumnya jika release baru bermasalah.
 Jika issue berasal dari database migration, rollback application saja tidak cukup; database state harus ikut dievaluasi.
-29.13 — Database Migration
+29.13 - Database Migration
 Code deployment dan database migration harus diperhatikan bersama.
 Supabase Migration Workflow
 Migration files disimpan di /supabase/migrations dan menjadi bagian dari Git.
 Gunakan pola Expand & Contract untuk menghindari destructive migration langsung.
 Jika migration gagal, deployment application harus ditunda/diblokir.
-29.14 — Environment Variables & Secrets
+29.14 - Environment Variables & Secrets
 Configuration sensitif tidak boleh hardcoded.
 MVP Environment Variables
 NEXT_PUBLIC_SUPABASE_URL
@@ -8989,7 +8989,7 @@ Rules:
 NEXT_PUBLIC_* → hanya untuk data aman di browser
 Service Role Key → wajib server-only
 
-29.15 — Artifact & Traceability
+29.15 - Artifact & Traceability
 Deployment Traceability: Vercel deployment terhubung ke Git commit.
 GitHub commit/PR history menjadi audit trail utama.
 Setiap production release minimal dapat ditelusuri melalui:
@@ -8997,7 +8997,7 @@ Commit SHA
 +
 Vercel Deployment
 
-29.16 — Submission Deployment Readiness (ITechnoCup)
+29.16 - Submission Deployment Readiness (ITechnoCup)
 Sebelum submit lomba, production harus diverifikasi:
 URL production dapat diakses publik.
 GitHub repository sesuai requirements.
@@ -9007,7 +9007,7 @@ Core flow dari register sampai verified work history berjalan.
 Tidak ada critical console error pada flow utama.
 Halaman responsive di Desktop, Tablet, dan Mobile.
 Health check endpoint berfungsi.
-29.17 — MVP vs Future
+29.17 - MVP vs Future
 MVP 🔒
 Git feature branches
 Protected main
@@ -9034,7 +9034,7 @@ Canary deployment
 Automated rollback
 Release automation
 
-🔒 29.18 — FINAL DECISION
+🔒 29.18 - FINAL DECISION
 Branching: Feature branch → Pull Request → protected main.
 CI: Lint → Type Check → Unit → Integration → Build.
 Staging: Vercel Preview deployment untuk verification & manual smoke test.
@@ -9044,9 +9044,9 @@ Database: Supabase migration workflow, backward-compatible.
 Verification: Health check + smoke test + monitoring.
 Rollback: Vercel previous deployment + DB state evaluation.
 Traceability: GitHub commit + Vercel deployment.
-POINT 29 — LOCKED 🔒
-POINT 30 — DOCUMENTATION & KNOWLEDGE MANAGEMENT
-30.1 — Tujuan
+POINT 29 - LOCKED 🔒
+POINT 30 - DOCUMENTATION & KNOWLEDGE MANAGEMENT
+30.1 - Tujuan
 Documentation harus membuat anggota tim dapat memahami:
 System
 Project Setup
@@ -9061,23 +9061,23 @@ Development
 tanpa bergantung pada satu orang.
 Prinsip:
 If knowledge is required to maintain the system, it should exist somewhere accessible to the team.
-30.2 — Project README (ITechnoCup Compliance)
+30.2 - Project README (ITechnoCup Compliance)
 Root repository wajib memiliki:
 README.md
 
 Untuk memenuhi Guidebook ITechnoCup, README wajib memetakan 5 kriteria berikut secara eksplisit:
-Penjelasan Aplikasi — Latar Belakang & Tujuan
-Fitur Utama — Keunggulan & Diferensiasi
-Teknologi yang Digunakan — Stack & Library
-Cara Instalasi — Setup Lokal
-Cara Penggunaan — Menjalankan Aplikasi
+Penjelasan Aplikasi - Latar Belakang & Tujuan
+Fitur Utama - Keunggulan & Diferensiasi
+Teknologi yang Digunakan - Stack & Library
+Cara Instalasi - Setup Lokal
+Cara Penggunaan - Menjalankan Aplikasi
 Bagian teknis seperti:
 Architecture
 Environment Variables
 Testing
 
 dapat menggunakan Bahasa Inggris.
-30.3 — Environment Documentation
+30.3 - Environment Documentation
 Sediakan:
 .env.example
 
@@ -9093,7 +9093,7 @@ PURPOSE
 REQUIRED?
 ENVIRONMENT
 
-30.4 — Architecture & Module Documentation
+30.4 - Architecture & Module Documentation
 Architecture yang sudah dibahas harus memiliki dokumentasi resmi di:
 docs/architecture/
 
@@ -9104,14 +9104,14 @@ Dependencies
 Main Entities
 Important Business Rules
 
-30.5 — Business Rule & State Documentation
+30.5 - Business Rule & State Documentation
 State machine harus menggunakan canonical SRS.
 Contoh Application:
 APPLIED → SELECTED ✅
 REJECTED → SELECTED ❌
 
 Business rules jangan hanya berada di kepala developer.
-30.6 — User Journey Documentation
+30.6 - User Journey Documentation
 Talent User Journey
 Register
  ↓
@@ -9134,7 +9134,7 @@ Completion & Rating
  ↓
 Verified Work History
 
-30.7 — ADR (Architecture Decision Record)
+30.7 - ADR (Architecture Decision Record)
 ADR digunakan untuk mencatat:
 Kenapa kita memilih sesuatu.
 Core ADRs for Flex Network MVP
@@ -9146,10 +9146,10 @@ ADR-005: Simulated Escrow Payment over Real Gateway (MVP Constraint)
 ADR-006: Simulated Parental Consent Flow
 ADR-007: Next.js Server Actions + Route Handlers Architecture
 
-30.8 — Documentation Update Rule
+30.8 - Documentation Update Rule
 Kita lock:
 Architecture/code changes that invalidate documentation must update the relevant documentation in the same change or PR.
-30.9 — MVP vs Future
+30.9 - MVP vs Future
 MVP 🔒
 README.md
 Guidebook compliant
@@ -9171,16 +9171,16 @@ Advanced API portal
 Automated documentation generation
 Architecture visualization
 
-🔒 30.10 — FINAL DECISION
+🔒 30.10 - FINAL DECISION
 Documentation: Version-controlled and treated as part of engineering.
 Primary Entry: README.md, mapped to ITechnoCup 5 criteria.
 Architecture: Dedicated architecture documentation + ADR.
 API/Database: Endpoint behavior, Schema, RLS documented.
 Consistency: Relevant docs must be updated alongside architectural/code changes.
 Knowledge: Critical decisions cannot exist only in chat or individual memory.
-POINT 30 — LOCKED 🔒
-POINT 31 — MAINTENANCE, SUPPORT & INCIDENT MANAGEMENT
-31.1 — Tujuan
+POINT 30 - LOCKED 🔒
+POINT 31 - MAINTENANCE, SUPPORT & INCIDENT MANAGEMENT
+31.1 - Tujuan
 Production is not the end of development; it is the beginning of continuous maintenance.
 Maintenance categories:
 Corrective → Bug
@@ -9188,7 +9188,7 @@ Preventive → Patch
 Adaptive → Environment Change
 Perfective → Improvement
 
-31.2 — Support Channels & Bug Report
+31.2 - Support Channels & Bug Report
 User harus memiliki jalur resmi:
 Report Issue
 
@@ -9200,7 +9200,7 @@ Expected vs Actual
 Environment
 Severity
 
-31.3 — Incident vs Bug & Severity
+31.3 - Incident vs Bug & Severity
 Bug:
 Masalah functionality.
 Incident:
@@ -9211,7 +9211,7 @@ SEV-2 → High / Major Feature Broken
 SEV-3 → Medium / Limited
 SEV-4 → Low / Cosmetic
 
-31.4 — Incident Lifecycle & Mitigation
+31.4 - Incident Lifecycle & Mitigation
 Lifecycle:
 Detection
  ↓
@@ -9234,7 +9234,7 @@ Jika production down saat presentasi final ITechnoCup:
 Jangan panik/fix live di depan juri.
 Switch ke pre-recorded video demo atau slide deck screenshot high-res.
 Informasikan panitia sesuai Guidebook.
-31.5 — Blameless Postmortem
+31.5 - Blameless Postmortem
 Fokus pada:
 System
 Process
@@ -9251,16 +9251,16 @@ Action Items
 Owner
 Deadline
 
-31.6 — Backup & Restore (Supabase Context)
-MVP Backup Strategy — Supabase Free Tier
+31.6 - Backup & Restore (Supabase Context)
+MVP Backup Strategy - Supabase Free Tier
 Automated PITR tidak tersedia di free tier.
 Backup strategy wajib berupa script pg_dump via GitHub Actions/cron.
 Restore procedure: manual restore via psql atau Supabase SQL Editor ke environment recovery.
-31.7 — Privacy & Minor Data Deletion
+31.7 - Privacy & Minor Data Deletion
 Mengikuti SRS NFR-09 (Minor Protection):
 Jika user minor meminta Account Deletion, PII seperti Nama, Email, Sekolah, dan Link Portfolio wajib di-Hard Delete atau Anonymize segera.
 Tidak boleh hanya soft-delete yang masih bisa diakses admin sembarangan.
-31.8 — Security Incident Context (MVP)
+31.8 - Security Incident Context (MVP)
 Karena MVP tidak memakai real payment:
 Security incident utama:
 Kebocoran PII minor
@@ -9277,16 +9277,16 @@ Update Vercel Environment Variables
  ↓
 Rotate
 
-🔒 31.9 — FINAL DECISION
+🔒 31.9 - FINAL DECISION
 Maintenance: Continuous after production.
 Incident: Defined lifecycle with Blameless Postmortem.
 Pitching Fallback: Offline Demo Kit, yaitu Video/Screenshot, untuk SEV-1 saat final.
 Backup: pg_dump script untuk Supabase Free Tier.
 Minor Deletion: Hard-delete/anonymize PII minor.
 Security: Focus on RLS bypass and Service Role Key leak.
-POINT 31 — LOCKED 🔒
-POINT 32 — BACKUP, DISASTER RECOVERY & BUSINESS CONTINUITY
-32.1 — Tujuan & Konsep
+POINT 31 - LOCKED 🔒
+POINT 32 - BACKUP, DISASTER RECOVERY & BUSINESS CONTINUITY
+32.1 - Tujuan & Konsep
 Protect Data
  ↓
 Recover System
@@ -9300,13 +9300,13 @@ Resume Operation
 Backup: Salinan data.
 Disaster Recovery: Proses mengembalikan sistem.
 Business Continuity: Bagaimana bisnis tetap beroperasi saat sebagian sistem bermasalah.
-32.2 — RTO & RPO
+32.2 - RTO & RPO
 RTO (Recovery Time Objective):
 Seberapa cepat sistem harus pulih.
 RPO (Recovery Point Objective):
 Seberapa banyak data yang boleh hilang.
 Angka final disesuaikan dengan infrastructure.
-32.3 — Database Backup (Supabase Reality)
+32.3 - Database Backup (Supabase Reality)
 MVP Backup Strategy
 Karena MVP menggunakan Free Tier:
 Automated PITR tidak tersedia.
@@ -9316,7 +9316,7 @@ Scheduled pg_dump Script
 Secure Storage Terpisah
 
 Jika upgrade ke Pro Tier, baru dapat mengandalkan Supabase Dashboard Automated Backups.
-32.4 — Business Continuity Plan (The "Offline" Fallback)
+32.4 - Business Continuity Plan (The "Offline" Fallback)
 Jika infrastructure seperti Vercel/Supabase mengalami outage total saat hari-H final:
 Core Application tidak bisa diakses
  ↓
@@ -9331,7 +9331,7 @@ Localhost Backup
 
 Komunikasi:
 Informasikan juri/panitia bahwa ini adalah Infrastructure Outage Contingency.
-32.5 — Backup Isolation
+32.5 - Backup Isolation
 Backup file (.sql) JANGAN disimpan di repository publik atau storage yang sama dengan production credentials.
 Recommended:
 Encrypted Archive
@@ -9345,7 +9345,7 @@ S3 bucket terpisah
 Google Drive pribadi ketua tim
 
 Akses dibatasi kepada Tech Lead.
-32.6 — Failure Scenarios & Graceful Degradation
+32.6 - Failure Scenarios & Graceful Degradation
 Failure scenarios:
 Database Unavailable
 Corruption
@@ -9362,14 +9362,14 @@ Search DOWN
  ↓
 Existing Workflows Available
 
-🔒 32.7 — FINAL DECISION
+🔒 32.7 - FINAL DECISION
 Backup: pg_dump script untuk MVP Free Tier.
 BCP: Offline Demo Kit sebagai ultimate fallback saat pitch.
 Isolation: Encrypted & stored separately from production repository.
 Degradation: Critical user workflows receive recovery priority.
-POINT 32 — LOCKED 🔒
-POINT 33 — DATA LIFECYCLE, PRIVACY & RETENTION
-33.1 — Tujuan & Prinsip
+POINT 32 - LOCKED 🔒
+POINT 33 - DATA LIFECYCLE, PRIVACY & RETENTION
+33.1 - Tujuan & Prinsip
 Prinsip:
 Collect only what is needed, use it only for defined purposes, protect it throughout its lifecycle, and retain it only as long as justified.
 Data Classification:
@@ -9378,14 +9378,14 @@ Internal
 Confidential
 Restricted
 
-33.2 — Regulatory Context (UU PDP)
+33.2 - Regulatory Context (UU PDP)
 Flex Network mematuhi prinsip:
 UU No. 27 Tahun 2022 tentang Pelindungan Data Pribadi (UU PDP).
 Point ini menetapkan bahwa:
 Data pelajar SMA/SMK di bawah umur diperlakukan sebagai data yang memerlukan protection khusus.
 Pemrosesan data anak dilakukan melalui mekanisme parental consent yang telah ditetapkan.
 Hak subjek data mencakup hak mengetahui, menarik persetujuan, dan menghapus data.
-33.3 — Simulated Consent Data Minimization
+33.3 - Simulated Consent Data Minimization
 Karena MVP:
 TIDAK PUNYA akun Guardian
 TIDAK ADA upload dokumen identitas
@@ -9398,17 +9398,17 @@ consent_approved_at
 consent_status
 Dokumen identitas seperti KTP, KK, dan Akta DILARANG di-upload atau disimpan di MVP.
 Verifikasi berbasis laporan (Report-based verification) oleh Admin jika ada sengketa.
-33.4 — Account Deletion vs Trust System (Right to be Forgotten)
+33.4 - Account Deletion vs Trust System (Right to be Forgotten)
 Jika user, terutama minor, meminta penghapusan akun:
 PII seperti Nama Asli, Email, Nomor HP, Nama Sekolah, dan Link Portfolio wajib di-Hard Delete atau di-Anonymize segera.
 Verified Work History dan Rating tidak dihapus dari database agregat, tetapi di-Anonymize menjadi "Anonymous User".
 Rating tetap ada untuk menjaga integritas Trust System Hirer, tetapi tidak bisa ditelusuri balik ke identitas asli Talent.
-33.5 — Data Processing Map (Third-Party)
-Flex Network — Data Controller.
-Vercel — Data Processor, Compute & Edge Logs; memproses IP, Headers, Cookies.
-Supabase — Data Processor, Database & Auth; menyimpan PII, Profile, Transactional Data. Region database harus didokumentasikan di Privacy Policy.
-GitHub — Data Processor, Source Code; tidak boleh menyimpan PII atau production DB dump.
-33.6 — Data Lifecycle Matrix
+33.5 - Data Processing Map (Third-Party)
+Flex Network - Data Controller.
+Vercel - Data Processor, Compute & Edge Logs; memproses IP, Headers, Cookies.
+Supabase - Data Processor, Database & Auth; menyimpan PII, Profile, Transactional Data. Region database harus didokumentasikan di Privacy Policy.
+GitHub - Data Processor, Source Code; tidak boleh menyimpan PII atau production DB dump.
+33.6 - Data Lifecycle Matrix
 Profile        → User / Policy
 Application    → Policy
 Contract       → Retention Policy
@@ -9416,14 +9416,14 @@ Payment        → Retention Policy
 Consent        → Restricted / Anonymize
 Audit Log      → Long-term Retention
 
-🔒 33.7 — FINAL DECISION
+🔒 33.7 - FINAL DECISION
 Regulatory: Complies with Indonesia UU PDP (Minor Data Protection).
 Consent: No ID uploads in MVP; metadata only.
 Deletion: PII hard-deleted/anonymized; Work History anonymized to preserve Trust System.
 Processors: Vercel, Supabase, GitHub explicitly defined.
-POINT 33 — LOCKED 🔒
-POINT 34 — COMPLIANCE & GOVERNANCE
-34.1 — Tujuan & Prinsip
+POINT 33 - LOCKED 🔒
+POINT 34 - COMPLIANCE & GOVERNANCE
+34.1 - Tujuan & Prinsip
 Governance memastikan:
 Requirement
  ↓
@@ -9444,12 +9444,12 @@ Traceability
 Least Privilege
 Risk-based Decision Making
 
-34.2 — ITechnoCup & SDG Compliance Matrix
+34.2 - ITechnoCup & SDG Compliance Matrix
 Orisinalitas & No-Template: Next.js + Supabase custom code. Evidence: GitHub Repo.
 Framework Declaration: package.json & README.md.
 SDG Alignment (SDG 8 & 9): Verified Work History & Skill Matching. Evidence: BRD & Pitch Deck.
 Ethical AI Declaration: MVP tidak menggunakan AI/ML black-box untuk matching, melainkan Rule-Based Matching untuk menghindari bias algoritma dan isu privasi data anak. Evidence: ADR-004.
-34.3 — Open Source & Licensing Compliance
+34.3 - Open Source & Licensing Compliance
 Guidebook mewajibkan karya bebas dari pelanggaran hak cipta.
 Kebijakan Lisensi
 Hanya menggunakan library dengan lisensi permissive:
@@ -9468,7 +9468,7 @@ Inter → SIL OFL
 Lucide → MIT
 
 Dilarang hardcode gambar dari Google Images tanpa hak penggunaan yang jelas.
-34.4 — Proportional Governance (3-Person Team)
+34.4 - Proportional Governance (3-Person Team)
 Separation of Duties & Four-Eyes Principle
 Diimplementasikan melalui GitHub Pull Request Workflow.
 Developer TIDAK BOLEH merge PR-nya sendiri ke main.
@@ -9483,7 +9483,7 @@ Weekly Sync
 15 menit
 
 tanpa birokrasi committee.
-34.5 — Risk Management & ADR
+34.5 - Risk Management & ADR
 Risk Register:
 Data Breach
 Payment Failure
@@ -9492,14 +9492,14 @@ Scope Creep
 
 Keputusan teknis penting dicatat menggunakan:
 ADR (Architecture Decision Record)
-🔒 34.6 — FINAL DECISION
+🔒 34.6 - FINAL DECISION
 Compliance: ITechnoCup rules, SDG 8/9, Ethical AI (Rule-based).
 Licensing: Strict Permissive (MIT/Apache) only; No GPL.
 Governance: Proportional via GitHub PR reviews (Four-eyes principle).
 Traceability: Requirements connect to design, implementation, and evidence.
-POINT 34 — LOCKED 🔒
-POINT 35 — PRODUCT ANALYTICS & METRICS
-35.1 — Tujuan & North Star Metric
+POINT 34 - LOCKED 🔒
+POINT 35 - PRODUCT ANALYTICS & METRICS
+35.1 - Tujuan & North Star Metric
 Analytics digunakan untuk mengukur product value, bukan sekadar mengumpulkan data.
 North Star Metric
 Successful Opportunity Matches
@@ -9510,17 +9510,17 @@ Work Status = COMPLETED
 Payment Status = RELEASED (Simulated)
 Rating & Review = EXISTS (Two-way)
 Hasil akhir tercatat sebagai Verified Work History
-35.2 — MVP Analytics Implementation (Zero Third-Party SaaS)
+35.2 - MVP Analytics Implementation (Zero Third-Party SaaS)
 NO Third-Party Tracking: MVP tidak menggunakan Google Analytics, Mixpanel, atau Meta Pixel.
 Alasan: menjaga privasi user minor, menghindari kebutuhan tracking pihak ketiga, dan menyederhanakan compliance.
 First-Party Internal Analytics: Event tracking disimpan di tabel database internal analytics_events atau structured log. Agregasi dilakukan melalui SQL/Supabase View untuk Admin Dashboard.
-35.3 — Minor Protection in Analytics (Anti-Profiling)
+35.3 - Minor Protection in Analytics (Anti-Profiling)
 Segmentasi usia, Minor vs Adult, hanya digunakan untuk Trust & Safety, misalnya memastikan minor tidak masuk ke opportunity yang membutuhkan consent tetapi belum disetujui.
 Dilarang menggunakan data minor untuk:
 behavioral profiling
 predictive targeting
 monetisasi iklan
-35.4 — Demo & Pitching Analytics Strategy (Seed Data)
+35.4 - Demo & Pitching Analytics Strategy (Seed Data)
 Karena ini lomba, production database diisi dengan Analytics Seed Data yang realistis untuk mendukung narasi pitching dan memperlihatkan dampak solusi.
 Target seed data:
 Supply:
@@ -9542,7 +9542,7 @@ Data divisualisasikan di:
 Admin Dashboard
 Pitch Deck
 
-35.5 — Funnel & Marketplace Health
+35.5 - Funnel & Marketplace Health
 Core Funnel
 Visitor
  ↓
@@ -9576,7 +9576,7 @@ Cancellation Rate
 Dispute Rate
 Two-way Rating
 
-35.6 — MVP vs Future
+35.6 - MVP vs Future
 MVP 🔒
 First-party internal event tracking
 Core funnel
@@ -9591,7 +9591,7 @@ A/B testing
 Predictive analytics
 Automated anomaly detection
 
-🔒 35.7 — FINAL DECISION
+🔒 35.7 - FINAL DECISION
 North Star: Verified Work History, dengan successful match yang tervalidasi melalui Contract Completed + Work Completed + Payment Released + Two-way Rating.
 Implementation: Zero Third-Party SaaS, menggunakan first-party internal analytics.
 Pitching: Realistic Seed Data untuk membuktikan dampak solusi ke juri.
@@ -9599,8 +9599,8 @@ Anti-Profiling: Minor segmentation strictly untuk Trust & Safety.
 
 
 
-POINT 36 — UX, ACCESSIBILITY & DESIGN QUALITY
-36.1 — Tujuan
+POINT 36 - UX, ACCESSIBILITY & DESIGN QUALITY
+36.1 - Tujuan
 UX Flex Network dirancang berdasarkan kebutuhan dan tujuan user, bukan berdasarkan struktur teknis internal system.
 UX harus memastikan:
 Clear
@@ -9609,7 +9609,7 @@ Responsive
 Accessible
 Error-handled
 Consistent
-36.2 — User Goal Driven
+36.2 - User Goal Driven
 Setiap feature harus menjawab:
 Apa tujuan user?
 Contoh:
@@ -9630,7 +9630,7 @@ Select Talent
 ↓
 Schedule Meeting
 UX tidak boleh memaksa user memahami struktur internal system.
-36.3 — Navigation
+36.3 - Navigation
 Navigation harus konsisten antar halaman.
 Contoh:
 Talent
@@ -9655,7 +9655,7 @@ Admin
 ├── Opportunities
 ├── Reports
 └── Audit
-36.4 — Visual Hierarchy
+36.4 - Visual Hierarchy
 UI harus memiliki hierarchy yang jelas melalui:
 Typography
 Spacing
@@ -9664,7 +9664,7 @@ Component hierarchy
 Color usage
 Content grouping
 Informasi penting harus lebih mudah ditemukan dibanding informasi sekunder.
-36.5 — Responsive Design
+36.5 - Responsive Design
 Flex Network harus mendukung:
 Mobile
 Tablet
@@ -9677,7 +9677,7 @@ Desktop-optimized
 Admin:
 Desktop-optimized
 Namun seluruh core flow tetap harus usable pada supported viewport.
-36.6 — Accessibility
+36.6 - Accessibility
 Accessibility dianggap sebagai bagian dari feature quality.
 Minimum baseline:
 WCAG AA-oriented accessibility practices
@@ -9688,17 +9688,17 @@ Accessible Labels
 Semantic HTML
 Readable Contrast
 Clear Error Messages
-36.7 — Color Contrast
+36.7 - Color Contrast
 Color contrast harus diverifikasi menggunakan accessibility checking tool.
 Jangan hanya mengandalkan visual inspection.
 Target:
 Text dan interactive elements harus memenuhi contrast requirement yang relevan untuk WCAG AA.
-36.8 — Color Independence
+36.8 - Color Independence
 Color tidak boleh menjadi satu-satunya cara untuk menyampaikan informasi.
 Contoh:
 ❌ Red = Error
 ✅ Red + Error icon + Text
-36.9 — Keyboard Navigation
+36.9 - Keyboard Navigation
 Relevant interactive elements harus dapat diakses melalui keyboard.
 Contoh:
 Buttons
@@ -9707,10 +9707,10 @@ Dropdowns
 Dialogs
 Navigation
 Tables
-36.10 — Focus State
+36.10 - Focus State
 Focused element harus memiliki visible focus state.
 Focus state tidak boleh dihilangkan tanpa alternative yang accessible.
-36.11 — Forms
+36.11 - Forms
 Form harus memiliki:
 Labels
 Validation
@@ -9721,7 +9721,7 @@ Error harus:
 Explain the problem
 Identify the affected field
 Provide recovery guidance where possible
-36.12 — Loading State
+36.12 - Loading State
 Setiap asynchronous operation yang membutuhkan waktu harus memberikan feedback.
 Contoh:
 Apply
@@ -9730,14 +9730,14 @@ Loading
 ↓
 Success
 Jangan membuat user mengira tombol tidak bekerja.
-36.13 — Success State
+36.13 - Success State
 Critical action harus memberikan success feedback.
 Contoh:
 Application Submitted
 Contract Created
 Consent Recorded
 Payment Released
-36.14 — Empty State
+36.14 - Empty State
 Empty state harus menjelaskan:
 What happened?
 What can the user do next?
@@ -9747,7 +9747,7 @@ No applications yet.
 [Browse Opportunities]
 Bukan hanya:
 No data.
-36.15 — Error State
+36.15 - Error State
 Error state harus memberikan:
 Clear explanation
 Recovery action
@@ -9756,7 +9756,7 @@ Contoh:
 Unable to load opportunities.
 
 [Try Again]
-36.16 — Destructive Actions
+36.16 - Destructive Actions
 Destructive action memerlukan protection yang sesuai.
 Contoh:
 Suspend User
@@ -9766,14 +9766,14 @@ Protection dapat berupa:
 Confirmation
 Warning
 Explicit action
-36.17 — Notifications
+36.17 - Notifications
 Notification harus:
 Relevant
 Timely
 Non-spammy
 Understandable
 Notification tidak boleh dibuat tanpa business trigger.
-36.18 — Status Terminology
+36.18 - Status Terminology
 UI menggunakan status terminology yang konsisten dengan canonical SRS.
 Contoh internal:
 APPLIED
@@ -9786,7 +9786,7 @@ APPLIED → Diajukan
 UNDER_REVIEW → Sedang Ditinjau
 SELECTED → Terpilih
 REJECTED → Ditolak
-36.19 — Design System
+36.19 - Design System
 UI menggunakan shared design system.
 Minimum:
 Typography
@@ -9798,14 +9798,14 @@ Cards
 Dialogs
 Status components
 Shared component harus menjaga visual dan accessibility consistency.
-36.20 — Design System Baseline
+36.20 - Design System Baseline
 Baseline mengikuti BRD:
 Royal Blue
 Inter Typography
 Consistent spacing
 Consistent component behavior
 Implementation details tetap mengikuti final UI design.
-36.21 — Component Reusability
+36.21 - Component Reusability
 Shared UI component harus digunakan untuk pola interaksi yang berulang.
 Contoh:
 Button
@@ -9815,36 +9815,36 @@ Modal
 Badge
 Card
 Toast
-36.22 — Component Consistency
+36.22 - Component Consistency
 Component yang sama harus memiliki:
 Consistent behavior
 Consistent terminology
 Consistent spacing
 Consistent accessibility
-36.23 — Mobile UX
+36.23 - Mobile UX
 Mobile interface harus memperhatikan:
 Touch targets
 Readable text
 Scrollable content
 Bottom actions
 Responsive navigation
-36.24 — Touch Targets
+36.24 - Touch Targets
 Interactive elements harus memiliki touch target yang cukup untuk digunakan dengan nyaman pada mobile.
 Target implementation:
 minimum sekitar 44 × 44 CSS pixels
 kecuali terdapat alasan UX/accessibility tertentu.
-36.25 — Motion
+36.25 - Motion
 Animation digunakan untuk membantu understanding, bukan mengganggu user.
 Gunakan:
 prefers-reduced-motion
 untuk user yang mengaktifkan reduced motion preference.
-36.26 — UX Privacy
+36.26 - UX Privacy
 Privacy information harus:
 Clear
 Understandable
 Relevant
 tetapi tidak membuat UX unnecessarily painful.
-36.27 — UX Security Balance
+36.27 - UX Security Balance
 Security control harus proportional terhadap risk.
 Contoh:
 Low-risk read
@@ -9852,7 +9852,7 @@ Low-risk read
 
 High-risk mutation
 → stronger confirmation / authorization
-36.28 — Usability Testing
+36.28 - Usability Testing
 Major workflow harus divalidasi melalui usability testing jika diperlukan.
 Testing dapat menggunakan:
 Task-based testing
@@ -9860,7 +9860,7 @@ Observation
 Short interview
 Survey
 Review
-36.29 — Accessibility Testing
+36.29 - Accessibility Testing
 Accessibility testing dapat melibatkan:
 Keyboard Testing
 Screen Reader Testing
@@ -9868,7 +9868,7 @@ Contrast Checking
 Semantic Inspection
 Form Label Checking
 Automated accessibility testing digunakan sebagai support, bukan satu-satunya validation method.
-36.30 — UX Regression
+36.30 - UX Regression
 Perubahan feature tidak boleh merusak flow yang sebelumnya bekerja.
 Regression harus mempertimbangkan:
 Navigation
@@ -9877,9 +9877,9 @@ Forms
 Responsive behavior
 Accessibility
 Error states
-36.31 — Accessibility Regression
+36.31 - Accessibility Regression
 Jika shared component berubah, accessibility test harus memastikan perubahan tersebut tidak merusak halaman lain yang menggunakan component tersebut.
-36.32 — UX Quality Gate
+36.32 - UX Quality Gate
 Major feature tidak dianggap selesai hanya karena functionality bekerja.
 Minimum:
 Functional
@@ -9891,7 +9891,7 @@ Responsive
 Accessible
 +
 Error-handled
-36.33 — Demo & Pitching UX Readiness
+36.33 - Demo & Pitching UX Readiness
 Untuk competition demo:
 High Contrast & Readability
 Color contrast harus diverifikasi menggunakan accessibility checker agar tetap readable saat screen sharing.
@@ -9908,12 +9908,12 @@ Error State
 Empty States
 Empty state harus tetap terlihat polished.
 Untuk demo, synthetic seed data dapat digunakan agar primary dashboard tidak kosong.
-36.34 — Accessibility Target
+36.34 - Accessibility Target
 MVP:
 Accessibility baseline diterapkan pada core user flows.
 Future:
 Coverage diperluas ke seluruh application.
-36.35 — Core Accessible Flows
+36.35 - Core Accessible Flows
 Minimal:
 Registration
 Login
@@ -9926,7 +9926,7 @@ Candidate Review
 Meeting
 Contract
 Payment-related flows
-36.36 — UX Principles
+36.36 - UX Principles
 UX must be user-goal driven.
 Core flows must be clear and predictable.
 Navigation must remain consistent.
@@ -9947,7 +9947,7 @@ Core workflows must be usable on supported devices.
 Shared components must preserve UX and accessibility consistency.
 UX changes require regression consideration.
 Major workflows should be validated through usability and accessibility testing.
-36.37 — MVP vs Future
+36.37 - MVP vs Future
 MVP 🔒
 Responsive design
 Mobile-first Talent experience
@@ -9970,7 +9970,7 @@ Automated accessibility regression
 Advanced personalization
 Internationalized UX
 Advanced design system documentation
-36.38 — FINAL DECISION
+36.38 - FINAL DECISION
 UX: Flex Network is designed around user goals rather than technical structure.
 Consistency: Navigation, terminology, components, and interaction patterns remain consistent across modules.
 Responsive: Mobile-first untuk Talent, Desktop-optimized untuk Hirer/Admin.
@@ -9979,10 +9979,10 @@ Contrast: Color contrast is verified against the applicable WCAG AA requirements
 Design System: UI follows the BRD Color Palette and Inter Typography.
 Status Language: Canonical SRS state translated into user-friendly Bahasa Indonesia.
 Quality Gate: A feature is not considered complete merely because it technically works; it must also provide an acceptable user experience.
-POINT 36 — LOCKED 🔒
+POINT 36 - LOCKED 🔒
 
-POINT 37 — INTERNATIONALIZATION & LOCALIZATION
-37.1 — Tujuan
+POINT 37 - INTERNATIONALIZATION & LOCALIZATION
+37.1 - Tujuan
 Internationalization (i18n) memastikan application secara teknis siap menangani:
 Language
 Currency
@@ -9991,60 +9991,60 @@ Number Format
 Timezone
 Locale
 Localization (l10n) menangani implementasi pengalaman sesuai region tertentu.
-37.2 — MVP Scope
+37.2 - MVP Scope
 Primary locale:
 id-ID
 MVP tidak memaksakan multi-language.
 Namun architecture tetap translation-ready.
-37.3 — Language
+37.3 - Language
 Primary:
 Bahasa Indonesia
 Future:
 English
 Other supported languages
-37.4 — Translation Strategy
+37.4 - Translation Strategy
 UI text tidak boleh tersebar sebagai hard-coded string secara berlebihan.
 Gunakan translation keys.
 Contoh:
 application.apply
 application.cancel
 application.status
-37.5 — Translation Keys
+37.5 - Translation Keys
 Contoh:
 application.apply
 application.cancel
 application.status
-37.6 — Translation Files
+37.6 - Translation Files
 locales/
 ├── id-ID/
 │   └── common.json
 └── en-US/
     └── common.json
-37.7 — Missing Translation
+37.7 - Missing Translation
 Application tidak boleh crash hanya karena translation missing.
-37.8 — Translation Fallback
+37.8 - Translation Fallback
 Default locale:
 id-ID
-37.9 — Pluralization
+37.9 - Pluralization
 Gunakan localization-aware plural rules.
 Jangan mengandalkan manual string concatenation.
-37.10 — Gendered Language
+37.10 - Gendered Language
 Jangan menyimpan asumsi gender user hanya untuk kebutuhan grammar jika tidak diperlukan.
-37.11 — Variable Interpolation
+37.11 - Variable Interpolation
 Translation harus mendukung variable interpolation.
 Contoh:
 Hello, {name}
-37.12 — Date Formatting
+37.12 - Date Formatting
 Tanggal harus menggunakan locale-aware formatting.
 Jangan hard-code format date.
-37.13 — Time Formatting
+37.13 - Time Formatting
 Waktu harus mempertimbangkan:
 Locale
 Timezone
 24-hour / 12-hour preference
 Untuk Indonesia, default UI:
 24-hour format
-37.14 — Timezone
+37.14 - Timezone
 Backend timestamps sebaiknya menggunakan UTC.
 Flow:
 UTC
@@ -10052,31 +10052,31 @@ UTC
 User Timezone
 ↓
 Display
-37.15 — User Timezone
+37.15 - User Timezone
 Timezone dapat ditentukan berdasarkan:
 User preference
 Browser/device
 Account configuration
-37.16 — Deadline
+37.16 - Deadline
 Deadline harus memiliki timezone yang jelas.
 Contoh:
 14 Agustus 2026, 23:59 WIB
 lebih jelas daripada:
 14 Agustus 2026, 23:59
-37.17 — Currency
+37.17 - Currency
 MVP:
 IDR / Rupiah
 Future:
 USD
 MYR
 SGD
-37.18 — Currency Representation
+37.18 - Currency Representation
 System menyimpan:
 amount
 +
 currency
 bukan formatted currency string.
-37.19 — Money Precision
+37.19 - Money Precision
 Untuk financial values:
 Jangan menggunakan floating-point representation secara tidak aman.
 MVP IDR Representation
@@ -10087,40 +10087,40 @@ Rp1.500.000
 →
 1500000
 UI formatting menggunakan locale-aware currency formatter.
-37.20 — Currency Formatting
+37.20 - Currency Formatting
 UI dapat memformat:
 500000
 →
 Rp500.000
 Database tetap menyimpan canonical monetary representation.
-37.21 — Number Formatting
+37.21 - Number Formatting
 Number formatting mengikuti locale.
 Contoh:
 1.000
 1.000.000
-37.22 — Address
+37.22 - Address
 Untuk Indonesia, address model dapat mendukung:
 Province
 City/Regency
 District
 Village
 Postal Code
-37.23 — Phone Number
+37.23 - Phone Number
 Phone number menggunakan canonical representation.
 Contoh:
 +62...
-37.24 — Phone Formatting
+37.24 - Phone Formatting
 Storage:
 Canonical
 Presentation:
 Localized
 Database representation tidak sama dengan UI formatting.
-37.25 — Locale
+37.25 - Locale
 Locale dapat direpresentasikan seperti:
 id-ID
 en-US
 Locale dan language tidak selalu identical.
-37.26 — Locale Resolution
+37.26 - Locale Resolution
 Prioritas:
 User Preference
 ↓
@@ -10129,20 +10129,20 @@ Browser / Device Preference
 Application Default
 MVP:
 id-ID
-37.27 — RTL Support
+37.27 - RTL Support
 Future localization dapat membutuhkan RTL.
 UI architecture sebaiknya menggunakan logical properties ketika relevan.
-37.28 — Text Expansion
+37.28 - Text Expansion
 Translation dapat membuat text lebih panjang.
 UI tidak boleh bergantung pada fixed width yang tidak fleksibel.
-37.29 — Font Support
+37.29 - Font Support
 Font harus mendukung karakter dari locale yang digunakan.
 MVP:
 Inter
-37.30 — Sorting
+37.30 - Sorting
 Sorting text harus mempertimbangkan locale.
 Jangan selalu menggunakan simple ASCII comparison.
-37.31 — Search
+37.31 - Search
 Search dapat dipengaruhi oleh:
 Locale
 Case
@@ -10150,12 +10150,12 @@ Accent
 Language
 Unicode
 MVP difokuskan pada Bahasa Indonesia.
-37.32 — Localization of Opportunity Data
+37.32 - Localization of Opportunity Data
 Opportunity data merupakan user-generated content.
 User-generated content tidak otomatis diterjemahkan hanya karena UI menggunakan i18n.
-37.33 — User-Generated Content
+37.33 - User-Generated Content
 User-generated content tetap disimpan sebagai content asli.
-37.34 — Translation of User Content
+37.34 - Translation of User Content
 Future:
 Original Content
 ↓
@@ -10163,27 +10163,27 @@ Optional Translation
 ↓
 Translated View
 Original content tetap tersedia.
-37.35 — Legal & Compliance Localization
+37.35 - Legal & Compliance Localization
 Legal document tidak boleh hanya diterjemahkan oleh UI translation system tanpa review yang sesuai.
-37.36 — Notification Localization
+37.36 - Notification Localization
 Notification harus mengikuti locale user ketika localization support tersedia.
-37.37 — Email Localization
+37.37 - Email Localization
 Future email template dapat memiliki:
 Template
 Locale
 Variables
 Version
-37.38 — Push Notification
+37.38 - Push Notification
 Future push notification mengikuti localization settings.
-37.39 — Localization Metadata
+37.39 - Localization Metadata
 Localization resources dapat memiliki:
 translation_key
 locale
 version
 updated_at
-37.40 — Translation Versioning
+37.40 - Translation Versioning
 Translation files harus version-controlled via Git.
-37.41 — Translation Quality
+37.41 - Translation Quality
 Translation harus diperiksa:
 Accuracy
 Consistency
@@ -10191,9 +10191,9 @@ Context
 Terminology
 Grammar
 UI Fit
-37.42 — Product Terminology
+37.42 - Product Terminology
 Flex Network harus memiliki terminology glossary.
-37.43 — Terminology Consistency
+37.43 - Terminology Consistency
 Jika domain menggunakan:
 Opportunity
 maka terminology tersebut harus digunakan konsisten.
@@ -10202,18 +10202,18 @@ Job
 Project
 Task
 jika sebenarnya merujuk pada entity yang sama.
-37.44 — Accessibility + Localization
+37.44 - Accessibility + Localization
 Localization tidak boleh merusak:
 Responsive Layout
 Readability
 Accessibility
-37.45 — Date + Accessibility
+37.45 - Date + Accessibility
 Critical date information sebaiknya tidak menggunakan format ambigu.
 Contoh:
 9 Agustus 2026
 lebih jelas daripada:
 08/09/26
-37.46 — Localization Testing
+37.46 - Localization Testing
 Localization testing mencakup:
 Text
 Date
@@ -10224,21 +10224,21 @@ Forms
 Notifications
 Responsive UI
 Accessibility
-37.47 — Pseudo-Localization
+37.47 - Pseudo-Localization
 Future testing dapat menggunakan pseudo-localization untuk menemukan:
 Overflow
 Hard-coded strings
 Layout assumptions
 Missing translations
-37.48 — Hard-Coded Text Detection
+37.48 - Hard-Coded Text Detection
 CI dapat melakukan checking untuk menemukan hard-coded UI strings jika tooling tersedia.
-37.49 — Translation Missing Monitoring
+37.49 - Translation Missing Monitoring
 Production dapat mencatat:
 Missing translation key
 Locale
 Screen/module
 Telemetry tidak boleh memasukkan sensitive user data.
-37.50 — Localization Architecture
+37.50 - Localization Architecture
 Application
 ↓
 i18n Service
@@ -10248,23 +10248,23 @@ Locale + Formatter
 Translation + Date/Time/Currency
 ↓
 UI
-37.51 — Module Integration
+37.51 - Module Integration
 Semua module menggunakan shared localization mechanism.
 Tidak membuat translation system sendiri-sendiri.
-37.52 — Backend Localization
+37.52 - Backend Localization
 Backend harus menangani localization bila menghasilkan:
 Email
 Notification
 Generated Document
 User-facing Message
 Business rules tetap locale-independent.
-37.53 — Domain Independence
+37.53 - Domain Independence
 Domain logic tidak boleh bergantung pada:
 Rp
 Agustus
 09:30 WIB
 Domain hanya bekerja dengan canonical values.
-37.54 — API Localization
+37.54 - API Localization
 API sebaiknya mengirim structured data.
 Contoh:
 {
@@ -10275,12 +10275,12 @@ bukan:
   "status": "Lamaran telah dikirim"
 }
 Presentation layer bertanggung jawab terhadap localization.
-37.55 — Error Localization
+37.55 - Error Localization
 Backend:
 APPLICATION_ALREADY_SUBMITTED
 Frontend:
 localized message
-37.56 — Localization Boundary
+37.56 - Localization Boundary
 Domain
 ↓
 Canonical Data
@@ -10290,7 +10290,7 @@ Application / API
 Localization
 ↓
 UI
-37.57 — Internationalization Principles
+37.57 - Internationalization Principles
 MVP uses Indonesian as the primary locale.
 UI strings use localization mechanisms where appropriate.
 Translation keys are used for localizable content.
@@ -10311,7 +10311,7 @@ Localization must not break responsive or accessible UI.
 Missing translations must fail gracefully.
 Localization changes should be tested.
 Additional locales are introduced only when product requirements justify them.
-37.58 — MVP vs Future
+37.58 - MVP vs Future
 MVP 🔒
 Indonesian locale (id-ID)
 Locale-aware date/time formatting
@@ -10330,7 +10330,7 @@ RTL support
 Translation management workflow
 Pseudo-localization
 User-content translation
-37.59 — FINAL DECISION
+37.59 - FINAL DECISION
 Locale: MVP menggunakan id-ID sebagai primary locale.
 i18n: Architecture translation-ready tanpa memaksakan multi-language pada MVP.
 UI: User-facing strings menggunakan localization mechanism terpusat.
@@ -10343,17 +10343,17 @@ User Content: Content buatan user tidak otomatis diterjemahkan atau diubah.
 Consistency: Terminology Flex Network memiliki glossary dan digunakan konsisten.
 Accessibility: Localization tidak boleh merusak responsive layout maupun accessibility.
 Expansion: Locale tambahan hanya ditambahkan ketika ada kebutuhan product/business yang jelas.
-POINT 37 — LOCKED 🔒
+POINT 37 - LOCKED 🔒
 
-POINT 38 — SEO, WEB VITALS & PUBLIC PERFORMANCE
-38.1 — Tujuan
+POINT 38 - SEO, WEB VITALS & PUBLIC PERFORMANCE
+38.1 - Tujuan
 Memastikan Flex Network memiliki public experience yang cepat, stabil, accessible, dan profesional saat diakses oleh juri, panitia, maupun user.
 Karena Flex Network merupakan authenticated application, SEO difokuskan pada:
 Landing Page
 Public Information Pages
 Public Opportunity Pages jika tersedia
 Data privat tidak boleh di-index.
-38.2 — Core Web Vitals
+38.2 - Core Web Vitals
 
 Metric
 Target
@@ -10365,7 +10365,7 @@ CLS
 < 0.1
 
 Target tersebut digunakan sebagai engineering guideline.
-38.3 — Performance Budget
+38.3 - Performance Budget
 Landing Page
 Performance ≥ 90
 Accessibility ≥ 90
@@ -10375,7 +10375,7 @@ Authenticated App
 Performance ≥ 80
 Accessibility ≥ 90
 Target merupakan internal quality target, bukan contractual SLA.
-38.4 — Next.js Optimization Strategy
+38.4 - Next.js Optimization Strategy
 Image Optimization
 Image assets yang membutuhkan optimization menggunakan:
 next/image
@@ -10396,7 +10396,7 @@ Google Analytics
 Meta Pixel
 Mixpanel
 sesuai Point 35.
-38.5 — SEO Fundamentals
+38.5 - SEO Fundamentals
 Public Pages
 Mendukung:
 Meta Title
@@ -10408,7 +10408,7 @@ Authenticated Pages
 Dashboard dan private pages:
 Tidak ditujukan untuk indexing.
 Gunakan appropriate robots metadata seperti noindex apabila diperlukan.
-38.6 — Social Sharing & OpenGraph
+38.6 - Social Sharing & OpenGraph
 Public URL Flex Network harus memiliki social preview yang professional.
 Metadata harus menggunakan configurable application URL.
 Contoh concept:
@@ -10421,7 +10421,7 @@ Royal Blue
 Flex Network branding
 Inter Typography
 Production domain tidak boleh di-hardcode di architecture documentation.
-38.7 — Robots.txt & Sitemap
+38.7 - Robots.txt & Sitemap
 Next.js App Router dapat menggunakan:
 robots.ts
 sitemap.ts
@@ -10432,7 +10432,7 @@ Private routes seperti:
 /api
 harus excluded dari indexing.
 Private user-specific pages juga harus mendapatkan protection yang sesuai.
-38.8 — Accessibility & Performance Intersection
+38.8 - Accessibility & Performance Intersection
 Accessibility dan performance harus dipertimbangkan bersama.
 Hal yang diperhatikan:
 Contrast Ratio
@@ -10444,7 +10444,7 @@ Contrast ratio harus diverifikasi menggunakan accessibility checker.
 Target touch interaction:
 sekitar 44 × 44 CSS pixels
 jika applicable.
-38.9 — Monitoring Web Vitals
+38.9 - Monitoring Web Vitals
 Pre-Submission Audit
 Jalankan:
 Lighthouse
@@ -10454,7 +10454,7 @@ Mobile
 Hasil audit dapat disimpan sebagai evidence untuk competition.
 Optional future:
 Real User Monitoring
-38.10 — Competition Demo Readiness
+38.10 - Competition Demo Readiness
 Checklist sebelum submission:
 [ ] Landing page responsive
 [ ] Landing page performance target met
@@ -10463,7 +10463,7 @@ Checklist sebelum submission:
 [ ] Inter typography loaded correctly
 [ ] Seed/demo data available
 [ ] Public URL accessible
-38.11 — MVP vs Future
+38.11 - MVP vs Future
 MVP 🔒
 next/image / appropriate image optimization
 next/font
@@ -10479,7 +10479,7 @@ Advanced SEO / Structured Data
 Multi-language SEO
 PWA
 Advanced edge caching optimization
-38.12 — FINAL DECISION
+38.12 - FINAL DECISION
 Scope: SEO and public performance difokuskan pada public/landing pages.
 Performance Target: LCP < 2.5s, INP < 200ms, CLS < 0.1 sebagai engineering targets.
 Optimization: Next.js image/font optimization, code-splitting, dan responsive asset strategy digunakan sesuai kebutuhan.
@@ -10487,10 +10487,10 @@ Dashboard: Authenticated/private pages tidak menjadi target SEO.
 Social Sharing: OpenGraph wajib untuk public presentation pages dengan configurable application URL.
 Accessibility: Contrast dan touch targets diverifikasi terhadap accessibility requirements yang relevan.
 Monitoring: Lighthouse audit dilakukan sebelum submission dan dapat disimpan sebagai evidence.
-POINT 38 — LOCKED 🔒
+POINT 38 - LOCKED 🔒
 
-POINT 39 — TESTING STRATEGY & QUALITY ASSURANCE
-39.1 — Tujuan
+POINT 39 - TESTING STRATEGY & QUALITY ASSURANCE
+39.1 - Tujuan
 Testing memastikan:
 Requirement
 ↓
@@ -10500,7 +10500,7 @@ Verification
 ↓
 Expected Behavior
 Testing dilakukan sepanjang SDLC.
-39.2 — Relationship with Point 28
+39.2 - Relationship with Point 28
 Point 28 mendefinisikan:
 High-level testing strategy
 Testing layers
@@ -10509,14 +10509,14 @@ Point 39 mengembangkan strategy tersebut menjadi:
 Full QA framework
 Point 28 tetap menjadi referensi:
 AC-01 sampai AC-12
-39.3 — Testing Principles
+39.3 - Testing Principles
 Core quality dimensions:
 Correctness
 Reliability
 Security
 Maintainability
 Regression Prevention
-39.4 — Testing Pyramid
+39.4 - Testing Pyramid
       E2E
         ▲
    Integration
@@ -10528,14 +10528,14 @@ Sedang:
 Integration
 Sedikit:
 E2E
-39.5 — Unit Testing
+39.5 - Unit Testing
 Unit testing menguji:
 Domain Rule
 Service Logic
 Validator
 Utility
 secara isolated.
-39.6 — Unit Test Focus
+39.6 - Unit Test Focus
 Prioritas:
 Business Rules
 Validation
@@ -10546,7 +10546,7 @@ Domain Logic
 Matching Logic
 Consent Rules
 Payment Rules
-39.7 — Unit Test Independence
+39.7 - Unit Test Independence
 Unit test harus:
 Fast
 Deterministic
@@ -10556,7 +10556,7 @@ Tidak membutuhkan:
 Real Database
 Real Payment Gateway
 Real Email Provider
-39.8 — Integration Testing
+39.8 - Integration Testing
 Integration testing menguji interaksi antar component.
 Contoh:
 Application Module
@@ -10564,7 +10564,7 @@ Application Module
 Repository
 ↓
 Database
-39.9 — Integration Test Scope
+39.9 - Integration Test Scope
 Meliputi:
 Database
 Repository
@@ -10572,7 +10572,7 @@ Module Integration
 API
 Authentication Infrastructure
 External Service Adapter
-39.10 — API Testing
+39.10 - API Testing
 API testing memastikan:
 Request
 ↓
@@ -10584,7 +10584,7 @@ Business Logic
 ↓
 Response
 berjalan sesuai API contract.
-39.11 — API Contract Testing
+39.11 - API Contract Testing
 Verifikasi:
 Endpoint
 Method
@@ -10592,7 +10592,7 @@ Request Schema
 Response Schema
 Status Code
 Error Contract
-39.12 — E2E Testing
+39.12 - E2E Testing
 E2E menguji complete user journey.
 Contoh Talent:
 Login
@@ -10614,22 +10614,22 @@ Review
 Select
 ↓
 Schedule Meeting
-39.13 — E2E Scope
+39.13 - E2E Scope
 Prioritas:
 Critical User Journey
 Critical Business Flow
 Security-Critical Flow
 High-Risk Workflow
-39.14 — Regression Testing
+39.14 - Regression Testing
 Setiap perubahan harus mempertimbangkan apakah existing functionality masih bekerja.
-39.15 — Regression Suite
+39.15 - Regression Suite
 Berisi test untuk:
 Critical Features
 Known Bug Fixes
 Important Business Rules
 Security Controls
 Core User Flows
-39.16 — Smoke Testing
+39.16 - Smoke Testing
 Setelah deployment:
 Application Starts
 ↓
@@ -10638,9 +10638,9 @@ Login Works
 Database Reachable
 ↓
 Core API Works
-39.17 — Sanity Testing
+39.17 - Sanity Testing
 Sanity testing digunakan setelah perubahan tertentu untuk memastikan area yang diubah masih berfungsi.
-39.18 — Functional Testing
+39.18 - Functional Testing
 Functional testing memverifikasi:
 Requirement → Expected Behavior
 AC Traceability
@@ -10680,7 +10680,7 @@ AC-11 Error Handling
 AC-12 Responsive UI
 → Responsive / UI tests
 Setiap relevant test case dapat memiliki AC reference/tag.
-39.19 — Negative Testing
+39.19 - Negative Testing
 Testing mencakup:
 Invalid Input
 Missing Input
@@ -10708,7 +10708,7 @@ MVP:
 No Guardian Account
 Simulated Consent
 No Guardian ID Upload
-39.20 — Boundary Testing
+39.20 - Boundary Testing
 Test:
 Minimum
 Maximum
@@ -10716,11 +10716,11 @@ Empty
 Null
 Very Large
 Very Small
-39.21 — Validation Testing
+39.21 - Validation Testing
 Validation harus diuji terhadap business-relevant boundaries.
-39.22 — Authorization Testing
+39.22 - Authorization Testing
 Pastikan user tidak dapat mengakses resource yang bukan miliknya.
-39.23 — Authentication Testing
+39.23 - Authentication Testing
 Meliputi:
 Login
 Logout
@@ -10728,7 +10728,7 @@ Session
 Token/session validation
 Password Reset jika tersedia
 Account Verification jika tersedia
-39.24 — Security Testing
+39.24 - Security Testing
 Security testing dapat mencakup:
 Authentication
 Authorization
@@ -10795,7 +10795,7 @@ Supabase local / test project
 User/anon authentication
 Service role hanya untuk setup/seed
 Negative authorization cases wajib diuji
-39.25 — Abuse Case Testing
+39.25 - Abuse Case Testing
 Testing dilakukan terhadap abusive behavior secara aman.
 Contoh:
 Repeated Requests
@@ -10803,55 +10803,55 @@ Invalid Token
 Unauthorized Resource Access
 Mass Form Submission
 Duplicate Mutations
-39.26 — Performance Testing
+39.26 - Performance Testing
 Metric:
 Latency
 Throughput
 Error Rate
 Resource Usage
-39.27 — Load Testing
+39.27 - Load Testing
 Simulasikan concurrent users sesuai expected workload.
-39.28 — Stress Testing
+39.28 - Stress Testing
 Future atau release-specific testing dapat digunakan untuk mencari degradation point.
 Tidak menjadi mandatory MVP baseline.
-39.29 — Scalability Testing
+39.29 - Scalability Testing
 Jika diperlukan:
 More Users
 More Data
 More Requests
-39.30 — Reliability Testing
+39.30 - Reliability Testing
 Meliputi:
 Failure Recovery
 Retry Behavior
 Dependency Failure
 Database Failure
 Service Failure
-39.31 — Fault Injection
+39.31 - Fault Injection
 Future:
 Controlled failure testing
 Tidak wajib untuk MVP.
-39.32 — Database Testing
+39.32 - Database Testing
 Test:
 Constraints
 Transactions
 Migrations
 Indexes
 Data Integrity
-39.33 — Migration Testing
+39.33 - Migration Testing
 Migration harus:
 Safe
 Validated
 Backward-compatible where necessary
-39.34 — Backup & Restore Testing
+39.34 - Backup & Restore Testing
 Backup dianggap belum terbukti sampai restore berhasil dan integrity dapat diverifikasi.
-39.35 — External Service Testing
+39.35 - External Service Testing
 External dependencies menggunakan:
 Mock
 Stub
 Sandbox
 Test Environment
 Automated tests tidak menggunakan production external service.
-39.36 — Payment Testing
+39.36 - Payment Testing
 MVP simulated payment:
 PENDING
 ↓
@@ -10876,14 +10876,14 @@ Webhook
 Timeout
 Refund
 Dispute
-39.37 — Notification Testing
+39.37 - Notification Testing
 Test:
 Correct Recipient
 Correct Trigger
 Correct Content
 No Duplicate
 Notification failure tidak boleh membatalkan core transaction.
-39.38 — File Upload Testing
+39.38 - File Upload Testing
 MVP tidak menggunakan internal file upload.
 Jika future file upload diterapkan:
 Valid File
@@ -10892,7 +10892,7 @@ Too Large
 Unsupported Type
 Corrupted File
 Unauthorized File Access
-39.39 — Search Testing
+39.39 - Search Testing
 Test:
 Exact Match
 Partial Match
@@ -10901,7 +10901,7 @@ Special Characters
 Filters
 Sorting
 Pagination
-39.40 — Pagination Testing
+39.40 - Pagination Testing
 Test:
 0 Items
 1 Item
@@ -10909,10 +10909,10 @@ Page Boundary
 Last Page
 Large Dataset
 Invalid Page
-39.41 — Concurrency Testing
+39.41 - Concurrency Testing
 Critical operations harus diuji ketika terjadi secara concurrent.
 System harus menghasilkan consistent state.
-39.42 — Idempotency Testing
+39.42 - Idempotency Testing
 Repeated request harus menghasilkan:
 No unintended duplicate side effect
 Contoh:
@@ -10920,7 +10920,7 @@ Apply
 Apply Again
 ↓
 One Application
-39.43 — Business Side-Effect Testing
+39.43 - Business Side-Effect Testing
 Karena MVP bukan event-driven architecture, testing fokus pada business trigger dan side-effect.
 Contoh:
 Application Selected
@@ -10940,20 +10940,20 @@ Retry
 Invalid Event
 Consumer Failure
 testing.
-39.44 — UI Testing
+39.44 - UI Testing
 Test:
 Rendering
 Interaction
 Validation
 Navigation
 State
-39.45 — Responsive Testing
+39.45 - Responsive Testing
 Test:
 Mobile
 Tablet
 Desktop
 Critical breakpoints
-39.46 — Accessibility Testing
+39.46 - Accessibility Testing
 Test:
 Keyboard
 Focus
@@ -10963,25 +10963,25 @@ Labels
 Semantic HTML
 Error Messaging
 sesuai Point 36.
-39.47 — Cross-Browser Testing
+39.47 - Cross-Browser Testing
 Supported browser policy harus menentukan browser yang wajib diverifikasi.
 Untuk competition MVP minimal:
 Chrome
 Firefox
 Edge
 Safari dapat diverifikasi bila tersedia pada target device/environment.
-39.48 — Visual Regression
+39.48 - Visual Regression
 Future:
 Automated screenshot comparison
 Tidak wajib MVP.
-39.49 — Test Data
+39.49 - Test Data
 Test data harus:
 Deterministic
 Safe
 Non-sensitive
 Reusable
 Production personal data tidak digunakan.
-39.50 — Test Fixtures
+39.50 - Test Fixtures
 Fixture dapat digunakan untuk:
 User
 Opportunity
@@ -10989,7 +10989,7 @@ Application
 Contract
 Meeting
 Notification
-39.51 — Test Environment
+39.51 - Test Environment
 MVP:
 Development
 CI Testing
@@ -10997,13 +10997,13 @@ Preview / Staging Validation
 Production
 Testing tidak berjalan terhadap production database.
 Testing environment persistent terpisah tidak wajib untuk MVP jika CI dan preview validation sudah mencukupi.
-39.52 — Production Testing
+39.52 - Production Testing
 Production testing harus sangat terbatas dan controlled.
 Contoh:
 Health Check
 Smoke Test
 Synthetic Monitoring
-39.53 — CI Testing
+39.53 - CI Testing
 Pull Request idealnya menjalankan:
 Lint
 ↓
@@ -11014,7 +11014,7 @@ Unit
 Integration
 ↓
 Build
-39.54 — CI Pipeline
+39.54 - CI Pipeline
 Pull Request
 ↓
 Static Checks
@@ -11030,49 +11030,49 @@ Security Checks
 Preview / Test Deployment
 ↓
 E2E / Smoke
-39.55 — Test Failure
+39.55 - Test Failure
 Critical test failure:
 CI FAIL
 ↓
 Merge Blocked
-39.56 — Flaky Test
+39.56 - Flaky Test
 Flaky test harus:
 Investigated
 Fixed
 Temporarily quarantined if necessary
 Tidak boleh diabaikan.
-39.57 — Test Coverage
+39.57 - Test Coverage
 Coverage digunakan sebagai quality indicator, bukan satu-satunya quality metric.
-39.58 — Coverage Target
+39.58 - Coverage Target
 Tidak ada global coverage target untuk seluruh codebase.
 Internal engineering guideline:
 Business-critical logic ditargetkan memiliki coverage tinggi dan dapat menggunakan target >80% jika feasible dan sesuai risk.
-39.59 — Mutation Testing
+39.59 - Mutation Testing
 Future:
 Mutation Testing
 Tidak wajib untuk MVP.
-39.60 — Test Naming
+39.60 - Test Naming
 Nama test harus menjelaskan behavior.
 Contoh:
 should_reject_application_when_opportunity_is_closed
-39.61 — Arrange / Act / Assert
+39.61 - Arrange / Act / Assert
 Unit test dapat menggunakan:
 Arrange
 ↓
 Act
 ↓
 Assert
-39.62 — Test Isolation
+39.62 - Test Isolation
 Test tidak boleh bergantung pada test order.
-39.63 — Deterministic Testing
+39.63 - Deterministic Testing
 Time, random values, dan external dependencies harus dikontrol bila diperlukan.
-39.64 — Test Maintainability
+39.64 - Test Maintainability
 Test harus:
 Readable
 Maintainable
 Focused
 Reusable where appropriate
-39.65 — Bug Reproduction Test
+39.65 - Bug Reproduction Test
 Bug Found
 ↓
 Reproduce
@@ -11082,7 +11082,7 @@ Create Test
 Fix
 ↓
 Test Passes
-39.66 — Quality Assurance
+39.66 - Quality Assurance
 QA mencakup:
 Requirement Quality
 Code Quality
@@ -11091,7 +11091,7 @@ Security
 UX
 Release Quality
 Monitoring
-39.67 — Definition of Done
+39.67 - Definition of Done
 Feature dianggap selesai jika:
 Requirement Met
 Code Reviewed
@@ -11100,7 +11100,7 @@ Critical Tests Pass
 Security Considered
 UX Considered
 Documentation Updated
-39.68 — Risk-Based Testing
+39.68 - Risk-Based Testing
 High-risk feature:
 Authentication
 Authorization
@@ -11110,18 +11110,18 @@ Personal Data
 Consent
 Admin Moderation
 mendapat testing lebih kuat.
-39.69 — Test Priority
+39.69 - Test Priority
 P0 → Critical
 P1 → High
 P2 → Medium
 P3 → Low
-39.70 — Quality Gate
+39.70 - Quality Gate
 Critical Tests
 ↓
 PASS?
 ├── Yes → Release Candidate
 └── No → Block
-39.71 — Release Candidate Testing
+39.71 - Release Candidate Testing
 Build
 ↓
 Preview / Staging
@@ -11158,7 +11158,7 @@ Live final preparation:
 [ ] Screenshot / PDF backup ready
 [ ] Internet backup tested
 [ ] Presentation files verified
-39.72 — Post-Release Validation
+39.72 - Post-Release Validation
 Deploy
 ↓
 Health Check
@@ -11168,16 +11168,16 @@ Smoke Test
 Monitoring
 ↓
 Critical Metrics Validation
-39.73 — Rollback Validation
+39.73 - Rollback Validation
 Rollback procedure harus diketahui oleh responsible team member dan diuji bila practical.
-39.74 — QA Documentation
+39.74 - QA Documentation
 Testing documentation minimal:
 Test Strategy
 Test Cases
 Test Results
 Known Issues
 Release Checklist
-39.75 — Test Report
+39.75 - Test Report
 Test report dapat berisi:
 Tests Run
 Passed
@@ -11186,7 +11186,7 @@ Skipped
 Environment
 Build Version
 Known Issues
-39.76 — Defect Lifecycle
+39.76 - Defect Lifecycle
 Detected
 ↓
 Reported
@@ -11200,12 +11200,12 @@ Fixed
 Verified
 ↓
 Closed
-39.77 — Severity vs Priority
+39.77 - Severity vs Priority
 Severity:
 Impact
 Priority:
 Urgency
-39.78 — Root Cause Analysis
+39.78 - Root Cause Analysis
 Symptom
 ↓
 Cause
@@ -11215,7 +11215,7 @@ Root Cause
 Corrective Action
 ↓
 Prevention
-39.79 — Quality Metrics
+39.79 - Quality Metrics
 Contoh:
 Defect Rate
 Escaped Defects
@@ -11235,7 +11235,7 @@ Type Check → TypeScript strict mode
 Coverage → Vitest coverage
 CI → GitHub Actions
 Tooling dapat disesuaikan jika implementation constraints mengharuskannya, tetapi baseline yang dipilih adalah stack di atas.
-39.80 — Testing Principles
+39.80 - Testing Principles
 Testing is part of the SDLC.
 Testing focuses on correctness, reliability, security, and regression prevention.
 Unit tests cover important isolated business logic.
@@ -11256,7 +11256,7 @@ Critical test failures can block releases.
 Testing follows risk-based prioritization.
 Release candidates undergo appropriate validation.
 Quality is shared across development, QA, product, security, and operations.
-39.81 — MVP vs Future
+39.81 - MVP vs Future
 MVP 🔒
 Unit testing
 Integration testing
@@ -11286,7 +11286,7 @@ Mutation testing
 Advanced performance testing
 Expanded E2E coverage
 Advanced test analytics
-39.82 — FINAL DECISION
+39.82 - FINAL DECISION
 Testing: Testing is integrated throughout the SDLC rather than performed only before release.
 Strategy: The project uses a testing pyramid consisting primarily of unit tests, supported by integration and targeted E2E tests.
 Risk: Testing effort is prioritized based on business and technical risk.
@@ -11301,10 +11301,10 @@ Coverage: Coverage is an indicator; business-critical logic receives higher cove
 Defects: Significant bugs should result in regression tests and root-cause analysis.
 Release: Release candidates undergo smoke, regression, E2E, and other risk-appropriate validation.
 Competition: Pre-submission testing follows the latest official ITechnoCup schedule.
-POINT 39 — LOCKED 🔒
+POINT 39 - LOCKED 🔒
 
-POINT 40 — DEPLOYMENT STRATEGY & RELEASE MANAGEMENT
-40.1 — Tujuan
+POINT 40 - DEPLOYMENT STRATEGY & RELEASE MANAGEMENT
+40.1 - Tujuan
 Deployment strategy memastikan:
 Code
 ↓
@@ -11320,7 +11320,7 @@ Validate
 ↓
 Monitor
 dengan risiko seminimal mungkin.
-40.2 — Relationship with Point 29
+40.2 - Relationship with Point 29
 Point 29 mendefinisikan:
 CI/CD pipeline
 Branch strategy
@@ -11328,7 +11328,7 @@ PR quality gate
 Point 40 memperluasnya menjadi:
 Release management framework
 Point 29 tetap menjadi referensi untuk CI dan branch protection.
-40.3 — Deployment Principles
+40.3 - Deployment Principles
 Deployment harus:
 Repeatable
 Automated
@@ -11337,7 +11337,7 @@ Reversible where practical
 Secure
 Validated
 Deployment tidak boleh bergantung pada knowledge satu individu.
-40.4 — Environment Strategy
+40.4 - Environment Strategy
 MVP environment model:
 Development
 ↓
@@ -11366,21 +11366,21 @@ Vercel Production
 Supabase Production
 Public URL
 Dedicated persistent staging infrastructure bukan mandatory MVP.
-40.5 — Environment Isolation
+40.5 - Environment Isolation
 Environment harus memiliki:
 Configuration
 Database
 Secrets
 External Service Configuration
 sesuai kebutuhan masing-masing environment.
-40.6 — Branch Strategy
+40.6 - Branch Strategy
 main
 ├── feature/*
 ├── fix/*
 ├── refactor/*
 └── chore/*
 main merupakan protected branch.
-40.7 — Feature Branch & Pull Request
+40.7 - Feature Branch & Pull Request
 Developer:
 Feature Branch
 ↓
@@ -11396,7 +11396,7 @@ What Changed?
 Why?
 How Tested?
 Breaking Changes?
-40.8 — PR Quality Gate
+40.8 - PR Quality Gate
 Minimum:
 Lint ✅
 Type Check ✅
@@ -11405,7 +11405,7 @@ Integration Tests ✅
 Build ✅
 Critical failure:
 Merge Blocked
-40.9 — CI Pipeline
+40.9 - CI Pipeline
 Git Push / Pull Request
 ↓
 Install Dependencies from Lockfile
@@ -11421,7 +11421,7 @@ Integration Tests
 Build
 ↓
 Security Checks
-40.10 — Preview Deployment
+40.10 - Preview Deployment
 Setelah PR memenuhi CI requirements:
 Vercel Preview Deployment
 ↓
@@ -11430,28 +11430,28 @@ Smoke Test
 Critical E2E
 ↓
 Review
-40.11 — Production Deployment
+40.11 - Production Deployment
 Production deployment dilakukan setelah:
 CI Passed
 Preview Validation
 Review / Approval
 Release Decision
 Vercel Git integration digunakan sebagai deployment mechanism.
-40.12 — Build & Artifact Strategy
+40.12 - Build & Artifact Strategy
 Build harus:
 Reproducible
 Traceable
 Identifiable
 Preview dan production deployment harus dapat ditelusuri ke source commit/version yang relevan.
 Jangan membangun source code yang berbeda secara manual untuk staging dan production.
-40.13 — Artifact Traceability
+40.13 - Artifact Traceability
 Setiap deployment harus dapat dikaitkan dengan:
 Commit SHA
 +
 Version
 +
 Deployment
-40.14 — Release Versioning
+40.14 - Release Versioning
 Semantic versioning digunakan sebagai model versioning:
 MAJOR.MINOR.PATCH
 Untuk MVP competition, simplified milestone version dapat digunakan:
@@ -11463,14 +11463,14 @@ v0.5.0 → Seed Data + Documentation
 v0.9.0 → Release Candidate
 v1.0.0 → Final Submission
 Setelah competition, project dapat mengikuti standard semantic versioning secara lebih formal.
-40.15 — Version Types
+40.15 - Version Types
 MAJOR:
 Breaking changes
 MINOR:
 Backward-compatible functionality
 PATCH:
 Bug fix / security fix / small correction
-40.16 — Release Candidate
+40.16 - Release Candidate
 Development
 ↓
 Release Candidate
@@ -11480,7 +11480,7 @@ Preview / Staging
 Validation
 ↓
 Production Decision
-40.17 — Release Checklist
+40.17 - Release Checklist
 [ ] Tests passing
 [ ] Build successful
 [ ] Security checks complete
@@ -11489,7 +11489,7 @@ Production Decision
 [ ] Configuration verified
 [ ] Rollback plan ready
 [ ] Monitoring ready
-40.18 — Approval
+40.18 - Approval
 High-risk change:
 Developer
 ↓
@@ -11501,7 +11501,7 @@ Release Approval
 ↓
 Production
 Approval requirements remain proportional to risk.
-40.19 — Continuous Integration
+40.19 - Continuous Integration
 CI melakukan:
 Lint
 Type Check
@@ -11509,21 +11509,21 @@ Unit Tests
 Integration Tests
 Build
 Security Checks where configured
-40.20 — Continuous Delivery
+40.20 - Continuous Delivery
 System harus berada dalam kondisi yang dapat dipromosikan ke release.
 Production release tetap dapat memerlukan approval.
-40.21 — Continuous Deployment
+40.21 - Continuous Deployment
 Continuous deployment tidak wajib untuk MVP.
 Baseline:
 Controlled Continuous Delivery
 dengan Vercel Git-based deployment.
-40.22 — Deployment Automation
+40.22 - Deployment Automation
 Deployment harus menggunakan automation yang tersedia.
 Hindari manual production deployment dari developer machine jika automation sudah tersedia.
-40.23 — Infrastructure as Code
+40.23 - Infrastructure as Code
 IaC merupakan future capability jika infrastructure complexity membutuhkan.
 Tidak diperlukan untuk MVP sederhana.
-40.24 — Database Migration Deployment
+40.24 - Database Migration Deployment
 Migration adalah bagian dari release planning.
 Workflow:
 Migration Created
@@ -11547,7 +11547,7 @@ Migration Principles
 Gunakan:
 Expand & Contract
 Jangan langsung menjalankan destructive migration jika application version lama masih bergantung pada schema tersebut.
-40.25 — Migration Ordering
+40.25 - Migration Ordering
 Untuk perubahan schema yang kompleks:
 Expand Schema
 ↓
@@ -11564,7 +11564,7 @@ DROP COLUMN
 ↓
 Deploy New App
 jika old application masih memakai column tersebut.
-40.26 — Migration Failure
+40.26 - Migration Failure
 Jika migration production gagal:
 Stop
 ↓
@@ -11574,9 +11574,9 @@ Fix / Recovery
 ↓
 Validate
 Jangan melanjutkan release application yang bergantung pada migration yang belum berhasil.
-40.27 — Migration Backup
+40.27 - Migration Backup
 Production schema changes yang berisiko harus didahului backup/recovery preparation sesuai risk.
-40.28 — Database Rollback Principle
+40.28 - Database Rollback Principle
 Tidak semua migration aman untuk:
 UP
 ↓
@@ -11584,7 +11584,7 @@ DOWN
 Karena itu:
 Prefer forward-compatible recovery.
 Data destructive change membutuhkan recovery plan yang jelas.
-40.29 — Vercel Deployment Strategy
+40.29 - Vercel Deployment Strategy
 Flex Network menggunakan:
 Vercel Git-based deployment
 MVP flow:
@@ -11602,7 +11602,7 @@ Health Check
 ↓
 Smoke Test
 Vercel platform capabilities seperti previous deployment rollback digunakan sesuai feature availability dan current project plan.
-40.30 — Rollback Strategy
+40.30 - Rollback Strategy
 Application rollback:
 Promote / restore previous stable deployment through the platform capability available.
 Alternative:
@@ -11612,13 +11612,13 @@ CI
 ↓
 Deploy
 Database rollback harus dievaluasi separately.
-40.31 — Feature Flags
+40.31 - Feature Flags
 Feature flags dapat digunakan untuk controlled rollout.
 Contoh:
 New Matching
 New UI
 Experimental Feature
-40.32 — Feature Flag Security
+40.32 - Feature Flag Security
 Client-side flags hanya boleh digunakan untuk:
 Presentation
 Non-sensitive functionality
@@ -11629,7 +11629,7 @@ Consent
 Admin Privilege
 Security
 harus dievaluasi server-side.
-40.33 — MVP Feature Flag Strategy
+40.33 - MVP Feature Flag Strategy
 MVP tidak membutuhkan feature flag SaaS seperti LaunchDarkly.
 Simple configuration dapat digunakan jika diperlukan.
 Contoh:
@@ -11638,7 +11638,7 @@ Flags harus:
 Documented
 Owned
 Removable
-40.34 — Rollout Strategy
+40.34 - Rollout Strategy
 Future / growth:
 Internal
 ↓
@@ -11648,7 +11648,7 @@ Larger Group
 ↓
 Everyone
 Untuk MVP, controlled release is sufficient.
-40.35 — Release Validation
+40.35 - Release Validation
 Deploy
 ↓
 Health Check
@@ -11658,16 +11658,16 @@ Smoke Test
 Critical Flow Validation
 ↓
 Monitor
-40.36 — Monitoring During Release
+40.36 - Monitoring During Release
 Monitor:
 Error Rate
 Latency
 Traffic
 Database Health
 Critical Business Metrics
-40.37 — Deployment Window
+40.37 - Deployment Window
 High-risk change dapat dijadwalkan pada release window yang sesuai.
-40.38 — Emergency Release
+40.38 - Emergency Release
 Emergency process:
 Issue
 ↓
@@ -11681,7 +11681,7 @@ Emergency Deploy
 ↓
 Monitor
 Testing tidak boleh dilewati sepenuhnya hanya karena emergency.
-40.39 — Hotfix
+40.39 - Hotfix
 Production Issue
 ↓
 Hotfix Branch
@@ -11693,16 +11693,16 @@ Focused Test
 Deploy
 ↓
 Merge Back
-40.40 — Release Notes
+40.40 - Release Notes
 Release notes dapat mencakup:
 Added
 Changed
 Fixed
 Security
 Breaking Changes
-40.41 — Changelog
+40.41 - Changelog
 Changelog mencatat perubahan antar release.
-40.42 — Deployment Audit Trail
+40.42 - Deployment Audit Trail
 Setiap production deployment harus dapat diketahui:
 Who
 What
@@ -11710,34 +11710,34 @@ When
 Version
 Environment
 Result
-40.43 — Deployment Logs
+40.43 - Deployment Logs
 Deployment records harus mempertahankan:
 Build Result
 Test Result
 Deployment Result
 Failure Reason jika ada
-40.44 — Access Control
+40.44 - Access Control
 Production deployment permission harus dibatasi kepada authorized contributors.
-40.45 — Separation of Duties
+40.45 - Separation of Duties
 Untuk perubahan berisiko tinggi:
 Code Author
 tidak idealnya menjadi satu-satunya approval authority.
 Minimal code review tetap diberlakukan.
-40.46 — Deployment Credentials
+40.46 - Deployment Credentials
 Credentials harus:
 Scoped
 Protected
 Rotatable
 Auditable
 Jika platform mendukung short-lived credentials, gunakan sesuai kebutuhan.
-40.47 — Secrets During Deployment
+40.47 - Secrets During Deployment
 Secrets tidak boleh muncul di:
 Source Code
 Git History
 Build Logs
 Error Logs
 Public Artifacts
-40.48 — Dependency Update
+40.48 - Dependency Update
 Update Dependency
 ↓
 Test
@@ -11745,13 +11745,13 @@ Test
 Security Check
 ↓
 Release
-40.49 — Dependency Locking
+40.49 - Dependency Locking
 Gunakan lockfile untuk reproducible dependency installation.
-40.50 — Container Image
+40.50 - Container Image
 Container-based deployment adalah future option dan tidak diperlukan untuk MVP Vercel deployment.
-40.51 — Artifact Registry
+40.51 - Artifact Registry
 Dedicated artifact registry merupakan future capability.
-40.52 — Release Traceability
+40.52 - Release Traceability
 Production harus dapat menjawab:
 Production sekarang menjalankan commit yang mana?
 Minimum:
@@ -11760,7 +11760,7 @@ Production
 Deployment
 ↓
 Commit SHA
-40.53 — Deployment Failure
+40.53 - Deployment Failure
 Detect
 ↓
 Stop
@@ -11770,22 +11770,22 @@ Assess
 Rollback / Fix
 ↓
 Validate
-40.54 — Partial Deployment
+40.54 - Partial Deployment
 Sebagai Modular Monolith:
 Application deployment unit terpusat pada satu application artifact.
 Module boundary tetap dijaga di codebase.
-40.55 — Modular Monolith Deployment
+40.55 - Modular Monolith Deployment
 Modules
 ↓
 One Application Artifact
 ↓
 One Deployment Pipeline
-40.56 — Release Independence
+40.56 - Release Independence
 Module development dapat berlangsung terisolasi, tetapi deployment production tetap merupakan deployment application secara keseluruhan.
-40.57 — Release Coordination
+40.57 - Release Coordination
 Jika satu perubahan memengaruhi beberapa module:
 seluruh affected scope harus diuji sebagai satu release.
-40.58 — Deployment Documentation
+40.58 - Deployment Documentation
 Dokumentasi deployment minimal mencakup:
 Prerequisites
 Pipeline
@@ -11795,7 +11795,7 @@ Migration
 Validation
 Rollback
 Troubleshooting
-40.59 — Release Checklist
+40.59 - Release Checklist
 [ ] Requirements verified
 [ ] Tests passed
 [ ] Security checks passed
@@ -11807,7 +11807,7 @@ Troubleshooting
 [ ] Monitoring ready
 [ ] Deployment approved
 [ ] Post-deployment validation completed
-40.60 — Deployment Metrics
+40.60 - Deployment Metrics
 Dapat dipantau:
 Deployment Frequency
 Lead Time for Changes
@@ -11815,28 +11815,28 @@ Change Failure Rate
 Mean Time to Recovery
 Deployment Duration
 Rollback Rate
-40.61 — DORA Metrics
+40.61 - DORA Metrics
 DORA-style metrics dapat digunakan sebagai engineering indicators.
 Metrics tidak boleh dijadikan target yang mendorong risky deployment.
-40.62 — Release Governance
+40.62 - Release Governance
 Low Risk:
 Lightweight Process
 High Risk:
 Stronger Review
 Governance harus proportional terhadap risk.
-40.63 — Production Change Management
+40.63 - Production Change Management
 Production changes harus:
 Tracked
 Reviewed
 Authorized
 Validated
 Auditable
-40.64 — Release Freeze
+40.64 - Release Freeze
 Release freeze dapat diterapkan saat:
 Major Incident
 Critical Business Event
 Infrastructure Instability
-40.65 — Post-Release Review
+40.65 - Post-Release Review
 Release
 ↓
 Observe
@@ -11844,7 +11844,7 @@ Observe
 Review
 ↓
 Lessons Learned
-40.66 — Deployment & Incident Integration
+40.66 - Deployment & Incident Integration
 Jika deployment menyebabkan incident:
 Deployment
 ↓
@@ -11856,7 +11856,7 @@ Root Cause Analysis
 ↓
 Corrective Action
 Terhubung dengan Point 31 dan Point 32.
-40.67 — Release Documentation
+40.67 - Release Documentation
 Setiap release dapat didokumentasikan dengan:
 Version
 Changes
@@ -11865,7 +11865,7 @@ Tests
 Deployment
 Approval
 Result
-40.68 — Competition Deployment Checklist
+40.68 - Competition Deployment Checklist
 Competition dates harus mengikuti latest official ITechnoCup schedule.
 Pre-Submission
 [ ] Core flow verified
@@ -11890,7 +11890,7 @@ Final Demo Preparation
 [ ] Screenshot/PDF backup ready
 [ ] Internet backup tested
 [ ] Presentation files verified
-40.69 — Deployment Principles
+40.69 - Deployment Principles
 Deployment is part of the SDLC.
 Deployments should be repeatable and traceable.
 Environment separation is maintained according to MVP architecture.
@@ -11911,7 +11911,7 @@ Deployment permissions follow least privilege.
 Release artifacts are traceable to source code.
 Release governance is proportional to risk.
 Post-release issues feed back into testing, documentation, and engineering improvement.
-40.70 — MVP vs Future
+40.70 - MVP vs Future
 MVP 🔒
 Git feature branches
 Protected main
@@ -11938,7 +11938,7 @@ Advanced automated rollback
 Multi-region deployment
 Advanced progressive delivery
 Dedicated artifact registry
-40.71 — FINAL DECISION
+40.71 - FINAL DECISION
 Deployment: Flex Network uses a controlled, repeatable, and traceable deployment process integrated with CI/CD.
 Platform: Vercel Git-based deployment is used as the primary application deployment mechanism.
 Environment: Development, CI Testing, Preview/Staging Validation, Production.
@@ -11955,8 +11955,8 @@ Architecture: As a Modular Monolith, the system is deployed as one application a
 Traceability: Production releases are traceable to deployment, version, and Git commit.
 Competition: Final deployment validation follows the latest official ITechnoCup schedule.
 
-POINT 41 — OBSERVABILITY, MONITORING & INCIDENT RESPONSE
-41.1 — Tujuan
+POINT 41 - OBSERVABILITY, MONITORING & INCIDENT RESPONSE
+41.1 - Tujuan
 Observability digunakan untuk memahami kondisi internal system melalui:
 Logs
 Metrics
@@ -11982,7 +11982,7 @@ Jika terdapat konflik antara Point 26/31 dan Point 41, maka Point 41 berlaku.
 Point 26 tetap menjadi referensi untuk business metrics dan funnel monitoring.
 Point 31 tetap menjadi referensi untuk maintenance categories serta backup/recovery procedure.
 
-41.2 — Observability Principles
+41.2 - Observability Principles
 Observability mengikuti prinsip:
 Actionable, Reliable, Secure, Correlated, Cost-aware
 Observability tidak bertujuan mengumpulkan log sebanyak mungkin.
@@ -11996,7 +11996,7 @@ Investigate
 Take action
 
 
-41.3 — Three Pillars
+41.3 - Three Pillars
             OBSERVABILITY
              /      |      \
           LOGS    METRICS   TRACES
@@ -12024,7 +12024,7 @@ Datadog/Splunk infrastructure
 
 Request ID dan correlation ID sudah cukup untuk tracing sederhana pada Modular Monolith.
 
-41.4 — Logging
+41.4 - Logging
 Application harus menghasilkan structured logs untuk event penting.
 Contoh:
 User registered
@@ -12045,7 +12045,7 @@ Database error
 Admin action
 
 
-41.5 — Structured Logging
+41.5 - Structured Logging
 Log harus memiliki struktur yang konsisten.
 Minimum field yang relevan:
 timestamp
@@ -12086,7 +12086,7 @@ ERROR
 
 DEBUG digunakan untuk development/troubleshooting sesuai kebutuhan.
 
-41.6 — Log Levels
+41.6 - Log Levels
 Minimal:
 DEBUG
 INFO
@@ -12095,14 +12095,14 @@ ERROR
 
 Penggunaan harus konsisten antar module.
 
-41.7 — DEBUG
+41.7 - DEBUG
 Digunakan untuk detail development dan troubleshooting.
 Contoh:
 DEBUG: matching calculation started
 
 DEBUG tidak menjadi default production logging.
 
-41.8 — INFO
+41.8 - INFO
 Digunakan untuk operationally meaningful events.
 Contoh:
 INFO: application submitted
@@ -12110,21 +12110,21 @@ INFO: meeting scheduled
 INFO: contract created
 
 
-41.9 — WARN
+41.9 - WARN
 Digunakan ketika ada kondisi abnormal tetapi sistem masih dapat berjalan.
 Contoh:
 WARN: notification delivery delayed
 WARN: retry triggered
 
 
-41.10 — ERROR
+41.10 - ERROR
 Digunakan ketika terjadi failure yang membutuhkan investigation.
 Contoh:
 ERROR: contract activation failed
 ERROR: database operation failed
 
 
-41.11 — Sensitive Data in Logs
+41.11 - Sensitive Data in Logs
 Sensitive information tidak boleh dimasukkan ke operational logs.
 Tidak boleh:
 Password
@@ -12140,7 +12140,7 @@ Sensitive Consent Detail
 Unnecessary Minor Data
 
 
-41.12 — Log Redaction
+41.12 - Log Redaction
 Jika sensitive value berpotensi masuk ke logging pipeline, value harus diminimalkan atau di-redact.
 Contoh:
 secret=********
@@ -12148,7 +12148,7 @@ token=REDACTED
 
 Redaction dilakukan sebelum log disimpan atau diproses lebih lanjut bila memungkinkan.
 
-41.13 — Log Retention
+41.13 - Log Retention
 Log retention mempertimbangkan:
 Operational Need
 Security Need
@@ -12157,7 +12157,7 @@ Storage Cost
 
 Tidak semua log harus disimpan selamanya.
 
-41.14 — Metrics
+41.14 - Metrics
 Metrics digunakan untuk mengukur kondisi system secara numerik.
 Contoh:
 Request rate
@@ -12171,7 +12171,7 @@ Authentication failures
 Payment failures
 
 
-41.15 — Business Metrics
+41.15 - Business Metrics
 Observability juga melihat product health.
 Contoh:
 Applications submitted
@@ -12185,7 +12185,7 @@ Verified Work Histories
 
 Business metrics harus tetap menggunakan data minimum yang diperlukan.
 
-41.16 — RED Metrics
+41.16 - RED Metrics
 Untuk request-driven application:
 Rate
 Errors
@@ -12193,7 +12193,7 @@ Duration
 
 digunakan untuk memahami traffic dan reliability API.
 
-41.17 — USE Metrics
+41.17 - USE Metrics
 Untuk infrastructure/resource monitoring:
 Utilization
 Saturation
@@ -12201,7 +12201,7 @@ Errors
 
 digunakan bila metric infrastructure tersebut tersedia.
 
-41.18 — Latency
+41.18 - Latency
 Latency dipantau menggunakan distribution:
 p50
 p95
@@ -12213,7 +12213,7 @@ p95 = 450ms
 p99 = 1.2s
 
 
-41.19 — Error Rate
+41.19 - Error Rate
 Error rate:
 Failed Requests
 ---------------- × 100
@@ -12233,13 +12233,13 @@ Trend juga dipantau:
 8%
 
 
-41.20 — Availability
+41.20 - Availability
 Availability mengukur apakah system dapat digunakan.
 Untuk MVP:
 Internal availability target ≥ 99%
 Target ini merupakan engineering target, bukan contractual SLA.
 
-41.21 — Health Checks
+41.21 - Health Checks
 System memiliki health endpoint:
 GET /api/health
 
@@ -12257,22 +12257,22 @@ Stack traces
 Private data
 
 
-41.22 — Liveness
+41.22 - Liveness
 Liveness menjawab:
 Apakah application process masih hidup?
 Liveness tidak perlu memeriksa seluruh dependency.
 
-41.23 — Readiness
+41.23 - Readiness
 Readiness menjawab:
 Apakah application siap menerima traffic?
 Readiness dapat memeriksa dependency yang memang critical bagi request handling.
 
-41.24 — Dependency Health
+41.24 - Dependency Health
 Dependency check harus dilakukan secara proporsional.
 Database failure dapat membuat readiness failed, tetapi tidak seharusnya membuat liveness failed.
 Tujuannya menghindari false failure.
 
-41.25 — Distributed Tracing
+41.25 - Distributed Tracing
 Untuk Modular Monolith MVP, distributed tracing tidak menjadi requirement.
 Tracing sederhana menggunakan:
 requestId
@@ -12282,7 +12282,7 @@ jobId
 sudah cukup untuk mayoritas troubleshooting.
 Distributed tracing dapat diperkenalkan jika system complexity meningkat.
 
-41.26 — Correlation ID
+41.26 - Correlation ID
 Workflow penting dapat menggunakan:
 requestId
 correlationId
@@ -12297,7 +12297,7 @@ Audit
 
 Semua operation dapat dihubungkan melalui correlation context.
 
-41.27 — Error Tracking
+41.27 - Error Tracking
 Application error harus dapat dikumpulkan secara terpusat bila diperlukan.
 Minimum context:
 Error Type
@@ -12311,7 +12311,7 @@ Timestamp
 Error tracking tool bersifat optional pada MVP.
 Jika tidak menggunakan dedicated service, Vercel runtime/deployment logs tetap menjadi baseline.
 
-41.28 — Alerting
+41.28 - Alerting
 Alert hanya dibuat untuk kondisi yang membutuhkan action.
 Metric
  ↓
@@ -12323,12 +12323,12 @@ Human / Action
 
 Tidak semua warning harus menjadi alert.
 
-41.29 — Alert Fatigue
+41.29 - Alert Fatigue
 Alert yang berlebihan akan menurunkan kualitas monitoring.
 Prinsip:
 Alert only when action is required.
 
-41.30 — Alert Severity
+41.30 - Alert Severity
 Gunakan:
 P0 → Critical
 P1 → High
@@ -12336,14 +12336,14 @@ P2 → Medium
 P3 → Low
 
 
-41.31 — Critical Alert
+41.31 - Critical Alert
 P0 digunakan untuk:
 Production unavailable
 Critical data integrity issue
 Major security incident
 
 
-41.32 — Warning Alert
+41.32 - Warning Alert
 P1/P2 dapat digunakan untuk:
 Latency increasing
 Error rate increasing
@@ -12351,7 +12351,7 @@ Storage approaching limit
 Authentication failure spike
 
 
-41.33 — Alert Routing
+41.33 - Alert Routing
 Alert harus diarahkan kepada anggota tim yang bertanggung jawab terhadap area tersebut.
 Untuk tim 3 orang, routing dapat dilakukan melalui:
 Team WhatsApp/Telegram
@@ -12359,11 +12359,11 @@ GitHub Issue
 Direct team escalation
 
 
-41.34 — Alert Deduplication
+41.34 - Alert Deduplication
 Satu root cause tidak boleh menghasilkan ratusan alert yang sama.
 Alert harus dikelompokkan atau ditangani dengan mekanisme deduplication bila tooling mendukung.
 
-41.35 — Incident Definition
+41.35 - Incident Definition
 Incident adalah kondisi yang menyebabkan atau berpotensi menyebabkan significant degradation terhadap:
 System
 Security
@@ -12372,7 +12372,7 @@ Data
 Business Operations
 
 
-41.36 — Incident Lifecycle
+41.36 - Incident Lifecycle
 Detect
  ↓
 Triage
@@ -12388,7 +12388,7 @@ Verify
 Learn
 
 
-41.37 — Incident Detection
+41.37 - Incident Detection
 Incident dapat diketahui melalui:
 Monitoring
 Alerts
@@ -12399,7 +12399,7 @@ Security Detection
 Team Observation
 
 
-41.38 — Incident Triage
+41.38 - Incident Triage
 Pertanyaan utama:
 What happened?
 Who is affected?
@@ -12409,7 +12409,7 @@ Is it ongoing?
 What changed recently?
 
 
-41.39 — Incident Severity
+41.39 - Incident Severity
 P0
 Major outage
 Critical security incident
@@ -12426,7 +12426,7 @@ P3
 Minor issue
 
 
-41.40 — Incident Commander
+41.40 - Incident Commander
 Untuk incident besar, satu anggota menjadi Incident Commander.
 Tanggung jawab:
 Coordinate
@@ -12434,7 +12434,7 @@ Prioritize
 Communicate
 Delegate
 
-Simplified Incident Response — 3-Person Team
+Simplified Incident Response - 3-Person Team
 Karena tim terdiri dari 3 orang:
 Incident Commander / Technical Lead
 Diagnosis
@@ -12459,7 +12459,7 @@ GitHub Issue jika perlu
 
 Tidak diperlukan struktur L1/L2/L3 formal untuk MVP.
 
-41.41 — Technical Lead
+41.41 - Technical Lead
 Technical Lead fokus pada:
 Diagnosis
 Mitigation
@@ -12467,7 +12467,7 @@ Recovery
 Technical Decisions
 
 
-41.42 — Communication Lead
+41.42 - Communication Lead
 Communication Lead menangani:
 Internal Updates
 Stakeholder Updates
@@ -12475,7 +12475,7 @@ User Communication
 Competition Communication
 
 
-41.43 — Incident Channel
+41.43 - Incident Channel
 Incident besar dapat menggunakan communication channel khusus.
 Minimum evidence:
 Timeline
@@ -12485,7 +12485,7 @@ Screenshots/logs
 Recovery status
 
 
-41.44 — Incident Timeline
+41.44 - Incident Timeline
 Incident timeline mencatat:
 Detection Time
 Response Time
@@ -12495,7 +12495,7 @@ Recovery
 Resolution
 
 
-41.45 — Containment
+41.45 - Containment
 Tujuan containment:
 Menghentikan impact agar tidak semakin besar.
 Contoh:
@@ -12506,7 +12506,7 @@ Block malicious activity
 Restrict access
 
 
-41.46 — Mitigation
+41.46 - Mitigation
 Mitigation mengurangi impact sementara.
 Contoh:
 Fallback
@@ -12515,7 +12515,7 @@ Disable Non-critical Feature
 Temporary Configuration Change
 
 
-41.47 — Recovery
+41.47 - Recovery
 Setelah impact terkendali:
 Restore Service
  ↓
@@ -12526,7 +12526,7 @@ Validate Functionality
 Monitor
 
 
-41.48 — Incident Closure
+41.48 - Incident Closure
 Incident dapat ditutup apabila:
 Service Stable
 Impact Resolved
@@ -12534,7 +12534,7 @@ Monitoring Normal
 Required Follow-up Created
 
 
-41.49 — Post-Incident Review
+41.49 - Post-Incident Review
 Significant incident menghasilkan:
 Incident
  ↓
@@ -12545,7 +12545,7 @@ Root Cause
 Corrective Action
 
 
-41.50 — Blameless Incident Culture
+41.50 - Blameless Incident Culture
 Postmortem fokus pada:
 System
 Process
@@ -12555,14 +12555,14 @@ Response
 
 Bukan menyalahkan individu.
 
-41.51 — Root Cause Analysis
+41.51 - Root Cause Analysis
 Teknik yang dapat digunakan:
 5 Whys
 Timeline Analysis
 Dependency Analysis
 
 
-41.52 — Corrective Actions
+41.52 - Corrective Actions
 Corrective action harus:
 Specific
 Owned
@@ -12577,7 +12577,7 @@ Update runbook
 Update documentation
 
 
-41.53 — Runbooks
+41.53 - Runbooks
 Common operational issues harus memiliki runbook.
 Contoh:
 Database unavailable
@@ -12587,7 +12587,7 @@ Deployment failure
 Credential leak
 
 
-41.54 — Runbook Structure
+41.54 - Runbook Structure
 Runbook minimal berisi:
 Problem
 Symptoms
@@ -12598,7 +12598,7 @@ Recovery
 Validation
 
 
-41.55 — Escalation
+41.55 - Escalation
 Untuk tim kecil:
 Assigned Engineer
  ↓
@@ -12610,7 +12610,7 @@ External Provider
 
 Escalation dilakukan sesuai severity, bukan berdasarkan bureaucracy.
 
-41.56 — External Dependency Incident
+41.56 - External Dependency Incident
 Detect
  ↓
 Confirm
@@ -12628,7 +12628,7 @@ Payment remains PENDING
 
 sampai confirmation tersedia.
 
-41.57 — Graceful Degradation
+41.57 - Graceful Degradation
 Non-critical functionality dapat dinonaktifkan sementara.
 Contoh:
 Recommendation unavailable
@@ -12638,7 +12638,7 @@ Browse Opportunities
 Core Application still works
 
 
-41.58 — Retry Strategy
+41.58 - Retry Strategy
 Retry harus memiliki:
 Bound
 Backoff
@@ -12647,7 +12647,7 @@ Timeout
 Exponential backoff dapat digunakan untuk transient failure.
 Retry forever dilarang.
 
-41.59 — Circuit Breaker
+41.59 - Circuit Breaker
 Circuit breaker:
 Normal
  ↓
@@ -12663,13 +12663,13 @@ Closed
 
 Circuit breaker bukan requirement MVP karena external dependency complexity masih rendah.
 
-41.60 — Timeout
+41.60 - Timeout
 External request harus mempunyai reasonable timeout.
 Tidak boleh:
 request waits forever
 
 
-41.61 — Observability Security
+41.61 - Observability Security
 Observability data sendiri harus dilindungi karena dapat mengandung:
 User IDs
 Request Information
@@ -12677,7 +12677,7 @@ System Information
 Error Details
 
 
-41.62 — Access Control for Observability
+41.62 - Access Control for Observability
 Tidak semua user dapat melihat:
 Production Logs
 Security Logs
@@ -12686,7 +12686,7 @@ Incident Data
 
 Akses hanya diberikan kepada anggota tim yang membutuhkan.
 
-41.63 — Audit Logging
+41.63 - Audit Logging
 Security-sensitive actions dapat menghasilkan audit records.
 Contoh:
 Admin changed role
@@ -12696,11 +12696,11 @@ Sensitive data accessed
 Moderation action performed
 
 
-41.64 — Audit Log Integrity
+41.64 - Audit Log Integrity
 Audit log harus memiliki protection terhadap unauthorized modification/deletion.
 Audit log bukan pengganti operational logs.
 
-41.65 — Monitoring Retention
+41.65 - Monitoring Retention
 Monitoring data retention mempertimbangkan:
 Troubleshooting
 Security
@@ -12709,7 +12709,7 @@ Compliance
 Cost
 
 
-41.66 — Synthetic Monitoring
+41.66 - Synthetic Monitoring
 Synthetic monitoring dapat menjadi future capability:
 Synthetic User
  ↓
@@ -12722,7 +12722,7 @@ Validate
 Untuk MVP:
 Manual smoke test sudah cukup.
 
-41.67 — SLO
+41.67 - SLO
 SLO dapat digunakan untuk menetapkan reliability target.
 Untuk MVP:
 Availability ≥ 99%
@@ -12732,7 +12732,7 @@ Normal response ≤ 3s
 
 Target tersebut merupakan internal engineering targets.
 
-41.68 — Error Budget
+41.68 - Error Budget
 Error budget merupakan konsep future.
 Jika SLO digunakan secara lebih formal:
 SLO
@@ -12745,7 +12745,7 @@ Reliability vs Feature Delivery
 
 Tidak wajib untuk MVP.
 
-41.69 — Observability Dashboard
+41.69 - Observability Dashboard
 Dashboard monitoring dapat mencakup:
 Traffic
 Errors
@@ -12755,7 +12755,7 @@ Infrastructure
 Business Health
 
 
-41.70 — Operational Dashboard
+41.70 - Operational Dashboard
 Minimum operational information:
 Requests/min
 Error rate
@@ -12766,14 +12766,14 @@ External dependency health
 
 Untuk MVP, Vercel Dashboard dan Supabase Dashboard sudah cukup.
 
-41.71 — Business Incident Monitoring
+41.71 - Business Incident Monitoring
 Incident tidak selalu technical.
 Contoh:
 Application submissions drop 90%
 
 System masih technically UP, tetapi product mengalami anomaly yang perlu diperiksa.
 
-41.72 — User Impact Monitoring
+41.72 - User Impact Monitoring
 Pertimbangkan:
 Affected Users
 Affected Features
@@ -12782,7 +12782,7 @@ Business Impact
 Geographic Impact jika relevan
 
 
-41.73 — Incident Communication
+41.73 - Incident Communication
 Jika incident berdampak signifikan:
 Internal Communication
         +
@@ -12791,7 +12791,7 @@ Stakeholder Communication
 User Communication
 
 
-41.74 — Status Communication
+41.74 - Status Communication
 Status dapat menggunakan:
 Operational
 Degraded
@@ -12800,7 +12800,7 @@ Major Outage
 Resolved
 
 
-41.75 — Recovery Verification
+41.75 - Recovery Verification
 Setelah recovery:
 Technical Health
         +
@@ -12838,7 +12838,7 @@ Jika production down:
 5. Document incident.
 
 
-41.76 — Observability Principles
+41.76 - Observability Principles
 Observability is part of production readiness.
 Logs, metrics, and traces are used according to system needs.
 Monitoring focuses on actionable information.
@@ -12860,7 +12860,7 @@ Business-critical indicators may be monitored alongside technical metrics.
 Reliability targets are proportional to system maturity.
 Observability enables faster detection, diagnosis, response, and recovery.
 
-41.77 — MVP vs Future
+41.77 - MVP vs Future
 MVP 🔒
 Structured application logging
 Vercel deployment/runtime logs
@@ -12887,7 +12887,7 @@ Advanced observability correlation
 Dedicated observability platform
 
 
-41.78 — FINAL DECISION
+41.78 - FINAL DECISION
 Observability: Flex Network uses logs, metrics, health checks, events, and traces where justified.
 Logging: Application logs use structured information while avoiding secrets and unnecessary sensitive data.
 Monitoring: Critical technical and business health indicators are monitored through Vercel and Supabase facilities.
@@ -12901,8 +12901,8 @@ Recovery: Significant incidents require post-incident review and corrective acti
 Operations: Common operational issues are documented through runbooks.
 Improvement: Incident findings feed back into testing, architecture, documentation, and deployment practices.
 
-POINT 42 — PERFORMANCE, SCALABILITY & CAPACITY PLANNING
-42.1 — Tujuan
+POINT 42 - PERFORMANCE, SCALABILITY & CAPACITY PLANNING
+42.1 - Tujuan
 Performance strategy bertujuan memastikan:
 User Request
      ↓
@@ -12925,12 +12925,12 @@ Jika terdapat konflik antara Point 27/38 dan Point 42, Point 42 berlaku untuk pe
 Point 27 tetap menjadi referensi untuk scaling path dan optimization priority.
 Point 38 tetap menjadi referensi untuk Web Vitals dan public-page performance.
 
-42.2 — Performance Principles
+42.2 - Performance Principles
 Performance mengikuti:
 Measurable, User-focused, Data-driven, Cost-aware, Sustainable
 Optimasi harus berdasarkan measurement.
 
-42.3 — Performance Goals
+42.3 - Performance Goals
 Critical user journeys:
 Login
 Search Opportunity
@@ -12960,7 +12960,7 @@ Performance ≥ 80
 
 Internal target dibuat lebih ketat daripada SRS untuk memberikan engineering buffer.
 
-42.4 — User-Perceived Performance
+42.4 - User-Perceived Performance
 Performance bukan hanya server latency.
 Request
  ↓
@@ -12974,7 +12974,7 @@ User Perception
 
 Semua layer perlu dipertimbangkan.
 
-42.5 — Latency Budget
+42.5 - Latency Budget
 Total latency dipengaruhi oleh:
 Network
 Application
@@ -12984,7 +12984,7 @@ Rendering
 
 Optimization dilakukan berdasarkan bottleneck yang terukur.
 
-42.6 — Performance Baseline
+42.6 - Performance Baseline
 Proses:
 Measure
  ↓
@@ -12996,7 +12996,7 @@ Measure Again
 
 Jangan mengklaim improvement tanpa measurement.
 
-42.7 — Performance Metrics
+42.7 - Performance Metrics
 Minimum metrics:
 Response Time
 Latency
@@ -13005,7 +13005,7 @@ Error Rate
 Resource Utilization
 
 
-42.8 — Percentile Latency
+42.8 - Percentile Latency
 Gunakan:
 p50
 p95
@@ -13013,7 +13013,7 @@ p99
 
 karena average saja tidak menggambarkan tail latency.
 
-42.9 — Throughput
+42.9 - Throughput
 Throughput mengukur jumlah workload yang dapat diproses.
 Contoh:
 Requests/second
@@ -13021,7 +13021,7 @@ Jobs/minute
 Events/second
 
 
-42.10 — Resource Utilization
+42.10 - Resource Utilization
 Monitor resource yang tersedia:
 CPU
 Memory
@@ -13032,7 +13032,7 @@ Storage
 
 Tidak semua resource harus dimonitor secara custom apabila platform sudah menyediakan metric.
 
-42.11 — Performance Budget
+42.11 - Performance Budget
 Critical feature dapat memiliki budget untuk:
 Page Load
 API Latency
@@ -13041,7 +13041,7 @@ Database Query Time
 Image Size
 
 
-42.12 — Frontend Performance
+42.12 - Frontend Performance
 Frontend harus menghindari:
 Huge Bundle
 Huge Images
@@ -13051,7 +13051,7 @@ Excessive Rendering
 Unnecessary Client Components
 
 
-42.13 — Asset Optimization
+42.13 - Asset Optimization
 Gunakan:
 Compressed Images
 Modern Image Formats
@@ -13061,7 +13061,7 @@ Code Splitting
 
 Next.js image optimization digunakan bila relevan.
 
-42.14 — API Performance
+42.14 - API Performance
 API harus:
 Efficient
 Predictable
@@ -13070,7 +13070,7 @@ Observable
 
 API tidak boleh mengembalikan dataset tidak terbatas.
 
-42.15 — Pagination
+42.15 - Pagination
 Collection besar menggunakan pagination.
 Contoh:
 GET /api/opportunities?page=1&limit=20
@@ -13082,7 +13082,7 @@ Maximum:
 100
 
 
-42.16 — Cursor Pagination
+42.16 - Cursor Pagination
 Cursor pagination dapat digunakan untuk dataset besar atau collection yang sering berubah.
 Contoh:
 GET /api/opportunities?cursor=abc123
@@ -13090,7 +13090,7 @@ GET /api/opportunities?cursor=abc123
 Untuk MVP:
 Offset pagination masih acceptable untuk dataset kecil.
 
-42.17 — Filtering
+42.17 - Filtering
 Filtering dilakukan sedekat mungkin dengan data source.
 Buruk:
 Database
@@ -13109,10 +13109,10 @@ Database Filter
 Required Results
 
 
-42.18 — Sorting
+42.18 - Sorting
 Sorting dataset besar sebaiknya dilakukan oleh database menggunakan field dan index yang sesuai.
 
-42.19 — Database Performance
+42.19 - Database Performance
 Database menjadi salah satu potential bottleneck utama.
 Monitor:
 Query Latency
@@ -13123,7 +13123,7 @@ Storage
 Slow Queries
 
 
-42.20 — Database Indexing
+42.20 - Database Indexing
 Index digunakan untuk query pattern yang benar-benar membutuhkan:
 Filtering
 Joining
@@ -13132,7 +13132,7 @@ Uniqueness
 
 Index didasarkan pada actual workload.
 
-42.21 — Over-Indexing
+42.21 - Over-Indexing
 Terlalu banyak index meningkatkan:
 Storage
 Write Cost
@@ -13140,7 +13140,7 @@ Maintenance Cost
 
 Index bukan berarti semakin banyak semakin bagus.
 
-42.22 — Query Optimization
+42.22 - Query Optimization
 Query harus menghindari:
 SELECT * yang tidak diperlukan
 N+1 Queries
@@ -13148,7 +13148,7 @@ Large Unbounded Results
 Repeated Expensive Queries
 
 
-42.23 — N+1 Problem
+42.23 - N+1 Problem
 Contoh:
 100 opportunities
  ↓
@@ -13163,14 +13163,14 @@ Relational Select
 Data Fetch Optimization
 
 
-42.24 — Connection Pooling
+42.24 - Connection Pooling
 Database connections harus dikelola melalui mekanisme pooling yang sesuai.
 Untuk Vercel + Supabase, penggunaan connection pooling harus mengikuti mekanisme yang direkomendasikan oleh Supabase untuk workload serverless.
 
-42.25 — Connection Limits
+42.25 - Connection Limits
 Connection pool harus membatasi jumlah connections agar database tidak overload.
 
-42.26 — Caching
+42.26 - Caching
 Caching dipertimbangkan ketika data:
 Frequently Read
 Expensive to Compute
@@ -13213,7 +13213,7 @@ Distributed Cache
 Advanced Query Cache
 
 
-42.27 — Cache Strategy
+42.27 - Cache Strategy
 Konseptual:
 Request
  ↓
@@ -13229,7 +13229,7 @@ Cache
 
 Hanya digunakan untuk data yang memang cocok di-cache.
 
-42.28 — Cache Invalidation
+42.28 - Cache Invalidation
 Cache harus memiliki strategy:
 Expiration
 Revalidation
@@ -13237,7 +13237,7 @@ Explicit Invalidation
 
 Cache invalidation menjadi bagian dari design.
 
-42.29 — Cache TTL
+42.29 - Cache TTL
 TTL disesuaikan dengan freshness requirement.
 Contoh:
 5 minutes
@@ -13246,7 +13246,7 @@ Contoh:
 
 Tidak ada satu TTL untuk semua resource.
 
-42.30 — Cache Consistency
+42.30 - Cache Consistency
 Highly dynamic atau sensitive data tidak boleh dicache sembarangan.
 Contoh:
 Database = ACTIVE
@@ -13254,16 +13254,16 @@ Cache = OLD
 
 tidak boleh terjadi pada state kritis.
 
-42.31 — CDN
+42.31 - CDN
 Static assets dapat menggunakan CDN.
 Vercel menyediakan platform-level asset delivery untuk deployment.
 Tidak perlu membangun CDN sendiri pada MVP.
 
-42.32 — Compression
+42.32 - Compression
 Payload dapat menggunakan compression yang tersedia pada deployment platform.
 Application tidak perlu membangun compression infrastructure sendiri untuk MVP.
 
-42.33 — Payload Optimization
+42.33 - Payload Optimization
 API response hanya mengembalikan field yang dibutuhkan.
 Contoh:
 id
@@ -13273,7 +13273,7 @@ deadline
 
 bukan seluruh profile/private metadata.
 
-42.34 — Asynchronous Processing
+42.34 - Asynchronous Processing
 Task yang tidak harus selesai dalam synchronous request dapat dipindahkan ke asynchronous processing.
 Contoh:
 Notification
@@ -13283,7 +13283,7 @@ Heavy Processing
 Scheduled Tasks
 
 
-42.35 — Background Jobs
+42.35 - Background Jobs
 Candidate background jobs:
 Notification processing
 Meeting reminder
@@ -13295,12 +13295,12 @@ Future webhook processing
 MVP dapat menggunakan scheduled functions/cron/manual trigger sesuai kebutuhan.
 Dedicated queue infrastructure tidak wajib.
 
-42.36 — Queue
+42.36 - Queue
 Queue dapat digunakan bila workload asynchronous sudah cukup besar.
 Untuk MVP:
 Tidak perlu dedicated queue hanya demi complexity.
 
-42.37 — Backpressure
+42.37 - Backpressure
 System harus mencegah overload ketika workload melebihi kemampuan.
 Approach:
 Limit
@@ -13311,7 +13311,7 @@ Graceful Degradation
 
 digunakan sesuai kebutuhan.
 
-42.38 — Rate Limiting
+42.38 - Rate Limiting
 Rate limiting digunakan untuk:
 Protect APIs
 Prevent Abuse
@@ -13331,7 +13331,7 @@ Upstash Rate Limit
 Managed Rate Limiting
 
 
-42.39 — Rate Limit Example
+42.39 - Rate Limit Example
 Conceptual example:
 User
  ↓
@@ -13343,7 +13343,7 @@ Threshold exceeded
 
 Actual thresholds ditentukan pada implementation stage berdasarkan endpoint risk.
 
-42.40 — Resource Limits
+42.40 - Resource Limits
 Set reasonable limits untuk:
 Request Body
 Query Result
@@ -13352,7 +13352,7 @@ Job Runtime
 Payload Size
 
 
-42.41 — File Upload Performance
+42.41 - File Upload Performance
 MVP menggunakan:
 External portfolio/CV links
 bukan file upload internal.
@@ -13364,7 +13364,7 @@ Object Storage
 Application Metadata
 
 
-42.42 — Object Storage
+42.42 - Object Storage
 Jika file upload diperkenalkan:
 Binary
  ↓
@@ -13372,7 +13372,7 @@ Object Storage
 
 Database menyimpan metadata dan reference, bukan binary file besar.
 
-42.43 — Search Performance
+42.43 - Search Performance
 Opportunity search dapat menjadi performance-sensitive.
 Gunakan:
 Indexes
@@ -13382,10 +13382,10 @@ Bounded Queries
 Appropriate Search Strategy
 
 
-42.44 — Full-Text Search
+42.44 - Full-Text Search
 PostgreSQL full-text search dapat dipertimbangkan sebelum dedicated search engine.
 
-42.45 — Search Engine
+42.45 - Search Engine
 Dedicated search engine hanya diperkenalkan ketika:
 Dataset Size
 +
@@ -13395,7 +13395,7 @@ Performance Requirement
 
 memang membutuhkannya.
 
-42.46 — Modular Monolith Performance
+42.46 - Modular Monolith Performance
 Internal module communication tidak membutuhkan network call.
 Module A
  ↓
@@ -13403,12 +13403,12 @@ Module B Interface
 
 tetap berada dalam application runtime.
 
-42.47 — Module Boundaries
+42.47 - Module Boundaries
 Performance optimization tidak boleh menghancurkan module boundaries.
 Tidak boleh:
 “Biar cepat, import semua internal repository module lain.”
 
-42.48 — Horizontal Scaling
+42.48 - Horizontal Scaling
 Application architecture harus siap menangani lebih banyak concurrent requests.
 Dalam Vercel serverless deployment, instance management dan request distribution ditangani oleh platform.
 MVP tidak perlu:
@@ -13418,7 +13418,7 @@ Manual Autoscaling Policy
 
 Application harus tetap stateless.
 
-42.49 — Stateless Application
+42.49 - Stateless Application
 Instance harus interchangeable.
 State penting disimpan pada durable infrastructure:
 Supabase Database
@@ -13427,11 +13427,11 @@ External Durable Storage
 
 bukan memory instance.
 
-42.50 — Session Management
+42.50 - Session Management
 Flex Network menggunakan Supabase Auth.
 Session tidak bergantung pada memory server instance.
 
-42.51 — Vertical Scaling
+42.51 - Vertical Scaling
 Vertical scaling:
 CPU ↑
 RAM ↑
@@ -13440,7 +13440,7 @@ Storage ↑
 merupakan scaling option pada infrastructure yang mendukungnya.
 Untuk Vercel serverless, resource allocation dikelola oleh platform.
 
-42.52 — Scaling Strategy
+42.52 - Scaling Strategy
 Urutan:
 Measure
  ↓
@@ -13453,11 +13453,11 @@ Horizontal Scaling
 Advanced Architecture
 
 
-42.53 — Auto Scaling
+42.53 - Auto Scaling
 Pada Vercel deployment, scaling application request handling dikelola oleh platform.
 Tidak perlu custom autoscaling system untuk MVP.
 
-42.54 — Database Scaling
+42.54 - Database Scaling
 Jika workload meningkat, database dapat memerlukan:
 Query Optimization
 Indexing
@@ -13479,7 +13479,7 @@ MVP priority:
 Connection pooling digunakan sesuai kebutuhan serverless workload.
 Read replica dan advanced database scaling merupakan future considerations bergantung pada workload dan infrastructure plan.
 
-42.55 — Read Replica
+42.55 - Read Replica
 Future option:
 Primary
  ↓
@@ -13491,20 +13491,20 @@ Reads
 
 Consistency implications harus diperhatikan.
 
-42.56 — Sharding
+42.56 - Sharding
 Sharding tidak diperlukan untuk MVP.
 Ini merupakan advanced scaling strategy.
 
-42.57 — Capacity Planning
+42.57 - Capacity Planning
 Capacity planning menjawab:
 Berapa workload yang harus didukung sekarang, dan kapan kita perlu melakukan scaling?
 Competition Context
 Expected traffic:
 Preliminary Review
-~5–10 concurrent users
+~5-10 concurrent users
 
 Final Live Demo
-~1 presenter + ~10–20 viewers
+~1 presenter + ~10-20 viewers
 
 MVP Capacity Target
 Target engineering:
@@ -13528,7 +13528,7 @@ Basic database observation
 
 cukup.
 
-42.58 — Capacity Inputs
+42.58 - Capacity Inputs
 Capacity planning menggunakan:
 Current Traffic
 Peak Traffic
@@ -13538,10 +13538,10 @@ Resource Usage
 Performance Targets
 
 
-42.59 — Growth Projection
+42.59 - Growth Projection
 Jika project dilanjutkan, gunakan actual usage data untuk membuat growth projection.
 
-42.60 — Peak Load
+42.60 - Peak Load
 Jangan hanya menggunakan average.
 Pertimbangkan:
 Peak Hours
@@ -13552,20 +13552,20 @@ Registration Period
 Competition Demo
 
 
-42.61 — Capacity Headroom
+42.61 - Capacity Headroom
 Infrastructure sebaiknya memiliki headroom.
 Target tidak berarti system harus beroperasi mendekati 100% utilization sepanjang waktu.
 
-42.62 — Load Testing
+42.62 - Load Testing
 Load testing digunakan untuk mengetahui:
 Maximum Sustainable Load
 Untuk MVP, test workload harus realistic terhadap competition scenario.
 
-42.63 — Stress Testing
+42.63 - Stress Testing
 Stress testing mendorong workload melewati expected capacity untuk mengetahui failure behavior.
 Future untuk Flex Network.
 
-42.64 — Spike Testing
+42.64 - Spike Testing
 Spike testing:
 Normal Traffic
  ↓
@@ -13575,7 +13575,7 @@ Observe
 
 Future jika workload meningkat.
 
-42.65 — Endurance Testing
+42.65 - Endurance Testing
 Endurance testing digunakan untuk menemukan:
 Memory Leak
 Resource Leak
@@ -13583,17 +13583,17 @@ Performance Degradation
 
 Future untuk workload yang lebih besar.
 
-42.66 — Performance Regression
+42.66 - Performance Regression
 Setiap perubahan besar harus dipastikan tidak menyebabkan unacceptable regression.
 
-42.67 — Performance Testing Environment
+42.67 - Performance Testing Environment
 Performance testing idealnya menggunakan environment yang representatif.
 Untuk MVP, testing dapat menggunakan local/test/preview environment sesuai kebutuhan.
 
-42.68 — Realistic Dataset
+42.68 - Realistic Dataset
 Performance testing tidak boleh menggunakan dataset terlalu kecil lalu mengklaim scalability besar.
 
-42.69 — Database Data Growth
+42.69 - Database Data Growth
 Monitor:
 Users
 Opportunities
@@ -13607,7 +13607,7 @@ Audit Logs
 Notifications
 
 
-42.70 — Storage Capacity
+42.70 - Storage Capacity
 Monitor:
 Database Storage
 Log Storage
@@ -13615,7 +13615,7 @@ Backup Storage
 Future Object Storage
 
 
-42.71 — Capacity Alerts
+42.71 - Capacity Alerts
 Conceptual thresholds:
 70% → Observe
 80% → Warning
@@ -13623,7 +13623,7 @@ Conceptual thresholds:
 
 Actual threshold mengikuti infrastructure capability.
 
-42.72 — Cost-Aware Scaling
+42.72 - Cost-Aware Scaling
 Scaling mempertimbangkan:
 Performance
 Reliability
@@ -13631,7 +13631,7 @@ Infrastructure Cost
 Operational Complexity
 
 
-42.73 — Performance vs Cost
+42.73 - Performance vs Cost
 Tidak selalu:
 More infrastructure = better architecture
 Kadang:
@@ -13643,7 +13643,7 @@ Selective Caching
 
 lebih efektif.
 
-42.74 — Performance Bottleneck Analysis
+42.74 - Performance Bottleneck Analysis
 Measure
  ↓
 Identify Bottleneck
@@ -13653,7 +13653,7 @@ Optimize
 Measure Again
 
 
-42.75 — Avoid Premature Optimization
+42.75 - Avoid Premature Optimization
 MVP harus:
 Simple
 Measured
@@ -13665,7 +13665,7 @@ Expensive
 Hard to Operate
 
 
-42.76 — Performance Documentation
+42.76 - Performance Documentation
 Dokumentasikan:
 Baseline
 Targets
@@ -13675,7 +13675,7 @@ Capacity Assumptions
 Load Test Results
 
 
-42.77 — Performance & Observability
+42.77 - Performance & Observability
 Performance terhubung dengan Point 41:
 Performance
  ↓
@@ -13688,7 +13688,7 @@ Alert
 Incident Response
 
 
-42.78 — Performance & Deployment
+42.78 - Performance & Deployment
 Performance juga terhubung dengan Point 40:
 New Release
  ↓
@@ -13699,7 +13699,7 @@ Deploy
 Monitor
 
 
-42.79 — Performance & Testing
+42.79 - Performance & Testing
 Performance strategy terhubung dengan Point 39:
 Functional Test
 +
@@ -13708,7 +13708,7 @@ Performance Validation
 Load Test when justified
 
 
-42.80 — Performance Principles
+42.80 - Performance Principles
 Performance requirements are measurable.
 Performance is measured before optimization.
 Critical user journeys receive explicit performance consideration.
@@ -13730,7 +13730,7 @@ Performance strategy evolves with actual usage.
 Database scaling follows measured workload.
 Performance changes must not violate security or module boundaries.
 
-42.81 — MVP vs Future
+42.81 - MVP vs Future
 MVP 🔒
 Basic performance baseline
 Lighthouse audit
@@ -13760,7 +13760,7 @@ Database partitioning
 Distributed rate limiting
 
 
-42.82 — FINAL DECISION
+42.82 - FINAL DECISION
 Performance: Flex Network uses a measurable, user-focused, and data-driven performance strategy.
 SRS Target: Normal operation response time ≤ 3 seconds.
 Internal Target: p95 < 1 second for normal API endpoints.
@@ -13774,8 +13774,8 @@ Testing: MVP performance validation focuses on realistic competition traffic, en
 Reliability: Performance data integrates with observability and incident response.
 Evolution: Advanced scaling technologies are introduced only when measured workload and business requirements justify their complexity.
 
-POINT 43 — FINAL ARCHITECTURE & ENGINEERING GOVERNANCE
-43.1 — Tujuan
+POINT 43 - FINAL ARCHITECTURE & ENGINEERING GOVERNANCE
+43.1 - Tujuan
 Engineering governance memastikan seluruh keputusan teknis tetap:
 Consistent
 Traceable
@@ -13791,7 +13791,7 @@ Technical Constraints
 
 Relationship with Previous Points
 Point 43 adalah CAPSTONE / PENUTUP dari seluruh TDD.
-Point 43 tidak menggantikan detail teknis dari Point 39–42 atau point sebelumnya.
+Point 43 tidak menggantikan detail teknis dari Point 39-42 atau point sebelumnya.
 Poin spesifik tetap menjadi authority untuk detail teknis masing-masing domain.
 Point 43 mengunci prinsip governance yang berlaku lintas seluruh system.
 Small Team & Competition Context
@@ -13805,7 +13805,7 @@ Untuk tim 3 orang:
 Simple Process + Clear Ownership + Automated Checks + Lightweight Review
 lebih sesuai daripada bureaucracy berat.
 
-43.2 — Architecture Baseline
+43.2 - Architecture Baseline
 Architecture baseline Flex Network:
 Modular Monolith
 dengan layer:
@@ -13820,7 +13820,7 @@ Data / Infrastructure
 External Services
 
 
-43.3 — Architectural Boundaries
+43.3 - Architectural Boundaries
 Module memiliki responsibility yang jelas.
 Contoh:
 Identity
@@ -13839,7 +13839,7 @@ Report
 Audit
 
 
-43.4 — Single Responsibility
+43.4 - Single Responsibility
 Setiap module harus memiliki:
 Clear Responsibility
 Clear Ownership
@@ -13847,7 +13847,7 @@ Clear Interface
 
 Jangan menjadikan satu module sebagai tempat seluruh business logic.
 
-43.5 — Dependency Direction
+43.5 - Dependency Direction
 Dependency direction:
 Presentation
      ↓
@@ -13858,7 +13858,7 @@ Domain
 Infrastructure berada di luar domain sebagai implementation boundary.
 Higher-level business logic tidak boleh bergantung langsung pada unnecessary implementation detail.
 
-43.6 — Module Communication
+43.6 - Module Communication
 Module berkomunikasi melalui:
 Defined Interface
 Application Service
@@ -13866,7 +13866,7 @@ Domain Event bila diperlukan
 
 Module tidak boleh mengakses internal implementation module lain secara sembarangan.
 
-43.7 — Data Ownership
+43.7 - Data Ownership
 Setiap module memiliki ownership terhadap data yang menjadi responsibility-nya.
 Contoh:
 Application Module
@@ -13879,7 +13879,7 @@ Payment Module
 → Payment Data
 
 
-43.8 — Shared Data
+43.8 - Shared Data
 Shared data harus diminimalkan.
 Pattern:
 Module A
@@ -13896,7 +13896,7 @@ Direct Table Manipulation
 Module B Internal Data
 
 
-43.9 — Architecture Decision Record
+43.9 - Architecture Decision Record
 Significant architecture decisions harus terdokumentasi menggunakan ADR.
 Format minimal:
 Context
@@ -13906,7 +13906,7 @@ Consequences
 Status
 
 
-43.10 — ADR Example
+43.10 - ADR Example
 ADR-001
 
 Decision:
@@ -13927,7 +13927,7 @@ Deployment lebih sederhana tetapi module boundary
 harus dijaga dengan discipline.
 
 
-43.11 — Architecture Review
+43.11 - Architecture Review
 Architecture review diperlukan untuk perubahan significant, seperti:
 New Module
 Database Strategy Change
@@ -13939,7 +13939,7 @@ Payment Architecture Change
 
 Tidak semua perubahan kecil membutuhkan formal architecture review.
 
-43.12 — Technical Decision Ownership
+43.12 - Technical Decision Ownership
 Significant decision memiliki:
 Decision
  ↓
@@ -13950,7 +13950,7 @@ Documentation
 Review
 
 
-43.13 — Engineering Standards
+43.13 - Engineering Standards
 Codebase mengikuti standards untuk:
 Naming
 Formatting
@@ -13962,7 +13962,7 @@ Documentation
 Dependency Management
 
 
-43.14 — Coding Standards
+43.14 - Coding Standards
 Standards harus konsisten pada:
 Structure
 Naming
@@ -13976,7 +13976,7 @@ ESLint
 Prettier
 
 
-43.15 — Code Review
+43.15 - Code Review
 Significant code changes harus melalui code review.
 Review minimum mempertimbangkan:
 Correctness
@@ -13986,7 +13986,7 @@ Testing
 Architecture
 
 
-43.16 — Pull Request
+43.16 - Pull Request
 PR harus menjelaskan:
 What changed?
 Why?
@@ -13995,7 +13995,7 @@ Testing?
 Risk?
 
 
-43.17 — Branch Strategy
+43.17 - Branch Strategy
 Branching strategy:
 main
  ↓
@@ -14016,13 +14016,13 @@ Review
 Merge
 
 
-43.18 — Protected Main Branch
+43.18 - Protected Main Branch
 main harus diperlakukan sebagai protected branch.
 Direct Push → ❌
 Pull Request → Review → CI → Merge → ✅
 
 
-43.19 — Definition of Done
+43.19 - Definition of Done
 Task dianggap selesai jika:
 Implementation
 +
@@ -14036,7 +14036,7 @@ Acceptance Criteria
 
 telah terpenuhi sesuai kebutuhan.
 
-43.20 — Definition of Ready
+43.20 - Definition of Ready
 Task sebelum development memiliki:
 Clear Requirement
 Acceptance Criteria
@@ -14044,7 +14044,7 @@ Dependencies
 Expected Outcome
 
 
-43.21 — Technical Debt
+43.21 - Technical Debt
 Technical debt harus:
 Document
  ↓
@@ -14054,7 +14054,7 @@ Resolve
 
 bukan disembunyikan.
 
-43.22 — Technical Debt Classification
+43.22 - Technical Debt Classification
 Technical debt dikategorikan:
 Low
 Medium
@@ -14063,7 +14063,7 @@ Critical
 
 berdasarkan impact dan urgency.
 
-43.23 — Dependency Governance
+43.23 - Dependency Governance
 Dependency harus:
 Known
 Versioned
@@ -14072,10 +14072,10 @@ Security Checked
 Maintained
 
 
-43.24 — Deprecated Dependencies
+43.24 - Deprecated Dependencies
 Dependency deprecated harus memiliki replacement plan atau keputusan eksplisit untuk tetap menggunakannya dengan risk yang diketahui.
 
-43.25 — Breaking Changes
+43.25 - Breaking Changes
 Breaking change harus:
 Identified
 Documented
@@ -14084,7 +14084,7 @@ Tested
 Communicated
 
 
-43.26 — API Governance
+43.26 - API Governance
 API harus memiliki:
 Defined Contract
 Validation
@@ -14094,10 +14094,10 @@ Compatibility Strategy
 
 API versioning mengikuti kebutuhan product dan current MVP architecture.
 
-43.27 — API Compatibility
+43.27 - API Compatibility
 Perubahan API harus mempertimbangkan backward compatibility terhadap existing clients.
 
-43.28 — Database Governance
+43.28 - Database Governance
 Database changes harus:
 Reviewed
 Migrated
@@ -14107,7 +14107,7 @@ Traceable
 Tidak boleh dilakukan secara sembarangan langsung terhadap production.
 Production database changes mengikuti migration workflow.
 
-43.29 — Schema Ownership
+43.29 - Schema Ownership
 Database schema memiliki ownership yang jelas.
 Migration changes tetap melalui:
 Git
@@ -14119,7 +14119,7 @@ Test
 Deployment
 
 
-43.30 — Security Governance
+43.30 - Security Governance
 Security merupakan bagian dari seluruh lifecycle:
 Design
  ↓
@@ -14132,7 +14132,7 @@ Deployment
 Monitoring
 
 
-43.31 — Security Review
+43.31 - Security Review
 Security review wajib diprioritaskan untuk high-risk changes:
 Authentication
 Authorization
@@ -14144,7 +14144,7 @@ External Integration
 Privileged Access
 
 
-43.32 — Privacy by Design
+43.32 - Privacy by Design
 Privacy dipertimbangkan sejak:
 Collect
  ↓
@@ -14158,12 +14158,12 @@ Delete
 
 Data hanya dikumpulkan dan diproses sesuai kebutuhan.
 
-43.33 — Least Privilege
+43.33 - Least Privilege
 Access diberikan berdasarkan:
 Need → Minimum Permission
 Tidak ada permission yang diberikan tanpa alasan.
 
-43.34 — Observability Governance
+43.34 - Observability Governance
 Logging, metrics, monitoring, dan audit mengikuti principles dari Point 41:
 Security
 Privacy
@@ -14172,7 +14172,7 @@ Access Control
 Data Minimization
 
 
-43.35 — Testing Governance
+43.35 - Testing Governance
 Testing mengikuti Point 39:
 Unit
 Integration
@@ -14185,7 +14185,7 @@ RLS
 
 sesuai risk.
 
-43.36 — Deployment Governance
+43.36 - Deployment Governance
 Deployment mengikuti Point 40:
 Build
  ↓
@@ -14200,7 +14200,7 @@ Production
 Monitor
 
 
-43.37 — Incident Governance
+43.37 - Incident Governance
 Incident mengikuti Point 41:
 Detect
  ↓
@@ -14217,7 +14217,7 @@ Verify
 Review
 
 
-43.38 — Performance Governance
+43.38 - Performance Governance
 Performance mengikuti Point 42:
 Measure
  ↓
@@ -14228,7 +14228,7 @@ Optimize
 Validate
 
 
-43.39 — Change Management
+43.39 - Change Management
 Technical changes harus mempertimbangkan:
 Impact
 Risk
@@ -14238,7 +14238,7 @@ Testing
 Documentation
 
 
-43.40 — Change Classification
+43.40 - Change Classification
 Changes dikategorikan:
 Low Risk
 Medium Risk
@@ -14246,14 +14246,14 @@ High Risk
 Critical
 
 
-43.41 — Low-Risk Change
+43.41 - Low-Risk Change
 Contoh:
 Minor UI Correction
 Documentation Change
 Non-critical Refactor
 
 
-43.42 — High-Risk Change
+43.42 - High-Risk Change
 Contoh:
 Authentication Change
 Database Migration
@@ -14263,7 +14263,7 @@ Payment Logic Change
 Consent Logic Change
 
 
-43.43 — Change Approval
+43.43 - Change Approval
 Approval level mengikuti risk.
 Low Risk
 → Lightweight Review
@@ -14273,7 +14273,7 @@ High Risk
 
 Tidak semua perubahan membutuhkan approval bureaucracy yang sama.
 
-43.44 — Release Governance
+43.44 - Release Governance
 Setiap release penting memiliki:
 Version
 Change List
@@ -14282,7 +14282,7 @@ Deployment Record
 Rollback Plan
 
 
-43.45 — Documentation Governance
+43.45 - Documentation Governance
 Documentation harus:
 Accurate
 Discoverable
@@ -14290,7 +14290,7 @@ Versioned
 Maintained
 
 
-43.46 — Documentation Ownership
+43.46 - Documentation Ownership
 Critical documentation memiliki owner.
 Contoh:
 Architecture Docs
@@ -14301,13 +14301,13 @@ Runbooks
 README
 
 
-43.47 — Knowledge Management
+43.47 - Knowledge Management
 Critical knowledge tidak boleh hanya berada pada satu individu.
 Person Knowledge → ❌
 Team Knowledge   → ✅
 
 
-43.48 — Bus Factor
+43.48 - Bus Factor
 System harus mengurangi dependency terhadap satu engineer.
 Minimum documentation:
 Architecture
@@ -14318,7 +14318,7 @@ Operations
 Troubleshooting
 
 
-43.49 — Onboarding
+43.49 - Onboarding
 Engineer baru harus dapat memahami system melalui:
 README
 Architecture Docs
@@ -14328,7 +14328,7 @@ Runbooks
 Codebase
 
 
-43.50 — Engineering Metrics
+43.50 - Engineering Metrics
 Engineering metrics dapat membantu improvement:
 Deployment Frequency
 Change Failure Rate
@@ -14338,7 +14338,7 @@ Test Reliability
 Incident Frequency
 
 
-43.51 — Metrics Are Not Individual Targets
+43.51 - Metrics Are Not Individual Targets
 Engineering metrics bukan alat untuk menghukum individu.
 Tujuannya:
 Identify Problems
@@ -14348,7 +14348,7 @@ Improve Process
 Improve System
 
 
-43.52 — Architecture Evolution
+43.52 - Architecture Evolution
 Architecture berkembang berdasarkan:
 Current Need
  ↓
@@ -14359,7 +14359,7 @@ Identify Limitation
 Architecture Change
 
 
-43.53 — Modular Monolith Evolution
+43.53 - Modular Monolith Evolution
 Evolution path:
 Modular Monolith
  ↓
@@ -14375,12 +14375,12 @@ Potential Service
 
 Microservices merupakan evolutionary option, bukan default.
 
-43.54 — Avoid Premature Microservices
+43.54 - Avoid Premature Microservices
 Microservices tidak digunakan hanya karena terlihat lebih enterprise.
 Untuk current scope:
 Modular Monolith lebih rational.
 
-43.55 — Technology Selection
+43.55 - Technology Selection
 Technology dipilih berdasarkan:
 Requirement
 Team Capability
@@ -14393,7 +14393,7 @@ Timeline
 
 Bukan hanya popularitas.
 
-43.56 — Technology Evaluation
+43.56 - Technology Evaluation
 Sebelum technology baru digunakan:
 Problem
  ↓
@@ -14406,7 +14406,7 @@ Validation / Proof
 Decision
 
 
-43.57 — Build vs Buy
+43.57 - Build vs Buy
 Capability dapat dievaluasi melalui:
 Build
 Buy
@@ -14421,7 +14421,7 @@ Security
 Time
 
 
-43.58 — External Service Governance
+43.58 - External Service Governance
 External services harus memiliki:
 Purpose
 Owner
@@ -14431,7 +14431,7 @@ Cost Awareness
 Exit Strategy
 
 
-43.59 — Vendor Lock-in
+43.59 - Vendor Lock-in
 Vendor lock-in tidak harus selalu dihindari.
 Yang penting:
 Known Risk
@@ -14440,7 +14440,7 @@ Acceptable Trade-off
 
 harus terdokumentasi.
 
-43.60 — Architecture Constraints
+43.60 - Architecture Constraints
 Known constraints harus terdokumentasi:
 Budget
 Team Size
@@ -14451,7 +14451,7 @@ Technical Skills
 Competition Requirements
 
 
-43.61 — Engineering Risk Register
+43.61 - Engineering Risk Register
 Technical risks dicatat sebagai:
 Risk
 Probability
@@ -14461,10 +14461,10 @@ Owner
 Status
 
 
-43.62 — Risk Review
+43.62 - Risk Review
 Risk register direview secara berkala dan diperbarui ketika architecture atau project scope berubah.
 
-43.63 — Quality Gates
+43.63 - Quality Gates
 Major changes dapat memiliki:
 Code Review
  ↓
@@ -14478,7 +14478,7 @@ Deployment Validation
 
 Tidak semua change membutuhkan semua gate.
 
-43.64 — Architecture Compliance
+43.64 - Architecture Compliance
 Implementation harus tetap sesuai architecture baseline.
 Jika menyimpang:
 Deviation
@@ -14490,7 +14490,7 @@ Review
 Accept / Correct
 
 
-43.65 — Architecture Exceptions
+43.65 - Architecture Exceptions
 Exception diperbolehkan jika:
 Justified
 Documented
@@ -14498,12 +14498,12 @@ Reviewed
 Time-bounded
 
 
-43.66 — Governance vs Developer Speed
+43.66 - Governance vs Developer Speed
 Governance tidak boleh menjadi bureaucratic monster.
 Tujuannya:
 Enough Control + Enough Speed
 
-43.67 — Small Team Principle
+43.67 - Small Team Principle
 Untuk tim kecil:
 Simple Process
 Clear Ownership
@@ -14512,7 +14512,7 @@ Lightweight Review
 
 lebih cocok daripada bureaucracy berat.
 
-43.68 — Engineering Communication
+43.68 - Engineering Communication
 Technical decisions dikomunikasikan melalui:
 Documentation
 Pull Request
@@ -14522,7 +14522,7 @@ Team Discussion
 
 sesuai tingkat impact.
 
-43.69 — Final Architecture Consistency
+43.69 - Final Architecture Consistency
 Semua point harus konsisten dengan:
 Modular Monolith
 +
@@ -14537,7 +14537,7 @@ Observable System
 Measured Performance
 
 
-43.70 — SDLC Integration
+43.70 - SDLC Integration
 Engineering governance terintegrasi dalam SDLC:
 Requirements
  ↓
@@ -14561,7 +14561,7 @@ Requirements
 
 Ini membentuk closed-loop engineering.
 
-43.71 — Final Engineering Lifecycle
+43.71 - Final Engineering Lifecycle
 Requirements
  ↓
 Design
@@ -14585,7 +14585,7 @@ Improvement
 Requirements
 
 
-43.72 — FINAL ENGINEERING PRINCIPLES
+43.72 - FINAL ENGINEERING PRINCIPLES
 Architecture decisions are explicit and documented.
 Module boundaries are clearly defined and maintained.
 Business logic remains independent from unnecessary infrastructure details.
@@ -14607,7 +14607,7 @@ Technical risks are documented and actively managed.
 Governance remains proportional to team size, system risk, and project maturity.
 All engineering practices form one continuous SDLC feedback loop.
 
-43.73 — MVP vs Future
+43.73 - MVP vs Future
 MVP 🔒
 Modular Monolith baseline
 Defined module boundaries
@@ -14639,7 +14639,7 @@ Developer platform/internal tooling
 Advanced governance automation
 
 
-43.74 — FINAL DECISION
+43.74 - FINAL DECISION
 Architecture: Flex Network adopts a Modular Monolith architecture with clearly defined module and layer boundaries.
 Governance: Significant technical decisions are documented, reviewed, and traceable. Governance is proportional to the 3-person team and competition timeline.
 Development: Engineering changes follow coding standards, code review, testing, and appropriate quality gates.

@@ -1,4 +1,4 @@
-# Flex Network — Product Brief
+# Flex Network - Product Brief
 
 **Vision:** Membantu Young Talent (SMA/SMK) mendapatkan pengalaman kerja nyata melalui platform digital yang menghubungkan skill & interest dengan opportunity.
 

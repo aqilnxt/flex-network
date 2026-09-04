@@ -47,9 +47,9 @@ Public Module Interface
 Application Service
 Domain/Application Contract
 
-sesuai Module Boundary Rules pada TDD Point 23–24.
+sesuai Module Boundary Rules pada TDD Point 23-24.
 
-A.4 — Authentication & Profile Boundary
+A.4 - Authentication & Profile Boundary
 Supabase Auth merupakan source of truth untuk authentication identity.
 auth.users
      │
@@ -90,7 +90,7 @@ Private Account Information
 
 RLS bekerja pada level row, bukan sebagai mekanisme utama untuk menyembunyikan kolom tertentu. Karena itu data sensitif tidak sebaiknya hanya "disembunyikan" melalui frontend/API response.
 
-A.5 — Talent Profile
+A.5 - Talent Profile
 profiles
     │
     │ 1:0..1
@@ -128,7 +128,7 @@ determines minor status
 
 Ini penting karena consent requirement merupakan business/security decision.
 
-A.6 — Hirer Profile
+A.6 - Hirer Profile
 profiles
     │
     │ 1:0..1
@@ -152,7 +152,7 @@ Contract
 Admin
 
 
-A.7 — Skills & Interests
+A.7 - Skills & Interests
 Master data:
 skills
 interests
@@ -188,7 +188,7 @@ Opportunity ↔ Interests
 
 menggunakan many-to-many junction tables.
 
-A.8 — Opportunity Entity
+A.8 - Opportunity Entity
 Core entity:
 opportunities
 
@@ -231,7 +231,7 @@ moderated_at
 moderation_notes
 
 
-A.9 — Opportunity Relationship
+A.9 - Opportunity Relationship
 profiles
    │
    │ 1:M
@@ -256,7 +256,7 @@ Close
 View Private Information
 
 
-A.10 — Opportunity State
+A.10 - Opportunity State
 Canonical state:
 DRAFT
    ↓
@@ -295,7 +295,7 @@ PUBLISHED
 Business transition divalidasi oleh Application/Domain layer.
 Database constraint tidak dianggap sebagai pengganti state machine.
 
-A.11 — Application Entity
+A.11 - Application Entity
 Core entity:
 applications
 
@@ -324,7 +324,7 @@ Artinya:
 
 Constraint ini merupakan database-level defense terhadap duplicate application.
 
-A.12 — Application State
+A.12 - Application State
 Canonical MVP state:
 APPLIED
      ↓
@@ -353,7 +353,7 @@ SELECTED → APPLIED         ❌
 
 WITHDRAWN bukan canonical MVP state karena tidak termasuk state final SRS.
 
-A.13 — Meeting Entity
+A.13 - Meeting Entity
 Relationship:
 applications
       │
@@ -383,7 +383,7 @@ Artinya:
 maximum 1 Meeting
 
 
-A.14 — Meeting State
+A.14 - Meeting State
 Canonical:
 SCHEDULED
     ↓
@@ -402,7 +402,7 @@ Meeting COMPLETED
 Contract eligibility
 
 
-A.15 — Parental Consent
+A.15 - Parental Consent
 Relationship:
 applications
       │
@@ -440,7 +440,7 @@ Simulated Consent Declaration
 
 bukan independent Guardian verification.
 
-A.16 — Consent Requirement
+A.16 - Consent Requirement
 Consent diperlukan jika salah satu kondisi terpenuhi:
 opportunity.requires_consent = true
 OR
@@ -463,7 +463,7 @@ Contract  PENDING
       APPROVED / REJECTED
 
 
-A.17 — Consent State
+A.17 - Consent State
 Canonical:
 NOT_REQUIRED
 PENDING
@@ -481,7 +481,7 @@ Consent REJECTED
 Consent missing while required
 
 
-A.18 — Contract Entity
+A.18 - Contract Entity
 Relationship:
 applications
       │
@@ -528,7 +528,7 @@ created_at
 updated_at
 
 
-A.19 — Contract State
+A.19 - Contract State
 Canonical:
 DRAFT
     ↓
@@ -556,7 +556,7 @@ AND
 )
 
 
-A.20 — Contract Agreement
+A.20 - Contract Agreement
 Agreement menggunakan simulated agreement.
 Tidak ada:
 Digital signature
@@ -580,7 +580,7 @@ Payment PENDING
 Work NOT_STARTED
 
 
-A.21 — Payment Entity
+A.21 - Payment Entity
 Relationship:
 contracts
     │
@@ -611,7 +611,7 @@ Rp1.500.000
 1500000
 
 
-A.22 — Payment State
+A.22 - Payment State
 Canonical MVP:
 PENDING
     ↓
@@ -631,7 +631,7 @@ RELEASED
 
 Tidak ada real payment gateway pada MVP.
 
-A.23 — Payment Release Rule
+A.23 - Payment Release Rule
 Payment hanya dapat menjadi:
 RELEASED
 
@@ -645,7 +645,7 @@ Hirer Confirmed = true
 Database design menyimpan state dan relationship.
 Business validation dilakukan pada server/Application layer.
 
-A.24 — Work Entity
+A.24 - Work Entity
 Relationship:
 contracts
     │
@@ -667,7 +667,7 @@ created_at
 updated_at
 
 
-A.25 — Work State
+A.25 - Work State
 Canonical:
 NOT_STARTED
       ↓
@@ -681,7 +681,7 @@ IN_PROGRESS → COMPLETED ✅
 NOT_STARTED → COMPLETED ❌
 
 
-A.26 — Work Completion & Confirmation
+A.26 - Work Completion & Confirmation
 Flow:
 Talent
   ↓
@@ -699,7 +699,7 @@ Contract COMPLETED
 
 Hirer confirmation merupakan verification event.
 
-A.27 — Rating Entity
+A.27 - Rating Entity
 Relationship:
 works
    │
@@ -725,7 +725,7 @@ Structural uniqueness:
 UNIQUE(work_id, rater_id, rating_type)
 
 
-A.28 — Rating Eligibility
+A.28 - Rating Eligibility
 Rating dapat dibuat setelah:
 Work = COMPLETED
 
@@ -735,7 +735,7 @@ OR
 Hirer
 
 Rating score:
-1–5
+1-5
 
 Rating tidak menjadi prerequisite untuk:
 Payment Release
@@ -745,7 +745,7 @@ Work History Verification
 
 Rating merupakan bagian dari trust system setelah pekerjaan selesai.
 
-A.29 — Work History Entity
+A.29 - Work History Entity
 Relationship:
 contracts
     │
@@ -770,7 +770,7 @@ created_at
 updated_at
 
 
-A.30 — Work History Lifecycle
+A.30 - Work History Lifecycle
 Canonical flow:
 Work COMPLETED
       ↓
@@ -791,7 +791,7 @@ PENDING → VERIFIED
 sendiri.
 Admin dapat melakukan verification override untuk kasus moderation/dispute sesuai authorization policy.
 
-A.31 — Notification Entity
+A.31 - Notification Entity
 Relationship:
 profiles
     │
@@ -814,7 +814,7 @@ Non-critical side effect
 
 Kegagalan notification tidak membatalkan core business transaction.
 
-A.32 — Report Entity
+A.32 - Report Entity
 Relationship:
 profiles
     │
@@ -841,7 +841,7 @@ UNDER_REVIEW
 REJECTED
 
 
-A.33 — Audit Log Entity
+A.33 - Audit Log Entity
 Fields:
 id
 actor_id
@@ -878,7 +878,7 @@ DELETE
 
 audit records.
 
-A.34 — Complete Relationship Map
+A.34 - Complete Relationship Map
 AUTH.USERS
     │
     ▼
@@ -923,7 +923,7 @@ PROFILES
     └───────────────► AUDIT_LOGS
 
 
-A.35 — Canonical Status Mapping
+A.35 - Canonical Status Mapping
 Domain
 Canonical Database State
 Notes
@@ -1040,7 +1040,7 @@ Canonical Rule
 REJECTED adalah satu-satunya canonical database state untuk Work History yang verification-nya ditolak atau dicabut.
 UNVERIFIED tidak digunakan sebagai canonical database status.
 
-A.36 — Structural Constraints
+A.36 - Structural Constraints
 Database layer enforces structural integrity such as:
 Primary Keys
 Foreign Keys
@@ -1075,7 +1075,7 @@ Core uniqueness rules
     → maximum 1 Rating
 
 
-A.37 — Business Rule vs Database Responsibility
+A.37 - Business Rule vs Database Responsibility
 Concern
 Primary Responsibility
 Primary key
@@ -1086,7 +1086,7 @@ Duplicate application
 Database + Application
 Required field
 Database + Validation
-Score 1–5
+Score 1-5
 Database + Validation
 Role authorization
 Server + RLS
@@ -1123,7 +1123,7 @@ Business logic
 Database menjaga integrity.
 Application/Domain menjaga business rules.
 
-A.38 — RLS Architecture
+A.38 - RLS Architecture
 RLS merupakan defense-in-depth layer.
 Conceptual flow:
 Client Request
@@ -1150,7 +1150,7 @@ State Machine
 
 Supabase sendiri merekomendasikan RLS sebagai lapisan proteksi row-level dan menekankan bahwa table yang terekspos melalui API perlu dilindungi dengan RLS/grants yang sesuai.
 
-A.39 — Sensitive Data Boundary
+A.39 - Sensitive Data Boundary
 Data berikut diperlakukan sebagai restricted/private:
 Email
 Phone
@@ -1168,7 +1168,7 @@ FROM profiles
 Public response harus dibentuk oleh API/Application layer atau access-controlled database object yang hanya mengekspos field yang diperbolehkan.
 Jika memakai SECURITY DEFINER function untuk access control, function harus diamankan dengan explicit search_path dan tidak ditempatkan sebagai exposed API function secara sembarangan.
 
-A.40 — Database Security Principles
+A.40 - Database Security Principles
 Kita lock:
 1. RLS enabled on exposed application tables.
 2. Ownership checks are enforced server-side.
@@ -1182,7 +1182,7 @@ Kita lock:
 10. Production schema changes happen through reviewed migrations.
 
 
-A.41 — Migration Ownership
+A.41 - Migration Ownership
 Database changes dibuat melalui:
 Feature Branch
       ↓
@@ -1206,7 +1206,7 @@ supabase/
 
 Raw SQL tidak menjadi bagian utama dari TDD Appendix ini.
 
-A.42 — Seed Data Structure
+A.42 - Seed Data Structure
 Untuk development dan ITechnoCup demo:
 Users
 ├── 500+ Talents
@@ -1258,7 +1258,7 @@ Competition-safe
 
 Production seed tidak boleh menggunakan data personal nyata.
 
-A.43 — Demo Dataset Distribution
+A.43 - Demo Dataset Distribution
 Untuk competition demo, dataset dapat memperlihatkan seluruh canonical lifecycle berikut.
 Opportunity
 DRAFT
@@ -1322,7 +1322,7 @@ Frontend
  ↓
 Testing
 
-A.44 — Database → API Alignment
+A.44 - Database → API Alignment
 Database design harus mendukung API Specification v1.2.
 Authentication
 Supabase Auth
@@ -1374,7 +1374,7 @@ reports
 audit_logs
 
 
-A.45 — Database → Module Ownership
+A.45 - Database → Module Ownership
 Profile Module
 ├── profiles
 ├── profile_private
@@ -1422,7 +1422,7 @@ Admin / Audit Module
 └── audit_logs
 
 
-A.46 — Database Dependency Direction
+A.46 - Database Dependency Direction
 Conceptual dependency:
 Supabase Auth
       ↓
@@ -1451,7 +1451,7 @@ Audit Log
 
 dapat terhubung melalui business events tanpa menjadi owner business state module lain.
 
-A.47 — Core Business Relationship
+A.47 - Core Business Relationship
 Canonical business chain:
 Talent
    ↓
@@ -1486,7 +1486,7 @@ Verified Work History
 Rating
 
 
-A.48 — Database Integrity Principles
+A.48 - Database Integrity Principles
 Kita lock:
 1. PostgreSQL is the persistent source of truth.
 2. Foreign keys protect relationship integrity.
@@ -1499,7 +1499,7 @@ Kita lock:
 9. Seed data is reproducible and non-sensitive.
 10. Production changes require reviewed migrations.
 
-A.49 — MVP vs Future
+A.49 - MVP vs Future
 MVP 🔒
 ✅ Supabase PostgreSQL
 ✅ Supabase Auth
@@ -1526,7 +1526,7 @@ Future 🔜
 🔜 Data warehouse
 🔜 Multi-region database
 
-A.50 — FINAL DECISION
+A.50 - FINAL DECISION
 Database Architecture: Flex Network menggunakan Supabase PostgreSQL sebagai persistent source of truth.
 Authentication: Supabase Auth menjadi source of truth untuk authentication identity.
 Profile Boundary: Public profile information dipisahkan secara konseptual dari private account information.
@@ -1548,4 +1548,4 @@ Implementation: Raw SQL schema, indexes, RLS, triggers, dan migrations berada di
 Migration: Semua production schema changes dilakukan melalui version-controlled migrations.
 Seed: Development dan competition menggunakan reproducible, deterministic, non-sensitive seed data.
 Architecture Alignment: Appendix A menjadi database design reference untuk API Specification v1.2 dan Modular Monolith architecture.
-APPENDIX A — LOCKED 🔒
+APPENDIX A - LOCKED 🔒

@@ -12,14 +12,14 @@
 
 ## Global Constraints
 
-- Status canonical contract: `DRAFT / PENDING_AGREEMENT / ACTIVE / COMPLETED / TERMINATED` (CHECK constraint DB, jangan diubah). Modul ini TIDAK pernah menulis `COMPLETED` — status itu dicapai lewat alur Work (sprint berikutnya).
+- Status canonical contract: `DRAFT / PENDING_AGREEMENT / ACTIVE / COMPLETED / TERMINATED` (CHECK constraint DB, jangan diubah). Modul ini TIDAK pernah menulis `COMPLETED` - status itu dicapai lewat alur Work (sprint berikutnya).
 - Eligibility create (A.19): application `SELECTED` AND meeting `COMPLETED` AND (`!required || consent === APPROVED`) AND belum ada contract untuk application. Evaluasi server-side di service; RLS insert policy = defense-in-depth.
-- `propose` = auto-agree HIRER (`hirer_agreed=true`, `hirer_agreed_at`) — keputusan spec 2026-08-29.
+- `propose` = auto-agree HIRER (`hirer_agreed=true`, `hirer_agreed_at`) - keputusan spec 2026-08-29.
 - `ACTIVE` hanya jika `talent_agreed && hirer_agreed`; saat transisi ke ACTIVE service insert `payments` (status PENDING, amount = compensation, currency IDR) + `works` (status NOT_STARTED).
 - `decline` hanya dari `PENDING_AGREEMENT` → `TERMINATED` (terminal); `decline_reason` opsional (UI MVP tidak ada input reason → null).
 - `contract_number` generate server-side: `CNTR-{yymmdd}-{4 char A-Z0-9 tanpa karakter ambigu}`.
 - Edit hanya saat DRAFT, hanya oleh HIRER owner.
-- `ACTIVE` dan `TERMINATED` terminal — tidak ada transisi keluar di modul ini.
+- `ACTIVE` dan `TERMINATED` terminal - tidak ada transisi keluar di modul ini.
 - Validasi semua input via Zod di server; ownership + gate check sebelum setiap mutation.
 - Migration tidak mengubah skema tabel (kolom `contracts`, `payments`, `works` sudah live di 001).
 - Verifikasi project: `npx tsc --noEmit`, `npm run lint`, `npm run build` (tidak ada test framework).
@@ -34,12 +34,12 @@
 
 **Interfaces:**
 - Consumes: tabel `contracts` (001, RLS enabled default-deny tanpa policy), tabel `payments`/`works` (001), helper `is_admin()` (006).
-- Produces: RLS aktif granular pada `contracts` — SELECT involved/admin, INSERT hirer gated, UPDATE involved; INSERT seed policies pada `payments`/`works`.
+- Produces: RLS aktif granular pada `contracts` - SELECT involved/admin, INSERT hirer gated, UPDATE involved; INSERT seed policies pada `payments`/`works`.
 
 - [ ] **Step 1: Tulis migration**
 
 ```sql
--- 012_contract_rls.sql — granular policies untuk contracts + seed payments/works
+-- 012_contract_rls.sql - granular policies untuk contracts + seed payments/works
 -- Baseline 003: RLS enabled, default-deny, tanpa policy.
 
 -- SELECT: talent, hirer, admin
@@ -106,7 +106,7 @@ Expected: migration applied.
 - [ ] **Step 3: Verifikasi policy**
 
 Run: `supabase db query --linked "select tablename, policyname, cmd from pg_policies where tablename in ('contracts','payments','works') order by tablename, policyname;"`
-Expected: 5 rows — `contracts_insert_hirer` (INSERT), `contracts_update_involved` (UPDATE), `contracts_select_involved` (SELECT), `payments_insert_seed` (INSERT), `works_insert_seed` (INSERT).
+Expected: 5 rows - `contracts_insert_hirer` (INSERT), `contracts_update_involved` (UPDATE), `contracts_select_involved` (SELECT), `payments_insert_seed` (INSERT), `works_insert_seed` (INSERT).
 
 - [ ] **Step 4: Commit**
 
@@ -171,7 +171,7 @@ export const updateContractSchema = createContractSchema
 export type UpdateContractInput = z.infer<typeof updateContractSchema>;
 ```
 
-Catatan: tidak menerima `status`, `*agreed`, `*agreed_at`, `proposed_*`, `activated_at`, `terminated_at`, `decline_reason` dari client — semua diatur service. Zod strip membuang field tak dikenal.
+Catatan: tidak menerima `status`, `*agreed`, `*agreed_at`, `proposed_*`, `activated_at`, `terminated_at`, `decline_reason` dari client - semua diatur service. Zod strip membuang field tak dikenal.
 
 - [ ] **Step 2: Verifikasi typecheck**
 
@@ -549,7 +549,7 @@ export async function decline(
 }
 ```
 
-Catatan: `loadOwnedContract(supabase, userId, contractId)` — helper pembuka Task 3 (cek row ada + `talent_id`/`hirer_id` melibatkan `userId`); semua service function menerima `supabase` sebagai argumen pertama seperti `loadConsentContext` di modul Consent. Nama variabel akhir di `agree`: `nextTalentAgreed`, `nextHirerAgreed`, `willActivate`, `updateError`.
+Catatan: `loadOwnedContract(supabase, userId, contractId)` - helper pembuka Task 3 (cek row ada + `talent_id`/`hirer_id` melibatkan `userId`); semua service function menerima `supabase` sebagai argumen pertama seperti `loadConsentContext` di modul Consent. Nama variabel akhir di `agree`: `nextTalentAgreed`, `nextHirerAgreed`, `willActivate`, `updateError`.
 
 - [ ] **Step 2: Verifikasi typecheck**
 
@@ -575,11 +575,11 @@ git commit -m "feat(contract): add contract service with state machine and seed 
   - `type ContractStatus = "DRAFT" | "PENDING_AGREEMENT" | "ACTIVE" | "COMPLETED" | "TERMINATED"`
   - `type ContractRow = { id, application_id, opportunity_id, talent_id, hirer_id, contract_number, role_title, description, responsibilities, duration, location, compensation, terms_conditions, status, proposed_at, talent_agreed, hirer_agreed, talent_agreed_at, hirer_agreed_at, activated_at, terminated_at, decline_reason }`
   - `type ContractDetail = ContractRow & { opportunity_title: string | null }`
-  - `getById(contractId: string): Promise<ContractDetail | null>` — detail page.
-  - `getByApplicationId(applicationId: string): Promise<ContractRow | null>` — **single call gate modul Work**: work boleh mulai iff row ada && `status === "ACTIVE"`; `works` row sudah di-seed service contract.
+  - `getById(contractId: string): Promise<ContractDetail | null>` - detail page.
+  - `getByApplicationId(applicationId: string): Promise<ContractRow | null>` - **single call gate modul Work**: work boleh mulai iff row ada && `status === "ACTIVE"`; `works` row sudah di-seed service contract.
   - `listForTalent(talentId: string): Promise<ContractRow[]>`
   - `listForHirer(hirerId: string): Promise<ContractRow[]>`
-  - `listForApplications(applicationIds: string[]): Promise<Map<string, ContractRow>>` — batch render tanpa N+1.
+  - `listForApplications(applicationIds: string[]): Promise<Map<string, ContractRow>>` - batch render tanpa N+1.
 
 - [ ] **Step 1: Tulis queries**
 
@@ -859,7 +859,7 @@ export async function declineContract(contractId: string): Promise<void> {
 }
 ```
 
-Catatan: `createContract`/`proposeContract` pakai `requireRole("HIRER")`; `agreeContract`/`declineContract` pakai `requireUser` (TALENT dan HIRER). `redirect()` bertipe `never` — tidak butuh return setelahnya.
+Catatan: `createContract`/`proposeContract` pakai `requireRole("HIRER")`; `agreeContract`/`declineContract` pakai `requireUser` (TALENT dan HIRER). `redirect()` bertipe `never` - tidak butuh return setelahnya.
 
 - [ ] **Step 2: Verifikasi typecheck**
 
@@ -1066,7 +1066,7 @@ export function ContractEditForm({
 }
 ```
 
-Catatan: `createContract` action meng-`redirect("/contracts/{id}")` saat sukses — `useActionState` tetap aman (redirect di-handle framework).
+Catatan: `createContract` action meng-`redirect("/contracts/{id}")` saat sukses - `useActionState` tetap aman (redirect di-handle framework).
 
 - [ ] **Step 3: Verifikasi typecheck**
 
@@ -1220,7 +1220,7 @@ export default async function ContractDetailPage({
         )}
         {contract.status === "ACTIVE" && (
           <p className="text-sm text-green-700">
-            Kontrak aktif — payment & work otomatis disiapkan.
+            Kontrak aktif - payment & work otomatis disiapkan.
           </p>
         )}
       </div>
@@ -1291,7 +1291,7 @@ git commit -m "feat(contract): add contract detail and edit pages"
 
 ---
 
-### Task 8: Hirer applicant list — tombol buat kontrak + link kontrak
+### Task 8: Hirer applicant list - tombol buat kontrak + link kontrak
 
 **Files:**
 - Modify: `app/hirer/opportunities/[id]/applications/page.tsx`
@@ -1337,7 +1337,7 @@ const contracts = await listContractsForApplications(
 })()}
 ```
 
-Catatan: form create hanya muncul saat SELECTED + meeting COMPLETED + belum ada kontrak. Gate consent dievaluasi service saat submit (error message jelas). Tidak ada tombol saat DRAFT/PENDING_AGREEMENT dsb — kontrak dikelola di detail page.
+Catatan: form create hanya muncul saat SELECTED + meeting COMPLETED + belum ada kontrak. Gate consent dievaluasi service saat submit (error message jelas). Tidak ada tombol saat DRAFT/PENDING_AGREEMENT dsb - kontrak dikelola di detail page.
 
 - [ ] **Step 2b: Verifikasi typecheck + lint**
 
@@ -1353,7 +1353,7 @@ git commit -m "feat(contract): add contract creation to applicant list"
 
 ---
 
-### Task 9: My Applications (TALENT) — blok contract + aksi agree/decline
+### Task 9: My Applications (TALENT) - blok contract + aksi agree/decline
 
 **Files:**
 - Modify: `app/applications/page.tsx`
@@ -1413,7 +1413,7 @@ const contracts = await listContractsForApplications(appIds);
       )}
       {contract.status === "ACTIVE" && (
         <p className="text-sm text-green-700 mt-1">
-          Kontrak aktif — payment disiapkan.
+          Kontrak aktif - payment disiapkan.
         </p>
       )}
     </div>
@@ -1471,13 +1471,13 @@ git commit -m "fix(contract): address smoke test findings"
 
 - [ ] **Step 1: Update progress**
 
-- Tambah "Module Contract" ke "Sudah Selesai" (Task 1–10).
+- Tambah "Module Contract" ke "Sudah Selesai" (Task 1-10).
 - Decision Log tambah:
   - `2026-08-29: Contract propose = auto-agree HIRER (proposed_by + hirer_agreed); satu tombol agree TALENT cukup untuk ACTIVE`
   - `2026-08-29: Contract ACTIVE side effects: service insert payments (PENDING, amount=compensation) + works (NOT_STARTED); 23505 dianggap sukses (idempotent)`
   - `2026-08-29: Contract COMPLETED dicapai via alur Work (modul berikutnya); decline hanya dari PENDING_AGREEMENT → TERMINATED`
   - `2026-08-29: Contract gate = application SELECTED + meeting COMPLETED + getConsentDecision eligible; gate modul Work = getByApplicationId status ACTIVE`
-- Status terakhir: Sprint 7 — Module Contract selesai; next: Work → Payment.
+- Status terakhir: Sprint 7 - Module Contract selesai; next: Work → Payment.
 
 - [ ] **Step 2: Commit**
 
@@ -1490,6 +1490,6 @@ git commit -m "docs: update progress contract module"
 
 ## Self-Review Notes
 
-- **Spec coverage:** Migration RLS + seed payments/works (Task 1), schemas tanpa field state (Task 2), service lengkap create/edit/propose/agree/decline + contract_number + side effects (Task 3), queries + gate Work (Task 4), actions (Task 5), form create/edit (Task 6), detail page + aksi (Task 7), blok hirer (Task 8), blok talent (Task 9), verification + smoke + RLS (Task 10), progress (Task 11). Acceptance criteria 1–7 spec terpetakan (AC 6 di Task 1+10, AC 7 di Task 4+7).
+- **Spec coverage:** Migration RLS + seed payments/works (Task 1), schemas tanpa field state (Task 2), service lengkap create/edit/propose/agree/decline + contract_number + side effects (Task 3), queries + gate Work (Task 4), actions (Task 5), form create/edit (Task 6), detail page + aksi (Task 7), blok hirer (Task 8), blok talent (Task 9), verification + smoke + RLS (Task 10), progress (Task 11). Acceptance criteria 1-7 spec terpetakan (AC 6 di Task 1+10, AC 7 di Task 4+7).
 - **Placeholder scan:** tidak ada TBD/TODO; Task 3 service lengkap dan konsisten (`nextTalentAgreed`/`nextHirerAgreed`/`willActivate`, `updateError` di-check).
-- **Type consistency:** `ServiceResult`, `CreateContractInput`, `UpdateContractInput`, `ContractRow`/`ContractDetail`, service signatures `createContract(hirerId, input)`, `propose(hirerId, contractId)`, `agree(userId, contractId)`, `decline(userId, contractId, reason)` konsisten dipakai di Task 5/6/7/8. Action `updateContractAction(_prev, formData)` (bukan `updateContract` — bentrok nama dengan service import alias) dipakai konsisten.
+- **Type consistency:** `ServiceResult`, `CreateContractInput`, `UpdateContractInput`, `ContractRow`/`ContractDetail`, service signatures `createContract(hirerId, input)`, `propose(hirerId, contractId)`, `agree(userId, contractId)`, `decline(userId, contractId, reason)` konsisten dipakai di Task 5/6/7/8. Action `updateContractAction(_prev, formData)` (bukan `updateContract` - bentrok nama dengan service import alias) dipakai konsisten.

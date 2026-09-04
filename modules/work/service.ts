@@ -1,4 +1,5 @@
 import { createSupabaseServerClient } from "@/lib/supabase/server";
+import { notify } from "@/modules/notification/service";
 
 type ServiceResult<T = unknown> = {
   data: T | null;
@@ -82,6 +83,15 @@ export async function startWork(
     .update({ status: "IN_PROGRESS", started_at: new Date().toISOString() })
     .eq("id", ctx.workId);
   if (error) return { data: null, error: { message: error.message } };
+  notify({
+    recipientId: ctx.contractHirerId,
+    actorId: talentId,
+    type: "WORK_STARTED",
+    title: "Pekerjaan dimulai",
+    message: "Talent telah memulai pekerjaan",
+    link: `/contracts/${contractId}`,
+    metadata: { contractId, workId: ctx.workId },
+  }).catch(() => {});
   return { data: { workId: ctx.workId }, error: null };
 }
 
@@ -113,6 +123,15 @@ export async function completeWork(
     .eq("id", ctx.workId);
 
   if (error) return { data: null, error: { message: error.message } };
+  notify({
+    recipientId: ctx.contractHirerId,
+    actorId: talentId,
+    type: "WORK_COMPLETED",
+    title: "Pekerjaan selesai",
+    message: "Talent telah menandai pekerjaan sebagai selesai",
+    link: `/contracts/${contractId}`,
+    metadata: { contractId, workId: ctx.workId },
+  }).catch(() => {});
   return { data: { workId: ctx.workId }, error: null };
 }
 
@@ -154,5 +173,14 @@ export async function confirmCompletion(
     .eq("id", ctx.workId);
 
   if (error) return { data: null, error: { message: error.message } };
+  notify({
+    recipientId: ctx.contractTalentId,
+    actorId: hirerId,
+    type: "WORK_CONFIRMED",
+    title: "Pekerjaan dikonfirmasi",
+    message: "Hirer telah mengkonfirmasi penyelesaian pekerjaan Anda",
+    link: `/contracts/${contractId}`,
+    metadata: { contractId, workId: ctx.workId },
+  }).catch(() => {});
   return { data: { workId: ctx.workId }, error: null };
 }
