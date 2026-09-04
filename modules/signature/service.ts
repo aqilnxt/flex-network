@@ -220,8 +220,6 @@ export async function signDocument(
   const names = await loadProfileNames(supabase, [contract.talent_id, contract.hirer_id]);
   const signerName = names.get(userId) || (signedBy === "talent" ? "Talent" : "Hirer");
 
-  const otherSignedAt =
-    signedBy === "talent" ? contract.hirer_signed_at : contract.talent_signed_at;
   const otherId =
     signedBy === "talent" ? contract.hirer_id : contract.talent_id;
   const priorSignatures: PriorSignatures = {
@@ -234,7 +232,6 @@ export async function signDocument(
         ? { name: names.get(contract.hirer_id) || "Hirer", at: contract.hirer_signed_at }
         : null,
   };
-  const otherSideSigned = Boolean(otherSignedAt);
 
   const provider = getSignatureProvider();
   let result: { docUrl: string; hash: string; signedAt: string };
@@ -272,8 +269,22 @@ export async function signDocument(
     metadata: { signedBy, provider: provider.id },
   }).catch(() => {});
 
-  const willActivate = otherSideSigned;
-  if (willActivate) {
+  // Re-check post-update: kedua pihak sudah tanda tangan? Baca fresh dari DB agar
+  // race cross-party (talent+hirer sign bersamaan) tidak membuat kontrak stuck.
+  // Idempotent: dua aktivasi konkuren toleran (payment/work insert already guard 23505).
+  const { data: recheck } = await supabase
+    .from("contracts")
+    .select("talent_signed_at, hirer_signed_at")
+    .eq("id", contractId)
+    .single();
+  const signed = recheck as {
+    talent_signed_at: string | null;
+    hirer_signed_at: string | null;
+  } | null;
+  const bothSigned =
+    signed?.talent_signed_at != null && signed.hirer_signed_at != null;
+
+  if (bothSigned) {
     const now = new Date().toISOString();
     const { error: activateError } = await supabase
       .from("contracts")

@@ -5,11 +5,15 @@ import { getSignatureProvider } from "@/modules/signature";
 export const runtime = "nodejs";
 
 // ponytail: Phase 2 — parse event PrivyID (cari contract by external_signature_id,
-// update kolom sign pihak, trigger logika ACTIVE = service.signDocument). Simulated
-// mode tidak memakai webhook (verifyWebhook selalu false utk privy stub).
+// update kolom sign pihak, trigger logika ACTIVE = service.signDocument). Route ini
+// hanya utk privy (404 utk provider lain); simulated tak pernah lewat gate. Stub privy
+// verifyWebhook=false → Phase 2 wajib implement HMAC utk audit PRIVY_WEBHOOK_RECEIVED.
 export async function POST(req: NextRequest) {
   const rawBody = await req.text();
   const provider = getSignatureProvider();
+  if (provider.id !== "privy") {
+    return new NextResponse(null, { status: 404 });
+  }
   const headers = Object.fromEntries(req.headers.entries());
   if (!provider.verifyWebhook(headers, rawBody)) {
     return NextResponse.json({ error: "invalid signature" }, { status: 401 });
