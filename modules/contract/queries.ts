@@ -3,6 +3,7 @@ import { createSupabaseServerClient } from "@/lib/supabase/server";
 export type ContractStatus =
   | "DRAFT"
   | "PENDING_AGREEMENT"
+  | "PENDING_SIGNATURE"
   | "ACTIVE"
   | "COMPLETED"
   | "TERMINATED";
@@ -30,14 +31,23 @@ export type ContractRow = {
   activated_at: string | null;
   terminated_at: string | null;
   decline_reason: string | null;
+  signature_mode: string | null;
+  document_url: string | null;
+  signed_document_url: string | null;
+  signed_document_hash: string | null;
+  signature_requested_at: string | null;
+  talent_signed_at: string | null;
+  hirer_signed_at: string | null;
 };
 
 export type ContractDetail = ContractRow & {
   opportunity_title: string | null;
+  talent_name: string | null;
+  hirer_name: string | null;
 };
 
 const CONTRACT_COLUMNS =
-  "id, application_id, opportunity_id, talent_id, hirer_id, contract_number, role_title, description, responsibilities, duration, location, compensation, terms_conditions, status, proposed_at, talent_agreed, hirer_agreed, talent_agreed_at, hirer_agreed_at, activated_at, terminated_at, decline_reason";
+  "id, application_id, opportunity_id, talent_id, hirer_id, contract_number, role_title, description, responsibilities, duration, location, compensation, terms_conditions, status, proposed_at, talent_agreed, hirer_agreed, talent_agreed_at, hirer_agreed_at, activated_at, terminated_at, decline_reason, signature_mode, document_url, signed_document_url, signed_document_hash, signature_requested_at, talent_signed_at, hirer_signed_at";
 
 export async function getById(
   contractId: string,
@@ -46,18 +56,24 @@ export async function getById(
   const { data } = await supabase
     .from("contracts")
     .select(
-      `${CONTRACT_COLUMNS}, opportunity:opportunities(title)`,
+      `${CONTRACT_COLUMNS}, opportunity:opportunities(title), talent:profiles!contracts_talent_id_fkey(full_name), hirer:profiles!contracts_hirer_id_fkey(full_name)`,
     )
     .eq("id", contractId)
     .maybeSingle();
 
   const row = data as unknown as
-    | (ContractRow & { opportunity: { title: string } | null })
+    | (ContractRow & {
+        opportunity: { title: string } | null;
+        talent: { full_name: string | null } | null;
+        hirer: { full_name: string | null } | null;
+      })
     | null;
   if (!row) return null;
   return {
     ...row,
     opportunity_title: row.opportunity?.title ?? null,
+    talent_name: row.talent?.full_name ?? null,
+    hirer_name: row.hirer?.full_name ?? null,
   };
 }
 
