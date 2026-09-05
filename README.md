@@ -40,3 +40,4 @@ Production: Vercel. Env vars yang dibutuhkan: `NEXT_PUBLIC_SUPABASE_URL`, `NEXT_
 | ADMIN | admin@test.com | (lihat seed) |
 
 Dokumentasi: `docs/BRD.md`, `docs/SRS.md`, `docs/API-SPEC.md`, progress di `docs/PROGRESS.md`, design system di `docs/DESIGN.md`.
+# flex-network repo moved to https://github.com/aqilnxt/flex-network
