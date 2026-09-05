@@ -1,4 +1,9 @@
 import { createSupabaseServerClient } from "@/lib/supabase/server";
+import { admin } from "@/lib/supabase/admin";
+import { notify } from "@/modules/notification/service";
+import { logAudit } from "@/modules/audit/service";
+import { sendEmail } from "@/modules/notification/email";
+import { hashToken, issueConsentToken } from "./tokens";
 import type { CreateConsentInput } from "./schemas";
 
 type ServiceResult<T = unknown> = {
@@ -10,10 +15,16 @@ async function loadConsentContext(
   supabase: Awaited<ReturnType<typeof createSupabaseServerClient>>,
   talentId: string,
   applicationId: string,
-): Promise<ServiceResult<{ opportunityId: string; requiredReason: string }>> {
+): Promise<
+  ServiceResult<{
+    opportunityId: string;
+    opportunityTitle: string;
+    requiredReason: string;
+  }>
+> {
   const { data: application } = await supabase
     .from("applications")
-    .select("id, status, talent_id, opportunity_id")
+    .select("id, status, talent_id, opportunity_id, opportunity:opportunities(title)")
     .eq("id", applicationId)
     .single();
 
@@ -45,7 +56,7 @@ async function loadConsentContext(
 
   const { data: opportunity } = await supabase
     .from("opportunities")
-    .select("id, requires_consent")
+    .select("id, requires_consent, title")
     .eq("id", application.opportunity_id)
     .single();
 
@@ -73,6 +84,10 @@ async function loadConsentContext(
   return {
     data: {
       opportunityId: application.opportunity_id,
+      opportunityTitle:
+        (application as {
+          opportunity?: { title?: string | null } | null;
+        }).opportunity?.title ?? opportunity?.title ?? "Opportunity",
       requiredReason: reasons.join("; "),
     },
     error: null,
@@ -102,113 +117,116 @@ export async function requestConsent(
     return { data: null, error: { message: "Consent sudah diajukan" } };
   }
 
-  const { error } = await supabase.from("consents").insert({
-    application_id: input.applicationId,
-    talent_id: talentId,
-    opportunity_id: ctx.opportunityId,
-    consent_required: true,
-    required_reason: ctx.requiredReason,
-    status: "PENDING",
-    requested_at: new Date().toISOString(),
-  });
+  const { data: talentProfile } = await supabase
+    .from("profiles")
+    .select("full_name")
+    .eq("id", talentId)
+    .single();
+  const talentName = talentProfile?.full_name ?? "Talent";
 
-  if (error) {
-    if (error.code === "23505") {
+  const { data: consent, error } = await supabase
+    .from("consents")
+    .insert({
+      application_id: input.applicationId,
+      talent_id: talentId,
+      opportunity_id: ctx.opportunityId,
+      consent_required: true,
+      required_reason: ctx.requiredReason,
+      guardian_email: input.guardianEmail,
+      status: "PENDING",
+      requested_at: new Date().toISOString(),
+    })
+    .select("id")
+    .single();
+
+  if (error || !consent) {
+    if (error?.code === "23505") {
       return { data: null, error: { message: "Consent sudah diajukan" } };
     }
-    return { data: null, error: { message: error.message } };
+    return { data: null, error: { message: error?.message ?? "Insert consent gagal" } };
   }
+
+  let rawToken: string;
+  try {
+    rawToken = await issueConsentToken(consent.id);
+  } catch {
+    return { data: null, error: { message: "Gagal membuat token persetujuan" } };
+  }
+
+  sendEmail({
+    to: input.guardianEmail,
+    title: "Persetujuan Wali Diperlukan",
+    message: `${talentName} meminta persetujuan Anda untuk mengikuti opportunity "${ctx.opportunityTitle}". Buka tautan untuk menyetujui atau menolak. Tautan berlaku 48 jam.`,
+    link: `/consent/${rawToken}`,
+  }).catch(() => {});
 
   return { data: { applicationId: input.applicationId }, error: null };
 }
 
-async function getOwnedConsent(
-  talentId: string,
-  consentId: string,
-): Promise<
-  ServiceResult<{
-    id: string;
-    status: string;
-    consentRequired: boolean;
-    applicationId: string;
-  }>
-> {
-  const supabase = await createSupabaseServerClient();
+export async function resolveConsentByToken(
+  rawToken: string,
+  decision: "APPROVED" | "REJECTED",
+): Promise<ServiceResult<null>> {
+  const { data: token } = await admin
+    .from("consent_tokens")
+    .select("id, expires_at, used_at, consent_id")
+    .eq("token_hash", hashToken(rawToken))
+    .maybeSingle();
+  if (!token) return { data: null, error: { message: "Link tidak valid" } };
+  if (token.used_at) return { data: null, error: { message: "Link sudah digunakan" } };
+  if (new Date(token.expires_at) < new Date())
+    return { data: null, error: { message: "Link kedaluwarsa" } };
 
-  const { data: consent } = await supabase
+  const { data: consent } = await admin
     .from("consents")
-    .select("id, status, consent_required, talent_id, application_id")
-    .eq("id", consentId)
+    .select("id, status, talent_id, application_id")
+    .eq("id", token.consent_id)
     .single();
+  if (!consent) return { data: null, error: { message: "Consent tidak ditemukan" } };
+  if (consent.status !== "PENDING")
+    return { data: null, error: { message: "Consent sudah diputuskan" } };
 
-  if (!consent) {
-    return { data: null, error: { message: "Consent tidak ditemukan" } };
-  }
-  if (consent.talent_id !== talentId) {
-    return { data: null, error: { message: "Not owner" } };
-  }
+  const now = new Date().toISOString();
+  // one-time race guard: klaim token dulu
+  const { data: claimed } = await admin
+    .from("consent_tokens")
+    .update({ used_at: now })
+    .eq("id", token.id)
+    .is("used_at", null)
+    .select("id")
+    .single();
+  if (!claimed) return { data: null, error: { message: "Link sudah digunakan" } };
 
-  return {
-    data: {
-      id: consent.id,
-      status: consent.status,
-      consentRequired: consent.consent_required,
-      applicationId: consent.application_id,
-    },
-    error: null,
-  };
-}
-
-export async function approve(
-  talentId: string,
-  consentId: string,
-): Promise<ServiceResult<{ applicationId: string }>> {
-  const supabase = await createSupabaseServerClient();
-  const { data: consent, error: ownedError } = await getOwnedConsent(talentId, consentId);
-  if (ownedError || !consent) return { data: null, error: ownedError };
-
-  if (!consent.consentRequired) {
-    return {
-      data: null,
-      error: { message: "Consent tidak wajib untuk application ini" },
-    };
-  }
-  if (consent.status !== "PENDING") {
-    return { data: null, error: { message: "Hanya PENDING yang bisa disetujui" } };
-  }
-
-  const { error } = await supabase
+  const { error: updateError } = await admin
     .from("consents")
-    .update({ status: "APPROVED", approved_at: new Date().toISOString() })
-    .eq("id", consentId);
+    .update(
+      decision === "APPROVED"
+        ? { status: "APPROVED", approved_at: now }
+        : { status: "REJECTED", rejected_at: now },
+    )
+    .eq("id", consent.id);
+  if (updateError) return { data: null, error: { message: updateError.message } };
 
-  if (error) return { data: null, error: { message: error.message } };
-  return { data: { applicationId: consent.applicationId }, error: null };
-}
+  notify({
+    recipientId: consent.talent_id,
+    type: "CONSENT_RESOLVED",
+    title: decision === "APPROVED" ? "Consent Wali Disetujui" : "Consent Wali Ditolak",
+    message:
+      decision === "APPROVED"
+        ? "Wali Anda telah menyetujui partisipasi. Silakan lanjut pembuatan kontrak."
+        : "Wali Anda menolak partisipasi ini.",
+    link: "/applications",
+    metadata: { consentId: consent.id },
+  }).catch(() => {});
 
-export async function reject(
-  talentId: string,
-  consentId: string,
-): Promise<ServiceResult<{ applicationId: string }>> {
-  const supabase = await createSupabaseServerClient();
-  const { data: consent, error: ownedError } = await getOwnedConsent(talentId, consentId);
-  if (ownedError || !consent) return { data: null, error: ownedError };
+  logAudit({
+    actorId: null,
+    actorType: "SYSTEM",
+    action: decision === "APPROVED" ? "CONSENT_GUARDIAN_APPROVED" : "CONSENT_GUARDIAN_REJECTED",
+    resourceType: "consent",
+    resourceId: consent.id,
+    metadata: { decision },
+  }).catch(() => {});
 
-  if (!consent.consentRequired) {
-    return {
-      data: null,
-      error: { message: "Consent tidak wajib untuk application ini" },
-    };
-  }
-  if (consent.status !== "PENDING") {
-    return { data: null, error: { message: "Hanya PENDING yang bisa ditolak" } };
-  }
-
-  const { error } = await supabase
-    .from("consents")
-    .update({ status: "REJECTED", rejected_at: new Date().toISOString() })
-    .eq("id", consentId);
-
-  if (error) return { data: null, error: { message: error.message } };
-  return { data: { applicationId: consent.applicationId }, error: null };
+  return { data: null, error: null };
 }
