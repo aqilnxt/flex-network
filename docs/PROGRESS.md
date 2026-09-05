@@ -264,6 +264,15 @@
 - [x] E2E: signature request → notif in-app row + audit row via session logAudit (tanpa backfill) jalan; email mode off (no API key) flow normal
 - [x] tsc + build clean, deployed production
 
+#### Portfolio Link + Profil Publik Talent
+
+- [x] Spec: docs/superpowers/specs/2026-09-05-portfolio-link-design.md
+- [x] Migration 024_talent_profile_insert_own.sql (policy insert upsert talent_profiles) + push
+- [x] /profile: section "Portfolio & Pendidikan" (TALENT only) — portfolio_url, cv_url, school_name, grade_level; action updateTalentProfile + zod URL validation
+- [x] Halaman publik /profiles/[id] — nama, bio, chip sekolah/kelas, link portfolio+CV, skills badge, verified work history (VERIFIED badge), empty state per section, 404 notFound
+- [x] modules/profile/queries.ts — getPublicTalentProfile (profiles + talent_profiles + skills + verified work history)
+- [x] E2E: talent isi link → upsert DB → public profile render lengkap; 404 path OK; tsc + build clean; deployed production
+
 ### Sedang Dikerjakan
 
 - (kosong)

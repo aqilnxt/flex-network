@@ -8,7 +8,7 @@
 | Email Notification | ✅ Selesai | 2026-09-05: Resend best-effort via notify(), toggle via RESEND_API_KEY, template HTML inline |
 | Digital Signature | ✅ Selesai | 2026-09-04: dual-mode (SimulatedSignatureProvider aktif, PrivyID stub), PDF + hash SHA-256, status PENDING_SIGNATURE, E2E tested + deployed |
 | Integrasi PrivyID (e-signature PKI legally binding) | ⏳ Belum | Phase 2 — provider stub + webhook `/api/webhooks/privy` sudah siap |
-| Portfolio Upload (Storage) | ⏳ Belum | |
+| Portfolio Upload (Storage) | ✅ Selesai | 2026-09-05: scope jadi link URL (portfolio_url/cv_url) + halaman publik /profiles/[id]; file upload Storage ditunda |
 | Advanced Matching (AI/ML) | ⏳ Belum | |
 | Guardian/Parent Account | ⏳ Belum | |
 | School Integration | ⏳ Belum | |
