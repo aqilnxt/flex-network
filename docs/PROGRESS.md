@@ -273,6 +273,14 @@
 - [x] modules/profile/queries.ts — getPublicTalentProfile (profiles + talent_profiles + skills + verified work history)
 - [x] E2E: talent isi link → upsert DB → public profile render lengkap; 404 path OK; tsc + build clean; deployed production
 
+#### Guardian Consent via Magic Link
+
+- [x] Spec: docs/superpowers/specs/2026-09-05-guardian-consent-design.md; Plan: docs/superpowers/plans/2026-09-05-guardian-consent.md
+- [x] Migration 025 (consents.guardian_email + consent_tokens hashed one-time expire 48h, RLS default-deny)
+- [x] modules/consent: tokens.ts (hashToken + issueConsentToken upsert), service (requestConsent + guardianEmail + email wali; resolveConsentByToken 4-guard + race claim; notif/audit/email ke talent via admin client), actions (resolveConsentAction; self-approve approve/reject dihapus total)
+- [x] UI: form Email Wali; halaman publik /consent/[token] (state valid/done/error/invalid); applications page info-only PENDING
+- [x] E2E: request → PENDING+token → link publik → Setujui (APPROVED + notif + audit SYSTEM) → re-open = invalid (used) → Tolak path (REJECTED + notif) → final APPROVED restore; screenshot .impeccable/review/consent-public.jpeg
+
 ### Sedang Dikerjakan
 
 - (kosong)

@@ -10,7 +10,7 @@
 | Integrasi PrivyID (e-signature PKI legally binding) | ⏳ Belum | Phase 2 — provider stub + webhook `/api/webhooks/privy` sudah siap |
 | Portfolio Upload (Storage) | ✅ Selesai | 2026-09-05: scope jadi link URL (portfolio_url/cv_url) + halaman publik /profiles/[id]; file upload Storage ditunda |
 | Advanced Matching (AI/ML) | ⏳ Belum | |
-| Guardian/Parent Account | ⏳ Belum | |
+| Guardian/Parent Account | ✅ Selesai | 2026-09-05: magic link email wali (token hashed one-time 48h, halaman publik /consent/[token]); full account role GUARDIAN (dashboard) tetap opsi lanjutan |
 | School Integration | ⏳ Belum | |
 | Dispute & Refund System | ⏳ Belum | |
 | Identity Verification (e-KYC) | ⏳ Belum | |
