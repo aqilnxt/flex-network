@@ -18,6 +18,12 @@ export default async function ProfilePage() {
     .eq("profile_id", user.id)
     .single();
 
+  const { data: talentProfile } = await supabase
+    .from("talent_profiles")
+    .select("portfolio_url, cv_url, school_name, grade_level")
+    .eq("profile_id", user.id)
+    .maybeSingle();
+
   return (
     <div className="p-8">
       <div className="max-w-lg">
@@ -32,6 +38,11 @@ export default async function ProfilePage() {
             defaultPhone={privateData?.phone ?? ""}
             defaultBio={profile?.bio ?? ""}
             defaultLocation={profile?.location ?? ""}
+            role={user.role}
+            defaultPortfolioUrl={talentProfile?.portfolio_url ?? ""}
+            defaultCvUrl={talentProfile?.cv_url ?? ""}
+            defaultSchoolName={talentProfile?.school_name ?? ""}
+            defaultGradeLevel={talentProfile?.grade_level ?? ""}
           />
         </div>
       </div>
