@@ -1,4 +1,5 @@
 import { createSupabaseServerClient } from '../../lib/supabase/server';
+import { getRecipientEmail, sendEmail } from './email';
 
 export type NotifyParams = {
   recipientId: string;
@@ -23,4 +24,15 @@ export async function notify(params: NotifyParams): Promise<void> {
   });
 
   if (error) throw error;
+
+  // Email best-effort: kegagalan email tidak boleh gagalkan flow utama.
+  const email = await getRecipientEmail(params.recipientId).catch(() => null);
+  if (email) {
+    sendEmail({
+      to: email,
+      title: params.title,
+      message: params.message,
+      link: params.link,
+    }).catch(() => {});
+  }
 }
