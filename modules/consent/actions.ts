@@ -7,8 +7,7 @@ import { requireRole } from "@/modules/lib/auth";
 import { createConsentSchema } from "./schemas";
 import {
   requestConsent as requestConsentService,
-  approve as approveConsentService,
-  reject as rejectConsentService,
+  resolveConsentByToken,
 } from "./service";
 
 export async function createConsent(
@@ -18,8 +17,10 @@ export async function createConsent(
   const user = await requireRole("TALENT");
 
   const applicationId = formData.get("applicationId");
+  const guardianEmail = formData.get("guardianEmail");
   const parsed = createConsentSchema.safeParse({
     applicationId: typeof applicationId === "string" ? applicationId : "",
+    guardianEmail: typeof guardianEmail === "string" ? guardianEmail : "",
   });
 
   if (!parsed.success) {
@@ -44,18 +45,16 @@ export async function createConsent(
   return { success: true, data: null };
 }
 
-export async function approveConsent(consentId: string): Promise<void> {
-  const user = await requireRole("TALENT");
-  const { error } = await approveConsentService(user.id, consentId);
-  if (error) return;
-  revalidatePath("/applications");
-  redirect("/applications");
-}
-
-export async function rejectConsent(consentId: string): Promise<void> {
-  const user = await requireRole("TALENT");
-  const { error } = await rejectConsentService(user.id, consentId);
-  if (error) return;
-  revalidatePath("/applications");
-  redirect("/applications");
+export async function resolveConsentAction(
+  token: string,
+  decision: string,
+): Promise<void> {
+  if (decision !== "APPROVED" && decision !== "REJECTED") {
+    redirect(`/consent/${token}?error=Keputusan%20tidak%20valid`);
+  }
+  const { error } = await resolveConsentByToken(token, decision);
+  if (error) {
+    redirect(`/consent/${token}?error=${encodeURIComponent(error.message)}`);
+  }
+  redirect(`/consent/${token}?done=1`);
 }

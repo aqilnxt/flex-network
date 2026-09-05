@@ -1,7 +1,5 @@
 import { createSupabaseServerClient } from "@/lib/supabase/server";
 import { admin } from "@/lib/supabase/admin";
-import { notify } from "@/modules/notification/service";
-import { logAudit } from "@/modules/audit/service";
 import { sendEmail } from "@/modules/notification/email";
 import { hashToken, issueConsentToken } from "./tokens";
 import type { CreateConsentInput } from "./schemas";
@@ -207,26 +205,52 @@ export async function resolveConsentByToken(
     .eq("id", consent.id);
   if (updateError) return { data: null, error: { message: updateError.message } };
 
-  notify({
-    recipientId: consent.talent_id,
-    type: "CONSENT_RESOLVED",
-    title: decision === "APPROVED" ? "Consent Wali Disetujui" : "Consent Wali Ditolak",
-    message:
-      decision === "APPROVED"
-        ? "Wali Anda telah menyetujui partisipasi. Silakan lanjut pembuatan kontrak."
-        : "Wali Anda menolak partisipasi ini.",
-    link: "/applications",
-    metadata: { consentId: consent.id },
-  }).catch(() => {});
+  // Halaman publik wali tidak punya sesi → notify()/logAudit() (session client)
+  // gagal RLS senyap. Tulis langsung via admin, kolom sama; pattern privy webhook.
+  admin
+    .from("notifications")
+    .insert({
+      user_id: consent.talent_id,
+      actor_id: null,
+      type: "CONSENT_RESOLVED",
+      title: decision === "APPROVED" ? "Consent Wali Disetujui" : "Consent Wali Ditolak",
+      message:
+        decision === "APPROVED"
+          ? "Wali Anda telah menyetujui partisipasi. Silakan lanjut pembuatan kontrak."
+          : "Wali Anda menolak partisipasi ini.",
+      link: "/applications",
+      metadata: { consentId: consent.id },
+    })
+    .then(() => {}, () => {});
 
-  logAudit({
-    actorId: null,
-    actorType: "SYSTEM",
-    action: decision === "APPROVED" ? "CONSENT_GUARDIAN_APPROVED" : "CONSENT_GUARDIAN_REJECTED",
-    resourceType: "consent",
-    resourceId: consent.id,
-    metadata: { decision },
-  }).catch(() => {});
+  const { data: talentPrivate } = await admin
+    .from("profile_private")
+    .select("email")
+    .eq("profile_id", consent.talent_id)
+    .maybeSingle();
+  if (talentPrivate?.email) {
+    sendEmail({
+      to: talentPrivate.email,
+      title: decision === "APPROVED" ? "Consent Wali Disetujui" : "Consent Wali Ditolak",
+      message:
+        decision === "APPROVED"
+          ? "Wali Anda telah menyetujui partisipasi. Silakan lanjut pembuatan kontrak."
+          : "Wali Anda menolak partisipasi ini.",
+      link: "/applications",
+    }).catch(() => {});
+  }
+
+  admin
+    .from("audit_logs")
+    .insert({
+      actor_id: null,
+      actor_type: "SYSTEM",
+      action: decision === "APPROVED" ? "CONSENT_GUARDIAN_APPROVED" : "CONSENT_GUARDIAN_REJECTED",
+      resource_type: "consent",
+      resource_id: consent.id,
+      metadata: { decision },
+    })
+    .then(() => {}, () => {});
 
   return { data: null, error: null };
 }
