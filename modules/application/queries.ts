@@ -35,6 +35,19 @@ export async function listForTalent(talentId: string) {
   return { data: (data as unknown as TalentApplication[]) ?? [], error };
 }
 
+export async function listForHirer(hirerId: string) {
+  const supabase = await createSupabaseServerClient();
+  const { data, error } = await supabase
+    .from("applications")
+    .select(
+      "id, status, applied_at, message, opportunity:opportunities!inner(id, title, status, work_mode, location)",
+    )
+    .eq("opportunity.hirer_id", hirerId)
+    .order("applied_at", { ascending: false });
+
+  return { data: (data as unknown as TalentApplication[]) ?? [], error };
+}
+
 export async function listForOpportunity(opportunityId: string, hirerId: string) {
   const supabase = await createSupabaseServerClient();
 
