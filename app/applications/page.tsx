@@ -6,7 +6,6 @@ import {
   listForApplications as listConsentsForApplications,
   getRequirementMap,
 } from "@/modules/consent/queries";
-import { approveConsent, rejectConsent } from "@/modules/consent/actions";
 import { listForApplications as listContractsForApplications } from "@/modules/contract/queries";
 import {
   agreeContract,
@@ -119,24 +118,12 @@ export default async function MyApplicationsPage() {
                     {consent?.status === "PENDING" && (
                       <div className="text-sm">
                         <p className="font-medium">
-                          Consent wali menunggu persetujuan (simulasi).
+                          Consent wali menunggu persetujuan wali.
                         </p>
                         <p className="text-ink-2">
-                          Dengan menyetujui, Anda menyatakan persetujuan wali atas
-                          partisipasi ini. Tidak ada data wali yang dikumpulkan.
+                          Link persetujuan telah dikirim ke email wali yang
+                          Anda daftarkan. Tautan berlaku 48 jam.
                         </p>
-                        <div className="flex gap-2 mt-2">
-                          <form action={approveConsent.bind(null, consent.id)}>
-                            <button className="btn-success px-3.5 py-2 text-sm">
-                              Setujui (Simulasi)
-                            </button>
-                          </form>
-                          <form action={rejectConsent.bind(null, consent.id)}>
-                            <button className="btn-danger px-3.5 py-2 text-sm">
-                              Tolak
-                            </button>
-                          </form>
-                        </div>
                       </div>
                     )}
                     {(consent?.status === "APPROVED" || consent?.status === "REJECTED") && (

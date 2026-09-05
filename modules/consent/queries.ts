@@ -1,4 +1,6 @@
+import { admin } from "@/lib/supabase/admin";
 import { createSupabaseServerClient } from "@/lib/supabase/server";
+import { hashToken } from "./tokens";
 
 export type ConsentStatus =
   | "NOT_REQUIRED"
@@ -121,4 +123,57 @@ export async function getConsentDecision(
 
   const row = await getByApplicationId(applicationId);
   return { required: true, status: row?.status ?? "MISSING" };
+}
+
+export type ConsentPageData = {
+  talentName: string;
+  roleTitle: string | null;
+  organization: string | null;
+  duration: string | null;
+  compensation: number | null;
+};
+
+// null = token invalid/used/expired. Caller menampilkan pesan generik.
+export async function getConsentPageData(
+  rawToken: string,
+): Promise<ConsentPageData | null> {
+  const { data: token } = await admin
+    .from("consent_tokens")
+    .select("used_at, expires_at, consent:consents(talent_id, application_id)")
+    .eq("token_hash", hashToken(rawToken))
+    .maybeSingle();
+  if (!token || token.used_at || new Date(token.expires_at) < new Date()) {
+    return null;
+  }
+  const consent = token.consent as unknown as {
+    talent_id: string;
+    application_id: string;
+  } | null;
+  if (!consent) return null;
+
+  const { data: app } = await admin
+    .from("applications")
+    .select("opportunity:opportunities(title, compensation, hirer:hirer_id(full_name))")
+    .eq("id", consent.application_id)
+    .single();
+  const { data: talent } = await admin
+    .from("profiles")
+    .select("full_name")
+    .eq("id", consent.talent_id)
+    .single();
+
+  const opp = app?.opportunity as
+    | {
+        title?: string | null;
+        compensation?: number | null;
+        hirer?: { full_name: string | null } | null;
+      }
+    | null;
+  return {
+    talentName: talent?.full_name ?? "Talent",
+    roleTitle: opp?.title ?? null,
+    organization: opp?.hirer?.full_name ?? null,
+    duration: null,
+    compensation: opp?.compensation ?? null,
+  };
 }
