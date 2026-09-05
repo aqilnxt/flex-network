@@ -254,6 +254,16 @@
 - [x] Webhook stub app/api/webhooks/privy/route.ts (POST raw body, gate verifyWebhook → 401, audit PRIVY_WEBHOOK_RECEIVED via admin client, tanpa session auth)
 - [x] Verify: tsc + next build ok
 
+#### Module Email Notification + Audit Fix
+
+- [x] Spec: docs/superpowers/specs/2026-09-04-email-notification-design.md
+- [x] modules/notification/email.ts — Resend SDK, template HTML inline (logo + title + message + CTA), getRecipientEmail via admin client (RLS profile_private), skip jika RESEND_API_KEY kosong
+- [x] notify() extended — in-app row + email best-effort fire-and-forget (.catch swallow)
+- [x] Migration 023_audit_insert_rls.sql — policy insert audit_logs authenticated (append-only; select tetap admin) + push
+- [x] logAudit actorType param (USER/ADMIN/SYSTEM, backward compatible default)
+- [x] E2E: signature request → notif in-app row + audit row via session logAudit (tanpa backfill) jalan; email mode off (no API key) flow normal
+- [x] tsc + build clean, deployed production
+
 ### Sedang Dikerjakan
 
 - (kosong)

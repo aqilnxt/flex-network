@@ -5,7 +5,7 @@
 | Fitur | Status | Catatan |
 |-------|--------|---------|
 | Real Payment Gateway (Midtrans/Xendit) | ⏳ Belum | |
-| Email Notification | ⏳ Belum | |
+| Email Notification | ✅ Selesai | 2026-09-05: Resend best-effort via notify(), toggle via RESEND_API_KEY, template HTML inline |
 | Digital Signature | ✅ Selesai | 2026-09-04: dual-mode (SimulatedSignatureProvider aktif, PrivyID stub), PDF + hash SHA-256, status PENDING_SIGNATURE, E2E tested + deployed |
 | Integrasi PrivyID (e-signature PKI legally binding) | ⏳ Belum | Phase 2 — provider stub + webhook `/api/webhooks/privy` sudah siap |
 | Portfolio Upload (Storage) | ⏳ Belum | |
